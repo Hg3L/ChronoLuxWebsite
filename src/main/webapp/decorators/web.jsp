@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>ChronoLux Shop</title>
     <!-- Favicon -->
-    <link href="<c:url value='/template/web/img/ChronoLuxIcon.svg'/>" rel="icon">
+    <link href="<c:url value='/template/web/img/Logo-test.png'/>" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
