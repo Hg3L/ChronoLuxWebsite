@@ -1,34 +1,11 @@
-package com.hau.entity;
+package com.hau.dto;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-
-@Entity
-@Table(name = "user")
-public class UserEntity extends BaseEntity {
-
-    @Column(name = "username")
+public class UserDTO extends AbstractDTO{
     private String userName;
-
-    @Column(name = "password")
     private String password;
-
-    @Column(name = "fullname")
     private String fullName;
-
-    @Column(name = "email")
     private String email;
-
-    @Column(name = "status")
     private int status;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "role_detail",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<RoleEntity> roles = new ArrayList<>();
 
     public String getUserName() {
         return userName;
