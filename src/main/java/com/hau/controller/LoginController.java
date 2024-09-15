@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class LoginController {
     @RequestMapping(value = "/login" ,method = RequestMethod.GET)
     public ModelAndView Login(){
-        ModelAndView mav = new ModelAndView("login");
+        ModelAndView mav = new ModelAndView("login/sign-in");
         return  mav;
     }
     @RequestMapping(value = "/accessDenied", method = RequestMethod.GET)

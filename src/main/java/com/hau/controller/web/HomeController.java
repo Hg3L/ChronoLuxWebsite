@@ -1,4 +1,4 @@
-package com.hau.controller;
+package com.hau.controller.web;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
