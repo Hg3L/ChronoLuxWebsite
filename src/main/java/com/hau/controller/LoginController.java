@@ -17,4 +17,5 @@ public class LoginController {
         ModelAndView mav = new ModelAndView("redirect:/login?accessDenied");
         return mav;
     }
+
 }

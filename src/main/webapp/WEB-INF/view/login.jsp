@@ -13,7 +13,7 @@
 		<body>
 			<section class="ftco-section">
 				<div class="container">
-				    <form action="<c:url value='/j_spring_security_check'/>" id ="formLogin" method="post">
+
 					<div class="row justify-content-center">
 						<div class="col-md-6 text-center mb-5">
 							<h2 class="heading-section">Login</h2>
@@ -44,7 +44,7 @@
 											</p>
 										</div>
 									</div>
-									<form action="#" class="signin-form">
+									<form action="<c:url value='/j_spring_security_check'/>" id ="formLogin" method="post" class="signin-form">
 										<div class="form-group mb-3">
 											<label class="label" for="name">Username</label>
 											<input type="text" class="form-control" name="j_username"
@@ -55,6 +55,16 @@
 											<input type="password" class="form-control" name="j_password"
 												placeholder="Password" required>
 										</div>
+										<c:if test = "${param.incorrectAccount != null}">
+										    <div class="alert alert-danger " role="alert" style="text-align: center;">
+                                                User invalid
+                                            </div>
+										</c:if>
+                                        <c:if test = "${param.accessDenied != null}">
+										    <div class="alert alert-danger" role="alert" style="text-align: center;">
+                                                You Not Authorize
+                                            </div>
+										</c:if>
 										<div class="form-group">
 											<button type="submit" class="form-control btn btn-primary rounded submit px-3">
 											Sign In</button>
@@ -78,7 +88,7 @@
 						</div>
 
 					</div>
-					</form>
+
 				</div>
 			</section>
 
