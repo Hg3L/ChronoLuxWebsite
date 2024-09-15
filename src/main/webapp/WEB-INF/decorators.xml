@@ -7,6 +7,6 @@
         <pattern>/admin*</pattern>
     </decorator>
     <decorator name="login" page="login.jsp">
-        <pattern>/dang-nhap</pattern>
+        <pattern>/login*</pattern>
     </decorator>
 </decorators>
