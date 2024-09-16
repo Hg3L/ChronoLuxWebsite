@@ -7,6 +7,9 @@
         <pattern>/admin*</pattern>
     </decorator>
     <decorator name="login" page="login.jsp">
-        <pattern>/dang-nhap</pattern>
+        <pattern>/login</pattern>
+    </decorator>
+    <decorator name="register" page="register.jsp">
+        <pattern>/login/register</pattern>
     </decorator>
 </decorators>

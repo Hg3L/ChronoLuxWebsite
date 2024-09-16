@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
       pageEncoding="UTF-8"%>
-
+<%@ page import="com.hau.util.SecurityUtil" %>
+<%@ include file="/common/taglib.jsp" %>
   <!-- Topbar Start -->
     <div class="container-fluid">
         <div class="row bg-secondary py-2 px-xl-5">
@@ -118,10 +119,19 @@
                             </div>
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
-                        <div class="navbar-nav ml-auto py-0">
-                            <a href="" class="nav-item nav-link">Login</a>
-                            <a href="" class="nav-item nav-link">Register</a>
-                        </div>
+                         <security:authorize access = "isAnonymous()">
+                            <div class="navbar-nav ml-auto py-0">
+                                 <a href="<c:url value ='/login'/>" class="nav-item nav-link">Login</a>
+                                 <a href="#" class="nav-item nav-link">Register</a>
+                             </div>
+                         </security:authorize>
+                         <security:authorize access = "isAuthenticated()">
+                            <div class="navbar-nav ml-auto py-0">
+                                 <a href="#" class="nav-item nav-link">Wellcome, <%=SecurityUtil.getPrincipal().getFullName()%> </a>
+                                 <a href="<c:url value ='/logout/'/>" class="nav-item nav-link">Thoát</a>
+                             </div>
+                         </security:authorize>
+
                     </div>
                 </nav>
             </div>
