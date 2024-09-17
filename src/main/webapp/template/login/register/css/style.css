@@ -218,6 +218,29 @@ input[type="submit"]:hover {
   background: #8DC26F;
 }
 
+input[type="button"] {
+  font-size: .9em;
+  color: #000;
+  background: #76b852;
+  outline: none;
+  border: 1px solid #76b852;
+  cursor: pointer;
+  padding: 0.9em;
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 2em 0;
+  letter-spacing: 4px;
+}
+
+input[type="button"]:hover {
+  -webkit-transition: .5s all;
+  -moz-transition: .5s all;
+  -o-transition: .5s all;
+  -ms-transition: .5s all;
+  transition: .5s all;
+  background: #8DC26F;
+}
+
 .agileits-top p {
   font-size: 1em;
   color: #000;
