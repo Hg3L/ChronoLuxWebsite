@@ -13,12 +13,14 @@
     <!-- //Custom Theme files -->
     <!-- web font -->
     <link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
+     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+     <script type="text/javascript" src="<c:url value='/template/login/js/jquery.min.js' />"></script>
     <!-- //web font -->
 </head>
 <body>
     	<dec:body/>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
 </body>
 </html>
 
