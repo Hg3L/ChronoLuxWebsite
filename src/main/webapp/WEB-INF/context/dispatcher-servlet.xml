@@ -21,7 +21,7 @@
               http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:component-scan
-            base-package="com.hau.controller" />
+            base-package="com.hau.controller,com.hau.api" />
 
     <mvc:annotation-driven />
 
