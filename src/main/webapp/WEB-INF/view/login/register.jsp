@@ -20,14 +20,13 @@
 				<form id="formSubmit">
 					<input class="text" type="text" name="userName" placeholder="Username" required="">
 					<input class="text email" type="email" name="email" placeholder="Email" required="">
+					<input class="text" type="text" name="fullName" placeholder="FullName" required="">
+					<br> </br>
 					<input class="text" type="password" name="password" placeholder="Password" required="">
 					<input class="text w3lpass" type="password" name="ConfirmPassword" placeholder="Confirm Password" required="">
 					<div class="wthree-text">
-						<label class="anim">
-							<input type="checkbox" class="checkbox" required="">
-							<span>I Agree To The Terms & Conditions</span>
-						</label>
-						<div class="clear"> </div>
+
+
 					</div>
 				    <input type="button" id="btnAddUser" value="SIGNUP"/>
 				</form>

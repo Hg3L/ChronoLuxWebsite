@@ -27,6 +27,7 @@ public class UserConverter {
         UserEntity userEntity = new UserEntity();
         userEntity.setUserName(userDTO.getUserName());
         userEntity.setEmail(userDTO.getEmail());
+        userEntity.setFullName(userDTO.getFullName());
         userEntity.setPassword(userDTO.getPassword());
         userEntity.setStatus(userDTO.getStatus());
         return userEntity;
