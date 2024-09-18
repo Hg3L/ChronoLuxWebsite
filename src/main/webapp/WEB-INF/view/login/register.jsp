@@ -18,17 +18,16 @@
 		<div class="main-agileinfo">
 			<div class="agileits-top">
 				<form id="formSubmit">
-					<input class="text" type="text" name="userName" placeholder="Username" required="">
+					<input class="text" type="text" name="userName" id="userName" placeholder="Username" required="">
 					<input class="text email" type="email" name="email" placeholder="Email" required="">
 					<input class="text" type="text" name="fullName" placeholder="FullName" required="">
 					<br> </br>
-					<input class="text" type="password" name="password" placeholder="Password" required="">
-					<input class="text w3lpass" type="password" name="ConfirmPassword" placeholder="Confirm Password" required="">
+					<input class="text" type="password" name="password" id="password" placeholder="Password" required="">
+					<input class="text w3lpass" type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="Confirm Password" required="">
 					<div class="wthree-text">
-
-
 					</div>
 				    <input type="button" id="btnAddUser" value="SIGNUP"/>
+				     <div class="alert alert-danger" role="alert" id="message" style="text-align: center; display: none;"> </div>
 				</form>
 				<p> Don't have an Account? <a href="#"> Login Now!</a> </p>
 			</div>
@@ -53,16 +52,23 @@
 	</div>
 	<!-- //main -->
 <script>
-
     $('#btnAddUser').click(function(e) {
-	        e.preventDefault();
-    		var data = {};
-    		var formData = $('#formSubmit').serializeArray();
-    		$.each(formData,function(i,v){
-    			 data[""+v.name+""] = v.value;
+            var password = $('#password').val();
+            var confirmPassword = $('#ConfirmPassword').val();
+            if(password === confirmPassword){
+               e.preventDefault();
+                		var data = {};
+                		var formData = $('#formSubmit').serializeArray();
+                		$.each(formData,function(i,v){
+                			 data[""+v.name+""] = v.value;
 
-    		});
-    		addNew(data);
+                		});
+                		addNew(data);
+            }
+            else{
+                   $('#message').text('Password và Confirm Password không khớp. Vui lòng kiểm tra lại.').show();
+            }
+
     	});
 
     function addNew(data){
