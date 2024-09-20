@@ -76,7 +76,7 @@
                 <i class="fa fa-angle-down text-dark"></i>
             </a>
             <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 10;">
-                <div class="navbar-nav w-100 overflow-y: auto" style="height: 300px; overflow-y: auto;">
+                <div class="navbar-nav w-100 overflow-y: auto" style="height: 200px; overflow-y: auto;">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link" data-toggle="dropdown">By Gender <i class="fa fa-angle-down float-right mt-1"></i></a>
                         <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0" style="max-height: 200px; overflow-y: auto;">
