@@ -22,6 +22,8 @@ public class UserEntity extends BaseEntity {
 
     @Column(name = "status")
     private int status;
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -76,5 +78,13 @@ public class UserEntity extends BaseEntity {
 
     public void setRoles(List<RoleEntity> roles) {
         this.roles = roles;
+    }
+
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
+    }
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
     }
 }

@@ -73,9 +73,8 @@
 											<div class="w-50 text-left">
 													<input type="checkbox" name="remember-me"/> Remember Me
 											</div>
-
 											<div class="w-50 text-md-right">
-												<a href="#">Forgot Password</a>
+												<a href="<c:url value='/login/forgot-password'/>">Forgot Password</a>
 											</div>
 										</div>
 									</form>
