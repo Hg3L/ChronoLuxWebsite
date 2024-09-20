@@ -128,7 +128,7 @@
                          <security:authorize access = "isAuthenticated()">
                             <div class="navbar-nav ml-auto py-0">
                                  <a href="#" class="nav-item nav-link">Wellcome, <%=SecurityUtil.getPrincipal().getFullName()%> </a>
-                                 <a href="<c:url value ='/logout/'/>" class="nav-item nav-link">Thoát</a>
+                                 <a href="<c:url value ='/logout'/>" class="nav-item nav-link">Thoát</a>
                              </div>
                          </security:authorize>
 

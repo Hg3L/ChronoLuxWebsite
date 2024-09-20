@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/common/taglib.jsp" %>
+<c:url var="loginURL" value="/login"/>
+<c:url var="registerURL" value="/login/register"/>
+<c:url var="APIurl" value="/api/user"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,21 +17,19 @@
 		<h1>Creative SignUp Form</h1>
 		<div class="main-agileinfo">
 			<div class="agileits-top">
-				<form action="#" method="post">
-					<input class="text" type="text" name="Username" placeholder="Username" required="">
+				<form id="formSubmit">
+					<input class="text" type="text" name="userName" id="userName" placeholder="Username" required="">
 					<input class="text email" type="email" name="email" placeholder="Email" required="">
-					<input class="text" type="password" name="password" placeholder="Password" required="">
-					<input class="text w3lpass" type="password" name="password" placeholder="Confirm Password" required="">
+					<input class="text" type="text" name="fullName" placeholder="FullName" required="">
+					<br> </br>
+					<input class="text" type="password" name="password" id="password" placeholder="Password" required="">
+					<input class="text w3lpass" type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="Confirm Password" required="">
 					<div class="wthree-text">
-						<label class="anim">
-							<input type="checkbox" class="checkbox" required="">
-							<span>I Agree To The Terms & Conditions</span>
-						</label>
-						<div class="clear"> </div>
 					</div>
-					<input type="submit" value="SIGNUP">
+				    <input type="button" id="btnAddUser" value="SIGNUP"/>
+				     <div class="alert alert-danger" role="alert" id="message" style="text-align: center; display: none;"> </div>
 				</form>
-				<p>Don't have an Account? <a href="#"> Login Now!</a></p>
+				<p> Don't have an Account? <a href="#"> Login Now!</a> </p>
 			</div>
 		</div>
 		<!-- copyright -->
@@ -50,5 +51,42 @@
 		</ul>
 	</div>
 	<!-- //main -->
+<script>
+    $('#btnAddUser').click(function(e) {
+            var password = $('#password').val();
+            var confirmPassword = $('#ConfirmPassword').val();
+            if(password === confirmPassword){
+               e.preventDefault();
+                		var data = {};
+                		var formData = $('#formSubmit').serializeArray();
+                		$.each(formData,function(i,v){
+                			 data[""+v.name+""] = v.value;
+
+                		});
+                		addNew(data);
+            }
+            else{
+                   $('#message').text('Password và Confirm Password không khớp. Vui lòng kiểm tra lại.').show();
+            }
+
+    	});
+
+    function addNew(data){
+		    $.ajax({
+               url: '${APIurl}',
+               type: "POST",
+               contentType: "application/json",
+               data: JSON.stringify(data),
+               dataType: 'json',
+               success: function(result){
+                     window.location.href = "${loginURL}";
+               },
+               error: function(error){
+                    window.location.href = "${registerURL}";
+               }
+		    });
+		}
+
+</script>
 </body>
 </html>

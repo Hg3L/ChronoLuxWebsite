@@ -1,11 +1,15 @@
 package com.hau.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserDTO extends AbstractDTO{
     private String userName;
     private String password;
     private String fullName;
     private String email;
     private int status;
+    private List<String> roleCode = new ArrayList<>();
 
     public String getUserName() {
         return userName;
@@ -45,5 +49,13 @@ public class UserDTO extends AbstractDTO{
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public List<String> getRoleCode() {
+        return roleCode;
+    }
+
+    public void setRoleCode(List<String> roleCode) {
+        this.roleCode = roleCode;
     }
 }
