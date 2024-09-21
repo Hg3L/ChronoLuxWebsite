@@ -26,7 +26,7 @@
 
                 <div class="carousel-inner">
                     <div class="carousel-item active" style="height: 410px;">
-                        <img class="img-fluid" src="/eshopper-1.0.0/img/homepage/Banner-1.webp" alt="Image">
+                        <img class="img-fluid" src="${pageContext.request.contextPath}/template/web/img/home/Banner-1.webp" alt="Image">
                         <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                             <div class="p-3" style="max-width: 700px;">
                                 <h3 class="display-4 text-white font-weight-semi-bold mb-4">Elite Style</h3>
@@ -39,7 +39,7 @@
                     </div>
 
                     <div class="carousel-item" style="height: 410px;">
-                        <img class="img-fluid" src="/eshopper-1.0.0/img/homepage/Banner-2.jpg" alt="Image">
+                        <img class="img-fluid" src="${pageContext.request.contextPath}/template/web/img/home/Banner-2.jpg" alt="Image">
                         <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                             <div class="p-3" style="max-width: 700px;">
                                 <h3 class="display-4 text-white font-weight-semi-bold mb-4">Trend-Setting Class</h3>
@@ -68,10 +68,10 @@
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right">15 Products</p>
                     <a href="" class="cat-img position-relative overflow-hidden mb-8 text-center">
-                        <img class="img-fluid" src="img/homepage/Rolexw.png" alt="">
+                        <img class="img-fluid" src="${pageContext.request.contextPath}/template/web/img/home/Rolexw.png" alt="">
                     </a>
                     <a href="" class="cat-logo position-relative overflow-hidden mb-3 text-center">
-                        <img class="img-fluid" src="img/homepage/Rolex.png" alt="">
+                        <img class="img-fluid" src="${pageContext.request.contextPath}/template/web/img/home/Rolex.png" alt="">
                     </a>
                 </div>
             </div>
@@ -79,10 +79,10 @@
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right">15 Products</p>
                     <a href="" class="cat-img position-relative overflow-hidden mb-8 text-center">
-                        <img class="img-fluid" src="img/homepage/Hublotw.png" alt="">
+                        <img class="img-fluid" src="${pageContext.request.contextPath}/template/web/img/home/Hublotw.png" alt="">
                     </a>
                     <a href="" class="cat-logo position-relative overflow-hidden mb-3 text-center">
-                        <img class="img-fluid" src="img/homepage/Hublot.png" alt="">
+                        <img class="img-fluid" src="${pageContext.request.contextPath}/template/web/img/home/Hublot.png" alt="">
                     </a>
                 </div>
             </div>
@@ -90,10 +90,10 @@
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right">15 Products</p>
                     <a href="" class="cat-img position-relative overflow-hidden mb-8 text-center">
-                        <img class="img-fluid" src="img/homepage/Omegaw.png" alt="">
+                        <img class="img-fluid" src="${pageContext.request.contextPath}/template/web/img/home/Omegaw.png" alt="">
                     </a>
                     <a href="" class="cat-logo position-relative overflow-hidden mb-3 text-center">
-                        <img class="img-fluid" src="img/homepage/Omega.png" alt="">
+                        <img class="img-fluid" src="${pageContext.request.contextPath}/template/web/img/home/Omega.png" alt="">
                     </a>
                 </div>
             </div>
@@ -101,10 +101,10 @@
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right">15 Products</p>
                     <a href="" class="cat-img position-relative overflow-hidden mb-8 text-center">
-                        <img class="img-fluid" src="img/homepage/RichardMillew.png" alt="">
+                        <img class="img-fluid" src="${pageContext.request.contextPath}/template/web/img/home/RichardMillew.png" alt="">
                     </a>
                     <a href="" class="cat-logo position-relative overflow-hidden mb-3 text-center">
-                        <img class="img-fluid" src="img/homepage/RichardMille.png" alt="">
+                        <img class="img-fluid" src="${pageContext.request.contextPath}/template/web/img/home/RichardMille.png" alt="">
                     </a>
                 </div>
             </div>
@@ -112,10 +112,10 @@
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right">15 Products</p>
                     <a href="" class="cat-img position-relative overflow-hidden mb-8 text-center">
-                        <img class="img-fluid" src="img/homepage/Patekw.png" alt="">
+                        <img class="img-fluid" src="${pageContext.request.contextPath}/template/web/img/home/Patekw.png" alt="">
                     </a>
                     <a href="" class="cat-logo position-relative overflow-hidden mb-3 text-center">
-                        <img class="img-fluid" src="img/homepage/Patek.png" alt="">
+                        <img class="img-fluid" src="${pageContext.request.contextPath}/template/web/img/home/Patek.png" alt="">
                     </a>
                 </div>
             </div>
@@ -123,10 +123,10 @@
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                     <p class="text-right">15 Products</p>
                     <a href="" class="cat-img position-relative overflow-hidden mb-8 text-center">
-                        <img class="img-fluid" src="img/homepage/Jaegerw.png" alt="">
+                        <img class="img-fluid" src="${pageContext.request.contextPath}/template/web/img/home/Jaegerw.png" alt="">
                     </a>
                     <a href="" class="cat-logo position-relative overflow-hidden mb-3 text-center">
-                        <img class="img-fluid" src="img/homepage/Jaeger.png" alt="">
+                        <img class="img-fluid" src="${pageContext.request.contextPath}/template/web/img/home/Jaeger.png" alt="">
                     </a>
                 </div>
             </div>
@@ -143,7 +143,7 @@
         <div class="row px-xl-5">
             <div class="col-lg-6 col-md-12 pb-4 border">
                 <div class="position-relative text-center text-md-right text-lg-right text-white mb-2 py-5 px-3">
-                    <img src="img/homepage/Featured1.png" alt="">
+                    <img src="${pageContext.request.contextPath}/template/web/img/home/Featured1.png" alt="">
                     <div class="position-relative" style="z-index: 1;">
                         <h5 class="text-uppercase text-primary mb-3">GRANDMASTER CHIME6300GR-001</h5>
                         <h1 class="mb-4 font-weight-semi-bold">PATEK PHILIPPE</h1>
@@ -153,7 +153,7 @@
             </div>
             <div class="col-lg-6 col-md-12 pb-4 border">
                 <div class="position-relative text-center text-md-left text-lg-left text-white mb-2 py-5 px-3">
-                    <img src="img/homepage/Featured2.png" alt="">
+                    <img src="${pageContext.request.contextPath}/template/web/img/home/Featured2.png" alt="">
                     <div class="position-relative" style="z-index: 1;">
                         <h5 class="text-uppercase text-primary mb-3">Master Control Chronograph</h5>
                         <h1 class="mb-4 font-weight-semi-bold">Jaeger-LeCoultre</h1>
@@ -176,7 +176,7 @@
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="card product-item border-0 mb-4">
                     <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <img class="img-fluid w-100" src="img/homepage/hot product/hp1.png" alt="">
+                        <img class="img-fluid w-100" src="${pageContext.request.contextPath}/template/web/img/home/hot product/hp1.png" alt="">
                     </div>
                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                         <h6 class="text-truncate mb-3">Rolex GMT-Master II 18 ct White Gold</h6>
@@ -193,7 +193,7 @@
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="card product-item border-0 mb-4">
                     <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <img class="img-fluid w-100" src="img/homepage/hot product/hp2.png" alt="">
+                        <img class="img-fluid w-100" src="${pageContext.request.contextPath}/template/web/img/home/hot product/hp2.png" alt="">
                     </div>
                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                         <h6 class="text-truncate mb-3">Hublot Big Bang Unico White Ceramic 44 mm</h6>
@@ -210,7 +210,7 @@
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="card product-item border-0 mb-4">
                     <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <img class="img-fluid w-100" src="img/homepage/hot product/hp3.png" alt="">
+                        <img class="img-fluid w-100" src="${pageContext.request.contextPath}/template/web/img/home/hot product/hp3.png" alt="">
                     </div>
                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                         <h6 class="text-truncate mb-3">Omega Speedmaster Moonwatch Professional Co-Axial Master Chronometer Chronograph 42 mm Canopus Gold</h6>
@@ -227,7 +227,7 @@
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="card product-item border-0 mb-4">
                     <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <img class="img-fluid w-100" src="img/homepage/hot product/hp4.png" alt="">
+                        <img class="img-fluid w-100" src="${pageContext.request.contextPath}/template/web/img/home/hot product/hp4.png" alt="">
                     </div>
                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                         <h6 class="text-truncate mb-3">Patek Philippe Grandmaster Chime Reference 6300G</h6>
@@ -255,7 +255,7 @@
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="card product-item border-0 mb-4">
                     <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <img class="img-fluid w-100" src="img/homepage/new arrival/na1.png" alt="">
+                        <img class="img-fluid w-100" src="${pageContext.request.contextPath}/template/web/img/home/new arrival/na1.png" alt="">
                     </div>
                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                         <h6 class="text-truncate mb-3">Richard Mille RM 27-05 Manual Winding Flying Tourbillon Rafael Nadal</h6>
@@ -272,7 +272,7 @@
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="card product-item border-0 mb-4">
                     <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <img class="img-fluid w-100" src="img/homepage/new arrival/na2.png" alt="">
+                        <img class="img-fluid w-100" src="${pageContext.request.contextPath}/template/web/img/home/new arrival/na2.png" alt="">
                     </div>
                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                         <h6 class="text-truncate mb-3">Patek Philippe World Time with Date, Ref. 5330G-001</h6>
@@ -289,7 +289,7 @@
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="card product-item border-0 mb-4">
                     <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <img class="img-fluid w-100" src="img/homepage/new arrival/na3.png" alt="">
+                        <img class="img-fluid w-100" src="${pageContext.request.contextPath}/template/web/img/home/new arrival/na3.png" alt="">
                     </div>
                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                         <h6 class="text-truncate mb-3">A. Lange & Söhne Datograph Perpetual Tourbillon Honeygold “Lumen”</h6>
@@ -306,7 +306,7 @@
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="card product-item border-0 mb-4">
                     <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <img class="img-fluid w-100" src="img/homepage/new arrival/na4.png" alt="">
+                        <img class="img-fluid w-100" src="${pageContext.request.contextPath}/template/web/img/home/new arrival/na4.png" alt="">
                     </div>
                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                         <h6 class="text-truncate mb-3">Audemars Piguet Royal Oak Perpetual Calendar for Eternity ‘John Mayer’</h6>
@@ -333,7 +333,7 @@
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="card product-item border-0 mb-4">
                     <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <img class="img-fluid w-100" src="img/homepage/new arrival/na1.png" alt="">
+                        <img class="img-fluid w-100" src="${pageContext.request.contextPath}/template/web/img/home/new arrival/na1.png" alt="">
                     </div>
                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                         <h6 class="text-truncate mb-3">Richard Mille RM 27-05 Manual Winding Flying Tourbillon Rafael Nadal</h6>
@@ -347,7 +347,7 @@
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="card product-item border-0 mb-4">
                     <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <img class="img-fluid w-100" src="img/homepage/new arrival/na2.png" alt="">
+                        <img class="img-fluid w-100" src="${pageContext.request.contextPath}/template/web/img/home/new arrival/na2.png" alt="">
                     </div>
                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                         <h6 class="text-truncate mb-3">Patek Philippe World Time with Date, Ref. 5330G-001</h6>
@@ -361,7 +361,7 @@
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="card product-item border-0 mb-4">
                     <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <img class="img-fluid w-100" src="img/homepage/new arrival/na3.png" alt="">
+                        <img class="img-fluid w-100" src="${pageContext.request.contextPath}/template/web/img/home/new arrival/na3.png" alt="">
                     </div>
                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                         <h6 class="text-truncate mb-3">A. Lange & Söhne Datograph Perpetual Tourbillon Honeygold “Lumen”</h6>
@@ -375,7 +375,7 @@
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="card product-item border-0 mb-4">
                     <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <img class="img-fluid w-100" src="img/homepage/new arrival/na4.png" alt="">
+                        <img class="img-fluid w-100" src="${pageContext.request.contextPath}/template/web/img/home/new arrival/na4.png" alt="">
                     </div>
                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                         <h6 class="text-truncate mb-3">Audemars Piguet Royal Oak Perpetual Calendar for Eternity ‘John Mayer’</h6>
@@ -420,31 +420,33 @@
             <div class="col">
                 <div class="owl-carousel vendor-carousel">
                     <div class="vendor-item p-4">
-                        <img src="img/homepage/partner/pn1.png" alt="">
+                        <img src="${pageContext.request.contextPath}/template/web/img/home/partner/pn1.png" alt="">
                     </div>
                     <div class="vendor-item p-4">
-                        <img src="img/homepage/partner/pn2.png" alt="">
+                        <img src="${pageContext.request.contextPath}/template/web/img/home/partner/pn2.png" alt="">
                     </div>
                     <div class="vendor-item p-4">
-                        <img src="img/homepage/partner/pn3.png" alt="">
+                        <img src="${pageContext.request.contextPath}/template/web/img/home/partner/pn3.png" alt="">
                     </div>
                     <div class="vendor-item p-4">
-                        <img src="img/homepage/partner/pn4.png" alt="">
+                        <img src="${pageContext.request.contextPath}/template/web/img/home/partner/pn4.png" alt="">
                     </div>
                     <div class="vendor-item p-4">
-                        <img src="img/homepage/partner/pn5.png" alt="">
+                        <img src="${pageContext.request.contextPath}/template/web/img/home/partner/pn5.png" alt="">
                     </div>
                     <div class="vendor-item p-4">
-                        <img src="img/homepage/partner/pn6.png" alt="">
+                        <img src="${pageContext.request.contextPath}/template/web/img/home/partner/pn6.png" alt="">
                     </div>
                     <div class="vendor-item p-4">
-                        <img src="img/homepage/partner/pn7.png" alt="">
+                        <img src="${pageContext.request.contextPath}/template/web/img/home/partner/pn7.png" alt="">
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- Vendor End -->
+<%-- thiếu thư viện--%>
+
 
 
 
