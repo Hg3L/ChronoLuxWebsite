@@ -10,5 +10,5 @@ public interface IUserService {
     public UserDTO save(UserDTO userDTO);
     public void updateResetPasswordToken(String token,String email) throws CustomerNotFoundException;
     public UserDTO findOneByResetPasswordToken(String resetPasswordToken);
-    public void updatePassword(UserEntity user, String password );
+    public void updatePassword(UserDTO user, String password );
 }

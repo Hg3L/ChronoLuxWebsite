@@ -12,10 +12,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
@@ -53,8 +50,8 @@ public class ForgotPasswordController {
         }
 
         return mav;
-
     }
+
     @GetMapping("/login/reset_password")
     public ModelAndView showResetPasswordForm(@RequestParam(value = "token") String token, Model model) {
         String view = "login/reset-password";
@@ -66,6 +63,19 @@ public class ForgotPasswordController {
         }
         return new ModelAndView(view);
     }
+    @PostMapping("/login/reset_password")
+    public String processResetPassword(@RequestParam(value = "token") String token, @RequestParam(value = "password") String password,Model model){
+        UserDTO user = userService.findOneByResetPasswordToken(token);
+        if (user == null) {
+            model.addAttribute("message", "Invalid Token");
+        }
+        else{
+            userService.updatePassword(user,password);
+            model.addAttribute("message","You have successfully changed your password");
+        }
+        return "/login/reset-password";
+    }
+
 
     public void sendEmail(String email , String resetPasswordLink) throws MessagingException, UnsupportedEncodingException {
         MimeMessage message = mailSender.createMimeMessage();
@@ -82,7 +92,5 @@ public class ForgotPasswordController {
                 + "or you have not made the request.</p>";
         helper.setText(content,true);
         mailSender.send(message);
-
-
     }
 }

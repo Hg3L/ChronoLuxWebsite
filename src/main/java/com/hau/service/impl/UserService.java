@@ -9,6 +9,7 @@ import com.hau.repository.RoleRepository;
 import com.hau.repository.UserRepository;
 import com.hau.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -72,11 +73,19 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void updatePassword(UserEntity user, String newPassword) {
+    public void updatePassword(UserDTO user, String newPassword) {
+        UserEntity updateUser = userRepository.findOne(user.getId());
+
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(newPassword);
-        user.setPassword(encodedPassword);
-        user.setResetPasswordToken(null);
-        userRepository.save(user);
+        updateUser.setPassword(encodedPassword);
+        updateUser.setResetPasswordToken(null);
+        List<RoleEntity> roleEntities = new ArrayList<>();
+        for(String roleCode : user.getRoleCode()){
+            RoleEntity roleEntity = roleRepository.findOneByCode(roleCode);
+            roleEntities.add(roleEntity);
+        }
+        updateUser.setRoles(roleEntities);
+        userRepository.save(updateUser);
     }
 }
