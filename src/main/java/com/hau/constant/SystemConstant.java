@@ -7,7 +7,7 @@ public class SystemConstant {
 
     public static String GOOGLE_CLIENT_SECRET = "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";
 
-    public static String GOOGLE_REDIRECT_URI = "http://localhost:8080/spring-mvc/login-google";
+    public static String GOOGLE_REDIRECT_URI = "http://localhost:8080/ChronoLuxWeb/login-google";
 
     public static String GOOGLE_LINK_GET_TOKEN = "https://accounts.google.com/o/oauth2/token";
 
