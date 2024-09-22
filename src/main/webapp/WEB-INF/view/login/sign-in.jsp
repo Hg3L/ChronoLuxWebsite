@@ -35,7 +35,7 @@
 										</div>
 										<div class="w-100">
 											<p class="social-media d-flex justify-content-end">
-												<a href="#"
+												<a href="https://www.facebook.com/v19.0/dialog/oauth?scope=email&client_id=1529293951010030&redirect_uri=http://localhost:8080/ChronoLuxWeb/login-facebook&prompt=login"
 													class="social-icon d-flex align-items-center justify-content-center"><span
 														class="fa fa-facebook"></span></a>
 												<a href="https://accounts.google.com/o/oauth2/auth?scope=profile%20email&redirect_uri=http://localhost:8080/ChronoLuxWeb/login-google&response_type=code&client_id=236344479421-3djectr8kffvuu3ec4o7ceges5jv2jld.apps.googleusercontent.com&approval_prompt=force"
