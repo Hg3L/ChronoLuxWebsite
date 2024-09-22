@@ -16,6 +16,8 @@ public class UserConverter {
         userDTO.setUserName(userEntity.getUserName());
         userDTO.setPassword(userEntity.getPassword());
         userDTO.setStatus(userEntity.getStatus());
+        userDTO.setEmail(userEntity.getEmail());
+        userDTO.setResetPasswordToken(userEntity.getResetPasswordToken());
         List<String> rolesCode = new ArrayList<>();
         for(RoleEntity role : userEntity.getRoles()){
             rolesCode.add(role.getCode());
