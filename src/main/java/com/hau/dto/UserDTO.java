@@ -9,6 +9,7 @@ public class UserDTO extends AbstractDTO{
     private String fullName;
     private String email;
     private int status;
+    private String resetPasswordToken;
     private List<String> roleCode = new ArrayList<>();
 
     public String getUserName() {
@@ -57,5 +58,13 @@ public class UserDTO extends AbstractDTO{
 
     public void setRoleCode(List<String> roleCode) {
         this.roleCode = roleCode;
+    }
+
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
+    }
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
     }
 }

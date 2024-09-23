@@ -27,9 +27,10 @@
 					<div class="wthree-text">
 					</div>
 				    <input type="button" id="btnAddUser" value="SIGNUP"/>
-				     <div class="alert alert-danger" role="alert" id="message" style="text-align: center; display: none;"> </div>
+
 				</form>
 				<p> Don't have an Account? <a href="#"> Login Now!</a> </p>
+				    <div class="alert alert-danger" role="alert" id="message" style="text-align: center; display: none;"> </div>
 			</div>
 		</div>
 		<!-- copyright -->
