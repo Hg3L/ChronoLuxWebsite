@@ -3,5 +3,9 @@
     <persistence-unit name="persistence-data">
         <class>com.hau.entity.UserEntity</class>
         <class>com.hau.entity.RoleEntity</class>
+        <class>com.hau.entity.BrandEntity</class>
+        <class>com.hau.entity.ProductLineEntity</class>
+        <class>com.hau.entity.ProductEntity</class>
+        <class>com.hau.entity.WarrantyEntity</class>
     </persistence-unit>
 </persistence>
