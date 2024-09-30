@@ -1,7 +1,9 @@
 package com.hau.controller.web;
 
 import com.hau.dto.BrandDTO;
+import com.hau.dto.ProductDTO;
 import com.hau.service.IBrandService;
+import com.hau.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,12 +21,16 @@ import javax.servlet.http.HttpServletResponse;
 public class HomeController {
     @Autowired
     private IBrandService brandService;
-
+    @Autowired
+    private IProductService productService;
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String homePage(Model model) {
         BrandDTO brand = new BrandDTO();
         brand.setListResult(brandService.findAll());
+        ProductDTO product = new ProductDTO();
+        product.setListResult(productService.findTop8ByOrderByIdDesc());
         model.addAttribute("brand",brand);
+        model.addAttribute("product",product);
         return "web/home";
     }
     @RequestMapping(value = "/logout", method = RequestMethod.GET)

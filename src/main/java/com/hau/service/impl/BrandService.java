@@ -20,7 +20,7 @@ public class BrandService implements IBrandService {
     @Override
     public List<BrandDTO> findAll() {
         List<BrandDTO> brands = new ArrayList<>();
-        List<BrandEntity> brandEntities = brandRepository.findAll();
+        List<BrandEntity> brandEntities = brandRepository.findAllBrand();
         for(BrandEntity brandEntity : brandEntities){
             BrandDTO brand = brandConverter.toDTO(brandEntity);
             brands.add(brand);
