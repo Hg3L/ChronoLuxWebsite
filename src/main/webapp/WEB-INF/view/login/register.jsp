@@ -6,10 +6,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-   <title><dec:title default="ChronoLux-Register" /></title>
+   <title>ChronoLux-Register</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
 </head>
 <body>
 	<!-- main -->
@@ -17,7 +16,7 @@
 		<h1>Creative SignUp Form</h1>
 		<div class="main-agileinfo">
 			<div class="agileits-top">
-				<form id="formSubmit">
+				<form id="formSubmit" method="post" action="<c:url value='/login/add'/>">
 					<input class="text" type="text" name="userName" id="userName" placeholder="Username" required="">
 					<input class="text email" type="email" name="email" placeholder="Email" required="">
 					<input class="text" type="text" name="fullName" placeholder="FullName" required="">
@@ -26,8 +25,9 @@
 					<input class="text w3lpass" type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="Confirm Password" required="">
 					<div class="wthree-text">
 					</div>
-				    <input type="button" id="btnAddUser" value="SIGNUP"/>
-
+					<button type="submit" class="btn btn-success btn-sm">
+						Sign Up
+					</button>
 				</form>
 				<p> Don't have an Account? <a href="#"> Login Now!</a> </p>
 				    <div class="alert alert-danger" role="alert" id="message" style="text-align: center; display: none;"> </div>
@@ -52,42 +52,5 @@
 		</ul>
 	</div>
 	<!-- //main -->
-<script>
-    $('#btnAddUser').click(function(e) {
-            var password = $('#password').val();
-            var confirmPassword = $('#ConfirmPassword').val();
-            if(password === confirmPassword){
-               e.preventDefault();
-                		var data = {};
-                		var formData = $('#formSubmit').serializeArray();
-                		$.each(formData,function(i,v){
-                			 data[""+v.name+""] = v.value;
-
-                		});
-                		addNew(data);
-            }
-            else{
-                   $('#message').text('Password và Confirm Password không khớp. Vui lòng kiểm tra lại.').show();
-            }
-
-    	});
-
-    function addNew(data){
-		    $.ajax({
-               url: '${APIurl}',
-               type: "POST",
-               contentType: "application/json",
-               data: JSON.stringify(data),
-               dataType: 'json',
-               success: function(result){
-                     window.location.href = "${loginURL}";
-               },
-               error: function(error){
-                    window.location.href = "${registerURL}";
-               }
-		    });
-		}
-
-</script>
 </body>
 </html>

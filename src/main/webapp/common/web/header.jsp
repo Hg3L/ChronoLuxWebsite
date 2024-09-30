@@ -122,7 +122,7 @@
                          <security:authorize access = "isAnonymous()">
                             <div class="navbar-nav ml-auto py-0">
                                  <a href="<c:url value ='/login'/>" class="nav-item nav-link">Login</a>
-                                 <a href="#" class="nav-item nav-link">Register</a>
+                                 <a href="<c:url value='/login/register'/>" class="nav-item nav-link">Register</a>
                              </div>
                          </security:authorize>
                          <security:authorize access = "isAuthenticated()">
