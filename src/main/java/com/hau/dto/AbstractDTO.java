@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class AbstractDTO {
+public class AbstractDTO<T> {
     private Long id;
     private Date createdDate;
     private Date modifiedDate;
     private String createdBy;
     private String modifiedBy;
-
+    private List<T> listResult = new ArrayList<>();
     public Long getId() {
         return id;
     }
@@ -49,5 +49,13 @@ public class AbstractDTO {
 
     public void setModifiedBy(String modifiedBy) {
         this.modifiedBy = modifiedBy;
+    }
+
+    public List<T> getListResult() {
+        return listResult;
+    }
+
+    public void setListResult(List<T> listResult) {
+        this.listResult = listResult;
     }
 }
