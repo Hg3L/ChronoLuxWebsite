@@ -32,6 +32,8 @@ public class UserEntity extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<RoleEntity> roles = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<BillEntity> bills = new ArrayList<>();
     public String getUserName() {
         return userName;
     }

@@ -12,4 +12,20 @@ public class WarrantyEntity extends BaseEntity{
     private String content;
     @OneToOne(mappedBy = "warranty")
     private ProductLineEntity productLineEntity;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public ProductLineEntity getProductLineEntity() {
+        return productLineEntity;
+    }
+
+    public void setProductLineEntity(ProductLineEntity productLineEntity) {
+        this.productLineEntity = productLineEntity;
+    }
 }

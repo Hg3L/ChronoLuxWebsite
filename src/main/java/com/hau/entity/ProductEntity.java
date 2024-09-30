@@ -1,6 +1,7 @@
 package com.hau.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "product")
@@ -27,7 +28,8 @@ public class ProductEntity extends BaseEntity {
     @ManyToOne (fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "product_line_id")
     private ProductLineEntity productLine;
-
+    @ManyToMany(mappedBy = "products")
+    private List<BillEntity> bills;
     public double getWaterResistant() {
         return waterResistant;
     }

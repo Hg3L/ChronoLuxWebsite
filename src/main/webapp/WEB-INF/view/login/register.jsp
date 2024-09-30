@@ -22,7 +22,7 @@
 					<input class="text" type="text" name="fullName" placeholder="FullName" required="">
 					<br> </br>
 					<input class="text" type="password" name="password" id="password" placeholder="Password" required="">
-					<input class="text w3lpass" type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="Confirm Password" required="">
+					<input class="text w3lpass" type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="Confirm Password" oninput="checkPasswordMatch(this);" required="">
 					<div class="wthree-text">
 					</div>
 					<button type="submit" class="btn btn-success btn-sm">
@@ -52,5 +52,15 @@
 		</ul>
 	</div>
 	<!-- //main -->
+	<script>
+        function checkPasswordMatch(fieldConfirmPassword){
+            if(fieldConfirmPassword.value != $('#password').val()){
+                fieldConfirmPassword.setCustomValidity("Password do not match");
+            }
+            else{
+                fieldConfirmPassword.setCustomValidity("");
+            }
+        }
+    </script>
 </body>
 </html>
