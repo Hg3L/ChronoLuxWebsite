@@ -54,6 +54,16 @@
 
 
                            </div>
+                                        <c:if test = "${param.success != null}">
+										    <div class="alert alert-success " role="alert" style="text-align: center;">
+                                                Update Successful!
+                                            </div>
+										</c:if>
+                                        <c:if test = "${param.error != null}">
+										    <div class="alert alert-danger " role="alert" style="text-align: center;">
+                                                Update failed!
+                                            </div>
+										</c:if>
 
                            <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
                          </form>

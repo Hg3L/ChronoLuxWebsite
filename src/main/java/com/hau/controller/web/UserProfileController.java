@@ -30,9 +30,16 @@ public class UserProfileController {
     }
     @PostMapping
     public String saveAndUpdate(@ModelAttribute UserDTO userDTO){
-        String view = "redirect:/user-profile";
-        userService.save(userDTO);
+        String view = "";
+        UserDTO user =  userService.save(userDTO);
         AuthenticationProviderUtil.GrantedPermission(userDTO);
+        if(user!= null){
+            view = "redirect:/user-profile?success";
+        }
+        else{
+            view = "redirect:/user-profile?error";
+        }
+
         //
         return view;
     }
