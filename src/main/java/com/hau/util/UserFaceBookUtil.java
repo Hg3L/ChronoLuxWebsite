@@ -37,6 +37,7 @@ public class UserFaceBookUtil {
     public UserFaceBookUtil(String accessToken) {
         super();
         this.accessToken = accessToken;
+
     }
     public static String getToken(String code) throws ClientProtocolException, IOException
     {

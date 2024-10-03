@@ -11,6 +11,8 @@ public class UserDTO extends AbstractDTO{
     private int status;
     private String resetPasswordToken;
     private List<String> roleCode = new ArrayList<>();
+    private String firstName;
+    private String surName;
 
     public String getUserName() {
         return userName;
@@ -67,4 +69,31 @@ public class UserDTO extends AbstractDTO{
     public void setResetPasswordToken(String resetPasswordToken) {
         this.resetPasswordToken = resetPasswordToken;
     }
+    public String getFirstName(){
+        if(this.fullName == null){
+            return this.firstName;
+        }
+        String[] parts = this.fullName.split(" ");
+        String firstName = parts[parts.length -1];
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getSurName(){
+        if(this.fullName == null){
+            return this.surName;
+        }
+        int lastSpaceIndex = this.fullName.lastIndexOf(" ");
+        String surName = this.fullName.substring(0,lastSpaceIndex);
+        return surName;
+    }
+
+    public void setSurName(String surName) {
+        this.surName = surName;
+    }
+
+
 }

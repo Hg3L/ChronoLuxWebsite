@@ -8,6 +8,7 @@ import com.hau.exception.CustomerNotFoundException;
 import com.hau.repository.RoleRepository;
 import com.hau.repository.UserRepository;
 import com.hau.service.IUserService;
+import com.hau.util.EncodePasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,16 +28,21 @@ public class UserService implements IUserService {
     private UserRepository userRepository;
     @Override
     public UserDTO findOneByUserNameAndStatus(String userName, int status) {
-        return null;
+        UserEntity userEntity = userRepository.findOneByUserNameAndStatus(userName,status);
+        UserDTO user = userConverter.toDTO(userEntity);
+        return user;
     }
+    public UserDTO findOneById(Long id) {
+        UserEntity userEntity = userRepository.findOne(id);
+        UserDTO user = userConverter.toDTO(userEntity);
+        return user;
+    }
+
 
     @Override
     @Transactional
     public UserDTO save(UserDTO userDTO) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String rawPassword = userDTO.getPassword();  // Mật khẩu cần mã hóa
-        String encodedPassword = encoder.encode(rawPassword); // mã hóa mk
-        userDTO.setPassword(encodedPassword);
+        UserEntity userEntity = new UserEntity();
         if(userDTO.getRoleCode().isEmpty() && userDTO.getStatus() == 0){ // đăng ký tài khoản mặc định role là USER
             List<String>  rolescode = new ArrayList<>();
             rolescode.add("ROLE_USER");
@@ -48,9 +54,27 @@ public class UserService implements IUserService {
             RoleEntity roleEntity = roleRepository.findOneByCode(roleCode);
             roleEntities.add(roleEntity);
         }
-      
-        UserEntity userEntity = userConverter.toEntity(userDTO);
-        userEntity.setRoles(roleEntities);
+        // Kiểm tra nếu mật khẩu chưa được mã hóa (bằng cách kiểm tra tiền tố của chuỗi BCrypt)
+        if (userDTO.getPassword() != null && !userDTO.getPassword().startsWith("$2a$") && !userDTO.getPassword().startsWith("$2b$") && !userDTO.getPassword().startsWith("$2y$")) {
+              // Mã hóa mật khẩu
+            userDTO.setPassword(EncodePasswordUtil.encode(userDTO.getPassword()));
+        }
+        // update
+        if(userDTO.getId() != null){
+            if(userDTO.getSurName() != null || userDTO.getFirstName()!= null){
+                String fullName = userDTO.getSurName() +" "+ userDTO.getFirstName();
+                userDTO.setFullName(fullName);
+            }
+            UserEntity oldUser = userRepository.findOne(userDTO.getId());
+            oldUser.setRoles(roleEntities);
+            userEntity = userConverter.toEntity(oldUser,userDTO);
+        }
+        // save
+        else{
+            userEntity =  userConverter.toEntity(userDTO);
+            userEntity.setRoles(roleEntities);
+        }
+
         return userConverter.toDTO(userRepository.save(userEntity));
     }
 
@@ -75,10 +99,7 @@ public class UserService implements IUserService {
     @Override
     public void updatePassword(UserDTO user, String newPassword) {
         UserEntity updateUser = userRepository.findOne(user.getId());
-
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(newPassword);
-        updateUser.setPassword(encodedPassword);
+        updateUser.setPassword( EncodePasswordUtil.encode(newPassword));
         updateUser.setResetPasswordToken(null);
         List<RoleEntity> roleEntities = new ArrayList<>();
         for(String roleCode : user.getRoleCode()){

@@ -1,6 +1,7 @@
 package com.hau.util;
 
 import com.hau.dto.MyUser;
+import com.hau.dto.UserDTO;
 import com.hau.dto.UserFaceBookDto;
 import com.hau.dto.UserGoogleDto;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -8,12 +9,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AuthenticationProviderUtil {
-    public static void  GrantedPermission(Object account){
+    public static void  GrantedPermissionO2Auth(Object account){
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         if (account instanceof UserGoogleDto) {
@@ -32,5 +34,12 @@ public class AuthenticationProviderUtil {
         } else {
             throw new IllegalArgumentException("Unsupported object type");
         }
+    }
+    public static void  GrantedPermission(UserDTO userDTO) {
+        String encodedPassword = EncodePasswordUtil.encode(userDTO.getPassword());
+        MyUser user = new MyUser(userDTO.getUserName(), encodedPassword, true, true, true, true, SecurityUtil.getPrincipal().getAuthorities());
+        user.setFullName(userDTO.getFullName());
+        Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(auth);
     }
 }

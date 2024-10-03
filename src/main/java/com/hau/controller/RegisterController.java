@@ -26,7 +26,7 @@ public class RegisterController {
             throw new RuntimeException(e);
         }
         userService.save(user);
-        return "redirect:/login";
+        return "redirect:/login?registerSuccessful";
     }
 
     @GetMapping("/register")

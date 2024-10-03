@@ -56,6 +56,8 @@
 											<input type="password" class="form-control" name="j_password"
 												placeholder="Password" required>
 										</div>
+										<div class="g-recaptcha" data-sitekey="6LcvolUqAAAAAHsPdMaMhrNDeg_HE-FuNR4XO95n"></div>
+										<div id ="error"> </div>
 										<c:if test = "${param.incorrectAccount != null}">
 										    <div class="alert alert-danger " role="alert" style="text-align: center;">
                                                 User invalid
@@ -66,10 +68,12 @@
                                                 You Not Authorize
                                             </div>
 										</c:if>
+
 										<div class="form-group">
 											<button type="submit" class="form-control btn btn-primary rounded submit px-3">
 											Sign In</button>
 										</div>
+
 										<div class="form-group d-md-flex">
 											<div class="w-50 text-left">
 													<input type="checkbox" name="remember-me"/> Remember Me
@@ -90,7 +94,26 @@
 				</div>
 			</section>
 
+            <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+            <script>
+                window.onload = function(){
+                    let isValid = false;
+                    const form = document.getElementById("formLogin");
+                    const error = document.getElementById("error");
 
+                    form.addEventListener("submit",function(event){
+                        event.preventDefault();
+                        const response = grecaptcha.getResponse();
+                        if(response){
+                               form.submit();
+                        }
+                        else{
+                            error.innerHTML = "Please Check";
+                        }
+
+                    });
+                }
+             </script>
 		</body>
 
 		</html>
