@@ -25,6 +25,8 @@
 					<input class="text w3lpass" type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="Confirm Password" oninput="checkPasswordMatch(this);" required="">
 					<div class="wthree-text">
 					</div>
+					<div class="g-recaptcha" data-sitekey="6LcvolUqAAAAAHsPdMaMhrNDeg_HE-FuNR4XO95n"></div>
+                    <div id ="error"> </div>
 					<button type="submit" class="btn btn-success btn-sm">
 						Sign Up
 					</button>
@@ -52,6 +54,7 @@
 		</ul>
 	</div>
 	<!-- //main -->
+	 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 	<script>
         function checkPasswordMatch(fieldConfirmPassword){
             if(fieldConfirmPassword.value != $('#password').val()){
@@ -61,6 +64,26 @@
                 fieldConfirmPassword.setCustomValidity("");
             }
         }
+
+        window.onload = function(){
+                        let isValid = false;
+                        const form = document.getElementById("formSubmit");
+                        const error = document.getElementById("error");
+
+                        form.addEventListener("submit",function(event){
+                            event.preventDefault();
+                            const response = grecaptcha.getResponse();
+                            if(response){
+                                   form.submit();
+                            }
+                            else{
+                                error.innerHTML = "Please Check";
+                            }
+
+                        });
+                    }
     </script>
+
+
 </body>
 </html>

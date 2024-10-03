@@ -42,6 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/admin/*").hasAnyRole("ADMIN")
 
+                .antMatchers("/home").hasAnyRole("USER","ANONYMOUS")
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -66,6 +67,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/resource"); // nếu có tài nguyên tĩnh
+        web.ignoring().antMatchers("/login*"); // nếu có tài nguyên tĩnh
     }
 }
