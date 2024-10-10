@@ -19,3 +19,6 @@ ADD COLUMN `email` VARCHAR(255) NULL AFTER `password`;
 
 ALTER TABLE `chronoluxweb`.`user`
 ADD COLUMN `reset_password_token` VARCHAR(45) NULL AFTER `username`;
+
+ALTER TABLE `chronoluxweb`.`product`
+ADD COLUMN `name` VARCHAR(255) NULL AFTER `product_line_id`;

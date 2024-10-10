@@ -27,4 +27,15 @@ public class ProductService implements IProductService {
         }
         return products;
     }
+
+    @Override
+    public List<ProductDTO> findAll() {
+        List<ProductDTO> products = new ArrayList<>();
+        List<ProductEntity> productEntities = productRepository.findAll();
+        for(ProductEntity productEntity : productEntities){
+            ProductDTO product = productConverter.toDTO(productEntity);
+            products.add(product);
+        }
+        return products;
+    }
 }
