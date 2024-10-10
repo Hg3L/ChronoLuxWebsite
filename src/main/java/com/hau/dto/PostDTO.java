@@ -1,21 +1,9 @@
-package com.hau.entity;
+package com.hau.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-@Entity
-@Table(name ="post")
-public class PostEntity extends BaseEntity {
-    @Column(name="img")
+public class PostDTO extends AbstractDTO{
     private String img;
-    @Column(name="caption")
     private String caption;
-    @Column(name="content")
     private String content;
-
-    public PostEntity() {
-    }
 
     public String getImg() {
         return img;

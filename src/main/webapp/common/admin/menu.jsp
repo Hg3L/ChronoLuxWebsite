@@ -29,7 +29,7 @@
 
     <!-- Nav Item - Quản lý thương hiệu -->
     <li class="nav-item">
-        <a class="nav-link" href="<c:url value='/quan-tri/the-loai'/>">
+        <a class="nav-link" href="<c:url value='/admin/posts'/>">
             <i class="fas fa-star"></i>
             <span>Quản lý thương hiệu</span>
         </a>
