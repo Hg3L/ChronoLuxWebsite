@@ -24,12 +24,22 @@ public class ProductEntity extends BaseEntity {
     private String gender;
     @Column(name = "price")
     private long price;
-
+    @Column(name = "name")
+    private String name;
     @ManyToOne (fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "product_line_id")
     private ProductLineEntity productLine;
     @ManyToMany(mappedBy = "products")
     private List<BillEntity> bills;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public double getWaterResistant() {
         return waterResistant;
     }
@@ -108,5 +118,13 @@ public class ProductEntity extends BaseEntity {
 
     public void setProductLine(ProductLineEntity productLine) {
         this.productLine = productLine;
+    }
+
+    public List<BillEntity> getBills() {
+        return bills;
+    }
+
+    public void setBills(List<BillEntity> bills) {
+        this.bills = bills;
     }
 }

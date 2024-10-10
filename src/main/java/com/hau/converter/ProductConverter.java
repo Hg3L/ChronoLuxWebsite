@@ -19,6 +19,8 @@ public class ProductConverter {
         productDTO.setWatchType(productEntity.getWatchType());
         productDTO.setImgUrl(productEntity.getImgUrl());
         productDTO.setStrapMaterial(productEntity.getStrapMaterial());
+        productDTO.setName(productEntity.getName());
+        productDTO.setProductLineName(productEntity.getProductLine().getName());
         return productDTO;
     }
     public ProductEntity toEntity(ProductDTO productDTO){

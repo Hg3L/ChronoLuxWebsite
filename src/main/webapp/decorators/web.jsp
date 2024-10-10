@@ -18,6 +18,9 @@
 	<%@ include file="/common/web/footer.jsp" %>
 
     <!-- JavaScript Libraries -->
+
+    <!-- Nhúng plugin twbsPagination -->
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="<c:url value='/template/web/lib/easing/easing.min.js'/>"></script>

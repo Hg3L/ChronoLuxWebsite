@@ -92,10 +92,31 @@
 					</div>
 
 				</div>
+				<div class="toast-container position-fixed bottom-0 end-0 p-3">
+                  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                      <img src="<c:url value='/template/web/img/ChronoLuxIcon.svg'/>" class="rounded me-2" alt="...">
+                      <strong class="me-auto">Success!</strong>
+                      <small>11 mins ago</small>
+                      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                        Register successfully!
+                    </div>
+                  </div>
+                </div>
 			</section>
 
             <script src="https://www.google.com/recaptcha/api.js" async defer></script>
             <script>
+             // Nếu có flash attribute showToast được truyền từ server, hiển thị toast
+
+                <c:if test="${param.registerSuccessful != null}">
+                 var toastLiveExample = document.getElementById("liveToast");
+                 var toast = new bootstrap.Toast(toastLiveExample);
+                 toast.show();
+                </c:if>
+
                 window.onload = function(){
                     let isValid = false;
                     const form = document.getElementById("formLogin");
