@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,21 +22,30 @@ public class ShopController {
         public ModelAndView shopPage(@RequestParam("page") int page ,
                                      @RequestParam("limit") int limit,
                                      @RequestParam(value = "sortName",required = false) String sortName,
-                                     @RequestParam(value = "sortBy",required = false) String sortBy){
+                                     @RequestParam(value = "sortBy",required = false) String sortBy,
+                                     @RequestParam(value = "keyword",required = false) String keyword){
         ProductDTO product = new ProductDTO();
         product.setPage(page);
         product.setLimit(limit);
-        if(sortName != null && sortBy != null){
+        if(sortName != null && sortBy != null ){
             product.setSortName(sortName);
             product.setSortBy(sortBy);
         }
+        if(keyword != null){
+            product.setKeyword(keyword);
+        }
         Pageable pageable = PageableUtil.getInstance(page,limit,sortName,sortBy);
-        product.setTotalItem((int)productService.getTotalItem());
+        product.setTotalItem((int)productService.getTotalItem(keyword));
         product.setTotalPage((int) Math.ceil((double) product.getTotalItem() / product.getLimit()));
         ModelAndView mav = new ModelAndView("web/shop");
-        mav.addObject("products",productService.findAll(pageable));
+        mav.addObject("products",productService.findAll(pageable,keyword));
         mav.addObject("model",product);
-
         return mav;
+        }
+
+        @GetMapping("/shop-search")
+        public String searchProduct(){
+
+        return "web/shop";
         }
 }

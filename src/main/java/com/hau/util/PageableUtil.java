@@ -5,8 +5,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 public class PageableUtil {
-
-
     public static Pageable getInstance(int page,int limit,String sortName,String sortBy){
             if(sortName != null && sortBy !=null){
                 if(sortBy.equals("desc") ){

@@ -18,6 +18,7 @@ public class AbstractDTO<T> {
     private String sortName;
     private String sortBy;
     private List<T> listResult = new ArrayList<>();
+    private String keyword;
     public Long getId() {
         return id;
     }
@@ -111,5 +112,13 @@ public class AbstractDTO<T> {
 
     public void setSortBy(String sortBy) {
         this.sortBy = sortBy;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 }

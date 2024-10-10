@@ -30,10 +30,16 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<ProductDTO> findAll(Pageable pageable) {
-
+    public List<ProductDTO> findAll(Pageable pageable,String keyword) {
         List<ProductDTO> products = new ArrayList<>();
-        List<ProductEntity> productEntities = productRepository.findAll(pageable).getContent();
+        List<ProductEntity> productEntities = null;
+        if(keyword != null){// tim kiem
+           productEntities = productRepository.findAll(pageable,keyword).getContent();
+        }
+        else{
+            productEntities = productRepository.findAll(pageable).getContent();
+        }
+
         for(ProductEntity productEntity : productEntities){
             ProductDTO product = productConverter.toDTO(productEntity);
             products.add(product);
@@ -42,7 +48,10 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public long getTotalItem() {
+    public long getTotalItem(String keyword) {
+        if(keyword != null){
+            return productRepository.count(keyword);
+        }
         return  productRepository.count();
     }
 }

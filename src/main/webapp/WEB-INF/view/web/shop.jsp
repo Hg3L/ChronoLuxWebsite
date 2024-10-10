@@ -198,9 +198,11 @@
                             <div class="row pb-3">
                                 <div class="col-12 pb-1">
                                     <div class="d-flex align-items-center justify-content-between mb-4">
-                                        <form action="">
+                                        <form action="<c:url value='/shop'/>" method="get">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Search by name">
+                                                <input type="text" class="form-control" placeholder="Search by name" name="keyword">
+                                                 <input type="hidden" value="1" name="page">
+                                                 <input type="hidden" value="8" name="limit">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text bg-transparent text-primary">
                                                         <i class="fa fa-search"></i>
@@ -214,8 +216,11 @@
                                                 Sort by
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
-                                                <a class="dropdown-item" href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&sortName=name&sortBy=asc'/>">Name</a>
-                                                <a class="dropdown-item" href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&sortName=price&sortBy=asc'/>">Price</a>
+                                                <a class="dropdown-item"
+                                                   href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&sortName=name&sortBy=asc&keyword=${model.keyword}'/>">
+                                                   Name
+                                                </a>
+                                                <a class="dropdown-item" href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&sortName=price&sortBy=asc&keyword=${model.keyword}'/>">Price</a>
 
                                             </div>
                                         </div>
@@ -256,9 +261,13 @@
                                     <ul class="pagination justify-content-center mb-3" id="pagination"> </ul>
                                     <input type="hidden" value="" id="page" name="page" />
                                     <input type="hidden" value="" id="limit" name="limit" />
+
                                    <c:if test="${model.sortName != null && model.sortBy != null}">
                                        <input type="hidden" id="sortName" name="sortName" value="${model.sortName}" />
                                        <input type="hidden" id="sortBy" name="sortBy" value="${model.sortBy}" />
+                                   </c:if>
+                                   <c:if test="${model.keyword != null}">
+                                        <input type="hidden" id="keyword" name="keyword" value="${model.keyword}" />
                                    </c:if>
                                 </nav>
                             </div>
@@ -275,13 +284,12 @@
 
           <script>
               var currentPage = ${model.page};
-              var totalPages = ${model.totalPage};
               var limit = ${model.limit};
               var sortBy = "${model.sortBy}";
               var sortName = "${model.sortName}";
-
+              var keyword = "${model.keyword}";
               $('#pagination').twbsPagination({
-                  totalPages: totalPages,
+                  totalPages: ${model.totalPage},
                   visiblePages: 10,
                   startPage: currentPage,
                   onPageClick: function (event, page) {
@@ -291,6 +299,9 @@
                           if (sortBy && sortName) {
                               $('#sortName').val(sortName);
                               $('#sortBy').val(sortBy);
+                          }
+                          if(keyword){
+                              $('#keyword').val(keyword);
                           }
 
                           $('#formSubmit').submit();
