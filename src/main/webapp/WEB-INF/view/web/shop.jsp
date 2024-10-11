@@ -49,47 +49,53 @@
                 </div>
             </div>
             <!-- Page Header End -->
-          <div class="col-12 pb-1">
-                  <c:if test="${model.filter != null}">
-                      <div class="row mb-4" style="margin-left: 20px;"> <!-- Dịch sang trái một chút -->
-                          <div class="col-12">
-                              <span class="font-weight-bold">Đã chọn:</span>
-                                  <button type ="button" id = "clearFilterByPrice" class="btn btn-primary ml-2">
-                                     <c:if test="${model.filter == 'duoi-1-trieu'}">
-                                         Dưới 1 triệu
-                                      </c:if>
-                                    <c:if test="${model.filter == 'tu-1-3-trieu'}">
-                                         Từ 1 - 3 triệu
-                                      </c:if>
-                                    <c:if test="${model.filter == 'tu-3-6-trieu'}">
-                                         Từ 3 - 6 triệu
-                                      </c:if>
-                                    <c:if test="${model.filter == 'tu-6-9-trieu'}">
-                                         Từ 6 - 9 triệu
-                                      </c:if>
-                                    <c:if test="${model.filter == 'tren-9-trieu'}">
-                                         Trên 9 triệu
-                                      </c:if>
-                                      <span class="close" aria-label="Close" style="cursor: pointer;">&times;</span>
-                                  </button>
+            <div class="col-12 pb-1">
+                <c:if test="${model.filter != null}">
+                    <div class="row mb-4" style="margin-left: 20px;"> <!-- Dịch sang trái một chút -->
+                        <div class="col-12">
+                            <span class="font-weight-bold">Đã chọn:</span>
+                            <button type="button" id="clearFilterByPrice" class="btn btn-primary ml-2">
+                                <c:if test="${model.filter == 'duoi-1-trieu'}">
+                                    Dưới 1 triệu
+                                </c:if>
+                                <c:if test="${model.filter == 'tu-1-3-trieu'}">
+                                    Từ 1 - 3 triệu
+                                </c:if>
+                                <c:if test="${model.filter == 'tu-3-6-trieu'}">
+                                    Từ 3 - 6 triệu
+                                </c:if>
+                                <c:if test="${model.filter == 'tu-6-9-trieu'}">
+                                    Từ 6 - 9 triệu
+                                </c:if>
+                                <c:if test="${model.filter == 'tren-9-trieu'}">
+                                    Trên 9 triệu
+                                </c:if>
+                                <span class="close" aria-label="Close" style="cursor: pointer;">&times;</span>
+                            </button>
 
-                              <button type ="button" id = "clearAllFilter" class="btn btn-primary ml-2">Xóa hết
-                                  <span class="close" aria-label="Close" style="cursor: pointer;">&times;</span>
-                              </button>
-                          </div>
-                      </div>
-                  </c:if>
-              </div>
-        <div class="col-12 py-2" style="margin-left: 35px;"> <!-- Dịch sang phải khoảng 1cm -->
-            <span class="font-weight-bold mr-2">Phổ biến:</span>
-            <a href="#" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Nam</a>
-            <a href="#" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Nữ</a>
-            <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=duoi-1-trieu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Dưới 1 triệu</a>
-            <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tu-1-3-trieu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 1 - 3 triệu</a>
-            <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tu-3-6-trieu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 3 - 6 triệu</a>
-            <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tu-6-9-trieu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 6 - 9 triệu</a>
-            <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tren-9-trieu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Trên 9 triệu</a>
-        </div>
+
+                            <button type="button" id="clearAllFilter" class="btn btn-primary ml-2">Xóa hết
+                                <span class="close" aria-label="Close" style="cursor: pointer;">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if>
+            </div>
+            <div class="col-12 py-2" style="margin-left: 35px;"> <!-- Dịch sang phải khoảng 1cm -->
+                <span class="font-weight-bold mr-2">Phổ biến:</span>
+                <a href="<c:url value='/shopr?page=${model.page}&limit=${model.limit}&filter=nam'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Nam</a>
+                <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=nu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Nữ</a>
+                <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=duoi-1-trieu'/>"
+                    class="btn btn-outline-primary btn-sm rounded-pill mx-1">Dưới 1 triệu</a>
+                <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tu-1-3-trieu'/>"
+                    class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 1 - 3 triệu</a>
+                <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tu-3-6-trieu'/>"
+                    class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 3 - 6 triệu</a>
+                <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tu-6-9-trieu'/>"
+                    class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 6 - 9 triệu</a>
+                <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tren-9-trieu'/>"
+                    class="btn btn-outline-primary btn-sm rounded-pill mx-1">Trên 9 triệu</a>
+            </div>
 
 
             <!-- Shop Start -->
@@ -180,6 +186,7 @@
                                     <c:if test="${model.filter != null}">
                                         <input type="hidden" id="filter" name="filter" value="${model.filter}" />
                                     </c:if>
+
                                 </nav>
                             </div>
                         </div>
@@ -198,6 +205,7 @@
                 var sortName = "${model.sortName}";
                 var keyword = "${model.keyword}";
                 var filter = "${model.filter}"
+
                 $('#pagination').twbsPagination({
                     totalPages: ${ model.totalPage },
                     visiblePages: 10,
@@ -214,23 +222,24 @@
                                 $('#keyword').val(keyword);
                             }
                             if (filter) {
-                                 $('#filter').val(filter);
+                                $('#filter').val(filter);
                             }
+
 
                             $('#formSubmit').submit();
                         }
                     }
               });
 
-    $(document).ready(function() {
-            $("#clearAllFilter").click(function() {
-                // Xóa các giá trị bộ lọc
-                $("#filter").val("");
+                $(document).ready(function () {
+                    $("#clearAllFilter").click(function () {
+                        // Xóa các giá trị bộ lọc
+                        $("#filter").val("");
 
-                // Tải lại trang hoặc thực hiện hành động khác
-                window.location.href = "<c:url value='/shop?page=1&limit=8'/>"; // Hoặc bất kỳ URL nào
-            });
-        });
+                        // Tải lại trang hoặc thực hiện hành động khác
+                        window.location.href = "<c:url value='/shop?page=1&limit=8'/>"; // Hoặc bất kỳ URL nào
+                    });
+                });
 
 
             </script>

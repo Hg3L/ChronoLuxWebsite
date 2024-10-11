@@ -30,61 +30,42 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<ProductDTO> findAll(Pageable pageable,String keyword,String filter) {
-        long minPrice =0;
-        long maxPrice =0;
+    public List<ProductDTO> findAll(Pageable pageable,String keyword,String filter,String gender) {
+        Long minPrice =null;
+        Long maxPrice =null;
         List<ProductDTO> products = new ArrayList<>();
         List<ProductEntity> productEntities = null;
         if(filter != null){
             switch (filter) {
                 case "duoi-1-trieu" -> {
-                    minPrice = 0;
-                    maxPrice = 1000000;
+                    minPrice = 0L;
+                    maxPrice = 1000000L;
                 }
                 case "tu-1-3-trieu" -> {
-                    minPrice = 1000000;
-                    maxPrice = 3000000;
+                    minPrice = 1000000L;
+                    maxPrice = 3000000L;
                 }
                 case "tu-3-6-trieu" -> {
-                    minPrice = 3000000;
-                    maxPrice = 6000000;
+                    minPrice = 3000000L;
+                    maxPrice = 6000000L;
                 }
                 case "tu-6-9-trieu" -> {
-                    minPrice = 6000000;
-                    maxPrice = 9000000;
+                    minPrice = 6000000L;
+                    maxPrice = 9000000L;
                 }
-                case "tren-9-trieu" -> minPrice = 9000000;
+                case "tren-9-trieu" -> minPrice = 9000000L;
             }
         }
-        if(filter != null && keyword != null){// có cả keywword cả lọc
-            if(filter.equals("tren-9-trieu")){
-                productEntities =  productRepository.findAll(pageable,keyword,minPrice).getContent();
-            }
-            else{
-                productEntities =  productRepository.findAll(pageable,keyword,minPrice,maxPrice).getContent();
-            }
-        }
-        else if(keyword != null){// có keyword không có lọc
-           productEntities = productRepository.findAll(pageable,keyword).getContent();
-        }
-        else if(filter!= null){ // k có keyword có lọc
-            if(filter.equals("tren-9-trieu")){
-                productEntities =  productRepository.findAll(pageable,minPrice).getContent();
-            }
-            else{
-                productEntities =  productRepository.findAll(pageable,minPrice,maxPrice).getContent();
-            }
-        } // bình thường
-        else{
-            productEntities = productRepository.findAll(pageable).getContent();
-        }
-
+        String searchKeyword = (keyword == null) ? null : "%" + keyword + "%";
+        productEntities = productRepository.findAll(gender, searchKeyword, minPrice, maxPrice, pageable).getContent();
+        System.out.println(productEntities.size());
         for(ProductEntity productEntity : productEntities){
             ProductDTO product = productConverter.toDTO(productEntity);
             products.add(product);
         }
         return products;
     }
+
 
 
 

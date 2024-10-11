@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface IProductService {
     public List<ProductDTO> findTop8ByOrderByIdDesc();
-    public List<ProductDTO> findAll(Pageable pageable,String keyword,String filter);
+    public List<ProductDTO> findAll(Pageable pageable,String keyword,String filter,String gender);
     public long getTotalItem(String keyword);
 }

@@ -24,7 +24,8 @@ public class ShopController {
                                      @RequestParam(value = "sortName",required = false) String sortName,
                                      @RequestParam(value = "sortBy",required = false) String sortBy,
                                      @RequestParam(value = "keyword",required = false) String keyword,
-                                     @RequestParam(value = "filter",required = false) String filter){
+                                     @RequestParam(value = "filter",required = false) String filter,
+                                     @RequestParam(value = "gender",required = false) String gender){
         ProductDTO product = new ProductDTO();
         product.setPage(page);
         product.setLimit(limit);
@@ -42,8 +43,11 @@ public class ShopController {
         product.setTotalItem((int)productService.getTotalItem(keyword));
         product.setTotalPage((int) Math.ceil((double) product.getTotalItem() / product.getLimit()));
         ModelAndView mav = new ModelAndView("web/shop");
-        mav.addObject("products",productService.findAll(pageable,keyword,filter));
+        mav.addObject("products",productService.findAll(pageable,keyword,filter,gender));
         mav.addObject("model",product);
         return mav;
         }
+
+
+
 }
