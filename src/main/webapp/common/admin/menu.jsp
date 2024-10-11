@@ -31,7 +31,7 @@
     <li class="nav-item">
         <a class="nav-link" href="<c:url value='/admin/posts'/>">
             <i class="fas fa-star"></i>
-            <span>Quản lý thương hiệu</span>
+            <span>Quản lý bài viết</span>
         </a>
     </li>
 

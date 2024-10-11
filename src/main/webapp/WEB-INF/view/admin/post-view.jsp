@@ -2,7 +2,7 @@
 <%@ include file="/common/taglib.jsp" %>
 
 <head>
-    <title>ChronoLux - Admin</title>
+    <title>ChronoLux - Post Management</title>
     <!-- Custom fonts for this template-->
     <link href="<c:url value='/template/admin/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet" type="text/css">
     <link
@@ -18,7 +18,7 @@
 <div class="container-fluid">
     <!-- Add New Post Button -->
     <div class="d-flex justify-content-start mb-3">
-        <a href="${pageContext.request.contextPath}/admin/add-post" class="btn btn-success btn-sm add-product">
+        <a href="${pageContext.request.contextPath}/admin/post/create" class="btn btn-success btn-sm add-product">
             <i class="fas fa-plus"></i> Add New Post
         </a>
     </div>
@@ -27,30 +27,31 @@
     <c:forEach var="a" items="${posts}">
         <div class="card mb-4 shadow-sm" style="border-radius: 15px; position: relative;">
             <div class="card-body">
-                <!-- Title and Actions (Edit & Delete buttons) -->
                 <div class="d-flex justify-content-between">
                     <h5 class="card-title">${a.caption}</h5>
                     <div>
                         <!-- Edit button (pencil icon) -->
-                        <a href="${pageContext.request.contextPath}/post/edit-post/${a.id}" class="btn btn-primary btn-sm mr-2">
+                        <a href="${pageContext.request.contextPath}/admin/post/update/?id=${a.id}" class="btn btn-primary btn-sm mr-2">
                             <i class="fas fa-pen"></i>
                         </a>
-                        <a href="#" class="btn btn-danger btn-sm"
-                           onclick="return confirmDelete(${a.id});">
+                        <a href="${pageContext.request.contextPath}/admin/post/delete?id=${a.id}" class="btn btn-danger btn-sm" onclick="return confirmDelete(${a.id});">
                             <i class="fas fa-times"></i>
                         </a>
                     </div>
                 </div>
-
                 <!-- Content -->
                 <p class="card-text">${a.content}</p>
 
                 <!-- Image (Small size) -->
-                <img src="${a.imgUrl}" alt="Post Image" class="img-fluid"
+                <img src="<c:url value='/template/web/img/posts/${a.img}'/>" alt="Post Image" class="img-fluid"
                      style="border-radius: 10px; max-width: 150px; height: auto;" />
             </div>
         </div>
     </c:forEach>
 </div>
-
+<script>
+    function confirmDelete(id) {
+        return confirm("Are you sure you want to delete this post ?");
+    }
+</script>
 </body>

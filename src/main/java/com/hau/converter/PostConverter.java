@@ -1,6 +1,7 @@
 package com.hau.converter;
 
 import com.hau.dto.PostDTO;
+import com.hau.entity.BaseEntity;
 import com.hau.entity.PostEntity;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,13 @@ public class PostConverter implements Converter<PostDTO, PostEntity> {
 
     @Override
     public PostEntity convertToEntity(PostDTO dto) {
-        return null;
+        PostEntity postEntity = new PostEntity();
+        if(dto.getId() != null) {
+            postEntity.setId(dto.getId());
+        }
+        postEntity.setImg(dto.getImg());
+        postEntity.setCaption(dto.getCaption());
+        postEntity.setContent(dto.getContent());
+        return postEntity;
     }
 }

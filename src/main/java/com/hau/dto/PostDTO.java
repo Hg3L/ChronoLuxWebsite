@@ -28,4 +28,13 @@ public class PostDTO extends AbstractDTO{
     public void setContent(String content) {
         this.content = content;
     }
+
+    @Override
+    public String toString() {
+        return "PostDTO{" +
+                "img='" + img + '\'' +
+                ", caption='" + caption + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }
