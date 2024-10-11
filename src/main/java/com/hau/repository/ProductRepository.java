@@ -19,4 +19,23 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
     @Query("SELECT COUNT(p) FROM ProductEntity p WHERE " +
             "CONCAT(p.name, ' ', p.price, ' ', p.gender) LIKE %?1%")
     long count(String keyword);
+
+    @Query("SELECT p FROM ProductEntity p WHERE "
+            + "CONCAT(p.name, ' ', p.price, ' ', p.gender) LIKE %?1% "
+            + "AND (p.price BETWEEN ?2 AND ?3)")
+    Page<ProductEntity> findAll(Pageable pageable, String keyword, long minPrice, long maxPrice);
+
+    @Query("SELECT p FROM ProductEntity p WHERE p.price BETWEEN ?1 AND ?2")
+    Page<ProductEntity> findAll(Pageable pageable, long minPrice, long maxPrice);
+
+    @Query("SELECT p FROM ProductEntity p WHERE p.price > ?1")
+    Page<ProductEntity> findAll(Pageable pageable, long Price);
+
+    @Query("SELECT p FROM ProductEntity p WHERE "
+            + "CONCAT(p.name, ' ', p.price, ' ', p.gender) LIKE %?1% "
+            + "AND (p.price > ?2)")
+    Page<ProductEntity> findAll(Pageable pageable, String keyword, long minPrice);
+
+
+
 }

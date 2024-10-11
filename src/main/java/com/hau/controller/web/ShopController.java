@@ -23,7 +23,8 @@ public class ShopController {
                                      @RequestParam("limit") int limit,
                                      @RequestParam(value = "sortName",required = false) String sortName,
                                      @RequestParam(value = "sortBy",required = false) String sortBy,
-                                     @RequestParam(value = "keyword",required = false) String keyword){
+                                     @RequestParam(value = "keyword",required = false) String keyword,
+                                     @RequestParam(value = "filter",required = false) String filter){
         ProductDTO product = new ProductDTO();
         product.setPage(page);
         product.setLimit(limit);
@@ -34,18 +35,15 @@ public class ShopController {
         if(keyword != null){
             product.setKeyword(keyword);
         }
+        if(filter != null){
+            product.setFilter(filter);
+        }
         Pageable pageable = PageableUtil.getInstance(page,limit,sortName,sortBy);
         product.setTotalItem((int)productService.getTotalItem(keyword));
         product.setTotalPage((int) Math.ceil((double) product.getTotalItem() / product.getLimit()));
         ModelAndView mav = new ModelAndView("web/shop");
-        mav.addObject("products",productService.findAll(pageable,keyword));
+        mav.addObject("products",productService.findAll(pageable,keyword,filter));
         mav.addObject("model",product);
         return mav;
-        }
-
-        @GetMapping("/shop-search")
-        public String searchProduct(){
-
-        return "web/shop";
         }
 }
