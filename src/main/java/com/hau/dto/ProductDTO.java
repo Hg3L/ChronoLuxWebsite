@@ -112,4 +112,5 @@ public class ProductDTO extends AbstractDTO{
     public void setName(String name) {
         this.name = name;
     }
+
 }

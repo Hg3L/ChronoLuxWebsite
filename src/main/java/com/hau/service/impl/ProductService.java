@@ -30,22 +30,44 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<ProductDTO> findAll(Pageable pageable,String keyword) {
+    public List<ProductDTO> findAll(Pageable pageable,String keyword,String filter,String gender) {
+        Long minPrice =null;
+        Long maxPrice =null;
         List<ProductDTO> products = new ArrayList<>();
         List<ProductEntity> productEntities = null;
-        if(keyword != null){// tim kiem
-           productEntities = productRepository.findAll(pageable,keyword).getContent();
+        if(filter != null){
+            switch (filter) {
+                case "duoi-1-trieu" -> {
+                    minPrice = 0L;
+                    maxPrice = 1000000L;
+                }
+                case "tu-1-3-trieu" -> {
+                    minPrice = 1000000L;
+                    maxPrice = 3000000L;
+                }
+                case "tu-3-6-trieu" -> {
+                    minPrice = 3000000L;
+                    maxPrice = 6000000L;
+                }
+                case "tu-6-9-trieu" -> {
+                    minPrice = 6000000L;
+                    maxPrice = 9000000L;
+                }
+                case "tren-9-trieu" -> minPrice = 9000000L;
+            }
         }
-        else{
-            productEntities = productRepository.findAll(pageable).getContent();
-        }
-
+        String searchKeyword = (keyword == null) ? null : "%" + keyword + "%";
+        productEntities = productRepository.findAll(gender, searchKeyword, minPrice, maxPrice, pageable).getContent();
+        System.out.println(productEntities.size());
         for(ProductEntity productEntity : productEntities){
             ProductDTO product = productConverter.toDTO(productEntity);
             products.add(product);
         }
         return products;
     }
+
+
+
 
     @Override
     public long getTotalItem(String keyword) {

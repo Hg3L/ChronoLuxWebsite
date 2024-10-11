@@ -27,7 +27,7 @@
             <!-- Customized Bootstrap Stylesheet -->
             <link href=" <c:url value='/template/web/css/style.css'/>" rel="stylesheet">
             <%----------------------------%>
-                <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
                 <script type="text/javascript"
                     src="<c:url value='/template/paging/jquery.twbsPagination.js' />"></script>
 
@@ -49,186 +49,102 @@
                 </div>
             </div>
             <!-- Page Header End -->
+            <div class="col-12 pb-1">
+                <c:if test="${model.filter != null}">
+                    <div class="row mb-4" style="margin-left: 20px;"> <!-- Dịch sang trái một chút -->
+                        <div class="col-12">
+                            <span class="font-weight-bold">Đã chọn:</span>
+                            <button type="button" id="clearFilterByPrice" class="btn btn-primary ml-2">
+                                <c:if test="${model.filter == 'duoi-1-trieu'}">
+                                    Dưới 1 triệu
+                                </c:if>
+                                <c:if test="${model.filter == 'tu-1-3-trieu'}">
+                                    Từ 1 - 3 triệu
+                                </c:if>
+                                <c:if test="${model.filter == 'tu-3-6-trieu'}">
+                                    Từ 3 - 6 triệu
+                                </c:if>
+                                <c:if test="${model.filter == 'tu-6-9-trieu'}">
+                                    Từ 6 - 9 triệu
+                                </c:if>
+                                <c:if test="${model.filter == 'tren-9-trieu'}">
+                                    Trên 9 triệu
+                                </c:if>
+                                <span class="close" aria-label="Close" style="cursor: pointer;">&times;</span>
+                            </button>
+
+
+                            <button type="button" id="clearAllFilter" class="btn btn-primary ml-2">Xóa hết
+                                <span class="close" aria-label="Close" style="cursor: pointer;">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </c:if>
+            </div>
+            <div class="col-12 py-2" style="margin-left: 35px;"> <!-- Dịch sang phải khoảng 1cm -->
+                <span class="font-weight-bold mr-2">Phổ biến:</span>
+                <a href="<c:url value='/shopr?page=${model.page}&limit=${model.limit}&filter=nam'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Nam</a>
+                <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=nu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Nữ</a>
+                <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=duoi-1-trieu'/>"
+                    class="btn btn-outline-primary btn-sm rounded-pill mx-1">Dưới 1 triệu</a>
+                <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tu-1-3-trieu'/>"
+                    class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 1 - 3 triệu</a>
+                <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tu-3-6-trieu'/>"
+                    class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 3 - 6 triệu</a>
+                <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tu-6-9-trieu'/>"
+                    class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 6 - 9 triệu</a>
+                <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tren-9-trieu'/>"
+                    class="btn btn-outline-primary btn-sm rounded-pill mx-1">Trên 9 triệu</a>
+            </div>
 
 
             <!-- Shop Start -->
             <div class="container-fluid pt-5">
-                <form action="<c:url value='/shop'/>" id="formSubmit" method="get">
-                    <div class="row px-xl-5">
-                        <!-- Shop Sidebar Start -->
-                        <div class="col-lg-3 col-md-12">
-                            <!-- Price Start -->
-                            <div class="border-bottom mb-4 pb-4">
-                                <h5 class="font-weight-semi-bold mb-4">Filter by price</h5>
-                                <form>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" checked id="price-all">
-                                        <label class="custom-control-label" for="price-all">All Price</label>
-                                        <span class="badge border font-weight-normal">1000</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="price-1">
-                                        <label class="custom-control-label" for="price-1">$0 - $100</label>
-                                        <span class="badge border font-weight-normal">150</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="price-2">
-                                        <label class="custom-control-label" for="price-2">$100 - $200</label>
-                                        <span class="badge border font-weight-normal">295</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="price-3">
-                                        <label class="custom-control-label" for="price-3">$200 - $300</label>
-                                        <span class="badge border font-weight-normal">246</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="price-4">
-                                        <label class="custom-control-label" for="price-4">$300 - $400</label>
-                                        <span class="badge border font-weight-normal">145</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                                        <input type="checkbox" class="custom-control-input" id="price-5">
-                                        <label class="custom-control-label" for="price-5">$400 - $500</label>
-                                        <span class="badge border font-weight-normal">168</span>
-                                    </div>
-                                </form>
-                            </div>
-                            <!-- Price End -->
-
-                            <!-- Color Start -->
-                            <div class="border-bottom mb-4 pb-4">
-                                <h5 class="font-weight-semi-bold mb-4">Filter by color</h5>
-                                <form>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" checked id="color-all">
-                                        <label class="custom-control-label" for="price-all">All Color</label>
-                                        <span class="badge border font-weight-normal">1000</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="color-1">
-                                        <label class="custom-control-label" for="color-1">Black</label>
-                                        <span class="badge border font-weight-normal">150</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="color-2">
-                                        <label class="custom-control-label" for="color-2">White</label>
-                                        <span class="badge border font-weight-normal">295</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="color-3">
-                                        <label class="custom-control-label" for="color-3">Red</label>
-                                        <span class="badge border font-weight-normal">246</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="color-4">
-                                        <label class="custom-control-label" for="color-4">Blue</label>
-                                        <span class="badge border font-weight-normal">145</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                                        <input type="checkbox" class="custom-control-input" id="color-5">
-                                        <label class="custom-control-label" for="color-5">Green</label>
-                                        <span class="badge border font-weight-normal">168</span>
-                                    </div>
-                                </form>
-                            </div>
-                            <!-- Color End -->
-
-                            <!-- Size Start -->
-                            <div class="mb-5">
-                                <h5 class="font-weight-semi-bold mb-4">Filter by size</h5>
-                                <form>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" checked id="size-all">
-                                        <label class="custom-control-label" for="size-all">All Size</label>
-                                        <span class="badge border font-weight-normal">1000</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="size-1">
-                                        <label class="custom-control-label" for="size-1">XS</label>
-                                        <span class="badge border font-weight-normal">150</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="size-2">
-                                        <label class="custom-control-label" for="size-2">S</label>
-                                        <span class="badge border font-weight-normal">295</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="size-3">
-                                        <label class="custom-control-label" for="size-3">M</label>
-                                        <span class="badge border font-weight-normal">246</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="size-4">
-                                        <label class="custom-control-label" for="size-4">L</label>
-                                        <span class="badge border font-weight-normal">145</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                                        <input type="checkbox" class="custom-control-input" id="size-5">
-                                        <label class="custom-control-label" for="size-5">XL</label>
-                                        <span class="badge border font-weight-normal">168</span>
-                                    </div>
-                                </form>
-                            </div>
-                            <!-- Size End -->
-                        </div>
-                        <!-- Shop Sidebar End -->
-
-
-                        <!-- Shop Product Start -->
-
-                        <div class="col-lg-9 col-md-12">
-                            <div class="row pb-3">
-                                <div class="col-12 pb-1">
-                                    <div class="d-flex align-items-center justify-content-between mb-4">
-                                        <form action="<c:url value='/shop'/>" method="get">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Search by name" name="keyword">
-                                                 <input type="hidden" value="1" name="page">
-                                                 <input type="hidden" value="8" name="limit">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text bg-transparent text-primary">
-                                                        <i class="fa fa-search"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <div class="dropdown ml-4">
-                                            <button class="btn border dropdown-toggle" type="button" id="triggerId"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Sort by
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
-                                                <a class="dropdown-item"
-                                                   href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&sortName=name&sortBy=asc&keyword=${model.keyword}'/>">
-                                                   Name
-                                                </a>
-                                                <a class="dropdown-item" href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&sortName=price&sortBy=asc&keyword=${model.keyword}'/>">Price</a>
-
-                                            </div>
-                                        </div>
+                <div class="col-12 pb-1">
+                    <div class="row mb-4">
+                        <!-- Search and Filter aligned to the right -->
+                        <div class="col-12 d-flex justify-content-end">
+                            <!-- Search -->
+                            <form action="<c:url value='/shop'/>" method="get" class="d-flex w-auto">
+                                <div class="input-group" style="width: 250px;"> <!-- Set width of the search bar -->
+                                    <input type="text" class="form-control" placeholder="Search by name" name="keyword">
+                                    <input type="hidden" value="1" name="page">
+                                    <input type="hidden" value="8" name="limit">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text bg-transparent text-primary">
+                                            <i class="fa fa-search"></i>
+                                        </span>
                                     </div>
                                 </div>
+                            </form>
 
+                            <!-- Filter -->
+                            <div class="dropdown ml-3">
+                                <button class="btn border dropdown-toggle" type="button" id="triggerId"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Sort by
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
+                                    <a class="dropdown-item"
+                                        href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&sortName=name&sortBy=asc&keyword=${model.keyword}'/>">
+                                        Name
+                                    </a>
+                                    <a class="dropdown-item"
+                                        href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&sortName=price&sortBy=asc&keyword=${model.keyword}'/>">
+                                        Price
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form action="<c:url value='/shop'/>" id="formSubmit" method="get">
+                    <div class="row px-xl-5">
+                        <!-- Shop Product Start -->
+                        <div class="col-lg-12 col-md-12">
+                            <div class="row pb-3">
                                 <c:forEach var="product" items="${products}">
-                                    <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
+                                    <div class="col-lg-3 col-md-4 col-sm-6 col-12 pb-1">
                                         <div class="card product-item border-0 mb-4">
                                             <div
                                                 class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
@@ -253,8 +169,6 @@
 
                                     </div>
                                 </c:forEach>
-
-
                             </div>
                             <div class="col-12 pb-1">
                                 <nav aria-label="Page navigation">
@@ -262,53 +176,73 @@
                                     <input type="hidden" value="" id="page" name="page" />
                                     <input type="hidden" value="" id="limit" name="limit" />
 
-                                   <c:if test="${model.sortName != null && model.sortBy != null}">
-                                       <input type="hidden" id="sortName" name="sortName" value="${model.sortName}" />
-                                       <input type="hidden" id="sortBy" name="sortBy" value="${model.sortBy}" />
-                                   </c:if>
-                                   <c:if test="${model.keyword != null}">
+                                    <c:if test="${model.sortName != null && model.sortBy != null}">
+                                        <input type="hidden" id="sortName" name="sortName" value="${model.sortName}" />
+                                        <input type="hidden" id="sortBy" name="sortBy" value="${model.sortBy}" />
+                                    </c:if>
+                                    <c:if test="${model.keyword != null}">
                                         <input type="hidden" id="keyword" name="keyword" value="${model.keyword}" />
-                                   </c:if>
+                                    </c:if>
+                                    <c:if test="${model.filter != null}">
+                                        <input type="hidden" id="filter" name="filter" value="${model.filter}" />
+                                    </c:if>
+
                                 </nav>
                             </div>
-
                         </div>
-
                     </div>
                 </form>
-                    <!-- Shop Product End -->
+                <!-- Shop Product End -->
             </div>
-          
+
             </div>
             <!-- Shop End -->
 
-          <script>
-              var currentPage = ${model.page};
-              var limit = ${model.limit};
-              var sortBy = "${model.sortBy}";
-              var sortName = "${model.sortName}";
-              var keyword = "${model.keyword}";
-              $('#pagination').twbsPagination({
-                  totalPages: ${model.totalPage},
-                  visiblePages: 10,
-                  startPage: currentPage,
-                  onPageClick: function (event, page) {
-                      if (currentPage != page) {
-                          $('#limit').val(limit);
-                          $('#page').val(page);
-                          if (sortBy && sortName) {
-                              $('#sortName').val(sortName);
-                              $('#sortBy').val(sortBy);
-                          }
-                          if(keyword){
-                              $('#keyword').val(keyword);
-                          }
+            <script>
+                var currentPage = ${ model.page };
+                var limit = ${ model.limit };
+                var sortBy = "${model.sortBy}";
+                var sortName = "${model.sortName}";
+                var keyword = "${model.keyword}";
+                var filter = "${model.filter}"
 
-                          $('#formSubmit').submit();
-                      }
-                  }
+                $('#pagination').twbsPagination({
+                    totalPages: ${ model.totalPage },
+                    visiblePages: 10,
+                    startPage: currentPage,
+                    onPageClick: function (event, page) {
+                        if (currentPage != page) {
+                            $('#limit').val(limit);
+                            $('#page').val(page);
+                            if (sortBy && sortName) {
+                                $('#sortName').val(sortName);
+                                $('#sortBy').val(sortBy);
+                            }
+                            if (keyword) {
+                                $('#keyword').val(keyword);
+                            }
+                            if (filter) {
+                                $('#filter').val(filter);
+                            }
+
+
+                            $('#formSubmit').submit();
+                        }
+                    }
               });
-          </script>
+
+                $(document).ready(function () {
+                    $("#clearAllFilter").click(function () {
+                        // Xóa các giá trị bộ lọc
+                        $("#filter").val("");
+
+                        // Tải lại trang hoặc thực hiện hành động khác
+                        window.location.href = "<c:url value='/shop?page=1&limit=8'/>"; // Hoặc bất kỳ URL nào
+                    });
+                });
+
+
+            </script>
         </body>
 
         </html>
