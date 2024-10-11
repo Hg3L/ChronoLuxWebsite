@@ -6,6 +6,7 @@ import com.hau.entity.ProductEntity;
 import com.hau.repository.ProductRepository;
 import com.hau.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,13 +30,28 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<ProductDTO> findAll() {
+    public List<ProductDTO> findAll(Pageable pageable,String keyword) {
         List<ProductDTO> products = new ArrayList<>();
-        List<ProductEntity> productEntities = productRepository.findAll();
+        List<ProductEntity> productEntities = null;
+        if(keyword != null){// tim kiem
+           productEntities = productRepository.findAll(pageable,keyword).getContent();
+        }
+        else{
+            productEntities = productRepository.findAll(pageable).getContent();
+        }
+
         for(ProductEntity productEntity : productEntities){
             ProductDTO product = productConverter.toDTO(productEntity);
             products.add(product);
         }
         return products;
+    }
+
+    @Override
+    public long getTotalItem(String keyword) {
+        if(keyword != null){
+            return productRepository.count(keyword);
+        }
+        return  productRepository.count();
     }
 }
