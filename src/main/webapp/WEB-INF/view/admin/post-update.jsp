@@ -13,8 +13,6 @@
             rel="stylesheet">
     <link href="<c:url value='/template/admin/css/sb-admin-2.min.css'/>" rel="stylesheet" type="text/css">
 
-    <!-- Custom styles for this template-->
-    <link href="" rel="stylesheet">
 </head>
 <body>
 <div class="container">
@@ -32,12 +30,12 @@
         <!-- Trường nhập tiêu đề (Caption) -->
         <div class="form-group">
             <label for="caption">Tiêu đề</label>
-            <form:input path="caption" type="text" class="form-control" id="caption" required=""/> ${post.caption}
+            <form:input path="caption" type="text" class="form-control" id="caption" required=""/>
         </div>
         <!-- Trường nhập nội dung -->
         <div class="form-group">
             <label for="content">Nội dung</label>
-            <form:textarea path="content" class="form-control" id="content" rows="5" value="${post.caption}" required=""></form:textarea>
+            <form:textarea path="content" class="form-control" id="content" rows="5" required=""></form:textarea>
         </div>
         <!-- Trường upload ảnh -->
         <div class="form-group">

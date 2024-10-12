@@ -44,7 +44,8 @@ public class ImageFileService implements FileService {
 
     @Override
     public void deleteFile(String fileName, String uploadDir) throws IOException {
-        Path filePath = Paths.get(ROOT_DIR + uploadDir + "/" + fileName);
+        String realPath = servletContext.getRealPath(ROOT_DIR);
+        Path filePath = Paths.get(realPath + uploadDir + "/" + fileName);
         Files.deleteIfExists(filePath);
     }
 }
