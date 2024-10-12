@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 @Controller
 public class PostController {
@@ -46,8 +47,9 @@ public class PostController {
     @PostMapping("/admin/post/save")
     public String savePost(@ModelAttribute("post") PostDTO postDTO,
                            @RequestParam("img_file") MultipartFile img,
-                           HttpServletRequest request) throws Exception {
+                           HttpServletRequest request) throws IOException {
         request.setCharacterEncoding("UTF-8");
+
         if (!img.isEmpty()) {
             String imgName = fileService.saveFile(img, "posts");
             postDTO.setImg(imgName);
@@ -60,7 +62,8 @@ public class PostController {
     }
 
     @GetMapping("/admin/post/update")
-    public String updatePost(@RequestParam("id") Long id, Model model) {
+    public String updatePost(@RequestParam("id") Long id, Model model,HttpServletRequest request) throws UnsupportedEncodingException {
+        request.setCharacterEncoding("UTF-8");
         model.addAttribute("post", postService.getPostById(id));
         return "admin/post-update";
     }

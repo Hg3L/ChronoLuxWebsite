@@ -31,6 +31,24 @@
                 <script type="text/javascript"
                     src="<c:url value='/template/paging/jquery.twbsPagination.js' />"></script>
 
+<style>
+    .highlight {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        text-align: center;
+        margin-top: 10px;
+        margin-left: 60px;
+    }
+    .highlight .fa-check-circle {
+        color: green;
+        margin: 0 5px;
+    }
+    .highlight .small-text {
+        font-size: 1rem;
+        font-weight: normal;
+    }
+</style>
 
         </head>
 
@@ -48,53 +66,93 @@
                     </div>
                 </div>
             </div>
+            <div class="highlight">
+                    Đồng hồ xu hướng 2024 <i class="fas fa-check-circle"></i>
+                    <span class="small-text">100% chính hãng</span>
+                </div>
+            <div class="container-fluid pt-5">
+                <div class="row px-xl-5 pb-3">
+                    <c:forEach var="item" items="${brand.listResult}">
+                        <div class="col-lg-2 col-md-6 pb-1">
+                            <div class="cat-item d-flex flex-column border mb-4" style="padding: 20px;">
+                                <p class="text-right">15 Products</p>
+                                <a href="" class="cat-img position-relative overflow-hidden mb-3">
+                                    <img class="img-fluid" src="<c:url value='/template/web/img/${item.iconUrl}'/>"
+                                        alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
+            </div>
             <!-- Page Header End -->
             <div class="col-12 pb-1">
-                <c:if test="${model.filter != null}">
-                    <div class="row mb-4" style="margin-left: 20px;"> <!-- Dịch sang trái một chút -->
-                        <div class="col-12">
-                            <span class="font-weight-bold">Đã chọn:</span>
-                            <button type="button" id="clearFilterByPrice" class="btn btn-primary ml-2">
-                                <c:if test="${model.filter == 'duoi-1-trieu'}">
-                                    Dưới 1 triệu
-                                </c:if>
-                                <c:if test="${model.filter == 'tu-1-3-trieu'}">
-                                    Từ 1 - 3 triệu
-                                </c:if>
-                                <c:if test="${model.filter == 'tu-3-6-trieu'}">
-                                    Từ 3 - 6 triệu
-                                </c:if>
-                                <c:if test="${model.filter == 'tu-6-9-trieu'}">
-                                    Từ 6 - 9 triệu
-                                </c:if>
-                                <c:if test="${model.filter == 'tren-9-trieu'}">
-                                    Trên 9 triệu
-                                </c:if>
-                                <span class="close" aria-label="Close" style="cursor: pointer;">&times;</span>
-                            </button>
+               <c:if test="${not empty model.filter}">
+                  <div class="row mb-4" style="margin-left: 20px;"> <!-- Dịch sang trái một chút -->
+                          <div class="col-12">
+                              <span class="font-weight-bold">Đã chọn:</span>
 
+                              <!-- Tách filter thành mảng -->
+                              <c:set var="filterArray" value="${fn:split(model.filter, ',')}"/>
 
-                            <button type="button" id="clearAllFilter" class="btn btn-primary ml-2">Xóa hết
-                                <span class="close" aria-label="Close" style="cursor: pointer;">&times;</span>
-                            </button>
-                        </div>
-                    </div>
-                </c:if>
+                              <!-- Duyệt qua từng phần tử trong mảng và tạo button -->
+                              <c:forEach var="filterItem" items="${filterArray}">
+                               <c:if test="${priceFilters[filterItem] != null}">
+                                  <button id="btn-${filterItem}" type="button"  class="btn btn-primary ml-2">
+                                      ${priceFilters[filterItem]} <!-- Lấy giá trị từ Map dựa trên từng phần tử trong filter -->
+                                      <span class="close" aria-label="Close" style="cursor: pointer;">&times;</span>
+                                  </button>
+                               </c:if>
+                              </c:forEach>
+
+                              <button type="button" id="clearAllFilter" class="btn btn-primary ml-2">
+                                  Xóa hết
+                                  <span class="close" aria-label="Close" style="cursor: pointer;">&times;</span>
+                              </button>
+
+                          </div>
+                      </div>
+               </c:if>
             </div>
-            <div class="col-12 py-2" style="margin-left: 35px;"> <!-- Dịch sang phải khoảng 1cm -->
+            <div class="col-12 py-2" style="margin-left: 35px;">
                 <span class="font-weight-bold mr-2">Phổ biến:</span>
-                <a href="<c:url value='/shopr?page=${model.page}&limit=${model.limit}&filter=nam'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Nam</a>
-                <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=nu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Nữ</a>
-                <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=duoi-1-trieu'/>"
-                    class="btn btn-outline-primary btn-sm rounded-pill mx-1">Dưới 1 triệu</a>
-                <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tu-1-3-trieu'/>"
-                    class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 1 - 3 triệu</a>
-                <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tu-3-6-trieu'/>"
-                    class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 3 - 6 triệu</a>
-                <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tu-6-9-trieu'/>"
-                    class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 6 - 9 triệu</a>
-                <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tren-9-trieu'/>"
-                    class="btn btn-outline-primary btn-sm rounded-pill mx-1">Trên 9 triệu</a>
+               <c:choose>
+                  <c:when test="${not empty model.filter}">
+                      <c:set var="currentFilters" value="${fn:split(model.filter, ',')}" />
+                      <c:forEach items="${priceFilters.entrySet()}" var="entry">
+                          <c:set var="filterKey" value="${entry.key}" />
+                          <c:set var="filterValue" value="${entry.value}" />
+
+                          <!-- Kiểm tra nếu đã chọn giá rồi thì không cho chọn thêm giá nữa -->
+                          <c:choose>
+                              <c:when test="${(fn:contains(model.filter, 'duoi-1-trieu') or fn:contains(model.filter, 'tu-1-3-trieu') or fn:contains(model.filter, 'tu-3-6-trieu') or fn:contains(model.filter, 'tu-6-9-trieu') or fn:contains(model.filter, 'tren-9-trieu'))
+                                              and (filterKey == 'duoi-1-trieu' or filterKey == 'tu-1-3-trieu' or filterKey == 'tu-3-6-trieu' or filterKey == 'tu-6-9-trieu' or filterKey == 'tren-9-trieu')}">
+                                  <!-- Nếu đã chọn giá, hiện thông báo khi người dùng cố gắng chọn thêm giá -->
+                                  <a href="javascript:void(0);" class="btn btn-outline-danger btn-sm rounded-pill mx-1" onclick="alert('Bạn đã chọn một mức giá. Không thể chọn thêm!');">
+                                      ${filterValue}
+                                  </a>
+                              </c:when>
+                              <c:otherwise>
+                                  <!-- Nếu chưa chọn giá hoặc là bộ lọc giới tính thì cho phép chọn -->
+                                  <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=${model.filter},${filterKey}'/>"
+                                     class="btn btn-outline-primary btn-sm rounded-pill mx-1">${filterValue}</a>
+                              </c:otherwise>
+                          </c:choose>
+                      </c:forEach>
+                  </c:when>
+
+
+
+                   <c:otherwise>
+                       <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=nam'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Nam</a>
+                       <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=nu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Nữ</a>
+                       <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=duoi-1-trieu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Dưới 1 triệu</a>
+                       <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tu-1-3-trieu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 1 - 3 triệu</a>
+                       <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tu-3-6-trieu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 3 - 6 triệu</a>
+                       <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tu-6-9-trieu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 6 - 9 triệu</a>
+                       <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tren-9-trieu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Trên 9 triệu</a>
+                   </c:otherwise>
+               </c:choose>
             </div>
 
 
@@ -127,11 +185,15 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
                                     <a class="dropdown-item"
                                         href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&sortName=name&sortBy=asc&keyword=${model.keyword}'/>">
-                                        Name
+                                         <i class="fas fa-sort-alpha-down"></i> Sort by Name: A-Z
                                     </a>
                                     <a class="dropdown-item"
                                         href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&sortName=price&sortBy=asc&keyword=${model.keyword}'/>">
-                                        Price
+                                        <i class="fas fa-arrow-up"></i> Sort by Price: Low to High
+                                    </a>
+                                    <a class="dropdown-item"
+                                        href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&sortName=price&sortBy=desc&keyword=${model.keyword}'/>">
+                                         <i class="fas fa-arrow-down"></i>Sort by Price: High to Low
                                     </a>
                                 </div>
                             </div>
@@ -186,6 +248,9 @@
                                     <c:if test="${model.filter != null}">
                                         <input type="hidden" id="filter" name="filter" value="${model.filter}" />
                                     </c:if>
+                                              <c:if test="${model.gender != null}">
+                                                  <input type="hidden" id="gender" name="gender" value="${model.gender}" />
+                                              </c:if>
 
                                 </nav>
                             </div>
@@ -205,7 +270,7 @@
                 var sortName = "${model.sortName}";
                 var keyword = "${model.keyword}";
                 var filter = "${model.filter}"
-
+                var gender = "${model.gender}"
                 $('#pagination').twbsPagination({
                     totalPages: ${ model.totalPage },
                     visiblePages: 10,
@@ -224,6 +289,9 @@
                             if (filter) {
                                 $('#filter').val(filter);
                             }
+                            if (gender) {
+                                 $('#gender').val(gender);
+                             }
 
 
                             $('#formSubmit').submit();
@@ -231,7 +299,7 @@
                     }
               });
 
-                $(document).ready(function () {
+
                     $("#clearAllFilter").click(function () {
                         // Xóa các giá trị bộ lọc
                         $("#filter").val("");
@@ -239,7 +307,22 @@
                         // Tải lại trang hoặc thực hiện hành động khác
                         window.location.href = "<c:url value='/shop?page=1&limit=8'/>"; // Hoặc bất kỳ URL nào
                     });
-                });
+                      $("button[id^='btn-']").click(function () {
+                             var filterToRemove = $(this).attr('id').replace('btn-', ''); // Lấy filter từ id
+
+                             // Lấy các bộ lọc hiện tại
+                             var currentFilters = $("#filter").val().split(",").filter(function (filter) {
+                                 return filter !== filterToRemove; // Loại bỏ bộ lọc cần xóa
+                             });
+
+                             // Cập nhật giá trị bộ lọc
+                             $("#filter").val(currentFilters.join(","));
+
+                             // Cập nhật URL và tải lại trang
+                             var newFilters = currentFilters.join(",");
+                             window.location.href = "<c:url value='/shop?page=1&limit=8&filter='/>" + newFilters; // Cập nhật URL với bộ lọc mới
+                         });
+
 
 
             </script>
