@@ -43,7 +43,10 @@
             <label for="img_file">Tải lên ảnh</label>
             <div class="custom-file">
                 <input type="file" class="custom-file-input" id="img_file" name="img_file" accept="image/*" onchange="previewImage(event)">
-                <label class="custom-file-label" for="img_file">Chọn ảnh</label>
+                <label class="custom-file-label" for="img_file">
+                        ${post.img != null ? post.img : 'Chọn ảnh'}
+                </label>
+
             </div>
         </div>
         <!-- Phần xem trước ảnh -->
