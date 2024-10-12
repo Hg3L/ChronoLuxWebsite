@@ -18,7 +18,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
             "CONCAT(p.name, ' ', p.price) LIKE %?1%")
     long count(String keyword);
 
-    @Query("SELECT p FROM ProductEntity p WHERE (:gender IS NULL OR p.gender = :gender) " +
+    @Query("SELECT p FROM ProductEntity p WHERE (:gender IS NULL OR p.gender LIKE :gender) " +
             "AND (:keyword IS NULL OR CONCAT(p.name, ' ', p.price) LIKE :keyword) " +
             "AND (:minPrice IS NULL OR p.price >= :minPrice) " +
             "AND (:maxPrice IS NULL OR p.price <= :maxPrice)")
