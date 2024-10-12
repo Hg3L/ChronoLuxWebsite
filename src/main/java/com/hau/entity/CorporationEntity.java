@@ -11,12 +11,15 @@ public class CorporationEntity extends  BaseEntity {
     private String address;
     @Column(name ="phone")
     private String phone;
-    @Column(name ="policy")
-    private String policy;
+    @Column(name ="email")
+    private String email;
     @Column(name ="about")
     private String about;
     @Column(name ="img_url")
     private String imgUrl;
+
+    public CorporationEntity() {
+    }
 
     public String getAddress() {
         return address;
@@ -34,12 +37,12 @@ public class CorporationEntity extends  BaseEntity {
         this.phone = phone;
     }
 
-    public String getPolicy() {
-        return policy;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPolicy(String policy) {
-        this.policy = policy;
+    public void setEmail(String policy) {
+        this.email = policy;
     }
 
     public String getAbout() {
