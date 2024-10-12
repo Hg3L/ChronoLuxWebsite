@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <meta charset="UTF-8">
 <%@ include file="/common/taglib.jsp" %>
-
+<!DOCTYPE html>
+            <html lang="vi">
 <head>
     <title>ChronoLux - Post Management</title>
     <!-- Custom fonts for this template-->

@@ -62,7 +62,7 @@ public class ShopController {
         }
 
         Pageable pageable = PageableUtil.getInstance(page,limit,sortName,sortBy);
-        product.setTotalItem((int)productService.getTotalItem(keyword));
+        product.setTotalItem((int)productService.getTotalItem(keyword,filter));
         product.setTotalPage((int) Math.ceil((double) product.getTotalItem() / product.getLimit()));
 
         brand.setListResult(brandService.findAll());

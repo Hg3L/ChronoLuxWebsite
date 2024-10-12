@@ -117,20 +117,30 @@
             <div class="col-12 py-2" style="margin-left: 35px;">
                 <span class="font-weight-bold mr-2">Phổ biến:</span>
                <c:choose>
+                  <c:when test="${not empty model.filter}">
+                      <c:set var="currentFilters" value="${fn:split(model.filter, ',')}" />
+                      <c:forEach items="${priceFilters.entrySet()}" var="entry">
+                          <c:set var="filterKey" value="${entry.key}" />
+                          <c:set var="filterValue" value="${entry.value}" />
 
-                    <c:when test="${not empty model.filter}">
-                            <c:set var="currentFilters" value="${fn:split(model.filter, ',')}" />
+                          <!-- Kiểm tra nếu đã chọn giá rồi thì không cho chọn thêm giá nữa -->
+                          <c:choose>
+                              <c:when test="${(fn:contains(model.filter, 'duoi-1-trieu') or fn:contains(model.filter, 'tu-1-3-trieu') or fn:contains(model.filter, 'tu-3-6-trieu') or fn:contains(model.filter, 'tu-6-9-trieu') or fn:contains(model.filter, 'tren-9-trieu'))
+                                              and (filterKey == 'duoi-1-trieu' or filterKey == 'tu-1-3-trieu' or filterKey == 'tu-3-6-trieu' or filterKey == 'tu-6-9-trieu' or filterKey == 'tren-9-trieu')}">
+                                  <!-- Nếu đã chọn giá, hiện thông báo khi người dùng cố gắng chọn thêm giá -->
+                                  <a href="javascript:void(0);" class="btn btn-outline-danger btn-sm rounded-pill mx-1" onclick="alert('Bạn đã chọn một mức giá. Không thể chọn thêm!');">
+                                      ${filterValue}
+                                  </a>
+                              </c:when>
+                              <c:otherwise>
+                                  <!-- Nếu chưa chọn giá hoặc là bộ lọc giới tính thì cho phép chọn -->
+                                  <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=${model.filter},${filterKey}'/>"
+                                     class="btn btn-outline-primary btn-sm rounded-pill mx-1">${filterValue}</a>
+                              </c:otherwise>
+                          </c:choose>
+                      </c:forEach>
+                  </c:when>
 
-                            <c:forEach items="${priceFilters.entrySet()}" var="entry">
-                                <c:set var="filterKey" value="${entry.key}" />
-                                <c:set var="filterValue" value="${entry.value}" />
-
-                                <c:if test="${!fn:contains(model.filter, filterKey)}">
-                                    <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=${model.filter},${filterKey}'/>"
-                                       class="btn btn-outline-primary btn-sm rounded-pill mx-1">${filterValue}</a>
-                                </c:if>
-                            </c:forEach>
-                        </c:when>
 
 
                    <c:otherwise>
@@ -289,7 +299,7 @@
                     }
               });
 
-                $(document).ready(function () {
+
                     $("#clearAllFilter").click(function () {
                         // Xóa các giá trị bộ lọc
                         $("#filter").val("");
@@ -312,7 +322,7 @@
                              var newFilters = currentFilters.join(",");
                              window.location.href = "<c:url value='/shop?page=1&limit=8&filter='/>" + newFilters; // Cập nhật URL với bộ lọc mới
                          });
-                });
+
 
 
             </script>
