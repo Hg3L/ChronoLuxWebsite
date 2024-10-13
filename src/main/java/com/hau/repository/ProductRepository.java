@@ -24,6 +24,20 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
                @Param("minPrice") Long minPrice,
                @Param("maxPrice") Long maxPrice);
 
+    @Query("SELECT COUNT(p) FROM ProductEntity p " +
+            "INNER JOIN p.productLine pl " +
+            "WHERE pl.brand.id = :brandId " +
+            "AND (:gender IS NULL OR p.gender LIKE :gender) " +
+            "AND (:keyword IS NULL OR CONCAT(p.name, ' ', p.price) LIKE :keyword) " +
+            "AND (:minPrice IS NULL OR p.price >= :minPrice) " +
+            "AND (:maxPrice IS NULL OR p.price <= :maxPrice)")
+    long countByIdBrand(@Param("brandId") Long brandId,
+                        @Param("gender") String gender,
+                        @Param("keyword") String keyword,
+                        @Param("minPrice") Long minPrice,
+                        @Param("maxPrice") Long maxPrice);
+
+
     @Query("SELECT p FROM ProductEntity p WHERE (:gender IS NULL OR p.gender LIKE :gender) " +
             "AND (:keyword IS NULL OR CONCAT(p.name, ' ', p.price) LIKE :keyword) " +
             "AND (:minPrice IS NULL OR p.price >= :minPrice) " +
@@ -35,5 +49,18 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
                                 Pageable pageable);
 
 
+    @Query("SELECT p FROM ProductEntity p " +
+            "INNER JOIN p.productLine pl " +
+            "WHERE pl.brand.id = :brandId " +
+            "AND (:gender IS NULL OR p.gender LIKE :gender) " +
+            "AND (:keyword IS NULL OR CONCAT(p.name, ' ', p.price) LIKE :keyword) " +
+            "AND (:minPrice IS NULL OR p.price >= :minPrice) " +
+            "AND (:maxPrice IS NULL OR p.price <= :maxPrice)")
+    Page<ProductEntity> findAllByIdBrand(@Param("brandId") Long brandId,
+                                         @Param("gender") String gender,
+                                         @Param("keyword") String keyword,
+                                         @Param("minPrice") Long minPrice,
+                                         @Param("maxPrice") Long maxPrice,
+                                         Pageable pageable);
 
 }
