@@ -43,4 +43,14 @@ public class BrandDTO extends AbstractDTO{
     public void setIconUrl(String iconUrl) {
         this.iconUrl = iconUrl;
     }
+
+    @Override
+    public String toString() {
+        return "BrandDTO{" +
+                "name='" + name + '\'' +
+                ", country='" + country + '\'' +
+                ", bannerUrl='" + bannerUrl + '\'' +
+                ", iconUrl='" + iconUrl + '\'' +
+                '}';
+    }
 }

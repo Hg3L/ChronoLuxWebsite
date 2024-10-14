@@ -19,10 +19,16 @@
 <div class="container">
     <form:form method="post" action="${pageContext.request.contextPath}/admin/post/save" enctype="multipart/form-data" modelAttribute="post" >
         <div class="d-flex justify-content-between align-items-center my-4">
-            <h3>Thêm bài viết mới</h3>
+            <h1 class="h3 mb-1 mt-2 text-gray-800">Thêm bài viết</h1>
             <div>
-                <button type="submit" class="btn btn-primary mr-2">Lưu</button>
-                <a href="${pageContext.request.contextPath}/admin/posts" class="btn btn-secondary">Hủy</a>
+                <a href="${pageContext.request.contextPath}/admin/posts" class="btn btn-warning">
+                    <i class="fa fa-reply mr-1" aria-hidden="true"></i>
+                    Quay lại
+                </a>
+                <button type="submit" class="btn btn-success ml-2">
+                    <i class="fa fa-check mr-1" aria-hidden="true"></i>
+                    Lưu
+                </button>
             </div>
         </div>
         <hr/>

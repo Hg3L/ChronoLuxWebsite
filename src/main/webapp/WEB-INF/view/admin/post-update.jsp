@@ -12,19 +12,25 @@
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
     <link href="<c:url value='/template/admin/css/sb-admin-2.min.css'/>" rel="stylesheet" type="text/css">
-
 </head>
 <body>
 <div class="container">
     <form:form method="post" action="${pageContext.request.contextPath}/admin/post/save" enctype="multipart/form-data" modelAttribute="post">
         <div class="d-flex justify-content-between align-items-center my-4">
-            <h3>Sửa bài viết</h3>
+            <h1 class="h3 mb-1 mt-2 text-gray-800">Sửa bài viết</h1>
             <div>
-                <button type="submit" class="btn btn-primary mr-2">Cập nhật</button>
-                <a href="${pageContext.request.contextPath}/admin/posts" class="btn btn-secondary">Hủy</a>
+                <a href="${pageContext.request.contextPath}/admin/posts" class="btn btn-warning">
+                    <i class="fa fa-reply mr-1" aria-hidden="true"></i>
+                    Quay lại
+                </a>
+                <button type="submit" class="btn btn-success ml-2">
+                    <i class="fa fa-check mr-1" aria-hidden="true"></i>
+                    Lưu
+                </button>
             </div>
         </div>
         <hr/>
+
         <!-- Trường ẩn chứa ID của bài viết để xử lý khi submit -->
         <form:hidden path="id" />
         <!-- Trường nhập tiêu đề (Caption) -->
@@ -45,7 +51,6 @@
                 <label class="custom-file-label" for="img_file">
                         ${post.img != null ? post.img : 'Chọn ảnh'}
                 </label>
-
             </div>
         </div>
         <!-- Phần xem trước ảnh -->
@@ -63,7 +68,7 @@
             var dataURL = reader.result;
             var imagePreview = document.getElementById('imagePreview');
             imagePreview.src = dataURL;
-            imagePreview.style.display = 'block'; // Show image after loading
+            imagePreview.style.display = 'block';
         };
         reader.readAsDataURL(input.files[0]);
     }
