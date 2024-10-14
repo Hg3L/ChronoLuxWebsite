@@ -9,6 +9,5 @@ import java.util.List;
 public interface BrandRepository extends JpaRepository<BrandEntity, Long> {
     @Query ("SELECT b FROM BrandEntity b")
     public List<BrandEntity>  findAllBrand();
-
     public BrandEntity findOneById(long id);
 }

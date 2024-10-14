@@ -31,6 +31,7 @@ public class BrandController {
     private IProductService productService;
     @Autowired
     private ProductLineService productLineService;
+    @Autowired
     private IBrandService brandService;
     @Autowired
     private FileService fileService;
