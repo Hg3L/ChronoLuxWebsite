@@ -5,7 +5,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
     <hr/>
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex flex-column align-items-center justify-content-center p-5" href="index.html">
+    <a class="sidebar-brand d-flex flex-column align-items-center justify-content-center p-5" href="<c:url value='/admin/home'/>">
         <div class="sidebar-brand-icon p-3">
             <i class="fa fa-user-tie"></i>
         </div>
@@ -26,23 +26,24 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider">
-
-    <!-- Nav Item - Quản lý thương hiệu -->
     <li class="nav-item">
         <a class="nav-link" href="<c:url value='/admin/corporation'/>">
             <i class="fas fa-star"></i>
             <span>Thông tin doanh nghiệp</span>
         </a>
     </li>
-
-    <!-- Nav Item - Quản lý thương hiệu -->
     <li class="nav-item">
         <a class="nav-link" href="<c:url value='/admin/posts'/>">
             <i class="fas fa-star"></i>
-            <span>Quản lý bài viết</span>
+            <span>Bài viết</span>
         </a>
     </li>
-
+    <li class="nav-item">
+        <a class="nav-link" href="<c:url value='/admin/brands'/>">
+            <i class="fas fa-star"></i>
+            <span>Thương hiệu</span>
+        </a>
+    </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
 </ul>

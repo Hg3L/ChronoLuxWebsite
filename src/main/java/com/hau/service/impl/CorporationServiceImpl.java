@@ -8,6 +8,7 @@ import com.hau.repository.CorporationRepository;
 import com.hau.service.CorporationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class CorporationServiceImpl implements CorporationService {
         return converter.convertToDTO(list.getFirst());
     }
 
+    @Transactional
     @Override
     public void saveCorporation(CorporationDTO corporationDTO) {
         CorporationEntity corporationEntity = converter.convertToEntity(corporationDTO);

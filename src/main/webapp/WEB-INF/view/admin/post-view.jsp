@@ -18,13 +18,15 @@
 <body>
 <!-- Begin Page Content -->
 <div class="container-fluid">
-    <!-- Add New Post Button -->
-    <div class="d-flex justify-content-start mb-3">
-        <a href="${pageContext.request.contextPath}/admin/post/create" class="btn btn-success btn-sm add-product">
-            <i class="fas fa-plus"></i> Add New Post
+    <div class="d-sm-flex align-items-center justify-content-between mb-3">
+        <h1 class="h3 mb-1 text-gray-800">Bài viết</h1>
+    </div>
+    <hr/>
+    <div class="d-flex justify-content-end">
+        <a href="${pageContext.request.contextPath}/admin/post/create" class="btn btn-success mr-2 mt-1 mb-4">
+            <i class="fas fa-plus mr-1"></i> Thêm bài viết
         </a>
     </div>
-
     <!-- Loop through posts list -->
     <c:forEach var="a" items="${posts}">
         <div class="card mb-4 shadow-sm" style="border-radius: 15px; position: relative;">

@@ -20,7 +20,13 @@ public class BrandConverter {
     }
     public BrandEntity toEntity(BrandDTO brandDTO){
         BrandEntity brandEntity = new BrandEntity();
-        //save
+        if(brandDTO.getId() != null){
+            brandEntity.setId(brandDTO.getId());
+        }
+        brandEntity.setIconUrl(brandDTO.getIconUrl());
+        brandEntity.setCountry(brandDTO.getCountry());
+        brandEntity.setName(brandDTO.getName());
+        brandEntity.setBannerUrl(brandDTO.getBannerUrl());
         return brandEntity;
     }
 }

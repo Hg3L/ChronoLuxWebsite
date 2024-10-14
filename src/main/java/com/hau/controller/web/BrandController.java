@@ -2,19 +2,26 @@ package com.hau.controller.web;
 
 import com.google.gson.internal.LinkedTreeMap;
 import com.hau.dto.FilterCriteria;
-import com.hau.dto.ProductDTO;
 import com.hau.dto.ProductLineDTO;
+import com.hau.dto.BrandDTO;
+import com.hau.dto.ProductDTO;
+import com.hau.service.FileService;
 import com.hau.service.IBrandService;
 import com.hau.service.IProductService;
 import com.hau.service.ProductLineService;
 import com.hau.util.PageableUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 
@@ -24,10 +31,11 @@ public class BrandController {
     private IProductService productService;
     @Autowired
     private ProductLineService productLineService;
-    @Autowired
     private IBrandService brandService;
+    @Autowired
+    private FileService fileService;
 
-    @GetMapping("shop/brand")
+    @GetMapping("/shop/brand")
     public String BrandPage(Model model,
                             @RequestParam("id") long id,
                             @RequestParam("page") int page ,
@@ -45,10 +53,72 @@ public class BrandController {
 
         Pageable pageable = PageableUtil.getInstance(page,limit,sortName,sortBy);
         productLine.setListResult(productLineService.findAllByBrandId(id));
-        model.addAttribute("brand",brandService.findOneById(id));
+        model.addAttribute("brand",brandService.getBrandById(id));
         model.addAttribute("products",productService.findAllByIdBrand(pageable,id,keyword,filter));
         model.addAttribute("model",product);
         model.addAttribute("productLine",productLine);
         return "web/brand";
+    }
+
+    @GetMapping("/admin/brands")
+    public String getBrandsPage(@RequestParam(defaultValue = "1") int page,
+                                @RequestParam(defaultValue = "6") int size,
+                                Model model) {
+        Page<BrandDTO> brandPage = brandService.findAll(page, size);
+        model.addAttribute("brandPage", brandPage);
+        model.addAttribute("currentPage", page);
+        return "admin/brand-view";
+    }
+
+    @GetMapping("/admin/brand/create")
+    public String showCreateForm(Model model) {
+        model.addAttribute("brand", new BrandDTO());
+        return "admin/brand-add";
+    }
+
+    @PostMapping("/admin/brand/save")
+    public String saveBrand(@ModelAttribute("brand") BrandDTO brand,
+                            @RequestParam("logo") MultipartFile logo,
+                            @RequestParam("banner") MultipartFile banner,
+                            HttpServletRequest request) throws Exception {
+        request.setCharacterEncoding("UTF-8");
+        if(!logo.isEmpty() && !banner.isEmpty()) {
+            String logoName = fileService.saveFile(logo, "brands");
+            String bannerName = fileService.saveFile(banner, "brands");
+            brand.setIconUrl(logoName);
+            brand.setBannerUrl(bannerName);
+        }
+        else if(!logo.isEmpty() && banner.isEmpty()) {
+            String logoName = fileService.saveFile(logo, "brands");
+            brand.setIconUrl(logoName);
+            brand.setBannerUrl(brandService.getBrandById(brand.getId()).getBannerUrl());
+        }
+        else if(logo.isEmpty() && !banner.isEmpty()) {
+            String bannerName = fileService.saveFile(banner, "brands");
+            brand.setBannerUrl(bannerName);
+            brand.setIconUrl(brandService.getBrandById(brand.getId()).getIconUrl());
+        }
+        else{
+            BrandDTO brandDTO = brandService.getBrandById(brand.getId());
+            brand.setIconUrl(brandDTO.getIconUrl());
+            brand.setBannerUrl(brandDTO.getBannerUrl());
+        }
+        brandService.saveBrand(brand);
+        return "redirect:/admin/brands";
+    }
+
+    @GetMapping("/admin/brand/update")
+    public String showUpdateForm(@RequestParam("id") Long id,
+                                 Model model) {
+        model.addAttribute("brand", brandService.getBrandById(id));
+        return "admin/brand-update";
+    }
+
+    @GetMapping("/admin/brand/delete")
+    public String deleteBrand(@RequestParam("id") Long id) throws Exception {
+        fileService.deleteFile(brandService.getBrandById(id).getIconUrl(), "brands");
+        fileService.deleteFile(brandService.getBrandById(id).getBannerUrl(), "brands");
+        brandService.deleteBrandById(id);
+        return "redirect:/admin/brands";
     }
 }

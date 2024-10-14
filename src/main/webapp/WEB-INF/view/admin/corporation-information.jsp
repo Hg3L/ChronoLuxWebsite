@@ -11,10 +11,10 @@
     <link href="<c:url value='/template/admin/css/sb-admin-2.min.css'/>" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div class="container mt-5">
+<div class="container mt-4">
     <form:form method="post" action="${pageContext.request.contextPath}/admin/corporation/save" modelAttribute="corporation" enctype="multipart/form-data">
-        <div class="d-flex justify-content-between align-items-center my-4">
-            <h3>Giới thiệu về doanh nghiệp</h3>
+        <div class="d-flex justify-content-between align-items-center my-1">
+            <h1 class="h3 mb-1 text-gray-800">Doanh nghiệp của bạn</h1>
             <div>
                 <button type="submit" class="btn btn-primary mr-2">Lưu</button>
             </div>

@@ -1,11 +1,10 @@
-package com.hau.controller.web;
+package com.hau.controller.admin;
 
 import com.hau.dto.PostDTO;
 import com.hau.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.hau.service.PostService;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -62,8 +61,7 @@ public class PostController {
     }
 
     @GetMapping("/admin/post/update")
-    public String updatePost(@RequestParam("id") Long id, Model model,HttpServletRequest request) throws UnsupportedEncodingException {
-        request.setCharacterEncoding("UTF-8");
+    public String updatePost(@RequestParam("id") Long id, Model model) {
         model.addAttribute("post", postService.getPostById(id));
         return "admin/post-update";
     }
