@@ -32,8 +32,7 @@ public class BrandService implements IBrandService {
         }
         return brands;
     }
-
-    @Override
+  
     public Page<BrandDTO> findAll(int page, int limit) {
         Pageable pageable = new PageRequest(page - 1, limit);
         Page<BrandEntity> brandEntities = brandRepository.findAll(pageable);

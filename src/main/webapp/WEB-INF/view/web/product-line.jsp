@@ -82,15 +82,19 @@
 
         </head>
         <body>
-       <div class="link-container">
-           <a href="<c:url value='/home'/>" class="home-link">
-               <i class="fas fa-home"></i> Trang chủ
-           </a>
-           >
-           <a href="<c:url value='/shop/brand?id=${brand.id}&page=1&limit=4'/>" class="about-link">
-                 ${brand.name}
-           </a>
-       </div>
+         <div class="link-container">
+                   <a href="<c:url value='/home'/>" class="home-link">
+                       <i class="fas fa-home"></i> Trang chủ
+                   </a>
+                   >
+                   <a href="<c:url value='/shop/brand?id=${idBrand}&page=1&limit=4'/>" class="about-link">
+                         ${brand.name}
+                   </a>
+                   >
+                   <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${productLine.id}&page=1&limit=4'/>" class="about-link">
+                         ${productLine.name}
+                   </a>
+               </div>
             <!-- Page Header Start -->
             <div class="container-fluid bg-secondary mb-5">
                 <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
@@ -111,8 +115,7 @@
                     <c:forEach var="item" items="${productLine.listResult}">
                       <div class="card1-container">
                               <div class="card1">
-
-                                  <a href="<c:url value='/shop/brand/product-line?idBrand=${model.id}&id=${item.id}&page=1&limit=4'/>" class="cat-img position-relative overflow-hidden mb-3">
+                                  <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${item.id}&page=1&limit=4'/>" class="cat-img position-relative overflow-hidden mb-3">
                                                                       <img class="img-fluid" src="https://www.watchstore.vn/images/products/2024/resized/snk807k2-1712483076.webp"
                                                                           alt="">
                                                                   </a>
@@ -171,7 +174,7 @@
                               </c:when>
                               <c:otherwise>
                                   <!-- Nếu chưa chọn giá hoặc là bộ lọc giới tính thì cho phép chọn -->
-                                  <a href="<c:url value='/shop/brand?id=${model.id}&page=${model.page}&limit=${model.limit}&filter=${model.filter},${filterKey}'/>"
+                                  <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=${model.page}&limit=${model.limit}&filter=${model.filter},${filterKey}'/>"
                                      class="btn btn-outline-primary btn-sm rounded-pill mx-1">${filterValue}</a>
                               </c:otherwise>
                           </c:choose>
@@ -181,13 +184,13 @@
 
 
                    <c:otherwise>
-                       <a href="<c:url value='/shop/brand?id=${model.id}&page=${model.page}&limit=${model.limit}&filter=nam'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Nam</a>
-                       <a href="<c:url value='/shop/brand?id=${model.id}&page=${model.page}&limit=${model.limit}&filter=nu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Nữ</a>
-                       <a href="<c:url value='/shop/brand?id=${model.id}&page=${model.page}&limit=${model.limit}&filter=duoi-1-trieu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Dưới 1 triệu</a>
-                       <a href="<c:url value='/shop/brand?id=${model.id}&page=${model.page}&limit=${model.limit}&filter=tu-1-3-trieu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 1 - 3 triệu</a>
-                       <a href="<c:url value='/shop/brand?id=${model.id}&page=${model.page}&limit=${model.limit}&filter=tu-3-6-trieu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 3 - 6 triệu</a>
-                       <a href="<c:url value='/shop/brand?id=${model.id}&page=${model.page}&limit=${model.limit}&filter=tu-6-9-trieu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 6 - 9 triệu</a>
-                       <a href="<c:url value='/shop/brand?id=${model.id}&page=${model.page}&limit=${model.limit}&filter=tren-9-trieu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Trên 9 triệu</a>
+                       <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=${model.page}&limit=${model.limit}&filter=nam'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Nam</a>
+                       <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=${model.page}&limit=${model.limit}&filter=nu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Nữ</a>
+                       <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=${model.page}&limit=${model.limit}&filter=duoi-1-trieu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Dưới 1 triệu</a>
+                       <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=${model.page}&limit=${model.limit}&filter=tu-1-3-trieu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 1 - 3 triệu</a>
+                       <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=${model.page}&limit=${model.limit}&filter=tu-3-6-trieu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 3 - 6 triệu</a>
+                       <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=${model.page}&limit=${model.limit}&filter=tu-6-9-trieu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 6 - 9 triệu</a>
+                       <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=${model.page}&limit=${model.limit}&filter=tren-9-trieu'/>" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Trên 9 triệu</a>
                    </c:otherwise>
                </c:choose>
             </div>
@@ -200,12 +203,13 @@
                         <!-- Search and Filter aligned to the right -->
                         <div class="col-12 d-flex justify-content-end">
                             <!-- Search -->
-                            <form action="<c:url value='/shop/brand'/>" method="get" class="d-flex w-auto">
+                            <form action="<c:url value='/shop/brand/product-line'/>" method="get" class="d-flex w-auto">
                                 <div class="input-group" style="width: 250px;"> <!-- Set width of the search bar -->
                                     <input type="text" class="form-control" placeholder="Search by name" name="keyword">
                                     <input type="hidden" value="1" name="page">
                                     <input type="hidden" value="8" name="limit">
                                     <input type="hidden" value="${model.id}" name="id">
+                                    <input type="hidden" value="${idBrand}" name="idBrand">
                                     <div class="input-group-append">
                                         <span class="input-group-text bg-transparent text-primary">
                                             <i class="fa fa-search"></i>
@@ -222,15 +226,15 @@
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
                                     <a class="dropdown-item"
-                                        href="<c:url value='/shop/brand?id=${model.id}&page=${model.page}&limit=${model.limit}&sortName=name&sortBy=asc&keyword=${model.keyword}&filter=${model.filter}'/>">
+                                        href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=${model.page}&limit=${model.limit}&sortName=name&sortBy=asc&keyword=${model.keyword}&filter=${model.filter}'/>">
                                          <i class="fas fa-sort-alpha-down"></i> Sort by Name: A-Z
                                     </a>
                                     <a class="dropdown-item"
-                                        href="<c:url value='/shop/brand?id=${model.id}&page=${model.page}&limit=${model.limit}&sortName=price&sortBy=asc&keyword=${model.keyword}&filter=${model.filter}'/>">
+                                        href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=${model.page}&limit=${model.limit}&sortName=price&sortBy=asc&keyword=${model.keyword}&filter=${model.filter}'/>">
                                         <i class="fas fa-arrow-up"></i> Sort by Price: Low to High
                                     </a>
                                     <a class="dropdown-item"
-                                        href="<c:url value='/shop/brand?id=${model.id}&page=${model.page}&limit=${model.limit}&sortName=price&sortBy=desc&keyword=${model.keyword}&filter=${model.filter}'/>">
+                                        href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=${model.page}&limit=${model.limit}&sortName=price&sortBy=desc&keyword=${model.keyword}&filter=${model.filter}'/>">
                                          <i class="fas fa-arrow-down"></i>Sort by Price: High to Low
                                     </a>
                                 </div>
@@ -238,7 +242,7 @@
                         </div>
                     </div>
                 </div>
-                <form action="<c:url value='/shop/brand'/>" id="formSubmit" method="get">
+                <form action="<c:url value='/shop/brand/product-line'/>" id="formSubmit" method="get">
                     <div class="row px-xl-5">
                         <!-- Shop Product Start -->
                         <div class="col-lg-12 col-md-12">
@@ -276,6 +280,7 @@
                                     <input type="hidden" value="" id="page" name="page" />
                                     <input type="hidden" value="" id="limit" name="limit" />
                                     <input type="hidden" value="" id="id" name="id" />
+                                    <input type="hidden" value="${idBrand}" id="idBrand" name="idBrand" />
                                     <c:if test="${model.sortName != null && model.sortBy != null}">
                                         <input type="hidden" id="sortName" name="sortName" value="${model.sortName}" />
                                         <input type="hidden" id="sortBy" name="sortBy" value="${model.sortBy}" />
@@ -303,6 +308,7 @@
 
             <script>
                 var id = ${model.id};
+
                 var currentPage = ${ model.page };
                 var limit = ${ model.limit };
                 var sortBy = "${model.sortBy}";
@@ -318,7 +324,7 @@
                     startPage: currentPage,
                     onPageClick: function (event, page) {
                         if (currentPage != page) {
-                                $('#id').val(id);
+                            $('#id').val(id);
                             $('#limit').val(limit);
                             $('#page').val(page);
                             if (sortBy && sortName) {
@@ -349,7 +355,7 @@
                            $("#filter").val("");
 
                            // Tải lại trang hoặc thực hiện hành động khác
-                           window.location.href = "<c:url value='/shop/brand?id=${model.id}&page=1&limit=8'/>"; // Hoặc bất kỳ URL nào
+                           window.location.href = "<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=1&limit=8'/>"; // Hoặc bất kỳ URL nào
                        });
                    });
                       $("button[id^='btn-']").click(function () {
@@ -365,7 +371,7 @@
 
                              // Cập nhật URL và tải lại trang
                              var newFilters = currentFilters.join(",");
-                             window.location.href = "<c:url value='/shop/brand?id=${model.id}&page=1&limit=8&filter='/>" + newFilters; // Cập nhật URL với bộ lọc mới
+                             window.location.href = "<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=1&limit=8&filter='/>" + newFilters; // Cập nhật URL với bộ lọc mới
                          });
 
 

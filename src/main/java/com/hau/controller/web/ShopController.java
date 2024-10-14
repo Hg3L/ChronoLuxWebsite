@@ -2,6 +2,7 @@ package com.hau.controller.web;
 
 import com.google.gson.internal.LinkedTreeMap;
 import com.hau.dto.BrandDTO;
+import com.hau.dto.FilterCriteria;
 import com.hau.dto.ProductDTO;
 import com.hau.service.IBrandService;
 import com.hau.service.IProductService;
@@ -39,7 +40,7 @@ public class ShopController {
         ProductDTO product = new ProductDTO();
         BrandDTO brand = new BrandDTO();
 
-        PageableUtil.applyFiltersAndSorting(product,page,limit,sortName,sortBy,keyword,filter,model);
+        FilterCriteria.applyFiltersAndSorting(product,page,limit,sortName,sortBy,keyword,filter,model);
         Pageable pageable = PageableUtil.getInstance(page,limit,sortName,sortBy);
 
         product.setTotalItem((int)productService.getTotalItem(keyword,filter));

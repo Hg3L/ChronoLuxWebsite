@@ -48,8 +48,6 @@ public class ProductService implements IProductService {
     }
 
 
-
-
     @Override
     public long getTotalItem(String keyword,String filter) {
         FilterCriteria filterCriteria =  FilterCriteria.Of(filter,keyword);
@@ -75,6 +73,27 @@ public class ProductService implements IProductService {
     public long getTotalItemByIdBrand(Long id, String keyword, String filter) {
         FilterCriteria filterCriteria =  FilterCriteria.Of(filter,keyword);
         return  productRepository.countByIdBrand(id,filterCriteria.getGender(),filterCriteria.getKeyword(),filterCriteria.getMinPrice(),filterCriteria.getMaxPrice());
+    }
+
+    @Override
+    public long getTotalItemByIdProductLine(Long id, String keyword, String filter) {
+        FilterCriteria filterCriteria =  FilterCriteria.Of(filter,keyword);
+        return  productRepository.countByIdProductLine(id,filterCriteria.getGender(),filterCriteria.getKeyword(),filterCriteria.getMinPrice(),filterCriteria.getMaxPrice());
+    }
+
+    @Override
+    public List<ProductDTO> findAllByIdProductLine(Pageable pageable, Long id, String keyword, String filter) {
+        List<ProductEntity> productEntities = null;
+        List<ProductDTO> products = new ArrayList<>();
+        FilterCriteria filterCriteria =  FilterCriteria.Of(filter,keyword);
+        productEntities = productRepository.findAllByIdProductLine(id,filterCriteria.getGender(),filterCriteria.getKeyword(),
+                filterCriteria.getMinPrice(), filterCriteria.getMaxPrice(),
+                pageable).getContent();
+        for(ProductEntity productEntity : productEntities){
+            ProductDTO product = productConverter.toDTO(productEntity);
+            products.add(product);
+        }
+        return products;
     }
 
 }
