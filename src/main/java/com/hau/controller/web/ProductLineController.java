@@ -41,7 +41,7 @@ public class ProductLineController {
         Pageable pageable = PageableUtil.getInstance(page,limit,sortName,sortBy);
         productLine.setListResult(productLineService.findAllByBrandId(idBrand));
 
-        model.addAttribute("brand",brandService.findOneById(idBrand));
+        model.addAttribute("brand",brandService.getBrandById(idBrand));
         model.addAttribute("products",productService.findAllByIdProductLine(pageable,id,keyword,filter));
         model.addAttribute("model",product);
         model.addAttribute("productLine",productLine);
