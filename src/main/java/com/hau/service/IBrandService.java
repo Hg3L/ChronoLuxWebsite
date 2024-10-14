@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface IBrandService {
     public List<BrandDTO> findAll();
+    public BrandDTO findOneById(Long id);
 }

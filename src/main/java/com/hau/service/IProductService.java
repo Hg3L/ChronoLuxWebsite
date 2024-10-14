@@ -13,4 +13,7 @@ public interface IProductService {
     public long getTotalItem(String keyword,String filter);
     public List<ProductDTO> findAllByIdBrand(Pageable pageable,Long id,String keyword,String filter);
     public long getTotalItemByIdBrand(Long id,String keyword,String filter);
+    public long getTotalItemByIdProductLine(Long id,String keyword,String filter);
+    public List<ProductDTO> findAllByIdProductLine(Pageable pageable,Long id,String keyword,String filter);
+
 }

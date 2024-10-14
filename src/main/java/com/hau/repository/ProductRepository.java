@@ -63,4 +63,29 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
                                          @Param("maxPrice") Long maxPrice,
                                          Pageable pageable);
 
+
+    @Query("SELECT COUNT(p) FROM ProductEntity p " +
+            "WHERE p.productLine.id = :productLineId " +
+            "AND (:gender IS NULL OR p.gender LIKE :gender) " +
+            "AND (:keyword IS NULL OR CONCAT(p.name, ' ', p.price) LIKE :keyword) " +
+            "AND (:minPrice IS NULL OR p.price >= :minPrice) " +
+            "AND (:maxPrice IS NULL OR p.price <= :maxPrice)")
+    long countByIdProductLine(@Param("productLineId") Long productLineId,
+                        @Param("gender") String gender,
+                        @Param("keyword") String keyword,
+                        @Param("minPrice") Long minPrice,
+                        @Param("maxPrice") Long maxPrice);
+
+    @Query("SELECT p FROM ProductEntity p " +
+            "WHERE p.productLine.id = :productLineId " +
+            "AND (:gender IS NULL OR p.gender LIKE :gender) " +
+            "AND (:keyword IS NULL OR CONCAT(p.name, ' ', p.price) LIKE :keyword) " +
+            "AND (:minPrice IS NULL OR p.price >= :minPrice) " +
+            "AND (:maxPrice IS NULL OR p.price <= :maxPrice)")
+    Page<ProductEntity> findAllByIdProductLine(@Param("productLineId") Long productLineId,
+                                         @Param("gender") String gender,
+                                         @Param("keyword") String keyword,
+                                         @Param("minPrice") Long minPrice,
+                                         @Param("maxPrice") Long maxPrice,
+                                         Pageable pageable);
 }

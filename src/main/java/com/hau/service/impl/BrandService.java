@@ -27,4 +27,10 @@ public class BrandService implements IBrandService {
         }
         return brands;
     }
+
+    @Override
+    public BrandDTO findOneById(Long id) {
+        BrandEntity brandEntity = brandRepository.findOneById(id);
+        return brandConverter.toDTO(brandEntity);
+    }
 }
