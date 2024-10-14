@@ -12,6 +12,10 @@ public class ProductLineEntity extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "brand_id")
     private BrandEntity brand;
+    @Column(name= "icon_url")
+    private String iconUrl;
+    @Column(name = "banner_url")
+    private String banner;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name="warranty_id")
@@ -50,5 +54,21 @@ public class ProductLineEntity extends BaseEntity{
 
     public void setProducts(List<ProductEntity> products) {
         this.products = products;
+    }
+
+    public String getIconUrl() {
+        return iconUrl;
+    }
+
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
+    }
+
+    public String getBanner() {
+        return banner;
+    }
+
+    public void setBanner(String banner) {
+        this.banner = banner;
     }
 }
