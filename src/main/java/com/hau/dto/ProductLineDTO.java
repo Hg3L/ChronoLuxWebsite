@@ -4,6 +4,24 @@ public class ProductLineDTO extends AbstractDTO<ProductLineDTO>{
     private String name;
     private long brandId;
     private long warrantyId;
+    private String bannerUrl;
+    private String iconUrl;
+
+    public String getBannerUrl() {
+        return bannerUrl;
+    }
+
+    public void setBannerUrl(String bannerUrl) {
+        this.bannerUrl = bannerUrl;
+    }
+
+    public String getIconUrl() {
+        return iconUrl;
+    }
+
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
+    }
 
     public String getName() {
         return name;

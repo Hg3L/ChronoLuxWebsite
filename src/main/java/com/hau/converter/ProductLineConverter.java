@@ -15,6 +15,8 @@ public class ProductLineConverter implements Converter< ProductLineDTO,ProductLi
         productLineDTO.setName(entity.getName());
         productLineDTO.setBrandId(entity.getBrand().getId());
         productLineDTO.setWarrantyId(entity.getWarranty().getId());
+        productLineDTO.setIconUrl(entity.getIconUrl());
+        productLineDTO.setBannerUrl(entity.getBanner());
         return productLineDTO;
     }
 
