@@ -14,7 +14,9 @@ public class ProductLineConverter implements Converter< ProductLineDTO,ProductLi
         productLineDTO.setId(entity.getId());
         productLineDTO.setName(entity.getName());
         productLineDTO.setBrandId(entity.getBrand().getId());
-        productLineDTO.setWarrantyId(entity.getWarranty().getId());
+        if(entity.getWarranty() != null){
+            productLineDTO.setWarrantyId(entity.getWarranty().getId());
+        }
         productLineDTO.setIconUrl(entity.getIconUrl());
         productLineDTO.setBannerUrl(entity.getBanner());
         return productLineDTO;
@@ -22,6 +24,13 @@ public class ProductLineConverter implements Converter< ProductLineDTO,ProductLi
 
     @Override
     public ProductLineEntity convertToEntity(ProductLineDTO dto) {
-        return null;
+        ProductLineEntity productLineEntity = new ProductLineEntity();
+        if(dto.getId() != null){
+            productLineEntity.setId(dto.getId());
+        }
+        productLineEntity.setName(dto.getName());
+        productLineEntity.setIconUrl(dto.getIconUrl());
+        productLineEntity.setBanner(dto.getBannerUrl());
+        return productLineEntity;
     }
 }

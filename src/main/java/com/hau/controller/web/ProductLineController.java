@@ -1,5 +1,6 @@
 package com.hau.controller.web;
 
+import com.hau.dto.BrandDTO;
 import com.hau.dto.FilterCriteria;
 import com.hau.dto.ProductDTO;
 import com.hau.dto.ProductLineDTO;
@@ -8,11 +9,15 @@ import com.hau.service.IProductService;
 import com.hau.service.ProductLineService;
 import com.hau.util.PageableUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import com.hau.service.FileService;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller(value = "ControllerOfProductLineWeb")
 public class ProductLineController {
@@ -22,6 +27,10 @@ public class ProductLineController {
     private IProductService productService;
     @Autowired
     private IBrandService brandService;
+    @Autowired
+    private FileService fileService;
+    private static final String UPLOAD_DIR = "product-line";
+
     @GetMapping("/shop/brand/product-line")
     public String ProductLinePage(Model model,
                                   @RequestParam("idBrand") long idBrand,
@@ -49,4 +58,52 @@ public class ProductLineController {
         return "web/product-line";
     }
 
+    @GetMapping("/admin/product-lines")
+    public String getProductLinesPage(@RequestParam(defaultValue = "1") int page,
+                                      @RequestParam(defaultValue = "6") int limit,
+                                      Model model){
+        Page<ProductLineDTO> productLines = productLineService.findAll(page, limit);
+        model.addAttribute("productLines", productLines);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("brands", brandService.findAll());
+        return "admin/product-line-view";
+    }
+
+    @GetMapping("/admin/product-line/create")
+    public String showCreateForm(Model model) {
+        model.addAttribute("productLine", new ProductLineDTO());
+        model.addAttribute("brands", brandService.findAll());
+        return "admin/product-line-add";
+    }
+
+    @PostMapping("/admin/product-line/save")
+    public String saveProductLine(@ModelAttribute("productLine") ProductLineDTO productLine,
+                                  @RequestParam MultipartFile logo,
+                                  @RequestParam MultipartFile banner,
+                                  HttpServletRequest request) throws Exception{
+        request.setCharacterEncoding("UTF-8");
+        if(!logo.isEmpty() && !banner.isEmpty()) {
+            String logoName = fileService.saveFile(logo, UPLOAD_DIR);
+            String bannerName = fileService.saveFile(banner, UPLOAD_DIR);
+            productLine.setIconUrl(logoName);
+            productLine.setBannerUrl(bannerName);
+        }
+        else if(!logo.isEmpty() && banner.isEmpty()) {
+            String logoName = fileService.saveFile(logo, UPLOAD_DIR);
+            productLine.setIconUrl(logoName);
+            productLine.setBannerUrl(brandService.getBrandById(productLine.getId()).getBannerUrl());
+        }
+        else if(logo.isEmpty() && !banner.isEmpty()) {
+            String bannerName = fileService.saveFile(banner, UPLOAD_DIR);
+            productLine.setBannerUrl(bannerName);
+            productLine.setIconUrl(brandService.getBrandById(productLine.getId()).getIconUrl());
+        }
+        else{
+            BrandDTO brandDTO = brandService.getBrandById(productLine.getId());
+            productLine.setIconUrl(brandDTO.getIconUrl());
+            productLine.setBannerUrl(brandDTO.getBannerUrl());
+        }
+        productLineService.save(productLine);
+        return "redirect:/admin/product-lines";
+    }
 }
