@@ -11,6 +11,7 @@ import com.hau.repository.ProductRepository;
 import com.hau.service.ProductLineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -50,15 +51,28 @@ public class ProductLineServiceImpl implements ProductLineService {
     public Page<ProductLineDTO> findAllByBrandId(Long brandId, int page, int limit) {
         Pageable pageable = new PageRequest(page - 1, limit);
         Page<ProductLineEntity> productLineEntities = productLineRepository.findAllByBrand_Id(brandId, pageable);
-        return productLineEntities.map(productLineEntity -> productLineConverter.convertToDTO(productLineEntity));
+        List<ProductLineDTO> productLineDTOs = productLineEntities.getContent().stream().map(productLineEntity -> {
+            ProductLineDTO productLineDTO = productLineConverter.convertToDTO(productLineEntity);
+            productLineDTO.setBrandName(productLineEntity.getBrand().getName());
+            return productLineDTO;
+        }).collect(Collectors.toList());
+        return new PageImpl<>(productLineDTOs, pageable, productLineEntities.getTotalElements());
     }
 
     @Override
     public Page<ProductLineDTO> findAll(int page, int limit) {
         Pageable pageable = new PageRequest(page - 1, limit);
         Page<ProductLineEntity> productLineEntities = productLineRepository.findAll(pageable);
-        return productLineEntities.map(productLineEntity -> productLineConverter.convertToDTO(productLineEntity));
+
+        List<ProductLineDTO> productLineDTOs = productLineEntities.getContent().stream().map(productLineEntity -> {
+            ProductLineDTO productLineDTO = productLineConverter.convertToDTO(productLineEntity);
+            productLineDTO.setBrandName(productLineEntity.getBrand().getName());
+            return productLineDTO;
+        }).collect(Collectors.toList());
+
+        return new PageImpl<>(productLineDTOs, pageable, productLineEntities.getTotalElements());
     }
+
 
     @Transactional
     @Override

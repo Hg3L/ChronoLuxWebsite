@@ -18,31 +18,39 @@
         <h1 class="h3 mb-1 text-gray-800">Các dòng đồng hồ</h1>
     </div>
     <hr/>
-    <div class="d-sm-flex align-items-center justify-content-between mb-3">
-        <div class="d-flex justify-content-start mb-4 mt-3">
-            <label class="mr-4">Thương hiệu:</label>
-            <select class="custom-select-box" id="brandSelect" name="brandId" aria-label="Select brand">
-                <c:choose>
-                    <c:when test="${empty brands}">
-                        <option selected>Chưa có dữ liệu</option>
-                    </c:when>
-                    <c:otherwise>
-                        <option selected>Tất cả</option>
-                        <c:forEach var="brand" items="${brands}">
-                            <option value="${brand.id}">${brand.name}</option>
-                        </c:forEach>
-                    </c:otherwise>
-                </c:choose>
-            </select>
-        </div>
-        <div class="d-flex justify-content-end">
-            <a href="${pageContext.request.contextPath}/admin/product-line/create" class="btn btn-success mr-2 mt-1">
-                <i class="fas fa-plus mr-1"></i> Thêm dòng đồng hồ
-            </a>
-        </div>
+    <div class="d-flex justify-content-end">
+        <a href="${pageContext.request.contextPath}/admin/product-line/create" class="btn btn-success mr-2 mt-1">
+            <i class="fas fa-plus mr-1"></i> Thêm dòng đồng hồ
+        </a>
     </div>
     <div class="card shadow mb-4 mt-4">
         <div class="card-body">
+            <div class="d-flex justify-content-start mb-4 mt-3">
+                <label class="mr-3">Thương hiệu:</label>
+                <form class="form-group" action="${pageContext.request.contextPath}/admin/product-lines" method="get">
+                    <select class="custom-select-box" id="brandSelect" name="brandId" aria-label="Select brand">
+                        <c:choose>
+                            <c:when test="${empty brands}">
+                                <option selected>Chưa có dữ liệu</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="0" <c:if test="${brandId == 0}">selected</c:if>>Tất cả</option>
+                                <c:forEach var="brand" items="${brands}">
+                                    <option value="${brand.id}" <c:if test="${brand.id == brandId}">selected</c:if>>
+                                            ${brand.name}
+                                    </option>
+                                </c:forEach>
+                            </c:otherwise>
+                        </c:choose>
+                    </select>
+                    <button type="submit" class="btn btn-dark ml-3">
+                        <i class="fa fa-filter mr-1" aria-hidden="true"></i> Lọc
+                    </button>
+                    <input type="hidden" name="page" value="${currentPage}">
+                    <input type="hidden" name="limit" value="6">
+                </form>
+            </div>
+
             <div class="table-responsive">
                 <table class="table table-bordered" width="100%" cellspacing="0">
                     <thead>
@@ -57,7 +65,7 @@
                     <tbody>
                     <c:forEach var="productLine" items="${productLines.content}">
                         <tr>
-                            <td></td>
+                            <td>${productLine.brandName}</td>
                             <td>${productLine.name}</td>
                             <td><img src="<c:url value='/template/web/img/product-line/${productLine.iconUrl}'/>" alt="Logo" style="max-width:80px;"/></td>
                             <td><img src="<c:url value='/template/web/img/product-line/${productLine.bannerUrl}'/>" alt="Banner" style="max-width:250px;"/></td>

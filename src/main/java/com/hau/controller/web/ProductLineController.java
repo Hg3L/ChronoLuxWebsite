@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import com.hau.service.FileService;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller(value = "ControllerOfProductLineWeb")
 public class ProductLineController {
@@ -61,11 +60,19 @@ public class ProductLineController {
     @GetMapping("/admin/product-lines")
     public String getProductLinesPage(@RequestParam(defaultValue = "1") int page,
                                       @RequestParam(defaultValue = "6") int limit,
-                                      Model model){
-        Page<ProductLineDTO> productLines = productLineService.findAll(page, limit);
+                                      @RequestParam(defaultValue = "0") long brandId,
+                                      Model model) {
+        Page<ProductLineDTO> productLines;
+        if(brandId == 0){
+            productLines = productLineService.findAll(page, limit);
+        }
+        else{
+            productLines = productLineService.findAllByBrandId(brandId, page, limit);
+        }
         model.addAttribute("productLines", productLines);
         model.addAttribute("currentPage", page);
         model.addAttribute("brands", brandService.findAll());
+        model.addAttribute("brandId", brandId);
         return "admin/product-line-view";
     }
 
