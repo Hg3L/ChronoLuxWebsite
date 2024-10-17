@@ -35,9 +35,6 @@ public class LoginController {
             String token = UserGoogleUtil.getToken(code);
             UserGoogleDto userGoogleDto = UserGoogleUtil.toUser(token).getUserGoogleDto();
             AuthenticationProviderUtil.GrantedPermissionO2Auth(userGoogleDto);
-
-
-
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

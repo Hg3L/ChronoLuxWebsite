@@ -53,7 +53,6 @@ public class PostController {
             String imgName = fileService.saveFile(img, "posts");
             postDTO.setImg(imgName);
         } else {
-            // Giữ nguyên ảnh cũ nếu không có ảnh mới
             postDTO.setImg(postService.getPostById(postDTO.getId()).getImg());
         }
         postService.savePost(postDTO);

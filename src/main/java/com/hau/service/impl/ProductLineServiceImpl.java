@@ -73,6 +73,43 @@ public class ProductLineServiceImpl implements ProductLineService {
         return new PageImpl<>(productLineDTOs, pageable, productLineEntities.getTotalElements());
     }
 
+    @Override
+    public Page<ProductLineDTO> findAllWithWarranty(int page, int limit, boolean isHasWarranty) {
+        Pageable pageable = new PageRequest(page - 1, limit);
+        Page<ProductLineEntity> productLineEntities;
+        if(isHasWarranty){
+            productLineEntities = productLineRepository.findByWarrantyIsNotNull(pageable);
+        }
+        else{
+            productLineEntities = productLineRepository.findByWarrantyIsNull(pageable);
+        }
+        List<ProductLineDTO> productLineDTOs = productLineEntities.getContent().stream().map(productLineEntity -> {
+            ProductLineDTO productLineDTO = productLineConverter.convertToDTO(productLineEntity);
+            productLineDTO.setBrandName(productLineEntity.getBrand().getName());
+            return productLineDTO;
+        }).collect(Collectors.toList());
+
+        return new PageImpl<>(productLineDTOs, pageable, productLineEntities.getTotalElements());
+    }
+
+    @Override
+    public Page<ProductLineDTO> findAllWithWarrantyByBrandId(int page, int limit, boolean isHasWarranty, Long brandId) {
+        Pageable pageable = new PageRequest(page - 1, limit);
+        Page<ProductLineEntity> productLineEntities;
+        if(isHasWarranty){
+            productLineEntities = productLineRepository.findByBrand_IdAndWarrantyIsNotNull(brandId, pageable);
+        }
+        else{
+            productLineEntities = productLineRepository.findByBrand_IdAndWarrantyIsNull(brandId, pageable);
+        }
+        List<ProductLineDTO> productLineDTOs = productLineEntities.getContent().stream().map(productLineEntity -> {
+            ProductLineDTO productLineDTO = productLineConverter.convertToDTO(productLineEntity);
+            productLineDTO.setBrandName(productLineEntity.getBrand().getName());
+            return productLineDTO;
+        }).collect(Collectors.toList());
+
+        return new PageImpl<>(productLineDTOs, pageable, productLineEntities.getTotalElements());
+    }
 
     @Transactional
     @Override
@@ -86,6 +123,6 @@ public class ProductLineServiceImpl implements ProductLineService {
     @Transactional
     @Override
     public void deleteById(Long id) {
-
+        productLineRepository.delete(id);
     }
 }

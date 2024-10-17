@@ -1,6 +1,5 @@
-package com.hau.controller.web;
+package com.hau.controller.admin;
 
-import com.hau.dto.BrandDTO;
 import com.hau.dto.FilterCriteria;
 import com.hau.dto.ProductDTO;
 import com.hau.dto.ProductLineDTO;
@@ -28,7 +27,7 @@ public class ProductLineController {
     private IBrandService brandService;
     @Autowired
     private FileService fileService;
-    private static final String UPLOAD_DIR = "product-line";
+    private static final String UPLOAD_DIR = "product-lines";
 
     @GetMapping("/shop/brand/product-line")
     public String ProductLinePage(Model model,
@@ -106,11 +105,25 @@ public class ProductLineController {
             productLine.setIconUrl(brandService.getBrandById(productLine.getId()).getIconUrl());
         }
         else{
-            BrandDTO brandDTO = brandService.getBrandById(productLine.getId());
-            productLine.setIconUrl(brandDTO.getIconUrl());
-            productLine.setBannerUrl(brandDTO.getBannerUrl());
+            ProductLineDTO productLineDTO = productLineService.findOneById(productLine.getId());
+            productLine.setIconUrl(productLineDTO.getIconUrl());
+            productLine.setBannerUrl(productLineDTO.getBannerUrl());
         }
         productLineService.save(productLine);
+        return "redirect:/admin/product-lines";
+    }
+
+    @GetMapping("/admin/product-line/update")
+    public String showUpdateForm(@RequestParam("id") long id, Model model) {
+        ProductLineDTO productLine = productLineService.findOneById(id);
+        model.addAttribute("productLine", productLine);
+        model.addAttribute("brands", brandService.findAll());
+        return "admin/product-line-update";
+    }
+
+    @GetMapping("/admin/product-line/delete")
+    public String deleteProductLine(@RequestParam("id") long id) {
+        productLineService.deleteById(id);
         return "redirect:/admin/product-lines";
     }
 }

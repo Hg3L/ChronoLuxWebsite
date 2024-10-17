@@ -1,6 +1,5 @@
-package com.hau.controller.web;
+package com.hau.controller.admin;
 
-import com.google.gson.internal.LinkedTreeMap;
 import com.hau.dto.FilterCriteria;
 import com.hau.dto.ProductLineDTO;
 import com.hau.dto.BrandDTO;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 
 @Controller(value = "ControllerOfBrandWeb")
