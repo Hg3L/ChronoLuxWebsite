@@ -3,7 +3,7 @@
 <%@ include file="/common/taglib.jsp" %>
 
 <head>
-    <title>ChronoLux - Brand Management</title>
+    <title>ChronoLux - Product Line Information</title>
     <meta charset="UTF-8">
     <!-- Custom fonts for this template-->
     <link href="<c:url value='/template/admin/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet" type="text/css">
@@ -11,17 +11,16 @@
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
     <link href="<c:url value='/template/admin/css/sb-admin-2.min.css'/>" rel="stylesheet" type="text/css">
-
-    <!-- Custom styles for this template-->
+    <link href="<c:url value='/template/admin/css/styles.css'/>" rel="stylesheet" type="text/css">
     <link href="" rel="stylesheet">
 </head>
 <body>
 <div class="container">
-    <form:form method="post" action="${pageContext.request.contextPath}/admin/brand/save" enctype="multipart/form-data" modelAttribute="brand" >
+    <form:form method="post" action="${pageContext.request.contextPath}/admin/product-line/save" enctype="multipart/form-data" modelAttribute="productLine" >
         <div class="d-flex justify-content-between align-items-center my-4">
-            <h1 class="h3 mb-1 mt-2 text-gray-800">Thêm thương hiệu</h1>
+            <h1 class="h3 mb-1 mt-2 text-gray-800">Thêm dòng thương hiệu</h1>
             <div>
-                <a href="${pageContext.request.contextPath}/admin/brands" class="btn btn-warning">
+                <a href="${pageContext.request.contextPath}/admin/product-lines" class="btn btn-warning">
                     <i class="fa fa-reply mr-1" aria-hidden="true"></i>
                     Quay lại
                 </a>
@@ -32,13 +31,24 @@
             </div>
         </div>
         <hr/>
+        <label class="mr-3 mb-2">Thương hiệu:</label>
+        <select class="custom-select-box mb-4" name="brandId" aria-label="Select brand" required>
+            <c:choose>
+                <c:when test="${empty brands}">
+                    <option selected>Chưa có dữ liệu</option>
+                </c:when>
+                <c:otherwise>
+                    <option value="" disabled selected>Chọn thương hiệu</option>
+                    <c:forEach var="brand" items="${brands}">
+                        <option value="${brand.id}">${brand.name}</option>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
+        </select>
+
         <div class="form-group">
-            <label for="name">Tên thương hiệu</label>
-            <form:input path="name" type="text" class="form-control" id="name" required="required"/>
-        </div>
-        <div class="form-group">
-            <label for="country">Quốc gia</label>
-            <form:input path="country" type="text" class="form-control" id="country" required="required"/>
+            <label for="name">Tên dòng</label>
+            <form:input path="name" type="text" class="form-control" id="name" required=""/>
         </div>
         <!-- logo -->
         <div class="form-group">

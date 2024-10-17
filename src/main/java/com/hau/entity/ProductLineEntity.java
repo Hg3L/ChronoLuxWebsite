@@ -12,6 +12,7 @@ public class ProductLineEntity extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "brand_id")
     private BrandEntity brand;
+
     @Column(name= "icon_url")
     private String iconUrl;
     @Column(name = "banner_url")

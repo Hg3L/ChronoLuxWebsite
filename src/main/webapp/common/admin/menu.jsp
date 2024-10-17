@@ -44,6 +44,12 @@
             <span>Thương hiệu</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="<c:url value='/admin/product-lines'/>">
+            <i class="fas fa-star"></i>
+            <span>Dòng sản phẩm</span>
+        </a>
+    </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
 </ul>

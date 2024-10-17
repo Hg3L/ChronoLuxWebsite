@@ -2,6 +2,7 @@ package com.hau.dto;
 
 public class ProductLineDTO extends AbstractDTO<ProductLineDTO>{
     private String name;
+    private String brandName;
     private long brandId;
     private long warrantyId;
     private String bannerUrl;
@@ -13,6 +14,14 @@ public class ProductLineDTO extends AbstractDTO<ProductLineDTO>{
 
     public void setBannerUrl(String bannerUrl) {
         this.bannerUrl = bannerUrl;
+    }
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 
     public String getIconUrl() {
