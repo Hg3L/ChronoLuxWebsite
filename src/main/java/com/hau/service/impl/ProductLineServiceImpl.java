@@ -86,6 +86,6 @@ public class ProductLineServiceImpl implements ProductLineService {
     @Transactional
     @Override
     public void deleteById(Long id) {
-
+        productLineRepository.delete(id);
     }
 }

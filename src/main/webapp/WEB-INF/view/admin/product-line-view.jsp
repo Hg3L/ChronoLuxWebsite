@@ -43,7 +43,7 @@
                             </c:otherwise>
                         </c:choose>
                     </select>
-                    <button type="submit" class="btn btn-dark ml-3">
+                    <button type="submit" class="btn btn-dark ml-3 d-inline-flex align-items-center">
                         <i class="fa fa-filter mr-1" aria-hidden="true"></i> Lọc
                     </button>
                     <input type="hidden" name="page" value="${currentPage}">
@@ -67,8 +67,8 @@
                         <tr>
                             <td>${productLine.brandName}</td>
                             <td>${productLine.name}</td>
-                            <td><img src="<c:url value='/template/web/img/product-line/${productLine.iconUrl}'/>" alt="Logo" style="max-width:80px;"/></td>
-                            <td><img src="<c:url value='/template/web/img/product-line/${productLine.bannerUrl}'/>" alt="Banner" style="max-width:250px;"/></td>
+                            <td><img src="<c:url value='/template/web/img/product-lines/${productLine.iconUrl}'/>" alt="Logo" style="max-width:80px;"/></td>
+                            <td><img src="<c:url value='/template/web/img/product-lines/${productLine.bannerUrl}'/>" alt="Banner" style="max-width:250px;"/></td>
                             <td>
                                 <a href="${pageContext.request.contextPath}/admin/product-line/update/?id=${productLine.id}" class="btn btn-info btn-sm mr-2">
                                     <i class="fas fa-pencil-alt mr-1"></i> Sửa
