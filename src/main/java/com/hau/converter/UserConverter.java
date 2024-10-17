@@ -12,6 +12,7 @@ import java.util.List;
 public class UserConverter {
     public UserDTO toDTO(UserEntity userEntity){
         UserDTO userDTO = new UserDTO();
+
         userDTO.setId(userEntity.getId());
         userDTO.setUserName(userEntity.getUserName());
         userDTO.setPassword(userEntity.getPassword());

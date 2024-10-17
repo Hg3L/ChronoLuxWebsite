@@ -37,6 +37,7 @@ public class LoginController {
             AuthenticationProviderUtil.GrantedPermissionO2Auth(userGoogleDto);
 
 
+
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

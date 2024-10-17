@@ -1,12 +1,41 @@
 package com.hau.dto;
 
 public class UserFaceBookDto {
-    private String id,email,name;
+    private String id;
+    private String name;
+    private String email;
+    private Picture picture;
 
-    public UserFaceBookDto(String email, String name, String id) {
-        this.email = email;
-        this.name = name;
-        this.id = id;
+    // Getters và setters
+
+    class Picture {
+        private Data data;
+
+        // Getter và setter cho Data
+
+        class Data {
+            private String url;
+            private int height;
+            private int width;
+            private boolean is_silhouette;
+
+            public String getUrl() {
+                return url;
+            }
+
+            public void setUrl(String url) {
+                this.url = url;
+            }
+// Getters và setters
+        }
+
+        public Data getData() {
+            return data;
+        }
+
+        public void setData(Data data) {
+            this.data = data;
+        }
     }
 
     public String getId() {
@@ -17,14 +46,6 @@ public class UserFaceBookDto {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getName() {
         return name;
     }
@@ -33,12 +54,25 @@ public class UserFaceBookDto {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "UserFaceBookDto{" +
-                "id='" + id + '\'' +
-                ", email='" + email + '\'' +
-                ", name='" + name + '\'' +
-                '}';
+    public String getEmail() {
+        return email;
     }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Picture getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Picture picture) {
+        this.picture = picture;
+    }
+
+    public String getImgUrl() {
+        return this.getPicture().getData().getUrl();
+    }
+
+
 }

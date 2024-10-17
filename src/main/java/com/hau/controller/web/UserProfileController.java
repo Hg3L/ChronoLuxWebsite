@@ -25,7 +25,13 @@ public class UserProfileController {
     private IUserService userService;
     @GetMapping
     public String  UserProfile(Model model){
-        model.addAttribute("user",userService.findOneByUserNameAndStatus(SecurityUtil.getPrincipal().getUsername(), SystemConstant.ACTIVE_STATUS));
+        if(userService.findOneByUserNameAndStatus(SecurityUtil.getPrincipal().getUsername(), SystemConstant.ACTIVE_STATUS) != null){
+            model.addAttribute("user",userService.findOneByUserNameAndStatus(SecurityUtil.getPrincipal().getUsername(), SystemConstant.ACTIVE_STATUS));
+        }
+        else {
+            model.addAttribute("user",SecurityUtil.getPrincipal());
+        }
+
         return "web/profile";
     }
     @PostMapping

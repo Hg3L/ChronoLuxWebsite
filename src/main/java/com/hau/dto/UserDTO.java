@@ -27,6 +27,10 @@ public class UserDTO extends AbstractDTO{
         return userName;
     }
 
+    public String getUsername() {
+        return userName;
+    }
+
     public void setUserName(String userName) {
         this.userName = userName;
     }

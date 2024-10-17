@@ -25,5 +25,5 @@ public class SystemConstant {
     public static final String FACEBOOK_LINK_GET_TOKEN =
             "https://graph.facebook.com/v19.0/oauth/access_token";
 
-    public static final String FACEBOOK_LINK_GET_USER_INFO = "https://graph.facebook.com/me?fields=id,name,email,picture&access_token=";
+    public static final String FACEBOOK_LINK_GET_USER_INFO = "https://graph.facebook.com/me?fields=id,name,email,picture.type(large)&access_token=";
 }
