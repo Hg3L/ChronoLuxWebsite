@@ -1,36 +1,66 @@
 package com.hau.controller;
 
 import com.hau.dto.UserDTO;
+import com.hau.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 import com.hau.service.IUserService;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 @Controller
-@RequestMapping("/login")
+
 public class RegisterController {
     @Autowired
     private IUserService userService;
 
-    @PostMapping("/add")
-    public String addNewUser(@ModelAttribute("user") UserDTO user, HttpServletRequest request){
-        try {
-            request.setCharacterEncoding("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
+    @PostMapping(value="/login/add" )
+    public String addNewUser(@ModelAttribute UserDTO user,
+                             @RequestParam("img") MultipartFile multipartFile,
+                             RedirectAttributes redirectAttributes) {
+        // Kiểm tra nếu file không rỗng
+        if (multipartFile.isEmpty()) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Please upload an image.");
+            return "redirect:/login"; // Trả về trang đăng ký nếu không có file
         }
-        userService.save(user);
-        return "redirect:/login?registerSuccessful";
+        try {
+            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            user.setImgUrl(fileName);
+            // Lưu User và file vào hệ thống
+            UserDTO userDTO = userService.save(user);
+            String uploadDir = "./template/web/img/user-logos";
+            Path uploadPath = Paths.get(uploadDir);
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+            try (InputStream inputStream = multipartFile.getInputStream()) {
+                Path filePath = uploadPath.resolve(fileName);
+                System.out.println(filePath.toFile().getAbsolutePath());
+                Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+            }
+            redirectAttributes.addFlashAttribute("successMessage", "User registered successfully.");
+        } catch (IOException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Could not save uploaded file: " + e.getMessage());
+        }
+
+        return "redirect:/login"; // Redirect lại sau khi xử lý
     }
 
-    @GetMapping("/register")
-    public String showRegisterPage(){
+    @GetMapping("/login/register")
+    public String showRegisterPage(Model model){
         return "login/register";
     }
 }

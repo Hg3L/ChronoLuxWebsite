@@ -11,7 +11,6 @@
             <meta content="Free HTML Templates" name="description">
 
 
-
             <link
                 href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
                 rel="stylesheet">
@@ -34,7 +33,7 @@
            <div class="container rounded bg-white mt-5 mb-5">
                <div class="row">
                    <div class="col-md-3 border-right">
-                       <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"><span class="font-weight-bold">${user.getFullName()}</span><span class="text-black-50">${user.getEmail()}</span><span> </span></div>
+                       <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="<c:url value='/template/web/img/user-logos/${user.imgUrl}'/>"><span class="font-weight-bold">${user.getFullName()}</span><span class="text-black-50">${user.getEmail()}</span><span> </span></div>
                    </div>
                    <div class="col-md-9 border-right">
                        <div class="p-3 py-5">

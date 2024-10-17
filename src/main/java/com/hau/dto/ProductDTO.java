@@ -20,10 +20,29 @@ public class ProductDTO extends AbstractDTO{
 
     private String gender;
 
+    private String warrantyContent;
+
     private long price;
     private String productLineName;
+    private String brandName;
     private String name;
+    private String country;
 
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
     public String getProductLineName() {
         return productLineName;
@@ -113,4 +132,11 @@ public class ProductDTO extends AbstractDTO{
         this.name = name;
     }
 
+    public String getWarrantyContent() {
+        return warrantyContent;
+    }
+
+    public void setWarrantyContent(String warrantyContent) {
+        this.warrantyContent = warrantyContent;
+    }
 }

@@ -23,6 +23,9 @@ public class ProductConverter {
         productDTO.setStrapMaterial(productEntity.getStrapMaterial());
         productDTO.setName(productEntity.getName());
         productDTO.setProductLineName(productEntity.getProductLine().getName());
+        productDTO.setBrandName(productEntity.getProductLine().getBrand().getName());
+        productDTO.setCountry(productEntity.getProductLine().getBrand().getCountry());
+        productDTO.setWarrantyContent(productEntity.getProductLine().getWarranty().getContent());
         return productDTO;
     }
     public ProductEntity toEntity(ProductDTO productDTO){

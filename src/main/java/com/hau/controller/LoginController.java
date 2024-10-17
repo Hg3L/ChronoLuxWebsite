@@ -3,8 +3,11 @@ package com.hau.controller;
 import com.hau.dto.UserFaceBookDto;
 import com.hau.dto.UserGoogleDto;
 import com.hau.util.AuthenticationProviderUtil;
+import com.hau.util.SecurityUtil;
 import com.hau.util.UserFaceBookUtil;
 import com.hau.util.UserGoogleUtil;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,6 +35,8 @@ public class LoginController {
             String token = UserGoogleUtil.getToken(code);
             UserGoogleDto userGoogleDto = UserGoogleUtil.toUser(token).getUserGoogleDto();
             AuthenticationProviderUtil.GrantedPermissionO2Auth(userGoogleDto);
+
+
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

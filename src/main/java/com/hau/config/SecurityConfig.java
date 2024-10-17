@@ -61,11 +61,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                               .key("AbcdefgHiJKlmnOpqrsut0123456789")
                               .tokenValiditySeconds(365*24*60*60)
                 .and()
+
                 .csrf().disable();
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/login*"); // nếu có tài nguyên tĩnh
+        web.ignoring().antMatchers("/resource"); // nếu có tài nguyên tĩnh
     }
 }
