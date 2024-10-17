@@ -22,6 +22,10 @@ public class AuthenticationProviderUtil {
             UserGoogleDto userGoogleDto = (UserGoogleDto) account;
             MyUser user = new MyUser(userGoogleDto.getGiven_name(), "", true, true, true, true, authorities);
             user.setFullName(userGoogleDto.getGiven_name());
+            user.setFirstName(userGoogleDto.getGiven_name());
+            user.setSurName(userGoogleDto.getFamily_name());
+            user.setImgUrl(userGoogleDto.getPicture());
+            user.setEmail(userGoogleDto.getEmail());
             Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(auth);
         } else if (account instanceof UserFaceBookDto) {
@@ -29,6 +33,17 @@ public class AuthenticationProviderUtil {
             UserFaceBookDto userFaceBookDto = (UserFaceBookDto) account;
             MyUser user = new MyUser(userFaceBookDto.getName(), "", true, true, true, true, authorities);
             user.setFullName(userFaceBookDto.getName());
+            //
+            String[] parts = userFaceBookDto.getName().split(" ");
+            String firstName = parts[parts.length -1];
+            user.setFirstName(firstName);
+            //
+            int lastSpaceIndex = userFaceBookDto.getName().lastIndexOf(" ");
+            String surName = userFaceBookDto.getName().substring(0,lastSpaceIndex);
+            user.setSurName(surName);
+            //
+            user.setImgUrl(userFaceBookDto.getImgUrl());
+            user.setEmail(userFaceBookDto.getEmail());
             Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(auth);
         } else {

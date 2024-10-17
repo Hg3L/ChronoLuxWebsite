@@ -63,7 +63,7 @@ public class UserFaceBookUtil {
 
         String response = Request.Get(link).execute().returnContent().asString();
 
-        UserFaceBookDto fbAccount= new Gson().fromJson(response, UserFaceBookDto .class);
+        UserFaceBookDto fbAccount= new Gson().fromJson(response, UserFaceBookDto.class);
 
         return new UserFaceBookUtil(fbAccount);
 

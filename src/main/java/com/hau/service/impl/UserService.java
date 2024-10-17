@@ -29,7 +29,10 @@ public class UserService implements IUserService {
     @Override
     public UserDTO findOneByUserNameAndStatus(String userName, int status) {
         UserEntity userEntity = userRepository.findOneByUserNameAndStatus(userName,status);
-        UserDTO user = userConverter.toDTO(userEntity);
+        UserDTO user = null;
+        if(userEntity != null){
+            user = userConverter.toDTO(userEntity);
+        }
         return user;
     }
     public UserDTO findOneById(Long id) {

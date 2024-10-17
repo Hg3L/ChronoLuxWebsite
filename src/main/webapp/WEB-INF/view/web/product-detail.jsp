@@ -59,7 +59,10 @@
                     .commitment-item i {
                         font-size: 24px;
                         margin-right: 10px;
-                        color: #ffd700; /* Màu vàng cho biểu tượng */
+
+                        color: #ffd700;
+                        /* Màu vàng cho biểu tượng */
+                    
                     }
 
                     .commitment-text {
@@ -67,51 +70,54 @@
                         line-height: 1.5;
                         text-align: left;
                     }
-               .product-specs-container {
-                           max-width: 1400px;
 
-                           font-family: Arial, sans-serif;
-                           color: #333;
-                       }
+                    .product-specs-container {
+                        max-width: 1400px;
 
-                       .product-specs-title {
-                           font-size: 18px;
-                           font-weight: bold;
-                           margin-bottom: 15px;
-                       }
+                        font-family: Arial, sans-serif;
+                        color: #333;
+                    }
 
-                       .specs-table {
-                           display: flex;
-                           flex-wrap: wrap;
-                           gap: 10px;
-                       }
+                    .product-specs-title {
+                        font-size: 18px;
+                        font-weight: bold;
+                        margin-bottom: 15px;
+                    }
 
-                       .specs-column {
-                           flex: 1;
-                           min-width: 45%; /* Đảm bảo các cột có kích thước tối thiểu để chia đều */
-                       }
+                    .specs-table {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 10px;
+                    }
 
-                       .specs-row {
-                           display: flex;
-                           justify-content: space-between;
-                           padding: 10px;
-                           background-color: #f5f5f5;
-                           border-bottom: 1px solid #ddd;
-                       }
+                    .specs-column {
+                        flex: 1;
+                        min-width: 45%;
+                        /* Đảm bảo các cột có kích thước tối thiểu để chia đều */
+                    }
 
-                       .specs-row:nth-child(even) {
-                           background-color: #fff;
-                       }
+                    .specs-row {
+                        display: flex;
+                        justify-content: space-between;
+                        padding: 10px;
+                        background-color: #f5f5f5;
+                        border-bottom: 1px solid #ddd;
+                    }
 
-                       .specs-label {
-                           font-weight: bold;
-                           color: #555;
-                       }
+                    .specs-row:nth-child(even) {
+                        background-color: #fff;
+                    }
 
-                       .specs-value a {
-                           text-decoration: none;
-                           color: #007bff; /* Màu xanh dương cho link */
-                       }
+                    .specs-label {
+                        font-weight: bold;
+                        color: #555;
+                    }
+
+                    .specs-value a {
+                        text-decoration: none;
+                        color: #007bff;
+                        /* Màu xanh dương cho link */
+                    }
                 </style>
         </head>
 
@@ -138,7 +144,9 @@
                         <div id="product-carousel" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner border">
                                 <div class="carousel-item active">
-                                    <img class="w-100 h-100" src="https://www.watchstore.vn/images/products/2024/08/27/large/t120-410-22-051-00-1_1724748279.webp" alt="Image">
+                                    <img class="w-100 h-100"
+                                        src="https://www.watchstore.vn/images/products/2024/08/27/large/t120-410-22-051-00-1_1724748279.webp"
+                                        alt="Image">
                                 </div>
                                 <div class="carousel-item">
                                     <img class="w-100 h-100" src="img/product-2.jpg" alt="Image">
@@ -178,13 +186,17 @@
                         <div class="d-flex align-items-center mb-4 pt-2">
                             <div class="input-group quantity mr-3" style="width: 130px;">
                                 <div class="input-group-btn">
-                                    <button onclick="decreaseQuantity()" id ="DecreaseQuantityBtn" class="btn btn-primary btn-minus">
+
+                                    <button onclick="decreaseQuantity()" id="DecreaseQuantityBtn"
+                                        class="btn btn-primary btn-minus">
                                         <i class="fa fa-minus"></i>
                                     </button>
                                 </div>
-                                <input type="text" id = "quantity" class="form-control bg-secondary text-center" value="1">
+                                <input type="text" id="quantity" class="form-control bg-secondary text-center"
+                                    value="1">
                                 <div class="input-group-btn">
-                                    <button onclick="increaseQuantity()" id ="IncreaseQuantityBtn" class="btn btn-primary btn-plus">
+                                    <button onclick="increaseQuantity()" id="IncreaseQuantityBtn"
+                                        class="btn btn-primary btn-plus">
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
@@ -209,27 +221,28 @@
                                 </a>
                             </div>
                         </div>
-                         <div class="commitment-container">
-                                <div class="commitment-title">CAM KẾT CỦA CHRONOLUX.COM</div>
-                                <div class="commitment-list">
-                                    <div class="commitment-item">
-                                        <i>🔒</i>
-                                        <div class="commitment-text">Bảo hành máy 5 năm toàn quốc, thủ tục nhanh gọn</div>
-                                    </div>
-                                    <div class="commitment-item">
-                                        <i>🔄</i>
-                                        <div class="commitment-text">Không bán hàng fake, chỉ bán hàng chính hãng</div>
-                                    </div>
-                                    <div class="commitment-item">
-                                        <i>📦</i>
-                                        <div class="commitment-text">Sẵn hàng - quay chụp hình thực tế gửi khách xem</div>
-                                    </div>
-                                    <div class="commitment-item">
-                                        <i>🚚</i>
-                                        <div class="commitment-text">Freeship toàn quốc, thanh toán khi nhận hàng</div>
-                                    </div>
+
+                        <div class="commitment-container">
+                            <div class="commitment-title">CAM KẾT CỦA CHRONOLUX.COM</div>
+                            <div class="commitment-list">
+                                <div class="commitment-item">
+                                    <i>🔒</i>
+                                    <div class="commitment-text">Bảo hành máy 5 năm toàn quốc, thủ tục nhanh gọn</div>
+                                </div>
+                                <div class="commitment-item">
+                                    <i>🔄</i>
+                                    <div class="commitment-text">Không bán hàng fake, chỉ bán hàng chính hãng</div>
+                                </div>
+                                <div class="commitment-item">
+                                    <i>📦</i>
+                                    <div class="commitment-text">Sẵn hàng - quay chụp hình thực tế gửi khách xem</div>
+                                </div>
+                                <div class="commitment-item">
+                                    <i>🚚</i>
+                                    <div class="commitment-text">Freeship toàn quốc, thanh toán khi nhận hàng</div>
                                 </div>
                             </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row px-xl-5">
@@ -237,66 +250,67 @@
                         <div class="nav nav-tabs justify-content-center border-secondary mb-4">
                             <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Description</a>
                             <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">Warranty Policy</a>
-                              <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Size Selection Guide</a>
+                            <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Size Selection Guide</a>
+                     
                             <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-4">Reviews (0)</a>
                         </div>
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="tab-pane-1">
                                 <h4 class="mb-3">Product Description</h4>
-                                 <div class="product-specs-container">
-                                        <div class="product-specs-title">Thông số sản phẩm - ${model.name}</div>
-                                        <div class="specs-table">
-                                            <div class="specs-column">
-                                                <div class="specs-row">
-                                                    <div class="specs-label">Thương hiệu:</div>
-                                                    <div class="specs-value"><a href="#">${model.brandName}</a></div>
-                                                </div>
-                                                <div class="specs-row">
-                                                    <div class="specs-label">Xuất xứ:</div>
-                                                    <div class="specs-value">${model.country}</div>
-                                                </div>
-                                                <div class="specs-row">
-                                                    <div class="specs-label">Đối tượng:</div>
-                                                    <div class="specs-value"><a href="#">${model.gender}</a></div>
-                                                </div>
-                                                <div class="specs-row">
-                                                    <div class="specs-label">Dòng sản phẩm:</div>
-                                                    <div class="specs-value">${model.productLineName}</div>
-                                                </div>
-                                                <div class="specs-row">
-                                                    <div class="specs-label">Kháng nước:</div>
-                                                    <div class="specs-value">${model.waterResistant}</div>
-                                                </div>
-                                                <div class="specs-row">
-                                                    <div class="specs-label">Loại máy:</div>
-                                                    <div class="specs-value">${model.watchType}</div>
-                                                </div>
+
+                                <div class="product-specs-container">
+                                    <div class="product-specs-title">Thông số sản phẩm - ${model.name}</div>
+                                    <div class="specs-table">
+                                        <div class="specs-column">
+                                            <div class="specs-row">
+                                                <div class="specs-label">Thương hiệu:</div>
+                                                <div class="specs-value"><a href="#">${model.brandName}</a></div>
                                             </div>
-                                            <div class="specs-column">
-                                                <div class="specs-row">
-                                                    <div class="specs-label">Chất liệu kính:</div>
-                                                    <div class="specs-value">${model.glassMaterial}</div>
-                                                </div>
-                                                <div class="specs-row">
-                                                    <div class="specs-label">Chất liệu dây:</div>
-                                                    <div class="specs-value">${model.strapMaterial}</div>
-                                                </div>
-                                                <div class="specs-row">
-                                                    <div class="specs-label">Size mặt:</div>
-                                                    <div class="specs-value">${model.faceSize}</div>
-                                                </div>
-                                                <div class="specs-row">
-                                                    <div class="specs-label">Độ dày:</div>
-                                                    <div class="specs-value">${model.thickness}</div>
-                                                </div>
-                                                <div class="specs-row">
-                                                    <div class="specs-label">Khoảng trữ cót:</div>
-                                                    <div class="specs-value">80 tiếng</div>
-                                                </div>
-                                                <div class="specs-row">
-                                                    <div class="specs-label">Tiện ích:</div>
-                                                    <div class="specs-value">Dạ quang, Lịch ngày, Giờ, phút, giây</div>
-                                                </div>
+                                            <div class="specs-row">
+                                                <div class="specs-label">Xuất xứ:</div>
+                                                <div class="specs-value">${model.country}</div>
+                                            </div>
+                                            <div class="specs-row">
+                                                <div class="specs-label">Đối tượng:</div>
+                                                <div class="specs-value"><a href="#">${model.gender}</a></div>
+                                            </div>
+                                            <div class="specs-row">
+                                                <div class="specs-label">Dòng sản phẩm:</div>
+                                                <div class="specs-value">${model.productLineName}</div>
+                                            </div>
+                                            <div class="specs-row">
+                                                <div class="specs-label">Kháng nước:</div>
+                                                <div class="specs-value">${model.waterResistant}</div>
+                                            </div>
+                                            <div class="specs-row">
+                                                <div class="specs-label">Loại máy:</div>
+                                                <div class="specs-value">${model.watchType}</div>
+                                            </div>
+                                        </div>
+                                        <div class="specs-column">
+                                            <div class="specs-row">
+                                                <div class="specs-label">Chất liệu kính:</div>
+                                                <div class="specs-value">${model.glassMaterial}</div>
+                                            </div>
+                                            <div class="specs-row">
+                                                <div class="specs-label">Chất liệu dây:</div>
+                                                <div class="specs-value">${model.strapMaterial}</div>
+                                            </div>
+                                            <div class="specs-row">
+                                                <div class="specs-label">Size mặt:</div>
+                                                <div class="specs-value">${model.faceSize}</div>
+                                            </div>
+                                            <div class="specs-row">
+                                                <div class="specs-label">Độ dày:</div>
+                                                <div class="specs-value">${model.thickness}</div>
+                                            </div>
+                                            <div class="specs-row">
+                                                <div class="specs-label">Khoảng trữ cót:</div>
+                                                <div class="specs-value">80 tiếng</div>
+                                            </div>
+                                            <div class="specs-row">
+                                                <div class="specs-label">Tiện ích:</div>
+                                                <div class="specs-value">Dạ quang, Lịch ngày, Giờ, phút, giây</div>
                                             </div>
                                         </div>
                                     </div>
@@ -304,8 +318,13 @@
                             <div class="tab-pane fade" id="tab-pane-2">
                            ${model.warrantyContent}
                             </div>
+                            <div class="tab-pane fade" id="tab-pane-2">
+                                ${model.warrantyContent}
+                            </div>
                             <div class="tab-pane fade" id="tab-pane-3">
-                           <h4 class="mb-4">1 review for "Colorful Stylish Shirt"</h4>
+
+                                <h4 class="mb-4">1 review for "Colorful Stylish Shirt"</h4>
+
                             </div>
                             <div class="tab-pane fade" id="tab-pane-4">
                                 <div class="row">
@@ -491,21 +510,21 @@
 
                     quantityInput.value = currentQuantity;
                 }
-            function decreaseQuantity() {
+                function decreaseQuantity() {
 
-                let quantityInput = document.getElementById("quantity");
-                let currentQuantity = parseInt(quantityInput.value);
+                    let quantityInput = document.getElementById("quantity");
+                    let currentQuantity = parseInt(quantityInput.value);
 
 
-                if (currentQuantity > 1) {
-                    currentQuantity -= 1;
+                    if (currentQuantity > 1) {
+                        currentQuantity -= 1;
 
-                    quantityInput.value = currentQuantity;
+                        quantityInput.value = currentQuantity;
 
-                } else {
-                     quantityInput.value = 1;
+                    } else {
+                        quantityInput.value = 1;
+                    }
                 }
-            }
             </script>
         </body>
 
