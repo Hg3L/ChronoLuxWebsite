@@ -52,7 +52,6 @@ public class LoginController {
             String token = UserFaceBookUtil.getToken(code);
             UserFaceBookDto userFaceBookDto = UserFaceBookUtil.toUser(token).getUserFaceBookDto();
             AuthenticationProviderUtil.GrantedPermissionO2Auth(userFaceBookDto);
-            System.out.println(userFaceBookDto);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
