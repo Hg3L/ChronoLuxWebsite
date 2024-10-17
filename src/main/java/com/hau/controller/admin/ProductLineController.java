@@ -1,6 +1,5 @@
-package com.hau.controller.web;
+package com.hau.controller.admin;
 
-import com.hau.dto.BrandDTO;
 import com.hau.dto.FilterCriteria;
 import com.hau.dto.ProductDTO;
 import com.hau.dto.ProductLineDTO;

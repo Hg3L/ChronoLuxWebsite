@@ -50,6 +50,12 @@
             <span>Dòng sản phẩm</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="<c:url value='/admin/warranty'/>">
+            <i class="fas fa-star"></i>
+            <span>Chính sách bảo hành</span>
+        </a>
+    </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
 </ul>

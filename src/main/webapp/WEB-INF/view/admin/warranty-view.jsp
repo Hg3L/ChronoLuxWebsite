@@ -15,19 +15,14 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-3">
-        <h1 class="h3 mb-1 text-gray-800">Các dòng đồng hồ</h1>
+        <h1 class="h3 mb-1 text-gray-800">Chính sách bảo hành</h1>
     </div>
     <hr/>
-    <div class="d-flex justify-content-end">
-        <a href="${pageContext.request.contextPath}/admin/product-line/create" class="btn btn-success mr-2 mt-1">
-            <i class="fas fa-plus mr-1"></i> Thêm dòng đồng hồ
-        </a>
-    </div>
     <div class="card shadow mb-4 mt-4">
         <div class="card-body">
             <div class="d-flex justify-content-start mb-4 mt-3">
                 <label class="mr-3">Thương hiệu:</label>
-                <form class="form-group" action="${pageContext.request.contextPath}/admin/product-lines" method="get">
+                <form class="form-group" action="${pageContext.request.contextPath}/admin/warranty" method="get">
                     <select class="custom-select-box" id="brandSelect" name="brandId" aria-label="Select brand">
                         <c:choose>
                             <c:when test="${empty brands}">
@@ -43,6 +38,12 @@
                             </c:otherwise>
                         </c:choose>
                     </select>
+                    <label class="mr-3 ml-3">Bảo hành:</label>
+                    <select class="custom-select-box mr-3" id="warrantySelect" name="isHasWarranty" aria-label="Select warranty filter">
+                        <option value="2" <c:if test="${isHasWarranty == 2}">selected</c:if>>Tất cả</option>
+                        <option value="1" <c:if test="${isHasWarranty == 1}">selected</c:if>>Đã có</option>
+                        <option value="0" <c:if test="${isHasWarranty == 0}">selected</c:if>>Chưa có</option>
+                    </select>
                     <button type="submit" class="btn btn-dark ml-3 d-inline-flex align-items-center">
                         <i class="fa fa-filter mr-1" aria-hidden="true"></i> Lọc
                     </button>
@@ -57,8 +58,7 @@
                     <tr>
                         <th>Tên thương hiệu</th>
                         <th>Dòng đồng hồ</th>
-                        <th>Logo</th>
-                        <th>Banner</th>
+                        <th>Chính sách bảo hành</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -67,13 +67,37 @@
                         <tr>
                             <td>${productLine.brandName}</td>
                             <td>${productLine.name}</td>
-                            <td><img src="<c:url value='/template/web/img/product-lines/${productLine.iconUrl}'/>" alt="Logo" style="max-width:80px;"/></td>
-                            <td><img src="<c:url value='/template/web/img/product-lines/${productLine.bannerUrl}'/>" alt="Banner" style="max-width:250px;"/></td>
                             <td>
-                                <a href="${pageContext.request.contextPath}/admin/product-line/update/?id=${productLine.id}" class="btn btn-info btn-sm mr-2">
+                                <c:choose>
+                                    <c:when test="${productLine.warrantyId != 0}">
+                                        <!-- Warranty exists: show green check icon -->
+                                        <i class="fas fa-check-circle" style="color: green;"></i>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <!-- No warranty: show red X icon -->
+                                        <i class="fas fa-times-circle" style="color: red;"></i>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${productLine.warrantyId != 0}">
+                                        <a href="${pageContext.request.contextPath}/admin/warranty/view/${productLine.id}"
+                                           class="btn btn-secondary btn-sm mr-2">
+                                            <i class="fas fa-eye mr-1"></i> Xem bảo hành
+                                        </a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="${pageContext.request.contextPath}/admin/warranty/add/${productLine.id}"
+                                           class="btn btn-success btn-sm mr-2">
+                                            <i class="fas fa-plus mr-1"></i> Thêm bảo hành
+                                        </a>
+                                    </c:otherwise>
+                                </c:choose>
+                                <a href="${pageContext.request.contextPath}/admin/warranty/update/?id=${productLine.id}" class="btn btn-info btn-sm mr-2">
                                     <i class="fas fa-pencil-alt mr-1"></i> Sửa
                                 </a>
-                                <a href="${pageContext.request.contextPath}/admin/product-line/delete?id=${productLine.id}" class="btn btn-danger btn-sm" onclick="return confirmDelete(${productLine.id})">
+                                <a href="${pageContext.request.contextPath}/admin/warranty/delete?id=${productLine.id}" class="btn btn-danger btn-sm" onclick="return confirmDelete(${productLine.id})">
                                     <i class="fas fa-trash-alt mr-1"></i> Xóa
                                 </a>
                             </td>
@@ -115,7 +139,7 @@
 </div>
 <script>
     function confirmDelete(id) {
-        return confirm("Bạn sẽ mất tất cả các sản phẩm của thương hiệu. Bạn có chắc muốn xóa thương hiệu này ?");
+        return confirm("Bạn có chắc muốn xóa bảo hành?");
     }
 </script>
 </body>

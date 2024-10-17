@@ -11,4 +11,8 @@ public interface ProductLineRepository extends JpaRepository<ProductLineEntity,L
     List<ProductLineEntity> findAllByBrand_Id(Long brandId);
     Page<ProductLineEntity> findAllByBrand_Id(Long brandId, Pageable page);
     ProductLineEntity findOneById(long id);
+    Page<ProductLineEntity> findByWarrantyIsNotNull(Pageable pageable);
+    Page<ProductLineEntity> findByWarrantyIsNull(Pageable pageable);
+    Page<ProductLineEntity> findByBrand_IdAndWarrantyIsNotNull(Long brandId, Pageable pageable);
+    Page<ProductLineEntity> findByBrand_IdAndWarrantyIsNull(Long brandId, Pageable pageable);
 }
