@@ -96,4 +96,10 @@ public class ProductService implements IProductService {
         return products;
     }
 
+    @Override
+    public ProductDTO findOneById(long id) {
+        ProductEntity productEntity = productRepository.findOne(id);
+        return productConverter.toDTO(productEntity);
+    }
+
 }

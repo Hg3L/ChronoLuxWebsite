@@ -9,10 +9,19 @@ public class UserDTO extends AbstractDTO{
     private String fullName;
     private String email;
     private int status;
+    private String imgUrl;
     private String resetPasswordToken;
     private List<String> roleCode = new ArrayList<>();
     private String firstName;
     private String surName;
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
 
     public String getUserName() {
         return userName;

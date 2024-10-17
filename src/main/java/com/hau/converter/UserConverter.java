@@ -19,6 +19,7 @@ public class UserConverter {
         userDTO.setStatus(userEntity.getStatus());
         userDTO.setEmail(userEntity.getEmail());
         userDTO.setResetPasswordToken(userEntity.getResetPasswordToken());
+        userDTO.setImgUrl(userEntity.getImgUrl());
         List<String> rolesCode = new ArrayList<>();
         for(RoleEntity role : userEntity.getRoles()){
             rolesCode.add(role.getCode());
@@ -33,6 +34,7 @@ public class UserConverter {
         userEntity.setFullName(userDTO.getFullName());
         userEntity.setPassword(userDTO.getPassword());
         userEntity.setStatus(userDTO.getStatus());
+        userEntity.setImgUrl(userDTO.getImgUrl());
         return userEntity;
     }
     public UserEntity toEntity(UserEntity result,UserDTO userDTO){
@@ -41,6 +43,7 @@ public class UserConverter {
         result.setEmail(userDTO.getEmail());
         result.setStatus(userDTO.getStatus());
         result.setPassword(userDTO.getPassword());
+        result.setImgUrl(userDTO.getImgUrl());
         return result;
     }
 }

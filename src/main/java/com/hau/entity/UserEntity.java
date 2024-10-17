@@ -19,6 +19,8 @@ public class UserEntity extends BaseEntity {
 
     @Column(name = "email")
     private String email;
+    @Column(name = "img_url")
+    private String imgUrl;
 
     @Column(name = "status")
     private int status;
@@ -88,5 +90,21 @@ public class UserEntity extends BaseEntity {
 
     public void setResetPasswordToken(String resetPasswordToken) {
         this.resetPasswordToken = resetPasswordToken;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public List<BillEntity> getBills() {
+        return bills;
+    }
+
+    public void setBills(List<BillEntity> bills) {
+        this.bills = bills;
     }
 }
