@@ -8,7 +8,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "warranty")
 public class WarrantyEntity extends BaseEntity{
-    @Column(name ="content")
+    @Column(name ="content", columnDefinition = "LONGTEXT")
     private String content;
     @OneToOne(mappedBy = "warranty")
     private ProductLineEntity productLineEntity;

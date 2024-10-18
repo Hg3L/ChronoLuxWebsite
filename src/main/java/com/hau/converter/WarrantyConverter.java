@@ -5,14 +5,26 @@ import com.hau.entity.WarrantyEntity;
 import org.springframework.stereotype.Component;
 
 @Component
-public class WarrantyConverter implements Converter<WarrantyEntity, WarrantyDTO> {
+public class WarrantyConverter implements Converter<WarrantyDTO, WarrantyEntity> {
     @Override
-    public WarrantyEntity convertToDTO(WarrantyDTO entity) {
-        return null;
+    public WarrantyDTO convertToDTO(WarrantyEntity entity) {
+        WarrantyDTO warrantyDTO = new WarrantyDTO();
+        warrantyDTO.setProductLineId(entity.getProductLineEntity().getId());
+        if(entity.getId() != 0L) {
+            warrantyDTO.setId(entity.getId());
+        }
+        warrantyDTO.setContent(entity.getContent());
+        warrantyDTO.setProductLineName(entity.getProductLineEntity().getName());
+        return warrantyDTO;
     }
 
     @Override
-    public WarrantyDTO convertToEntity(WarrantyEntity dto) {
-        return null;
+    public WarrantyEntity convertToEntity(WarrantyDTO dto) {
+        WarrantyEntity warrantyEntity = new WarrantyEntity();
+        if(dto.getId() != null) {
+            warrantyEntity.setId(dto.getId());
+        }
+        warrantyEntity.setContent(dto.getContent());
+        return warrantyEntity;
     }
 }

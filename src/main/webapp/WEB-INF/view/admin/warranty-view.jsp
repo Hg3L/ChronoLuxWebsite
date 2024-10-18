@@ -82,24 +82,21 @@
                             <td>
                                 <c:choose>
                                     <c:when test="${productLine.warrantyId != 0}">
-                                        <a href="${pageContext.request.contextPath}/admin/warranty/view/${productLine.id}"
+                                        <a href="${pageContext.request.contextPath}/admin/warranty/createOrUpdate/?id=${productLine.id}"
                                            class="btn btn-secondary btn-sm mr-2">
                                             <i class="fas fa-eye mr-1"></i> Xem bảo hành
                                         </a>
+                                        <a href="${pageContext.request.contextPath}/admin/warranty/delete?id=${productLine.id}" class="btn btn-danger btn-sm" onclick="return confirmDelete(${productLine.id})">
+                                            <i class="fas fa-trash-alt mr-1"></i> Xóa
+                                        </a>
                                     </c:when>
                                     <c:otherwise>
-                                        <a href="${pageContext.request.contextPath}/admin/warranty/add/${productLine.id}"
+                                        <a href="${pageContext.request.contextPath}/admin/warranty/createOrUpdate/?id=${productLine.id}"
                                            class="btn btn-success btn-sm mr-2">
                                             <i class="fas fa-plus mr-1"></i> Thêm bảo hành
                                         </a>
                                     </c:otherwise>
                                 </c:choose>
-                                <a href="${pageContext.request.contextPath}/admin/warranty/update/?id=${productLine.id}" class="btn btn-info btn-sm mr-2">
-                                    <i class="fas fa-pencil-alt mr-1"></i> Sửa
-                                </a>
-                                <a href="${pageContext.request.contextPath}/admin/warranty/delete?id=${productLine.id}" class="btn btn-danger btn-sm" onclick="return confirmDelete(${productLine.id})">
-                                    <i class="fas fa-trash-alt mr-1"></i> Xóa
-                                </a>
                             </td>
                         </tr>
                     </c:forEach>

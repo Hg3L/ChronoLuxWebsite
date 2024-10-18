@@ -18,7 +18,7 @@ public class ProductLineEntity extends BaseEntity{
     @Column(name = "banner_url")
     private String banner;
 
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name="warranty_id")
     private WarrantyEntity warranty;
 
