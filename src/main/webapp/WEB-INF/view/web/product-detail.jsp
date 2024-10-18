@@ -27,7 +27,7 @@
             <!-- Customized Bootstrap Stylesheet -->
             <link href=" <c:url value='/template/web/css/style.css'/>" rel="stylesheet">
             <%----------------------------%>
-                <style>
+            <style>
                     .commitment-container {
                         background-color: #fff;
                         color: #000;
@@ -43,7 +43,6 @@
                         margin-bottom: 15px;
                         font-size: 18px;
                     }
-
                     .commitment-list {
                         display: flex;
                         flex-wrap: wrap;
@@ -60,8 +59,10 @@
                     .commitment-item i {
                         font-size: 24px;
                         margin-right: 10px;
+
                         color: #ffd700;
                         /* Màu vàng cho biểu tượng */
+                    
                     }
 
                     .commitment-text {
@@ -185,6 +186,7 @@
                         <div class="d-flex align-items-center mb-4 pt-2">
                             <div class="input-group quantity mr-3" style="width: 130px;">
                                 <div class="input-group-btn">
+
                                     <button onclick="decreaseQuantity()" id="DecreaseQuantityBtn"
                                         class="btn btn-primary btn-minus">
                                         <i class="fa fa-minus"></i>
@@ -219,6 +221,7 @@
                                 </a>
                             </div>
                         </div>
+
                         <div class="commitment-container">
                             <div class="commitment-title">CAM KẾT CỦA CHRONOLUX.COM</div>
                             <div class="commitment-list">
@@ -248,11 +251,13 @@
                             <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Description</a>
                             <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">Warranty Policy</a>
                             <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Size Selection Guide</a>
+                     
                             <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-4">Reviews (0)</a>
                         </div>
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="tab-pane-1">
                                 <h4 class="mb-3">Product Description</h4>
+
                                 <div class="product-specs-container">
                                     <div class="product-specs-title">Thông số sản phẩm - ${model.name}</div>
                                     <div class="specs-table">
@@ -309,13 +314,17 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                   </div>
+                            <div class="tab-pane fade" id="tab-pane-2">
+                           ${model.warrantyContent}
                             </div>
                             <div class="tab-pane fade" id="tab-pane-2">
                                 ${model.warrantyContent}
                             </div>
                             <div class="tab-pane fade" id="tab-pane-3">
+
                                 <h4 class="mb-4">1 review for "Colorful Stylish Shirt"</h4>
+
                             </div>
                             <div class="tab-pane fade" id="tab-pane-4">
                                 <div class="row">
@@ -490,7 +499,7 @@
                 </div>
             </div>
             <!-- Products End -->
-            <script>
+        <script>
                 function increaseQuantity() {
 
                     let quantityInput = document.getElementById("quantity");

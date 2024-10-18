@@ -12,6 +12,7 @@
             rel="stylesheet">
     <link href="<c:url value='/template/admin/css/sb-admin-2.min.css'/>" rel="stylesheet" type="text/css">
     <link href="<c:url value='/template/admin/css/styles.css'/>" rel="stylesheet" type="text/css">
+    <link href="" rel="stylesheet">
 </head>
 <body>
 <div class="container">
@@ -31,50 +32,57 @@
         </div>
         <hr/>
         <div class="form-group">
-            <label class="mr-3 mb-2">Thương hiệu</label>
+            <label class="mr-3 mb-2">Thương hiệu:</label>
             <select class="custom-select-box form-control mb-3" name="brandId" aria-label="Select brand" required>
                 <c:choose>
                     <c:when test="${empty brands}">
                         <option selected>Chưa có dữ liệu</option>
                     </c:when>
                     <c:otherwise>
-                        <option value="" disabled selected>Chọn thương hiệu</option>
                         <c:forEach var="brand" items="${brands}">
-                            <option value="${brand.id}">${brand.name}</option>
+                            <option value="${brand.id}" <c:if test="${brand.id == productLine.brandId}">selected</c:if>>
+                                    ${brand.name}
+                            </option>
                         </c:forEach>
                     </c:otherwise>
                 </c:choose>
             </select>
         </div>
-
+        <form:hidden path="id" />
         <div class="form-group">
             <label for="name">Tên dòng</label>
-            <form:input path="name" type="text" class="form-control" id="name" required=""/>
+            <form:input path="name" type="text" class="form-control" id="name" required="required"/>
         </div>
         <!-- logo -->
         <div class="form-group">
             <label for="logo">Tải logo</label>
             <div class="custom-file">
-                <input type="file" class="custom-file-input" id="logo" name="logo" accept="image/*" required onchange="previewImage(event, 'logoPreview')">
-                <label class="custom-file-label" for="logo">Chọn ảnh logo</label>
+                <input type="file" class="custom-file-input" id="logo" name="logo" accept="image/*" onchange="previewImage(event, 'logoPreview')">
+                <label class="custom-file-label" for="logo">${productLine.iconUrl}</label>
             </div>
         </div>
         <!-- Phần xem trước ảnh -->
         <div class="form-group">
-            <img id="logoPreview" src="" alt="Logo Preview" class="img-fluid" style="max-width: 300px; display: none;" />
+            <img id="logoPreview" src="<c:url value='/template/web/img/product-lines/${productLine.iconUrl}'/>"
+                 alt="Logo Preview"
+                 class="img-fluid" style="max-width: 300px;" />
         </div>
 
         <!-- banner -->
         <div class="form-group">
             <label for="banner">Tải banner</label>
             <div class="custom-file">
-                <input type="file" class="custom-file-input" id="banner" name="banner" accept="image/*" required onchange="previewImage(event, 'bannerPreview')">
-                <label class="custom-file-label" for="banner">Chọn ảnh banner</label>
+                <input type="file" class="custom-file-input" id="banner" name="banner" accept="image/*" onchange="previewImage(event, 'bannerPreview')">
+                <label class="custom-file-label" for="banner">
+                        ${productLine.bannerUrl}
+                </label>
             </div>
         </div>
         <!-- Phần xem trước ảnh -->
         <div class="form-group">
-            <img id="bannerPreview" src="" alt="Banner Preview" class="img-fluid" style="max-width: 300px; display: none;" />
+            <img id="bannerPreview" src="<c:url value='/template/web/img/product-lines/${productLine.bannerUrl}'/>"
+                 alt="Banner Preview" class="img-fluid"
+                 style="max-width: 300px;" />
         </div>
     </form:form>
 </div>
