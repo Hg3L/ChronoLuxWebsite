@@ -33,14 +33,14 @@
             <div class="container rounded bg-white mt-5 mb-5">
                 <div class="row">
                     <div class="col-md-3 border-right">
-                        <c:if test="${user.password != ''}">
+                        <c:if test="${user.password != null}">
                             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img
                                     class="rounded-circle mt-5" width="150px"
                                     src="<c:url value='/template/web/img/user-logos/${user.imgUrl}'/>"><span
                                     class="font-weight-bold">${user.getFullName()}</span><span
                                     class="text-black-50">${user.getEmail()}</span><span> </span></div>
                         </c:if>
-                        <c:if test="${user.password == ''}">
+                        <c:if test="${user.password == null}">
                             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img
                                     class="rounded-circle mt-5" width="150px" src="${user.getImgUrl()}"><span
                                     class="font-weight-bold">${user.getFullName()}</span><span
@@ -55,7 +55,7 @@
                             </div>
                             <form method="post" action="<c:url value='/user-profile'/>">
                                 <div class="row mt-2">
-                                    <c:if test="${user.password != ''}">
+                                    <c:if test="${user.password != null}">
                                         <input type="hidden" name="id" class="form-control" value="${user.id}">
                                     </c:if>
 
@@ -73,7 +73,7 @@
                                     <div class="col-md-12"><label class="labels">Email</label><input type="text"
                                             name="email" class="form-control" placeholder="enter your email"
                                             value="${user.getEmail()}" required></div>
-                                    <c:if test="${user.password != ''}">
+                                    <c:if test="${user.password != null}">
                                         <div class="col-md-12"><label class="labels">Password</label><input
                                                 type="password" name="password" class="form-control"
                                                 placeholder="enter your password" value="${user.getPassword()}"
@@ -93,7 +93,7 @@
                                         Update failed!
                                     </div>
                                 </c:if>
-                                <c:if test="${user.password != ''}">
+                                <c:if test="${user.password != null}">
                                     <div class="mt-5 text-center"><button class="btn btn-primary profile-button"
                                             type="submit">Save Profile</button></div>
                                 </c:if>

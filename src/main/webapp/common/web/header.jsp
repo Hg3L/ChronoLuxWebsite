@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%@ page import="com.hau.util.SecurityUtil" %>
-        <%@ include file="/common/taglib.jsp" %>
+     <%@ page import="org.springframework.security.core.Authentication" %>
+      <%@ page import="org.springframework.security.core.GrantedAuthority" %>
+       <%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
+           <%@ page import="com.hau.dto.CustomerO2Auth" %>
+               <%@ page import="com.hau.dto.MyUser" %>
+                <%@ include file="/common/taglib.jsp" %>
             <!-- Topbar Start -->
             <div class="container-fluid">
                 <div class="row bg-secondary py-2 px-xl-5">
@@ -141,10 +146,23 @@
                                 <security:authorize access="isAuthenticated()">
                                     <div class="navbar-nav ml-auto py-0">
                                         <div class="nav-item dropdown">
+                                        <%
+                                            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                                            String fullName = "";
+
+                                            if (principal instanceof CustomerO2Auth) {
+
+                                                fullName = SecurityUtil.getPrincipalO2Auth().getFullName();
+                                            } else if (principal instanceof MyUser) {
+
+                                                fullName = SecurityUtil.getPrincipal().getFullName();
+                                            }
+                                        %>
                                             <a href="#" class="nav-link dropdown-toggle" id="userDropdown" role="button"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Welcome, <%=SecurityUtil.getPrincipal().getFullName()%>
+                                                Welcome, <%=fullName%>
                                             </a>
+
                                             <div class="dropdown-menu dropdown-menu-right"
                                                 aria-labelledby="userDropdown">
                                                 <a class="dropdown-item" href="<c:url value='/user-profile'/>">Profile</a>

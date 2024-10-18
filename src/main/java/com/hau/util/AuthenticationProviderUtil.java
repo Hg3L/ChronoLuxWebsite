@@ -1,9 +1,7 @@
 package com.hau.util;
 
-import com.hau.dto.MyUser;
-import com.hau.dto.UserDTO;
-import com.hau.dto.UserFaceBookDto;
-import com.hau.dto.UserGoogleDto;
+import com.hau.dto.*;
+import javassist.compiler.Parser;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,18 +19,21 @@ public class AuthenticationProviderUtil {
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         if (account instanceof UserGoogleDto) {
             UserGoogleDto userGoogleDto = (UserGoogleDto) account;
-            MyUser user = new MyUser(userGoogleDto.getGiven_name(), "", true, true, true, true, authorities);
+            CustomerO2Auth user = new CustomerO2Auth(" ", "", true, true, true, true, authorities);
             user.setFullName(userGoogleDto.getGiven_name());
             user.setFirstName(userGoogleDto.getGiven_name());
             user.setSurName(userGoogleDto.getFamily_name());
             user.setImgUrl(userGoogleDto.getPicture());
             user.setEmail(userGoogleDto.getEmail());
+            user.setRoleCode("ROLE_USER_GOOGLE");
+            BigInteger bigNumber = new BigInteger(userGoogleDto.getId());
+            user.setUid(bigNumber.longValue());
             Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(auth);
         } else if (account instanceof UserFaceBookDto) {
             // Xử lý nếu object là kiểu AnotherClass
             UserFaceBookDto userFaceBookDto = (UserFaceBookDto) account;
-            MyUser user = new MyUser(userFaceBookDto.getName(), "", true, true, true, true, authorities);
+            CustomerO2Auth user = new CustomerO2Auth(" ", "", true, true, true, true, authorities);
             user.setFullName(userFaceBookDto.getName());
             //
             String[] parts = userFaceBookDto.getName().split(" ");
@@ -44,6 +46,9 @@ public class AuthenticationProviderUtil {
             //
             user.setImgUrl(userFaceBookDto.getImgUrl());
             user.setEmail(userFaceBookDto.getEmail());
+            user.setUid(userFaceBookDto.getId());
+            user.setRoleCode("ROLE_USER_FACEBOOK");
+
             Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(auth);
         } else {

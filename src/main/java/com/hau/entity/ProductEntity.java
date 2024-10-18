@@ -1,6 +1,7 @@
 package com.hau.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -31,6 +32,7 @@ public class ProductEntity extends BaseEntity {
     private ProductLineEntity productLine;
     @ManyToMany(mappedBy = "products")
     private List<BillEntity> bills;
+
 
     public String getName() {
         return name;

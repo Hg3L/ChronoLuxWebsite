@@ -7,6 +7,7 @@ import com.hau.dto.ProductDTO;
 import com.hau.service.IBrandService;
 import com.hau.service.IProductService;
 import com.hau.util.PageableUtil;
+import com.hau.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

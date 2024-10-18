@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,15 +25,9 @@ public class UserProfileController {
     @Autowired
     private IUserService userService;
     @GetMapping
-    public String  UserProfile(Model model){
-        if(userService.findOneByUserNameAndStatus(SecurityUtil.getPrincipal().getUsername(), SystemConstant.ACTIVE_STATUS) != null){
-            model.addAttribute("user",userService.findOneByUserNameAndStatus(SecurityUtil.getPrincipal().getUsername(), SystemConstant.ACTIVE_STATUS));
-        }
-        else {
-            model.addAttribute("user",SecurityUtil.getPrincipal());
-        }
-
-        return "web/profile";
+    public String  UserProfile(Model model, @AuthenticationPrincipal Authentication authentication){
+       model.addAttribute("user",userService.getCurrentLoggedInCustomer(authentication));
+       return "web/profile";
     }
     @PostMapping
     public String saveAndUpdate(@ModelAttribute UserDTO userDTO){
