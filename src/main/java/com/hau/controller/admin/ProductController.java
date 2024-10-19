@@ -1,4 +1,4 @@
-package com.hau.controller.web;
+package com.hau.controller.admin;
 
 import com.hau.dto.ProductDTO;
 import com.hau.service.FileService;
@@ -51,5 +51,10 @@ public class ProductController {
         return "admin/product-view";
     }
 
-
+    @GetMapping("/admin/product/create")
+    public String createProduct(Model model) {
+        model.addAttribute("product", new ProductDTO());
+        model.addAttribute("brands", brandService.findAll());
+        return "admin/product-add";
+    }
 }
