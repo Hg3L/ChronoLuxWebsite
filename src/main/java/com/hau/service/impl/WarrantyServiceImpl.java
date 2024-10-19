@@ -7,7 +7,6 @@ import com.hau.entity.ProductLineEntity;
 import com.hau.entity.WarrantyEntity;
 import com.hau.repository.ProductLineRepository;
 import com.hau.repository.WarrantyRepository;
-import com.hau.service.ProductLineService;
 import com.hau.service.WarrantyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,14 +24,6 @@ public class WarrantyServiceImpl implements WarrantyService {
     @Transactional
     @Override
     public void saveWarranty(WarrantyDTO warrantyDTO) {
-        /*ProductLineEntity productLineEntity = productLineRepository.findOneById(warrantyDTO.getProductLineId());
-        WarrantyEntity warrantyEntity = converter.convertToEntity(warrantyDTO);
-        if (warrantyEntity.getId() != 0L) {
-            warrantyEntity = warrantyRepository.findOne(warrantyEntity.getId());
-        }
-        warrantyEntity.setProductLineEntity(productLineEntity);
-        productLineEntity.setWarranty(warrantyEntity);
-        warrantyRepository.save(warrantyEntity);*/
         WarrantyEntity warrantyEntity = converter.convertToEntity(warrantyDTO);
         warrantyRepository.save(warrantyEntity);
     }

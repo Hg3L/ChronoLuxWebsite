@@ -2,7 +2,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
-    <title>ChronoLux - Product Line Information</title>
+    <title>ChronoLux - Product Information</title>
     <!-- Custom fonts for this template-->
     <link href="<c:url value='/template/admin/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet" type="text/css">
     <link
@@ -11,24 +11,25 @@
     <link href="<c:url value='/template/admin/css/sb-admin-2.min.css'/>" rel="stylesheet" type="text/css">
     <link href="<c:url value='/template/admin/css/styles.css'/>" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-3">
-        <h1 class="h3 mb-1 text-gray-800">Các dòng đồng hồ</h1>
+        <h1 class="h3 mb-1 text-gray-800">Đồng hồ</h1>
     </div>
     <hr/>
     <div class="d-flex justify-content-end">
-        <a href="${pageContext.request.contextPath}/admin/product-line/create" class="btn btn-success mr-2 mt-1">
-            <i class="fas fa-plus mr-1"></i> Thêm dòng đồng hồ
+        <a href="${pageContext.request.contextPath}/admin/product/create" class="btn btn-success mr-2 mt-1">
+            <i class="fas fa-plus mr-1"></i> Thêm đồng hồ
         </a>
     </div>
     <div class="card shadow mb-4 mt-4">
         <div class="card-body">
             <div class="d-flex justify-content-start mb-4 mt-3">
                 <label class="mr-3">Thương hiệu:</label>
-                <form class="form-group" action="${pageContext.request.contextPath}/admin/product-lines" method="get">
+                <form class="form-group" action="${pageContext.request.contextPath}/admin/products" method="get">
                     <select class="custom-select-box" id="brandSelect" name="brandId" aria-label="Select brand">
                         <c:choose>
                             <c:when test="${empty brands}">
@@ -44,6 +45,9 @@
                             </c:otherwise>
                         </c:choose>
                     </select>
+                    <label class="mr-3 ml-5">Dòng đồng hồ:</label>
+                    <select class="custom-select-box" id="productLineSelect" name="productLineId" aria-label="Select product line">
+                    </select>
                     <button type="submit" class="btn btn-dark ml-3 d-inline-flex align-items-center">
                         <i class="fa fa-filter mr-1" aria-hidden="true"></i> Lọc
                     </button>
@@ -56,30 +60,30 @@
                 <table class="table table-bordered" width="100%" cellspacing="0">
                     <thead>
                     <tr>
+                        <th>Ảnh sản phẩm</th>
+                        <th>Tên đồng hồ</th>
                         <th>Tên thương hiệu</th>
                         <th>Dòng đồng hồ</th>
-                        <th>Logo</th>
-                        <th>Banner</th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="productLine" items="${productLines.content}">
+                    <%--<c:forEach var="productLine" items="${product.content}">
                         <tr>
-                            <td>${productLine.brandName}</td>
-                            <td>${productLine.name}</td>
-                            <td><img src="<c:url value='/template/web/img/product-lines/${productLine.iconUrl}'/>" alt="Logo" style="max-width:80px;"/></td>
-                            <td><img src="<c:url value='/template/web/img/product-lines/${productLine.bannerUrl}'/>" alt="Banner" style="max-width:250px;"/></td>
+                            <td><img src="<c:url value='/template/web/img/products/${product.iconUrl}'/>" alt="Logo" style="max-width:80px;"/></td>
+                            <td>${product.name}</td>
+                            <td>${product.brandName}</td>
+                            <td>${product.productLineName}</td>
                             <td>
-                                <a href="${pageContext.request.contextPath}/admin/product-line/update/?id=${productLine.id}" class="btn btn-info btn-sm mr-2">
+                                <a href="${pageContext.request.contextPath}/admin/product/update/?id=${product.id}" class="btn btn-info btn-sm mr-2">
                                     <i class="fas fa-pencil-alt mr-1"></i> Sửa
                                 </a>
-                                <a href="${pageContext.request.contextPath}/admin/product-line/delete?id=${productLine.id}" class="btn btn-danger btn-sm" onclick="return confirmDelete(${productLine.id})">
+                                <a href="${pageContext.request.contextPath}/admin/product/delete?id=${product.id}" class="btn btn-danger btn-sm" onclick="return confirmDelete(${productLine.id})">
                                     <i class="fas fa-trash-alt mr-1"></i> Xóa
                                 </a>
                             </td>
                         </tr>
-                    </c:forEach>
+                    </c:forEach>--%>
                     </tbody>
                 </table>
             </div>
@@ -118,5 +122,41 @@
     function confirmDelete(id) {
         return confirm("Bạn sẽ mất tất cả các sản phẩm của thương hiệu. Bạn có chắc muốn xóa thương hiệu này ?");
     }
+</script>
+<script>
+    $(document).ready(function(){
+        // Khi người dùng thay đổi lựa chọn brand
+        $('#brandSelect').change(function(){
+            var brandId = $(this).val();
+
+            // Gửi yêu cầu AJAX để lấy danh sách product lines dựa trên brandId
+            $.ajax({
+                url: '${pageContext.request.contextPath}/admin/product-line/getProductLines',  // URL xử lý yêu cầu
+                type: 'GET',
+                data: { brandId: brandId },
+                success: function(response){
+                    // Làm trống thẻ select productline trước khi cập nhật
+                    $('#productLineSelect').empty();
+
+                    // Thêm lựa chọn "Tất cả" mặc định khi chọn brand "Tất cả"
+                    /*if (brandId === "0") {
+                        $('#productLineSelect').append('<option value="0">Tất cả</option>');
+                    }*/
+
+                    // Kiểm tra nếu không có dữ liệu trả về
+                    if (response.length === 0) {
+                        $('#productLineSelect').append('<option value="" disabled>Chưa có dữ liệu</option>');
+                    } else {
+                        // Thêm product lines vào thẻ select nếu có dữ liệu
+                        $('#productLineSelect').append('<option value="0">Tất cả</option>');  // Thêm lựa chọn "Tất cả"
+                        $.each(response, function(key, value){
+                            $('#productLineSelect').append('<option value="'+ value.id +'">'+ value.name +'</option>');
+                        });
+                    }
+                }
+            });
+        });
+        $('#brandSelect').trigger('change');
+    });
 </script>
 </body>

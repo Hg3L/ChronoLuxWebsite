@@ -1,32 +1,23 @@
 package com.hau.controller.web;
 
-import com.google.gson.internal.LinkedTreeMap;
 import com.hau.dto.BrandDTO;
 import com.hau.dto.FilterCriteria;
 import com.hau.dto.ProductDTO;
 import com.hau.service.IBrandService;
-import com.hau.service.IProductService;
+import com.hau.service.ProductService;
 import com.hau.util.PageableUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
 
 @Controller
 public class ShopController {
     @Autowired
-    private IProductService productService;
+    private ProductService productService;
     @Autowired
     private IBrandService brandService;
     @RequestMapping(value = "/shop", method = RequestMethod.GET)

@@ -1,13 +1,13 @@
 package com.hau.service;
 
 import com.hau.dto.ProductDTO;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
-public interface IProductService {
+public interface ProductService {
     public List<ProductDTO> findTop8ByOrderByIdDesc();
     public List<ProductDTO> findAll(Pageable pageable,String keyword,String filter);
     public long getTotalItem(String keyword,String filter);
@@ -16,5 +16,8 @@ public interface IProductService {
     public long getTotalItemByIdProductLine(Long id,String keyword,String filter);
     public List<ProductDTO> findAllByIdProductLine(Pageable pageable,Long id,String keyword,String filter);
     public ProductDTO findOneById(long id);
+    Page<ProductDTO> findByProductLine_Id(Long id, int page, int limit);
+    Page<ProductDTO> findAll(int page, int limit);
+    // admin
 
 }
