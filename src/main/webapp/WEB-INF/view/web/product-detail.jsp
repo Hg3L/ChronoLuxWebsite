@@ -315,6 +315,7 @@
                                         </div>
                                     </div>
                                    </div>
+                                  </div>
                             <div class="tab-pane fade" id="tab-pane-2">
                            ${model.warrantyContent}
                             </div>

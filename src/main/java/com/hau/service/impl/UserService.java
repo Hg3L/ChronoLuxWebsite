@@ -88,7 +88,7 @@ public class UserService implements IUserService {
 
     @Override
     public void updateResetPasswordToken(String token, String email) throws CustomerNotFoundException {
-        UserEntity user = userRepository.findOneByEmailAndPasswordEmpty(email);
+        UserEntity user = userRepository.findOneByEmailAndPasswordNotNull(email);
         if(user != null){
             user.setResetPasswordToken(token);
             userRepository.save(user);
@@ -136,8 +136,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserDTO findOneByEmailAndPassWordEmpty(String email) {
-        return userConverter.toDTO(userRepository.findOneByEmailAndPasswordEmpty(email));
+    public UserDTO findOneByEmailAndPassWordNotNull(String email) {
+        return userConverter.toDTO(userRepository.findOneByEmailAndPasswordNotNull(email));
     }
 
     @Override

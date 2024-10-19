@@ -6,6 +6,7 @@ import com.hau.dto.FilterCriteria;
 import com.hau.dto.ProductDTO;
 import com.hau.service.IBrandService;
 import com.hau.service.IProductService;
+import com.hau.service.IUserService;
 import com.hau.util.PageableUtil;
 import com.hau.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ public class ShopController {
     private IProductService productService;
     @Autowired
     private IBrandService brandService;
+
     @RequestMapping(value = "/shop", method = RequestMethod.GET)
         public String shopPage(@RequestParam("page") int page ,
                                      @RequestParam("limit") int limit,

@@ -94,6 +94,7 @@
                                     <div class="mt-5 text-center"><button class="btn btn-primary profile-button"
                                             type="submit">Save Profile</button></div>
                                 </c:if>
+                                 <input type="hidden" name="imgUrl" class="form-control" value="${user.imgUrl}">
                             </form>
                         </div>
                     </div>

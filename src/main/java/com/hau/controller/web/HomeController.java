@@ -4,10 +4,12 @@ import com.hau.dto.BrandDTO;
 import com.hau.dto.ProductDTO;
 import com.hau.service.IBrandService;
 import com.hau.service.IProductService;
+import com.hau.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,8 @@ public class HomeController {
     private IBrandService brandService;
     @Autowired
     private IProductService productService;
+    @Autowired
+    private IUserService userService;
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String homePage(Model model) {
         BrandDTO brand = new BrandDTO();
@@ -31,6 +35,7 @@ public class HomeController {
         product.setListResult(productService.findTop8ByOrderByIdDesc());
         model.addAttribute("brand",brand);
         model.addAttribute("product",product);
+
         return "web/home";
     }
     @RequestMapping(value = "/logout", method = RequestMethod.GET)

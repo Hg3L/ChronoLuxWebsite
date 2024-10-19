@@ -1,5 +1,7 @@
 package com.hau.entity;
 
+import org.springframework.data.annotation.Transient;
+
 import javax.persistence.*;
 
 @Entity
@@ -37,5 +39,10 @@ public class CartItemEntity extends BaseEntity {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    @Transient
+    public long getSubTotal(){
+        return this.quantity * this.getProduct().getPrice();
     }
 }

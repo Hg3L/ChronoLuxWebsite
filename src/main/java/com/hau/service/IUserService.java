@@ -13,6 +13,6 @@ public interface IUserService {
     public UserDTO findOneByResetPasswordToken(String resetPasswordToken);
     public void updatePassword(UserDTO user, String password );
     public UserDTO getCurrentLoggedInCustomer(Authentication authentication);
-    public UserDTO findOneByEmailAndPassWordEmpty(String email);
+    public UserDTO findOneByEmailAndPassWordNotNull(String email);
     public UserDTO findOneByEmailAndRoleCode(String email , String roleCode);
 }
