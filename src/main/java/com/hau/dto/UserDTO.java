@@ -100,7 +100,13 @@ public class UserDTO extends AbstractDTO{
             return this.surName;
         }
         int lastSpaceIndex = this.fullName.lastIndexOf(" ");
-        String surName = this.fullName.substring(0,lastSpaceIndex);
+        String surName = null;
+        if(lastSpaceIndex == -1){
+            surName = "";
+        }
+        else{
+            surName = this.fullName.substring(0,lastSpaceIndex);
+        }
         return surName;
     }
 

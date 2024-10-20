@@ -27,7 +27,7 @@ public class UserEntity extends BaseEntity {
     @Column(name = "reset_password_token")
     private String resetPasswordToken;
 
-    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "role_detail",
             joinColumns = @JoinColumn(name = "user_id"),

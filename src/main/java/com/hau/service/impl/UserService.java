@@ -1,6 +1,9 @@
 package com.hau.service.impl;
 
+import com.hau.constant.SystemConstant;
 import com.hau.converter.UserConverter;
+import com.hau.dto.CustomerO2Auth;
+import com.hau.dto.MyUser;
 import com.hau.dto.UserDTO;
 import com.hau.entity.RoleEntity;
 import com.hau.entity.UserEntity;
@@ -9,7 +12,9 @@ import com.hau.repository.RoleRepository;
 import com.hau.repository.UserRepository;
 import com.hau.service.IUserService;
 import com.hau.util.EncodePasswordUtil;
+import com.hau.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -83,7 +88,7 @@ public class UserService implements IUserService {
 
     @Override
     public void updateResetPasswordToken(String token, String email) throws CustomerNotFoundException {
-        UserEntity user = userRepository.findOneByEmail(email);
+        UserEntity user = userRepository.findOneByEmailAndPasswordNotNull(email);
         if(user != null){
             user.setResetPasswordToken(token);
             userRepository.save(user);
@@ -111,5 +116,32 @@ public class UserService implements IUserService {
         }
         updateUser.setRoles(roleEntities);
         userRepository.save(updateUser);
+    }
+
+    @Override
+    public UserDTO getCurrentLoggedInCustomer(Authentication authentication) {
+        if(authentication == null){
+            return  null;
+        }
+        UserDTO userDTO = null;
+        Object principal = authentication.getPrincipal();
+        if(principal instanceof MyUser){
+            userDTO = userConverter.toDTO(userRepository.
+                    findOneByUserNameAndStatus(SecurityUtil.getPrincipal().getUsername(), SystemConstant.ACTIVE_STATUS));
+        } else if(principal instanceof CustomerO2Auth){
+            String email = ((CustomerO2Auth) principal).getEmail();
+            userDTO = userConverter.toDTO(userRepository.findByEmailAndRoleCode(email,((CustomerO2Auth) principal).getRoleCode()));
+        }
+        return userDTO;
+    }
+
+    @Override
+    public UserDTO findOneByEmailAndPassWordNotNull(String email) {
+        return userConverter.toDTO(userRepository.findOneByEmailAndPasswordNotNull(email));
+    }
+
+    @Override
+    public UserDTO findOneByEmailAndRoleCode(String email, String roleCode) {
+        return userConverter.toDTO(userRepository.findByEmailAndRoleCode(email,roleCode));
     }
 }

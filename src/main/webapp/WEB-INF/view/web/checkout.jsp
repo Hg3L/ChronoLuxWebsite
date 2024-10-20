@@ -27,6 +27,85 @@
             <!-- Customized Bootstrap Stylesheet -->
             <link href=" <c:url value='/template/web/css/style.css'/>" rel="stylesheet">
             <%----------------------------%>
+        <style>
+        .cart-item {
+            display: flex;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            padding: 10px;
+            align-items: center;
+        }
+
+        .cart-item-content {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #999;
+            margin-right: 10px;
+        }
+
+        .product-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            margin-right: 15px;
+        }
+
+        .product-details {
+            flex: 1;
+        }
+
+        .product-name {
+            font-weight: bold;
+        }
+
+        .product-price {
+            color: red;
+        }
+
+        .current-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: red;
+            margin-right: 10px;
+        }
+
+        .old-price {
+            font-size: 14px;
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+        }
+
+        .decrease-btn, .increase-btn {
+            background-color: #f0f0f0;
+            border: none;
+            width: 30px;
+            height: 30px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .quantity-input {
+            width: 40px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 0 5px;
+        }
+        </style>
         </head>
 
         <body>
@@ -47,7 +126,7 @@
             <!-- Checkout Start -->
             <div class="container-fluid pt-5">
                 <div class="row px-xl-5">
-                    <div class="col-lg-8">
+                    <div class="col-lg-7">
                         <div class="mb-4">
                             <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
                             <div class="row">
@@ -162,39 +241,47 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-5">
                         <div class="card border-secondary mb-5">
                             <div class="card-header bg-secondary border-0">
                                 <h4 class="font-weight-semi-bold m-0">Order Total</h4>
                             </div>
                             <div class="card-body">
                                 <h5 class="font-weight-medium mb-3">Products</h5>
-                                <div class="d-flex justify-content-between">
-                                    <p>Colorful Stylish Shirt 1</p>
-                                    <p>$150</p>
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <p>Colorful Stylish Shirt 2</p>
-                                    <p>$150</p>
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <p>Colorful Stylish Shirt 3</p>
-                                    <p>$150</p>
-                                </div>
+                              <c:forEach var="item" items="${cartItems}" varStatus="status">
+                               <div class="cart-item">
+                                   <div class="cart-item-content">
+                                       <button class="remove-btn">×</button>
+                                       <img src="https://www.watchstore.vn/images/products/2024/06/14/small/mtp-vt01l-1budf_1718332985.webp" alt="Product Image" class="product-image">
+                                       <div class="product-details">
+                                           <p class="product-name">${item.productName}</p>
+                                           <p class="product-price">
+                                               <span class="current-price">$${item.productPrice}</span>
+                                               <span class="old-price">1.182.000₫</span>
+                                           </p>
+                                       </div>
+                                       <div class="quantity-control">
+                                           <label class="quantity-label">x ${item.quantity}</label>
+                                       </div>
+                                   </div>
+                               </div>
+                                     </c:forEach>
                                 <hr class="mt-0">
                                 <div class="d-flex justify-content-between mb-3 pt-1">
                                     <h6 class="font-weight-medium">Subtotal</h6>
-                                    <h6 class="font-weight-medium">$150</h6>
+                                    <h6 class="font-weight-medium">$${subtotal}</h6>
                                 </div>
+                                <c:if test="${not empty discount}" >
                                 <div class="d-flex justify-content-between">
-                                    <h6 class="font-weight-medium">Shipping</h6>
-                                    <h6 class="font-weight-medium">$10</h6>
+                                    <h6 class="font-weight-medium">Discount</h6>
+                                    <h6 class="font-weight-medium">$${discount}</h6>
                                 </div>
+                                </c:if>
                             </div>
                             <div class="card-footer border-secondary bg-transparent">
                                 <div class="d-flex justify-content-between mt-2">
                                     <h5 class="font-weight-bold">Total</h5>
-                                    <h5 class="font-weight-bold">$160</h5>
+                                    <h5 class="font-weight-bold">$${total}</h5>
                                 </div>
                             </div>
                         </div>

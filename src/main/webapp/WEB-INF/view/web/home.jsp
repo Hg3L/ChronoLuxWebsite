@@ -122,7 +122,7 @@
                             <div class="cat-item d-flex flex-column border mb-4" style="padding: 20px;">
                                 <p class="text-right">15 Products</p>
                                 <a href="<c:url value='/shop/brand?id=${item.id}&page=1&limit=4'/>" class="cat-img position-relative overflow-hidden mb-3">
-                                    <img class="img-fluid" src="<c:url value='/template/web/img/${item.iconUrl}'/>"
+                                    <img class="img-fluid" src="<c:url value='/template/web/img/brands/${item.iconUrl}'/>"
                                         alt="">
                                 </a>
                             </div>
@@ -387,8 +387,11 @@
                                 <div class="card-footer d-flex justify-content-between bg-light border">
                                     <a href="<c:url value='/product-detail?id=${item.id}'/>" class="btn btn-sm text-dark p-0"><i
                                             class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                                    <a href="" class="btn btn-sm text-dark p-0"><i
-                                            class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                                    <form action="<c:url value='/cart?productId=${item.id}&quantity=1'/>" method="post">
+                                        <button type="submit" class="btn btn-sm text-dark p-0">
+                                            <i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

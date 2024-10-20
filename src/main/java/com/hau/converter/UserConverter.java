@@ -11,22 +11,25 @@ import java.util.List;
 @Component
 public class UserConverter {
     public UserDTO toDTO(UserEntity userEntity){
-        UserDTO userDTO = new UserDTO();
-
-        userDTO.setId(userEntity.getId());
-        userDTO.setUserName(userEntity.getUserName());
-        userDTO.setPassword(userEntity.getPassword());
-        userDTO.setFullName(userEntity.getFullName());
-        userDTO.setStatus(userEntity.getStatus());
-        userDTO.setEmail(userEntity.getEmail());
-        userDTO.setResetPasswordToken(userEntity.getResetPasswordToken());
-        userDTO.setImgUrl(userEntity.getImgUrl());
-        List<String> rolesCode = new ArrayList<>();
-        for(RoleEntity role : userEntity.getRoles()){
-            rolesCode.add(role.getCode());
+        if(userEntity != null){
+            UserDTO userDTO = new UserDTO();
+            userDTO.setId(userEntity.getId());
+            userDTO.setUserName(userEntity.getUserName());
+            userDTO.setPassword(userEntity.getPassword());
+            userDTO.setFullName(userEntity.getFullName());
+            userDTO.setStatus(userEntity.getStatus());
+            userDTO.setEmail(userEntity.getEmail());
+            userDTO.setResetPasswordToken(userEntity.getResetPasswordToken());
+            userDTO.setImgUrl(userEntity.getImgUrl());
+            List<String> rolesCode = new ArrayList<>();
+            for(RoleEntity role : userEntity.getRoles()){
+                rolesCode.add(role.getCode());
+            }
+            userDTO.setRoleCode(rolesCode);
+            return userDTO;
         }
-        userDTO.setRoleCode(rolesCode);
-        return userDTO;
+       else return  null;
+
     }
     public UserEntity toEntity(UserDTO userDTO){
         UserEntity userEntity = new UserEntity();

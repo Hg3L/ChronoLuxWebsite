@@ -116,7 +116,7 @@
                       <div class="card1-container">
                               <div class="card1">
                                   <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${item.id}&page=1&limit=4'/>" class="cat-img position-relative overflow-hidden mb-3">
-                                                                      <img class="img-fluid" src="https://www.watchstore.vn/images/products/2024/resized/snk807k2-1712483076.webp"
+                                                                      <img class="img-fluid" src="img-fluid" src="<c:url value='/template/web/img/product-lines/${item.iconUrl}'/>"
                                                                           alt="">
                                                                   </a>
                                   <div class="card1-title">${item.name}</div>
