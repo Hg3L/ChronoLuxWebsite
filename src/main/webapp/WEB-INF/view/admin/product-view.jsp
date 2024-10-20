@@ -21,7 +21,7 @@
     </div>
     <hr/>
     <div class="d-flex justify-content-end">
-        <a href="${pageContext.request.contextPath}/admin/product/create" class="btn btn-success mr-2 mt-1">
+        <a href="${pageContext.request.contextPath}/admin/product/create?currentPage=${currentPage}" class="btn btn-success mr-2 mt-1">
             <i class="fas fa-plus mr-1"></i> Thêm đồng hồ
         </a>
     </div>
@@ -64,6 +64,7 @@
                         <th>Tên đồng hồ</th>
                         <th>Tên thương hiệu</th>
                         <th>Dòng đồng hồ</th>
+                        <th>Giá</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -75,7 +76,7 @@
                             <td>${product.brandName}</td>
                             <td>${product.productLineName}</td>
                             <td>
-                                <a href="${pageContext.request.contextPath}/admin/product/update/?id=${product.id}" class="btn btn-info btn-sm mr-2">
+                                <a href="${pageContext.request.contextPath}/admin/product/update/?id=${product.id}&currentPage=${currentPage}" class="btn btn-info btn-sm mr-2">
                                     <i class="fas fa-pencil-alt mr-1"></i> Sửa
                                 </a>
                                 <a href="${pageContext.request.contextPath}/admin/product/delete?id=${product.id}" class="btn btn-danger btn-sm" onclick="return confirmDelete(${productLine.id})">
@@ -195,7 +196,6 @@
                 }
             });
         });
-
         // Trigger event change để tải danh sách product lines ban đầu
         $('#brandSelect').trigger('change');
     });

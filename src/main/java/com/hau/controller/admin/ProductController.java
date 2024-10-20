@@ -66,16 +66,17 @@ public class ProductController {
 
     @GetMapping("/admin/product/create")
     public String createProduct(Model model,
-                                @RequestParam int page) {
+                                @RequestParam("currentPage") int page) {
         model.addAttribute("product", new ProductDTO());
-        model.addAttribute("currentPage", page);
         model.addAttribute("brands", brandService.findAll());
+        model.addAttribute("currentPage", page);
         return "admin/product-add";
     }
 
     @PostMapping("/admin/product/save")
     public String saveProduct(@ModelAttribute("product") ProductDTO productDTO,
                               @RequestParam("img") MultipartFile img,
+                              @RequestParam("page") int currentPage,
                               HttpServletRequest request) throws Exception {
         request.setCharacterEncoding("UTF-8");
         if(!img.isEmpty()) {
@@ -87,6 +88,23 @@ public class ProductController {
             productDTO.setImgUrl(product.getImgUrl());
         }
         productService.save(productDTO);
+        return "redirect:/admin/products?page=" + currentPage;
+    }
+
+    @GetMapping("/admin/product/update")
+    public String updateProduct(Model model,
+                                @RequestParam("id") long id,
+                                @RequestParam("currentPage") int page) {
+        ProductDTO product = productService.findOneById(id);
+        model.addAttribute("product", product);
+        model.addAttribute("brands", brandService.findAll());
+        model.addAttribute("currentPage", page);
+        return "admin/product-update";
+    }
+
+    @GetMapping("/admin/product/delete")
+    public String deleteProduct(@RequestParam("id") long id) {
+        productService.delete(id);
         return "redirect:/admin/products";
     }
 }

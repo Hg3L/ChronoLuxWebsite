@@ -166,7 +166,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @Override
     public void delete(long id) {
-
+        productRepository.delete(id);
     }
 
 }
