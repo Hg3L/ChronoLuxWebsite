@@ -79,7 +79,7 @@
                             <div class="cat-item d-flex flex-column border mb-4" style="padding: 20px;">
                                 <p class="text-right">15 Products</p>
                                 <a href="<c:url value='/shop/brand?id=${item.id}&page=1&limit=4'/>" class="cat-img position-relative overflow-hidden mb-3">
-                                    <img class="img-fluid" src="<c:url value='/template/web/img/${item.iconUrl}'/>"
+                                    <img class="img-fluid" src="<c:url value='/template/web/img/brands/${item.iconUrl}'/>"
                                         alt="">
                                 </a>
                             </div>

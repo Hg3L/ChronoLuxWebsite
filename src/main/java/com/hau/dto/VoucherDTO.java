@@ -2,7 +2,7 @@ package com.hau.dto;
 
 public class VoucherDTO extends AbstractDTO<VoucherDTO>{
     private String code;
-    private double discount;
+    private Double discount;
     private String beginDay;
     private String endDay;
 
@@ -14,11 +14,11 @@ public class VoucherDTO extends AbstractDTO<VoucherDTO>{
         this.code = code;
     }
 
-    public double getDiscount() {
+    public Double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(double discount) {
+    public void setDiscount(Double discount) {
         this.discount = discount;
     }
 

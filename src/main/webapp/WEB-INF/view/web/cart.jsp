@@ -103,7 +103,6 @@
                                                     <form action="<c:url value='/cart/update' />" method="get">
                                                         <input type="hidden" name="quantity" value=${item.quantity+1}>
                                                         <input type="hidden" name="productId" value=${item.productId}>
-
                                                         <button type="submit" class="btn btn-sm btn-primary btn-plus"
                                                             onclick="increaseQuantity(${status.index})"
                                                             id="IncreaseQuantityBtn">
