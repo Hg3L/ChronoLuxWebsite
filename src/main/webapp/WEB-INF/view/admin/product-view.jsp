@@ -46,7 +46,7 @@
                         </c:choose>
                     </select>
                     <label class="mr-3 ml-5">Dòng đồng hồ:</label>
-                    <select class="custom-select-box" id="productLineSelect" name="productLineId" aria-label="Select product line">
+                    <select class="custom-select-box" id="productLineSelect" name="productLineId" data-product-line-id="${productLineId}" aria-label="Select product line" required>
                     </select>
                     <button type="submit" class="btn btn-dark ml-3 d-inline-flex align-items-center">
                         <i class="fa fa-filter mr-1" aria-hidden="true"></i> Lọc
@@ -68,9 +68,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <%--<c:forEach var="productLine" items="${product.content}">
+                    <c:forEach var="product" items="${productPage.content}">
                         <tr>
-                            <td><img src="<c:url value='/template/web/img/products/${product.iconUrl}'/>" alt="Logo" style="max-width:80px;"/></td>
+                            <td><img src="<c:url value='/template/web/img/products/${product.imgUrl}'/>" alt="Logo" style="max-width:80px;"/></td>
                             <td>${product.name}</td>
                             <td>${product.brandName}</td>
                             <td>${product.productLineName}</td>
@@ -83,7 +83,7 @@
                                 </a>
                             </td>
                         </tr>
-                    </c:forEach>--%>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
@@ -92,22 +92,22 @@
                     <!-- Nút Previous -->
                     <c:if test="${currentPage > 1}">
                         <li class="page-item">
-                            <a class="page-link" href="?page=${currentPage - 1}&size=${brandPage.size}" aria-label="Previous">
+                            <a class="page-link" href="?page=${currentPage - 1}&size=${productPage.size}" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                                 <span class="sr-only">Previous</span>
                             </a>
                         </li>
                     </c:if>
                     <!-- Hiển thị các số trang -->
-                    <c:forEach var="i" begin="1" end="${brandPage.totalPages}">
+                    <c:forEach var="i" begin="1" end="${productPage.totalPages}">
                         <li class="page-item ${i == currentPage ? 'active' : ''}">
-                            <a class="page-link" href="?page=${i}&size=${brandPage.size}">${i}</a>
+                            <a class="page-link" href="?page=${i}&size=${productPage.size}">${i}</a>
                         </li>
                     </c:forEach>
                     <!-- Nút Next -->
-                    <c:if test="${currentPage < brandPage.totalPages}">
+                    <c:if test="${currentPage < productPage.totalPages}">
                         <li class="page-item">
-                            <a class="page-link" href="?page=${currentPage + 1}&size=${brandPage.size}" aria-label="Next">
+                            <a class="page-link" href="?page=${currentPage + 1}&size=${productPage.size}" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                                 <span class="sr-only">Next</span>
                             </a>
@@ -124,7 +124,8 @@
     }
 </script>
 <script>
-    $(document).ready(function(){
+    /*$(document).ready(function(){
+        var productLineId = $('#productLineSelect').val();
         // Khi người dùng thay đổi lựa chọn brand
         $('#brandSelect').change(function(){
             var brandId = $(this).val();
@@ -137,12 +138,6 @@
                 success: function(response){
                     // Làm trống thẻ select productline trước khi cập nhật
                     $('#productLineSelect').empty();
-
-                    // Thêm lựa chọn "Tất cả" mặc định khi chọn brand "Tất cả"
-                    /*if (brandId === "0") {
-                        $('#productLineSelect').append('<option value="0">Tất cả</option>');
-                    }*/
-
                     // Kiểm tra nếu không có dữ liệu trả về
                     if (response.length === 0) {
                         $('#productLineSelect').append('<option value="" disabled>Chưa có dữ liệu</option>');
@@ -153,10 +148,58 @@
                             $('#productLineSelect').append('<option value="'+ value.id +'">'+ value.name +'</option>');
                         });
                     }
+                    if (productLineId) {
+                        $('#productLineSelect').val(productLineId);
+                    }
                 }
             });
         });
         $('#brandSelect').trigger('change');
+    });*/
+
+    $(document).ready(function() {
+        // Khi người dùng thay đổi lựa chọn brand
+        $('#brandSelect').change(function() {
+            var brandId = $(this).val(); // Lấy giá trị của brand được chọn
+            var productLineId = $('#productLineSelect').data('product-line-id'); // Lấy productLineId từ thuộc tính data
+
+            // Gửi yêu cầu AJAX để lấy danh sách product lines dựa trên brandId
+            $.ajax({
+                url: '${pageContext.request.contextPath}/admin/product-line/getProductLines',
+                type: 'GET',
+                data: { brandId: brandId },
+                success: function(response) {
+                    // Làm trống thẻ select productline trước khi cập nhật
+                    $('#productLineSelect').empty();
+
+                    if (response.length === 0) {
+                        // Nếu không có dòng sản phẩm nào
+                        $('#productLineSelect').append('<option value="" disabled selected>Chưa có dữ liệu</option>');
+                        $('#productLineSelect').val('');
+                    } else {
+                        // Nếu brandId là "Tất cả" (giá trị 0)
+                        if (brandId == 0) {
+                            $('#productLineSelect').append('<option value="0">Tất cả</option>');
+                        }
+
+                        // Thêm product lines vào thẻ select nếu có dữ liệu
+                        $.each(response, function(key, value) {
+                            $('#productLineSelect').append('<option value="'+ value.id +'">'+ value.name +'</option>');
+                        });
+                    }
+
+                    // Giữ lại lựa chọn trước đó nếu tồn tại
+                    if (productLineId) {
+                        $('#productLineSelect').val(productLineId); // Gán lại productLineId trước đó
+                    }
+                }
+            });
+        });
+
+        // Trigger event change để tải danh sách product lines ban đầu
+        $('#brandSelect').trigger('change');
     });
+
+
 </script>
 </body>

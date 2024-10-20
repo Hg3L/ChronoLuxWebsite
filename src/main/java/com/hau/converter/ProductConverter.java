@@ -25,12 +25,26 @@ public class ProductConverter {
         productDTO.setProductLineName(productEntity.getProductLine().getName());
         productDTO.setBrandName(productEntity.getProductLine().getBrand().getName());
         productDTO.setCountry(productEntity.getProductLine().getBrand().getCountry());
-        productDTO.setWarrantyContent(productEntity.getProductLine().getWarranty().getContent());
+        if(productEntity.getProductLine().getWarranty() != null){
+            productDTO.setWarrantyContent(productEntity.getProductLine().getWarranty().getContent());
+        }
         return productDTO;
     }
     public ProductEntity toEntity(ProductDTO productDTO){
         ProductEntity productEntity = new ProductEntity();
-        //save
+        if(productDTO.getId() != null){
+            productEntity.setId(productDTO.getId());
+        }
+        productEntity.setWaterResistant(productDTO.getWaterResistant());
+        productEntity.setFaceSize(productDTO.getFaceSize());
+        productEntity.setGender(productDTO.getGender());
+        productEntity.setGlassMaterial(productDTO.getGlassMaterial());
+        productEntity.setPrice(productDTO.getPrice());
+        productEntity.setThickness(productDTO.getThickness());
+        productEntity.setWatchType(productDTO.getWatchType());
+        productEntity.setImgUrl(productDTO.getImgUrl());
+        productEntity.setStrapMaterial(productDTO.getStrapMaterial());
+        productEntity.setName(productDTO.getName());
         return productEntity;
     }
 }

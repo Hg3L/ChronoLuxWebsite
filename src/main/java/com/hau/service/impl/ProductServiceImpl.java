@@ -4,24 +4,31 @@ import com.hau.converter.ProductConverter;
 import com.hau.dto.FilterCriteria;
 import com.hau.dto.ProductDTO;
 import com.hau.entity.ProductEntity;
+import com.hau.entity.ProductLineEntity;
+import com.hau.repository.ProductLineRepository;
 import com.hau.repository.ProductRepository;
+import com.hau.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ProductServiceImpl implements com.hau.service.ProductService {
+public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
     private ProductConverter productConverter;
+    @Autowired
+    private ProductLineRepository productLineRepository;
+
     @Override
     public List<ProductDTO> findTop8ByOrderByIdDesc() {
         List<ProductDTO> products = new ArrayList<>();
@@ -119,6 +126,19 @@ public class ProductServiceImpl implements com.hau.service.ProductService {
     }
 
     @Override
+    public Page<ProductDTO> findByBrand_Id(Long id, int page, int limit) {
+        Pageable pageable = new PageRequest(page - 1, limit);
+        Page<ProductEntity> productEntities = productRepository.findAllByBrandId(id, pageable);
+        List<ProductDTO> productDTOs = productEntities.getContent().stream().map(productEntity -> {
+            ProductDTO productDTO = productConverter.toDTO(productEntity);
+            productDTO.setBrandName(productEntity.getProductLine().getBrand().getName());
+            productDTO.setProductLineName(productEntity.getProductLine().getName());
+            return productDTO;
+        }).collect(Collectors.toList());
+        return new PageImpl<>(productDTOs, pageable, productEntities.getTotalElements());
+    }
+
+    @Override
     public Page<ProductDTO> findAll(int page, int limit) {
         Pageable pageable = new PageRequest(page - 1, limit);
         Page<ProductEntity> productEntities = productRepository.findAll(pageable);
@@ -131,6 +151,22 @@ public class ProductServiceImpl implements com.hau.service.ProductService {
         }).collect(Collectors.toList());
 
         return new PageImpl<>(productDTOs, pageable, productEntities.getTotalElements());
+    }
+
+    @Transactional
+    @Override
+    public void save(ProductDTO productDTO) {
+        ProductEntity productEntity = productConverter.toEntity(productDTO);
+        ProductLineEntity productLineEntity = productLineRepository.findOne(productDTO.getProductLineId());
+        productEntity.setProductLine(productLineEntity);
+        productLineEntity.getProducts().add(productEntity);
+        productRepository.save(productEntity);
+    }
+
+    @Transactional
+    @Override
+    public void delete(long id) {
+
     }
 
 }

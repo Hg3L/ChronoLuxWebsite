@@ -17,7 +17,10 @@ public interface ProductService {
     public List<ProductDTO> findAllByIdProductLine(Pageable pageable,Long id,String keyword,String filter);
     public ProductDTO findOneById(long id);
     Page<ProductDTO> findByProductLine_Id(Long id, int page, int limit);
+    Page<ProductDTO> findByBrand_Id(Long id, int page, int limit);
     Page<ProductDTO> findAll(int page, int limit);
+    void save(ProductDTO productDTO);
+    void delete(long id);
     // admin
 
 }

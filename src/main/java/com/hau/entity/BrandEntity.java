@@ -52,4 +52,12 @@ public class BrandEntity extends BaseEntity{
     public void setIconUrl(String iconUrl) {
         this.iconUrl = iconUrl;
     }
+
+    public List<ProductLineEntity> getProductLines() {
+        return productLines;
+    }
+
+    public void setProductLines(List<ProductLineEntity> productLines) {
+        this.productLines = productLines;
+    }
 }

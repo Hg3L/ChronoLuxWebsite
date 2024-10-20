@@ -32,6 +32,7 @@
             </div>
         </div>
         <hr/>
+        <input type="hidden" name="page" value="${currentPage}">
         <div class="form-row">
             <!-- Thương hiệu -->
             <div class="form-group col-md-6">
@@ -101,10 +102,10 @@
                 <form:input path="watchType" type="text" class="form-control" id="watchType" required="required" />
             </div>
             <div class="form-group col-md-6">
-                <label for="logo">Tải ảnh sản phẩm</label>
+                <label for="img">Tải ảnh sản phẩm</label>
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="logo" name="logo" accept="image/*" required onchange="previewImage(event, 'logoPreview')">
-                    <label class="custom-file-label" for="logo">Chọn ảnh logo</label>
+                    <input type="file" class="custom-file-input" id="img" name="img" accept="image/*" required onchange="previewImage(event, 'imgPreview')">
+                    <label class="custom-file-label" for="img">Chọn ảnh</label>
                 </div>
             </div>
             <div class="form-group col-md-6">
@@ -113,7 +114,7 @@
             </div>
             <!-- Phần xem trước ảnh -->
             <div class="form-group">
-                <img id="logoPreview" src="" alt="Logo Preview" class="img-fluid border border-dark p-3 bg-light" style="max-width: 300px; display: none;" />
+                <img id="imgPreview" src="" alt="Img Preview" class="img-fluid border border-dark p-3 bg-light" style="max-width: 300px; display: none;" />
             </div>
         </div>
         <div class="form-group col-md-6">
@@ -213,7 +214,7 @@
 </script>
 
 <!-- Validate product line -->
-<script>
+<%--<script>
     // Kiểm tra xem có dữ liệu trong select hay không
     function validateProductLine() {
         var select = document.getElementById("productLineSelect");
@@ -247,5 +248,5 @@
             event.preventDefault(); // Ngăn form gửi nếu có lỗi
         }
     };
-</script>
+</script>--%>
 </body>
