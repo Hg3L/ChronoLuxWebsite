@@ -25,6 +25,9 @@ public class WarrantyServiceImpl implements WarrantyService {
     @Override
     public void saveWarranty(WarrantyDTO warrantyDTO) {
         WarrantyEntity warrantyEntity = converter.convertToEntity(warrantyDTO);
+        ProductLineEntity productLineEntity = productLineRepository.findOneById(warrantyDTO.getProductLineId());
+        warrantyEntity.setProductLineEntity(productLineEntity);
+        productLineEntity.setWarranty(warrantyEntity);
         warrantyRepository.save(warrantyEntity);
     }
 
