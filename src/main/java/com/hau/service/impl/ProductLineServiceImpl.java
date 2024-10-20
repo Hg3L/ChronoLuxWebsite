@@ -33,7 +33,13 @@ public class ProductLineServiceImpl implements ProductLineService {
     @Override
     public List<ProductLineDTO> findAllByBrandId(Long brandId) {
         List<ProductLineDTO> productLines = new ArrayList<>();
-        List<ProductLineEntity> productLineEntities = productLineRepository.findAllByBrand_Id(brandId);
+        List<ProductLineEntity> productLineEntities;
+        if (brandId == 0){
+            productLineEntities = productLineRepository.findAll();
+        }
+        else{
+            productLineEntities = productLineRepository.findAllByBrand_Id(brandId);
+        }
         for(ProductLineEntity productLineEntity : productLineEntities){
             ProductLineDTO productLine = productLineConverter.convertToDTO(productLineEntity);
             productLines.add(productLine);

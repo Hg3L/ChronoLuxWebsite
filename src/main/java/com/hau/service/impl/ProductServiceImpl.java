@@ -5,16 +5,19 @@ import com.hau.dto.FilterCriteria;
 import com.hau.dto.ProductDTO;
 import com.hau.entity.ProductEntity;
 import com.hau.repository.ProductRepository;
-import com.hau.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class ProductService implements IProductService {
+public class ProductServiceImpl implements com.hau.service.ProductService {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
@@ -100,6 +103,34 @@ public class ProductService implements IProductService {
     public ProductDTO findOneById(long id) {
         ProductEntity productEntity = productRepository.findOne(id);
         return productConverter.toDTO(productEntity);
+    }
+
+    @Override
+    public Page<ProductDTO> findByProductLine_Id(Long id, int page, int limit) {
+        Pageable pageable = new PageRequest(page - 1, limit);
+        Page<ProductEntity> productEntities = productRepository.findAllByProductLine_Id(id, pageable);
+        List<ProductDTO> productDTOs = productEntities.getContent().stream().map(productEntity -> {
+            ProductDTO productDTO = productConverter.toDTO(productEntity);
+            productDTO.setBrandName(productEntity.getProductLine().getBrand().getName());
+            productDTO.setProductLineName(productEntity.getProductLine().getName());
+            return productDTO;
+        }).collect(Collectors.toList());
+        return new PageImpl<>(productDTOs, pageable, productEntities.getTotalElements());
+    }
+
+    @Override
+    public Page<ProductDTO> findAll(int page, int limit) {
+        Pageable pageable = new PageRequest(page - 1, limit);
+        Page<ProductEntity> productEntities = productRepository.findAll(pageable);
+
+        List<ProductDTO> productDTOs = productEntities.getContent().stream().map(productEntity -> {
+            ProductDTO productDTO = productConverter.toDTO(productEntity);
+            productDTO.setBrandName(productEntity.getProductLine().getBrand().getName());
+            productDTO.setProductLineName(productEntity.getProductLine().getName());
+            return productDTO;
+        }).collect(Collectors.toList());
+
+        return new PageImpl<>(productDTOs, pageable, productEntities.getTotalElements());
     }
 
 }

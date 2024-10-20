@@ -88,4 +88,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
                                          @Param("minPrice") Long minPrice,
                                          @Param("maxPrice") Long maxPrice,
                                          Pageable pageable);
+
+    // for admin:
+    Page<ProductEntity> findAllByProductLine_Id(Long productLineId, Pageable pageable);
 }

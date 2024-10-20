@@ -6,7 +6,7 @@ import com.hau.dto.BrandDTO;
 import com.hau.dto.ProductDTO;
 import com.hau.service.FileService;
 import com.hau.service.IBrandService;
-import com.hau.service.IProductService;
+import com.hau.service.ProductService;
 import com.hau.service.ProductLineService;
 import com.hau.util.PageableUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller(value = "ControllerOfBrandWeb")
 public class BrandController {
     @Autowired
-    private IProductService productService;
+    private ProductService productService;
     @Autowired
     private ProductLineService productLineService;
     @Autowired

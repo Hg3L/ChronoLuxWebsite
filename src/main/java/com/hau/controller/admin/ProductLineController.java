@@ -4,7 +4,7 @@ import com.hau.dto.FilterCriteria;
 import com.hau.dto.ProductDTO;
 import com.hau.dto.ProductLineDTO;
 import com.hau.service.IBrandService;
-import com.hau.service.IProductService;
+import com.hau.service.ProductService;
 import com.hau.service.ProductLineService;
 import com.hau.util.PageableUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +16,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import com.hau.service.FileService;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller(value = "ControllerOfProductLineWeb")
 public class ProductLineController {
     @Autowired
     private ProductLineService productLineService;
     @Autowired
-    private IProductService productService;
+    private ProductService productService;
     @Autowired
     private IBrandService brandService;
     @Autowired
@@ -125,5 +126,12 @@ public class ProductLineController {
     public String deleteProductLine(@RequestParam("id") long id) {
         productLineService.deleteById(id);
         return "redirect:/admin/product-lines";
+    }
+
+    // for selection tag with ajax
+    @GetMapping("/admin/product-line/getProductLines")
+    @ResponseBody
+    public List<ProductLineDTO> getProductLines(@RequestParam("brandId") long brandId) {
+        return productLineService.findAllByBrandId(brandId);
     }
 }
