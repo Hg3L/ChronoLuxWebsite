@@ -13,4 +13,5 @@ public interface CartItemService {
     CartItemDTO save(UserDTO userDTO, Long productId,Integer quantity);
     long getTotalPrice(UserDTO userDTO);
     void updateQuantity(UserDTO userDTO,Long productId,Integer quantity);
+    void delete(UserDTO userDTO,Long productId);
 }

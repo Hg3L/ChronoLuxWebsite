@@ -3,13 +3,12 @@ package com.hau.controller.web;
 import com.hau.dto.BrandDTO;
 import com.hau.dto.ProductDTO;
 import com.hau.service.IBrandService;
-import com.hau.service.IProductService;
 import com.hau.service.IUserService;
+import com.hau.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
-import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +23,7 @@ public class HomeController {
     @Autowired
     private IBrandService brandService;
     @Autowired
-    private IProductService productService;
+    private ProductService productService;
     @Autowired
     private IUserService userService;
     @RequestMapping(value = "/home", method = RequestMethod.GET)

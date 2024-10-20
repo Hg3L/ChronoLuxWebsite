@@ -1,8 +1,11 @@
 package com.hau.controller.web;
 
 import com.hau.dto.UserDTO;
+import com.hau.dto.VoucherDTO;
+import com.hau.entity.VoucherEntity;
 import com.hau.service.CartItemService;
 import com.hau.service.IUserService;
+import com.hau.service.VoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,12 +20,17 @@ public class CartController {
     private CartItemService cartItemService;
     @Autowired
     private IUserService userService;
+    @Autowired
+    private VoucherService voucherService;
     @RequestMapping(value = "/cart", method = RequestMethod.GET)
-    public ModelAndView cartPage(@AuthenticationPrincipal Authentication authentication) {
+    public ModelAndView cartPage(@AuthenticationPrincipal Authentication authentication,
+                                 @RequestParam(value = "code",required = false) String code) {
+
         ModelAndView mav = new ModelAndView("web/cart");
         UserDTO userDTO = userService.getCurrentLoggedInCustomer(authentication);
         mav.addObject("cartItems",cartItemService.findAllByUser(userDTO));
         mav.addObject("totalPrice",cartItemService.getTotalPrice(userDTO));
+        mav.addObject("voucher",voucherService.findOneByCode(code));
         return mav;
     }
     @PostMapping("/cart")
@@ -44,7 +52,15 @@ public class CartController {
                                      @AuthenticationPrincipal Authentication authentication){
         UserDTO userDTO = userService.getCurrentLoggedInCustomer(authentication);
         cartItemService.updateQuantity(userDTO,productId,quantity);
-        System.out.println(quantity);
         return "redirect:/cart";
     }
+    @GetMapping("/cart/del")
+    public String deleleCart(@RequestParam("productId") long productId,
+                             @AuthenticationPrincipal Authentication authentication){
+        UserDTO userDTO = userService.getCurrentLoggedInCustomer(authentication);
+        cartItemService.delete(userDTO,productId);
+
+        return "redirect:/cart";
+    }
+
 }

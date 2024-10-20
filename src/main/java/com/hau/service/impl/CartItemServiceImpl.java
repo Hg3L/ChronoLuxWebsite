@@ -12,7 +12,7 @@ import com.hau.repository.CartItemRepository;
 import com.hau.repository.ProductRepository;
 import com.hau.repository.UserRepository;
 import com.hau.service.CartItemService;
-import com.hau.service.IProductService;
+import com.hau.service.ProductService;
 import com.hau.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -80,6 +80,15 @@ public class CartItemServiceImpl implements CartItemService {
         CartItemEntity cartItemEntity = cartItemRepository.findOneByUserAndProduct(userEntity,productEntity);
         cartItemEntity.setQuantity(quantity);
         cartItemRepository.save(cartItemEntity);
+    }
+
+    @Override
+    @Transactional
+    public void delete(UserDTO userDTO, Long productId) {
+        UserEntity userEntity = userRepository.findOne(userDTO.getId());
+        ProductEntity productEntity = productRepository.findOne(productId);
+        CartItemEntity cartItemEntity = cartItemRepository.findOneByUserAndProduct(userEntity,productEntity);
+        cartItemRepository.delete(cartItemEntity);
     }
 
 }
