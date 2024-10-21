@@ -15,7 +15,7 @@ public class UserAPI {
     private UserService userService;
     @PostMapping
     public UserDTO createUser(@RequestBody UserDTO newUser){
-        return userService.save(newUser);
+        return userService.save(newUser, "user");
     }
 
 }

@@ -49,9 +49,15 @@ public class UserServiceImpl implements com.hau.service.UserService {
 
     @Override
     @Transactional
-    public UserDTO save(UserDTO userDTO) {
+    public UserDTO save(UserDTO userDTO, String typeAccount) {
         UserEntity userEntity = new UserEntity();
-        if(userDTO.getRoleCode().isEmpty() && userDTO.getStatus() == 0){ // đăng ký tài khoản mặc định role là USER
+        if(typeAccount.equals("admin")){
+            List<String>  rolescode = new ArrayList<>();
+            rolescode.add("ROLE_ADMIN");
+            userDTO.setRoleCode(rolescode);
+            userDTO.setStatus(1);
+        }
+        else if(typeAccount.equals("user")){
             List<String>  rolescode = new ArrayList<>();
             rolescode.add("ROLE_USER");
             userDTO.setRoleCode(rolescode);
