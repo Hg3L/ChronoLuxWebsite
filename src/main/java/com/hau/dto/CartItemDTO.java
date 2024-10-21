@@ -1,13 +1,41 @@
 package com.hau.dto;
 
 public class CartItemDTO extends AbstractDTO<CartItemDTO>{
-    private int quantity;
+    private Integer quantity;
     private String customerName;
     private String productName;
-    private long productPrice;
+    private double productPrice;
     private long productId;
     private long userId;
     private String productImgUrl;
+    private double subtotal;
+    private double total;
+
+    public CartItemDTO() {
+    }
+
+    public CartItemDTO(String productName, String subtotal, String total,String quantity) {
+        this.productName = productName;
+        this.subtotal =Double.parseDouble(subtotal)  ;
+        this.total =Double.parseDouble(total);
+        this.quantity = Integer.parseInt(quantity);
+    }
+
+    public String getTotal() {
+        return String.format("%.2f",total);
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public String getSubtotal() {
+        return String.format("%.2f",subtotal) ;
+    }
+
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
+    }
 
     public long getUserId() {
         return userId;
@@ -33,11 +61,11 @@ public class CartItemDTO extends AbstractDTO<CartItemDTO>{
         this.productImgUrl = productImgUrl;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public String getQuantity() {
+        return this.quantity.toString();
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
@@ -57,11 +85,11 @@ public class CartItemDTO extends AbstractDTO<CartItemDTO>{
         this.productName = productName;
     }
 
-    public long getProductPrice() {
+    public double getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(long productPrice) {
+    public void setProductPrice(double productPrice) {
         this.productPrice = productPrice;
     }
 }

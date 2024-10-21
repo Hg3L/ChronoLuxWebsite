@@ -23,7 +23,7 @@ public class CartItemConverter implements Converter<CartItemDTO, CartItemEntity>
     @Override
     public CartItemEntity convertToEntity(CartItemDTO cartItemDTO) {
         CartItemEntity cartItemEntity = new CartItemEntity();
-        cartItemEntity.setQuantity(cartItemDTO.getQuantity());
+        cartItemEntity.setQuantity(Integer.parseInt(cartItemDTO.getQuantity()));
         return cartItemEntity;
     }
 }
