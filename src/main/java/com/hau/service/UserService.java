@@ -1,12 +1,12 @@
 package com.hau.service;
 
 import com.hau.dto.UserDTO;
-import com.hau.entity.UserEntity;
 import com.hau.exception.CustomerNotFoundException;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 
 
-public interface IUserService {
+public interface UserService {
     public UserDTO findOneByUserNameAndStatus(String userName, int status);
     public UserDTO save(UserDTO userDTO);
     public void updateResetPasswordToken(String token,String email) throws CustomerNotFoundException;
@@ -15,4 +15,8 @@ public interface IUserService {
     public UserDTO getCurrentLoggedInCustomer(Authentication authentication);
     public UserDTO findOneByEmailAndPassWordNotNull(String email);
     public UserDTO findOneByEmailAndRoleCode(String email , String roleCode);
+    Page<UserDTO> findAllAdminAccounts(int page, int limit);
+    Page<UserDTO> findAllUserAccounts(int page, int limit);
+    void lockUserAccounts();
+    void unlockUserAccounts();
 }

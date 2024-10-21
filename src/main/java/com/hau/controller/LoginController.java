@@ -4,14 +4,11 @@ import com.hau.constant.SystemConstant;
 import com.hau.dto.UserDTO;
 import com.hau.dto.UserFaceBookDto;
 import com.hau.dto.UserGoogleDto;
-import com.hau.service.IUserService;
+import com.hau.service.UserService;
 import com.hau.util.AuthenticationProviderUtil;
-import com.hau.util.SecurityUtil;
 import com.hau.util.UserFaceBookUtil;
 import com.hau.util.UserGoogleUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,7 +22,7 @@ import java.util.List;
 @Controller
 public class LoginController {
     @Autowired
-    private IUserService userService;
+    private UserService userService;
     @RequestMapping(value = "/login" ,method = RequestMethod.GET)
     public ModelAndView Login(){
         ModelAndView mav = new ModelAndView("login/sign-in");

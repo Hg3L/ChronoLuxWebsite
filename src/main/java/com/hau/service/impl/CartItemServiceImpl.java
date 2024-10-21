@@ -1,6 +1,5 @@
 package com.hau.service.impl;
 
-import com.hau.converter.CartItemConverter;
 import com.hau.converter.Converter;
 import com.hau.converter.UserConverter;
 import com.hau.dto.CartItemDTO;
@@ -12,8 +11,6 @@ import com.hau.repository.CartItemRepository;
 import com.hau.repository.ProductRepository;
 import com.hau.repository.UserRepository;
 import com.hau.service.CartItemService;
-import com.hau.service.ProductService;
-import com.hau.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

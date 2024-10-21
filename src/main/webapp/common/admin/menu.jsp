@@ -67,6 +67,12 @@
         </a>
     </li>
     <hr class="sidebar-divider">
+    <li class="nav-item">
+        <a class="nav-link" href="<c:url value='/admin/accounts'/>">
+            <i class="fa-solid fa-users" style="font-size: 16px"></i>
+            <span style="font-size: 16px">Quản lý tài khoản</span>
+        </a>
+    </li>
 </ul>
 
 <!-- End of Sidebar -->

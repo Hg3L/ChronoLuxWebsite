@@ -10,13 +10,13 @@ import com.hau.entity.UserEntity;
 import com.hau.exception.CustomerNotFoundException;
 import com.hau.repository.RoleRepository;
 import com.hau.repository.UserRepository;
-import com.hau.service.IUserService;
 import com.hau.util.EncodePasswordUtil;
 import com.hau.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserService implements IUserService {
+public class UserServiceImpl implements com.hau.service.UserService {
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
@@ -143,5 +143,29 @@ public class UserService implements IUserService {
     @Override
     public UserDTO findOneByEmailAndRoleCode(String email, String roleCode) {
         return userConverter.toDTO(userRepository.findByEmailAndRoleCode(email,roleCode));
+    }
+
+    @Override
+    public Page<UserDTO> findAllAdminAccounts(int page, int limit) {
+        Pageable pageable = new PageRequest(page-1, limit);
+        Page<UserEntity> userEntities = userRepository.findAllAdminAccounts(pageable);
+        return userEntities.map(userEntity -> userConverter.toDTO(userEntity));
+    }
+
+    @Override
+    public Page<UserDTO> findAllUserAccounts(int page, int limit) {
+        Pageable pageable = new PageRequest(page-1, limit);
+        Page<UserEntity> userEntities = userRepository.findAllUserAccounts(pageable);
+        return userEntities.map(userEntity -> userConverter.toDTO(userEntity));
+    }
+
+    @Override
+    public void lockUserAccounts() {
+
+    }
+
+    @Override
+    public void unlockUserAccounts() {
+
     }
 }

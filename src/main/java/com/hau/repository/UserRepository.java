@@ -1,7 +1,10 @@
 package com.hau.repository;
 
 import com.hau.entity.UserEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -16,5 +19,19 @@ public interface UserRepository extends JpaRepository<UserEntity,Long> {
 
     @Query("SELECT u FROM UserEntity u WHERE u.email = :email AND u.password IS NOT NULL ")
     UserEntity findOneByEmailAndPasswordNotNull(@Param("email") String email);
+
+    @Query("SELECT u FROM UserEntity u JOIN u.roles r WHERE r.code = 'ROLE_ADMIN'")
+    Page<UserEntity> findAllAdminAccounts(Pageable pageable);
+
+    @Query("SELECT u FROM UserEntity u JOIN u.roles r WHERE r.code = 'ROLE_USER'")
+    Page<UserEntity> findAllUserAccounts(Pageable pageable);
+
+    @Modifying
+    @Query("UPDATE UserEntity u SET u.status = 0 WHERE u IN (SELECT u FROM UserEntity u JOIN u.roles r WHERE r.code = 'USER')")
+    void lockUserAccounts();
+
+    @Modifying
+    @Query("UPDATE UserEntity u SET u.status = 1 WHERE u IN (SELECT u FROM UserEntity u JOIN u.roles r WHERE r.code = 'USER')")
+    void unlockUserAccounts();
 
 }

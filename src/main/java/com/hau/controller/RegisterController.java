@@ -1,21 +1,17 @@
 package com.hau.controller;
 
 import com.hau.dto.UserDTO;
-import com.hau.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import com.hau.service.IUserService;
+import com.hau.service.UserService;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,7 +21,7 @@ import java.nio.file.StandardCopyOption;
 
 public class RegisterController {
     @Autowired
-    private IUserService userService;
+    private UserService userService;
 
     @PostMapping(value="/login/add" )
     public String addNewUser(@ModelAttribute UserDTO user,

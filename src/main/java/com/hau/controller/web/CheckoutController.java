@@ -2,7 +2,7 @@ package com.hau.controller.web;
 
 import com.hau.dto.UserDTO;
 import com.hau.service.CartItemService;
-import com.hau.service.IUserService;
+import com.hau.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class CheckoutController {
     @Autowired
-    private IUserService userService;
+    private UserService userService;
     @Autowired
     private CartItemService cartItemService;
     @RequestMapping(value = "/checkout", method = RequestMethod.GET)

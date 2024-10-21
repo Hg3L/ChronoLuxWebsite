@@ -1,13 +1,11 @@
 package com.hau.controller;
 
 import com.hau.dto.UserDTO;
-import com.hau.entity.UserEntity;
 import com.hau.exception.CustomerNotFoundException;
-import com.hau.service.IUserService;
+import com.hau.service.UserService;
 import com.hau.util.GetSiteURLUtil;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -23,7 +21,7 @@ import java.io.UnsupportedEncodingException;
 @Controller
 public class ForgotPasswordController {
     @Autowired
-    private IUserService userService;
+    private UserService userService;
 
     @Autowired
     private JavaMailSender mailSender;

@@ -1,10 +1,8 @@
 package com.hau.controller.web;
 
 import com.hau.dto.UserDTO;
-import com.hau.dto.VoucherDTO;
-import com.hau.entity.VoucherEntity;
 import com.hau.service.CartItemService;
-import com.hau.service.IUserService;
+import com.hau.service.UserService;
 import com.hau.service.VoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -19,7 +17,7 @@ public class CartController {
     @Autowired
     private CartItemService cartItemService;
     @Autowired
-    private IUserService userService;
+    private UserService userService;
     @Autowired
     private VoucherService voucherService;
     @RequestMapping(value = "/cart", method = RequestMethod.GET)
