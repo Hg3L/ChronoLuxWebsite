@@ -24,7 +24,7 @@ public class ProductEntity extends BaseEntity {
     @Column(name = "gender")
     private String gender;
     @Column(name = "price")
-    private long price;
+    private double price;
     @Column(name = "name")
     private String name;
     @ManyToOne (fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -106,11 +106,11 @@ public class ProductEntity extends BaseEntity {
         this.gender = gender;
     }
 
-    public long getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

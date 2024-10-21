@@ -15,7 +15,7 @@ public class CartItemEntity extends BaseEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    private int quantity;
+    private Integer quantity;
 
     public ProductEntity getProduct() {
         return product;
@@ -33,16 +33,16 @@ public class CartItemEntity extends BaseEntity {
         this.user = user;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
     @Transient
-    public long getSubTotal(){
+    public double getSubTotal(){
         return this.quantity * this.getProduct().getPrice();
     }
 }
