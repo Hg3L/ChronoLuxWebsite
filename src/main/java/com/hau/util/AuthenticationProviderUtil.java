@@ -55,7 +55,7 @@ public class AuthenticationProviderUtil {
             throw new IllegalArgumentException("Unsupported object type");
         }
     }
-    public static void  GrantedPermission(UserDTO userDTO) {
+    public static void GrantedPermission(UserDTO userDTO) {
         String encodedPassword = EncodePasswordUtil.encode(userDTO.getPassword());
         MyUser user = new MyUser(userDTO.getUserName(), encodedPassword, true, true, true, true, SecurityUtil.getPrincipal().getAuthorities());
         user.setFullName(userDTO.getFullName());

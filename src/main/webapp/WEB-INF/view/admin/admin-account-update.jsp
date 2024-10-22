@@ -1,7 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/common/taglib.jsp" %>
-
 <head>
     <title>ChronoLux - Account Information</title>
     <meta charset="UTF-8">
@@ -18,33 +17,33 @@
 <body>
 <div class="container rounded bg-white m-5">
     <div class="p-2">
-        <form:form method="post" action="${pageContext.request.contextPath}/admin/account/save" enctype="multipart/form-data" modelAttribute="account" >
+        <form:form method="post" action="${pageContext.request.contextPath}/admin/account/update" enctype="multipart/form-data" modelAttribute="account" >
             <div class="d-flex justify-content-between align-items-center my-4">
-                <h1 class="h3 mb-1 mt-2 text-gray-800">Tạo tài khoản Admin</h1>
+                <h1 class="h3 mb-1 mt-2 text-gray-800">Tài khoản Admin</h1>
                 <div>
                     <a href="${pageContext.request.contextPath}/admin/accounts" class="btn btn-warning">
                         <i class="fa fa-reply mr-1" aria-hidden="true"></i>
                         Quay lại
                     </a>
                     <button type="submit" class="btn btn-success ml-2">
-                        <i class="fa-solid fa-user-plus mr-1"></i>
-                        Tạo tài khoản
+                        <i class="fa fa-check mr-1" aria-hidden="true"></i>
+                        Lưu thông tin
                     </button>
                 </div>
             </div>
             <hr/>
-            <input type="hidden" name="page" value="${currentAdminPage}">
+            <form:hidden path="id" />
             <div class="row">
                 <div class="col-md-3 border-right">
-                    <div class="d-flex flex-column align-items-center text-center" style="height: 300px; position: relative;">
+                    <div class="d-flex flex-column align-items-center text-center" style="height: 250px; position: relative;">
                         <img id="imgPreview"
-                             src="${pageContext.request.contextPath}/template/web/img/account-representation/admin.png"
+                             src="${pageContext.request.contextPath}/template/web/img/user-logos/${account.imgUrl}"
                              alt="Img Preview"
                              class="rounded-circle mt-5"
                              style="max-width: 150px; height: auto; margin-bottom: 20px;" />
                         <div class="custom-file" style="position: absolute; bottom: 0;">
                             <input type="file" class="custom-file-input" id="img" name="img" accept="image/*"
-                                   onchange="previewImage(event, 'imgPreview')" style="display:none;">
+                                   onchange="previewImage(event, 'imgPreview')">
                             <button type="button" class="btn btn-primary" onclick="document.getElementById('img').click()">
                                 <i class="fa-solid fa-upload mr-1"></i>
                                 Tải ảnh đại diện
@@ -58,11 +57,7 @@
                 <div class="col-md-9">
                     <div class="form-group">
                         <label for="userName">Tài khoản *</label>
-                        <form:input path="userName" type="text" class="form-control" id="userName" required="required"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Mật khẩu *</label>
-                        <form:input path="password" type="password" class="form-control" id="password" required="required" />
+                        <form:input path="userName" type="text" class="form-control" id="userName" disabled="true" required="required"/>
                     </div>
                     <div class="form-group">
                         <label for="fullName">Họ và tên *</label>

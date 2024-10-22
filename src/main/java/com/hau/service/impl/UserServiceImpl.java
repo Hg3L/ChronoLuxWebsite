@@ -40,6 +40,8 @@ public class UserServiceImpl implements com.hau.service.UserService {
         }
         return user;
     }
+
+    @Override
     public UserDTO findOneById(Long id) {
         UserEntity userEntity = userRepository.findOne(id);
         UserDTO user = userConverter.toDTO(userEntity);
@@ -90,6 +92,18 @@ public class UserServiceImpl implements com.hau.service.UserService {
         }
 
         return userConverter.toDTO(userRepository.save(userEntity));
+    }
+
+    @Transactional
+    @Override
+    public void update(UserDTO userDTO) {
+        UserEntity user = userRepository.findOne(userDTO.getId());
+        user.setFullName(userDTO.getFullName());
+        if(userDTO.getEmail() != null){
+            user.setEmail(userDTO.getEmail());
+        }
+        user.setImgUrl(userDTO.getImgUrl());
+        userRepository.save(user);
     }
 
     @Override

@@ -23,6 +23,7 @@ public class UserProfileController {
        model.addAttribute("user",userService.getCurrentLoggedInCustomer(authentication));
        return "web/profile";
     }
+
     @PostMapping
     public String saveAndUpdate(@ModelAttribute UserDTO userDTO){
         String view = "";
