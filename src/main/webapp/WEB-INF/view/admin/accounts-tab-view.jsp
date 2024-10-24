@@ -2,7 +2,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
-    <title>ChronoLux - Brands Information</title>
+    <title>ChronoLux - Accounts Information</title>
     <!-- Custom fonts for this template-->
     <link href="<c:url value='/template/admin/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet" type="text/css">
     <link
@@ -23,70 +23,72 @@
     <div class="tab-content" id="nav-tabContent">
         <%--Admin--%>
         <div class="tab-pane fade show active" id="nav-admin" role="tabpanel" aria-labelledby="nav-admin-tab">
-            <hr/>
-            <div class="d-flex justify-content-end">
-                <a href="${pageContext.request.contextPath}/admin/account-admin/create" class="btn btn-success mr-2 mt-1">
-                    <i class="fas fa-plus mr-1"></i> Tạo tài khoản Admin
-                </a>
-            </div>
-            <div class="card shadow mb-4 mt-4">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" width="100%" cellspacing="0">
-                            <thead>
-                            <tr>
-                                <th>Ảnh đại diện</th>
-                                <th>Tên tài khoản</th>
-                                <th>Tên người dùng</th>
-                                <th>Ngày tạo</th>
-                                <th>Email</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach var="account" items="${adminAccountPage.content}">
+            <div class="mt-4">
+                <div class="d-flex justify-content-end">
+                    <a href="${pageContext.request.contextPath}/admin/account/create" class="btn btn-success mr-2 mt-1">
+                        <i class="fas fa-plus mr-1"></i> Tạo tài khoản Admin
+                    </a>
+                </div>
+                <div class="card shadow mb-4 mt-4">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" width="100%" cellspacing="0">
+                                <thead>
                                 <tr>
-                                    <td>
-                                        <img src="<c:url value="/template/web/img/avatars/${account.imgUrl}"/>" alt="Logo" style="max-width:50px; border-radius: 50%;"/>
-                                    </td>
-                                    <td>${account.userName}</td>
-                                    <td>${account.fullName}</td>
-                                    <td>${account.createdDate}</td>
-                                    <td>${account.email}</td>
+                                    <th>Ảnh đại diện</th>
+                                    <th>Tên tài khoản</th>
+                                    <th>Tên người dùng</th>
+                                    <th>Email</th>
+                                    <th>Ngày tạo</th>
+                                    <th>Tạo bởi</th>
                                 </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="account" items="${adminAccountPage.content}">
+                                    <tr>
+                                        <td>
+                                            <img src="<c:url value="/template/web/img/user-logos/${account.imgUrl}"/>" alt="Logo" style="max-width:50px; border-radius: 50%;"/>
+                                        </td>
+                                        <td>${account.userName}</td>
+                                        <td>${account.fullName}</td>
+                                        <td>${account.email}</td>
+                                        <td>${account.createdDate}</td>
+                                        <td>${account.createdBy}</td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                            <ul class="pagination">
+                                <c:if test="${currentAdminPage > 1}">
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page=${currentAdminPage - 1}&size=${adminAccountPage.size}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                </c:if>
+                                <c:forEach var="i" begin="1" end="${adminAccountPage.totalPages}">
+                                    <li class="page-item ${i == currentAdminPage ? 'active' : ''}">
+                                        <a class="page-link" href="?page=${i}&size=${adminAccountPage.size}">${i}</a>
+                                    </li>
+                                </c:forEach>
+                                <c:if test="${currentAdminPage < adminAccountPage.totalPages}">
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page=${currentAdminPage + 1}&size=${adminAccountPage.size}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </c:if>
+                            </ul>
+                        </nav>
                     </div>
-                    <nav aria-label="Page navigation example" class="d-flex justify-content-center">
-                        <ul class="pagination">
-                            <c:if test="${currentAdminPage > 1}">
-                                <li class="page-item">
-                                    <a class="page-link" href="?page=${currentAdminPage - 1}&size=${adminAccountPage.size}" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                            </c:if>
-                            <c:forEach var="i" begin="1" end="${adminAccountPage.totalPages}">
-                                <li class="page-item ${i == currentAdminPage ? 'active' : ''}">
-                                    <a class="page-link" href="?page=${i}&size=${adminAccountPage.size}">${i}</a>
-                                </li>
-                            </c:forEach>
-                            <c:if test="${currentAdminPage < adminAccountPage.totalPages}">
-                                <li class="page-item">
-                                    <a class="page-link" href="?page=${currentAdminPage + 1}&size=${adminAccountPage.size}" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </c:if>
-                        </ul>
-                    </nav>
                 </div>
             </div>
         </div>
 
         <%--User--%>
         <div class="tab-pane fade" id="nav-user" role="tabpanel" aria-labelledby="nav-user-tab">
-            <hr/>
             <div class="card shadow mb-4 mt-4">
                 <div class="card-body">
                     <div class="table-responsive">
@@ -96,8 +98,8 @@
                                 <th>Ảnh đại diện</th>
                                 <th>Tên tài khoản</th>
                                 <th>Tên người dùng</th>
-                                <th>Ngày tạo</th>
                                 <th>Email</th>
+                                <th>Ngày tạo</th>
                                 <th>Hành động</th>
                             </tr>
                             </thead>
@@ -105,7 +107,7 @@
                             <c:forEach var="account" items="${userAccountPage.content}">
                                 <tr>
                                     <td>
-                                        <img src="<c:url value="/template/web/img/avatars/${account.imgUrl}"/>" alt="Logo" style="max-width:50px; border-radius: 50%;"/>
+                                        <img src="<c:url value="/template/web/img/user-logos/${account.imgUrl}"/>" alt="Logo" style="max-width:50px; border-radius: 50%;"/>
                                     </td>
                                     <td>${account.userName}</td>
                                     <td>${account.fullName}</td>

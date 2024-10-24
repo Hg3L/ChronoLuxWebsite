@@ -8,7 +8,9 @@ import org.springframework.security.core.Authentication;
 
 public interface UserService {
     public UserDTO findOneByUserNameAndStatus(String userName, int status);
-    public UserDTO save(UserDTO userDTO);
+    UserDTO findOneById(Long id);
+    public UserDTO save(UserDTO userDTO, String typeAccount);
+    void update(UserDTO userDTO);
     public void updateResetPasswordToken(String token,String email) throws CustomerNotFoundException;
     public UserDTO findOneByResetPasswordToken(String resetPasswordToken);
     public void updatePassword(UserDTO user, String password );

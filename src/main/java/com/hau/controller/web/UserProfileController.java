@@ -23,10 +23,11 @@ public class UserProfileController {
        model.addAttribute("user",userService.getCurrentLoggedInCustomer(authentication));
        return "web/profile";
     }
+
     @PostMapping
     public String saveAndUpdate(@ModelAttribute UserDTO userDTO){
         String view = "";
-        UserDTO user =  userService.save(userDTO);
+        UserDTO user =  userService.save(userDTO, "user");
         AuthenticationProviderUtil.GrantedPermission(userDTO);
         if(user!= null){
             view = "redirect:/user-profile?success";

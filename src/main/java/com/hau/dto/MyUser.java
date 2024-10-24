@@ -14,6 +14,16 @@ public class MyUser extends User {
     }
     private long Uid;
 
+    private String imgUrl;
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
     public long getUid() {
         return Uid;
     }

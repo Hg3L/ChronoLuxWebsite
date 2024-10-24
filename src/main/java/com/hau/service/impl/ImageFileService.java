@@ -1,12 +1,16 @@
 package com.hau.service.impl;
 
 import com.hau.service.FileService;
+import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.ServletContext;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -48,4 +52,22 @@ public class ImageFileService implements FileService {
         Path filePath = Paths.get(realPath + uploadDir + "/" + fileName);
         Files.deleteIfExists(filePath);
     }
+
+    @Override
+    public MultipartFile handleDefaultFile(String fileName, String uploadDir) {
+        String realPath = servletContext.getRealPath(ROOT_DIR + uploadDir + "/" + fileName);
+        File file = new File(realPath);
+        if (!file.exists()) {
+            throw new RuntimeException("File không tồn tại: " + realPath);
+        }
+        DiskFileItem fileItem = new DiskFileItem("file", "image/png", false, file.getName(), (int) file.length(), file.getParentFile());
+        try (FileInputStream input = new FileInputStream(file)) {
+            fileItem.getOutputStream().write(input.readAllBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Lỗi đọc file", e);
+        }
+        return new CommonsMultipartFile(fileItem);
+    }
+
 }

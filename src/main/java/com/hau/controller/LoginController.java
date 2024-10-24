@@ -51,7 +51,7 @@ public class LoginController {
                 userDTO.setStatus(SystemConstant.ACTIVE_STATUS);
                 userDTO.setUserName(" ");
                 userDTO.setImgUrl(userGoogleDto.getPicture());
-                userService.save(userDTO);
+                userService.save(userDTO, "user");
             }
 
         } catch (IOException e) {
@@ -79,7 +79,7 @@ public class LoginController {
                 userDTO.setStatus(SystemConstant.ACTIVE_STATUS);
                 userDTO.setUserName(" ");
                 userDTO.setImgUrl(userFaceBookDto.getImgUrl());
-                userService.save(userDTO);
+                userService.save(userDTO, "user");
             }
 
         } catch (IOException e) {
