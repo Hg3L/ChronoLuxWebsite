@@ -10,11 +10,38 @@ public class CartItemDTO extends AbstractDTO<CartItemDTO>{
     private String productImgUrl;
     private double subtotal;
     private double total;
+    private Double discount;
+    private String username;
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public CartItemDTO() {
     }
 
-    public CartItemDTO(String productName, String subtotal, String total,String quantity) {
+    public CartItemDTO(Integer quantity, String productName, double productPrice, long productId, String productImgUrl,String username) {
+        this.quantity = quantity;
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.productId = productId;
+        this.productImgUrl = productImgUrl;
+        this.username = username;
+    }
+
+    public CartItemDTO(String productName, String subtotal, String total, String quantity) {
         this.productName = productName;
         this.subtotal =Double.parseDouble(subtotal)  ;
         this.total =Double.parseDouble(total);
@@ -85,8 +112,8 @@ public class CartItemDTO extends AbstractDTO<CartItemDTO>{
         this.productName = productName;
     }
 
-    public double getProductPrice() {
-        return productPrice;
+    public String getProductPrice() {
+        return String.format("%.2f",productPrice);
     }
 
     public void setProductPrice(double productPrice) {

@@ -164,7 +164,7 @@
                                     <button  class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button>
                                     <input type="hidden" name = "subtotal" value = "${totalPrice}">
                                     <c:if test="${not empty voucher}">
-                                    <input type="hidden" name = "discount" value = "${voucher.discount}">
+                                    <input type="hidden" name = "voucherCode" value = "${voucher.code}">
                                      </c:if>
                                       <input type="hidden" name = "total" value = "${(totalPrice - voucher.discount) > 0 ? (totalPrice - voucher.discount) : 0}">
                                    </form>

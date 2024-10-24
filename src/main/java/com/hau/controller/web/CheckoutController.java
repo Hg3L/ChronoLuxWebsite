@@ -1,13 +1,11 @@
 package com.hau.controller.web;
 
-import com.hau.dto.UserDTO;
-import com.hau.service.CartItemService;
-import com.hau.service.UserService;
+import com.hau.constant.SystemConstant;
+import com.hau.dto.*;
+import com.hau.service.*;
 import com.hau.service.impl.PaymentServices;
-import com.paypal.api.payments.PayerInfo;
-import com.paypal.api.payments.Payment;
-import com.paypal.api.payments.ShippingAddress;
-import com.paypal.api.payments.Transaction;
+import com.hau.util.CartUtils;
+import com.paypal.api.payments.*;
 import com.paypal.base.rest.PayPalRESTException;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +13,14 @@ import org.springframework.security.access.method.P;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class CheckoutController {
@@ -27,30 +28,74 @@ public class CheckoutController {
     private UserService userService;
     @Autowired
     private CartItemService cartItemService;
+    @Autowired
+    private BillService billService;
+    @Autowired
+    private ProductService productService;
+    @Autowired
+    private VoucherService voucherService;
     @RequestMapping(value = "/checkout", method = RequestMethod.GET)
-    public ModelAndView checkoutPage(@RequestParam("subtotal") long subtotal,
-                                     @RequestParam( value = "discount",required = false) Double discount,
+    public ModelAndView checkoutPage(@RequestParam("subtotal") double subtotal,
+                                     @RequestParam( value = "voucherCode",required = false) String voucherCode,
                                      @RequestParam("total") double total,
-                                     @AuthenticationPrincipal Authentication authentication) {
-        UserDTO userDTO = userService.getCurrentLoggedInCustomer(authentication);
+                                     @AuthenticationPrincipal Authentication authentication,
+                                     HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("web/checkout");
+        UserDTO userDTO = null;
+        List<CartItemDTO> cartItemDTOS = new ArrayList<>();
+        List<ProductDTO> productDTOList = productService.findAll();
+        CartDTO cartDTO = CartUtils.getCartByCookie(request.getCookies(), productDTOList);
+        //
+        if(authentication != null){
+            userDTO = userService.getCurrentLoggedInCustomer(authentication);
+        }
+        cartItemDTOS =  CartUtils.getCartItemByAuthentication(cartDTO,userDTO);
+
+        mav.addObject("cartItems", cartItemDTOS);
         mav.addObject("subtotal",subtotal);
-        mav.addObject("discount",discount);
-        mav.addObject("total",total);
-        mav.addObject("cartItems",  cartItemService.findAllByUser(userDTO));
+        if(voucherCode != null){
+            mav.addObject("voucher",voucherService.findOneByCode(voucherCode));
+        }
+
+        mav.addObject("totalPrice",total);
         return mav;
     }
+    @PostMapping("/checkout")
+    public String addBill(@ModelAttribute BillDTO billDTO,
+                          @AuthenticationPrincipal Authentication authentication,
+                          HttpServletRequest request,
+                          HttpServletResponse response){
+        UserDTO userDTO = null;
+        List<ProductDTO> productDTOList = productService.findAll();
+        String txt = "";
 
+        if(authentication != null){
+            userDTO = userService.getCurrentLoggedInCustomer(authentication);
+            billDTO.setUsername(userDTO.getUserName());
+        }
+        else {
+            billDTO.setUsername(null);
+        }
+        CartDTO cartDTO = CartUtils.getCartByCookie(request.getCookies(), productDTOList);
+        billDTO.setCartItemDTOS(CartUtils.getCartItemByAuthentication(cartDTO,userDTO));
+        billDTO.setStatus(SystemConstant.PAYMENT_PENDING);
+        CartUtils.DeleteCartItemByAuthentication(userDTO,cartDTO,txt,response);
+        billService.save(billDTO);
+        return "redirect:/checkout/success";
+    }
     @GetMapping("/checkout/review")
     public ModelAndView ReviewPayment(@RequestParam("paymentId") String paymentId,
-                                      @RequestParam("PayerID") String payerId){
+                                      @RequestParam("PayerID") String payerId
+                                      ){
         ModelAndView mav = new ModelAndView();
         try{
             PaymentServices paymentServices = new PaymentServices();
             Payment payment = paymentServices.getPaymentDetails(paymentId);
             PayerInfo payerInfo = payment.getPayer().getPayerInfo();
-            Transaction transaction = payment.getTransactions().get(0);
+            Transaction transaction = payment.getTransactions().getFirst();
             ShippingAddress shippingAddress = transaction.getItemList().getShippingAddress();
+
+
             mav = new ModelAndView("web/checkout-review");
             mav.addObject("paymentId",paymentId);
             mav.addObject("payerId",payerId);
@@ -68,7 +113,7 @@ public class CheckoutController {
     }
 
     @GetMapping("/checkout/success")
-    public String CheckoutSuccess(){
+    public String CheckoutSuccess()  {
         return "web/checkout-success";
     }
 

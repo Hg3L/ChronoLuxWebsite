@@ -61,6 +61,7 @@ public class CartItemServiceImpl implements CartItemService {
     @Override
     public long getTotalPrice(UserDTO userDTO) {
         long totalPrice = 0L;
+
         UserEntity userEntity = userRepository.findOne(userDTO.getId());
         for(CartItemEntity cartItemEntity : cartItemRepository.findAllByUser(userEntity)){
             totalPrice += cartItemEntity.getSubTotal() ;

@@ -12,6 +12,15 @@ public class UserGoogleDto {
     private boolean verified_email;
 
     private String family_name;
+    private String userName;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public String getId() {
         return id;

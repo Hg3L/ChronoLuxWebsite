@@ -5,8 +5,17 @@ public class UserFaceBookDto {
     private String name;
     private String email;
     private Picture picture;
+    private String userName;
 
     // Getters và setters
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     class Picture {
         private Data data;

@@ -27,12 +27,22 @@ public class ProductEntity extends BaseEntity {
     private double price;
     @Column(name = "name")
     private String name;
+    @Column(name = "instock")
+    private int instock;
     @ManyToOne (fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "product_line_id")
     private ProductLineEntity productLine;
     @ManyToMany(mappedBy = "products")
     private List<BillEntity> bills;
 
+
+    public int getInstock() {
+        return instock;
+    }
+
+    public void setInstock(int instock) {
+        this.instock = instock;
+    }
 
     public String getName() {
         return name;

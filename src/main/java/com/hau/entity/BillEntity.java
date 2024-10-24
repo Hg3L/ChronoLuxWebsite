@@ -8,20 +8,32 @@ import java.util.List;
 @Entity
 @Table(name = "bill")
 public class BillEntity extends BaseEntity{
-    @Column(name ="date_invoice")
-    private Date dateInvoice;
     @Column(name ="phone")
     private String phone;
     @Column(name ="display_name")
     private String displayName;
     @Column(name ="address")
     private String address;
+    @Column(name = "subtotal")
+    private double subtotal;
     @Column(name ="total")
-    private String total;
-    @Column(name ="quantity")
-    private int quantity;
+    private double total;
+    @Column(name = "payment_method")
+    private String paymentMethod;
+    @Column(name = "receiver_name")
+    private String receiverName;
+    @Column(name = "receiver_phone")
+    private String receiverPhone;
+    @Column(name = "receiver_gender")
+    private String receiverGender;
+    @Column(name = "gender")
+    private String gender;
     @Column(name ="note")
     private String note;
+    @Column(name = "email")
+    private String email;
+    @Column(name = "status")
+    private String status;
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "voucher_id")
     private VoucherEntity voucher;
@@ -35,12 +47,24 @@ public class BillEntity extends BaseEntity{
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private List<ProductEntity> products = new ArrayList<>();
-    public Date getDateInvoice() {
-        return dateInvoice;
+
+    @OneToMany(mappedBy = "bill")
+    private List<CartItemEntity> cartItems = new ArrayList<>();
+
+    public double getSubtotal() {
+        return subtotal;
     }
 
-    public void setDateInvoice(Date dateInvoice) {
-        this.dateInvoice = dateInvoice;
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    public List<CartItemEntity> getCartItems() {
+        return cartItems;
+    }
+
+    public void setCartItems(List<CartItemEntity> cartItems) {
+        this.cartItems = cartItems;
     }
 
     public String getPhone() {
@@ -67,11 +91,11 @@ public class BillEntity extends BaseEntity{
         this.address = address;
     }
 
-    public String getTotal() {
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(String total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 
@@ -83,12 +107,20 @@ public class BillEntity extends BaseEntity{
         this.note = note;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public String getGender() {
+        return gender;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public List<ProductEntity> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<ProductEntity> products) {
+        this.products = products;
     }
 
     public VoucherEntity getVoucher() {
@@ -105,5 +137,53 @@ public class BillEntity extends BaseEntity{
 
     public void setUser(UserEntity user) {
         this.user = user;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
+    }
+
+    public String getReceiverPhone() {
+        return receiverPhone;
+    }
+
+    public void setReceiverPhone(String receiverPhone) {
+        this.receiverPhone = receiverPhone;
+    }
+
+    public String getReceiverGender() {
+        return receiverGender;
+    }
+
+    public void setReceiverGender(String receiverGender) {
+        this.receiverGender = receiverGender;
     }
 }
