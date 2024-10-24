@@ -48,6 +48,7 @@ public class CheckoutController {
         //
         if(authentication != null){
             userDTO = userService.getCurrentLoggedInCustomer(authentication);
+            mav.addObject("user",userDTO);
         }
         cartItemDTOS =  CartUtils.getCartItemByAuthentication(cartDTO,userDTO);
 

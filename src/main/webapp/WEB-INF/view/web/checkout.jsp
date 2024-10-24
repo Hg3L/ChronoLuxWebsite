@@ -278,7 +278,7 @@
 
                                     <div class="row g-3 mb-3">
                                         <div class="col-md-6">
-                                            <input type="text" name="displayName" value="" class="form-control"
+                                            <input type="text" name="displayName" value="${user.fullName}" class="form-control"
                                                 placeholder="Họ và Tên">
                                         </div>
                                         <div class="col-md-6">
@@ -288,7 +288,7 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <input type="email" name="email" value="" class="form-control"
+                                        <input type="email" name="email" value="${user.email}" class="form-control"
                                             placeholder="Email">
                                     </div>
 
