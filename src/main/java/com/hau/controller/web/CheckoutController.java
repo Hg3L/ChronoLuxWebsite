@@ -115,6 +115,7 @@ public class CheckoutController {
 
     @GetMapping("/checkout/success")
     public String CheckoutSuccess()  {
+
         return "web/checkout-success";
     }
 

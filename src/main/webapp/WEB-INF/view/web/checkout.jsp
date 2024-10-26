@@ -256,7 +256,7 @@
 
             <!-- Checkout Start -->
             <div class="container-fluid pt-5">
-                <form action="<c:url value='/checkout'/>" method="post" id="paymentForm3">
+                <form action="<c:url value='/checkout'/>" method="post" id="paymentForm1">
                     <div class="row px-xl-5">
                         <div class="col-lg-7">
                             <div class="mb-4">
@@ -266,12 +266,12 @@
                                     <div class="mb-3">
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="gender" id="male"
-                                                value="Nam" checked>
+                                                value="Nam" checked required>
                                             <label class="form-check-label" for="male">Anh</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="gender" id="female"
-                                                value="Nữ">
+                                                value="Nữ" required>
                                             <label class="form-check-label" for="female">Chị</label>
                                         </div>
                                     </div>
@@ -279,17 +279,17 @@
                                     <div class="row g-3 mb-3">
                                         <div class="col-md-6">
                                             <input type="text" name="displayName" value="${user.fullName}" class="form-control"
-                                                placeholder="Họ và Tên">
+                                                placeholder="Họ và Tên" required>
                                         </div>
                                         <div class="col-md-6">
                                             <input type="text" name="phone" class="form-control"
-                                                placeholder="Số điện thoại">
+                                                placeholder="Số điện thoại" required>
                                         </div>
                                     </div>
 
                                     <div class="mb-3">
                                         <input type="email" name="email" value="${user.email}" class="form-control"
-                                            placeholder="Email">
+                                            placeholder="Email" required>
                                     </div>
 
                                     <p class="small text-muted mb-3">
@@ -300,24 +300,24 @@
                                         để đặt hàng
                                     </p>
 
-                                    <div class="form-group">
-                                        <select class="form-control" id="city" name="city" >
-                                            <option>Chọn Thành Phố</option>
-
-                                        </select>
-                                        <select class="form-control" id="district" name="district">
-                                            <option>Chọn Quận huyện</option>
-
-                                        </select>
-                                        <select class="form-control" id="ward" name="ward">
-                                            <option>Phường/Xã</option>
-
-                                        </select>
-                                    </div>
+                                   <div class="form-group">
+                                       <select class="form-control" id="city" name="city" required>
+                                           <option value="">Chọn Thành Phố</option>
+                                           <!-- Các tùy chọn khác -->
+                                       </select>
+                                       <select class="form-control" id="district" name="district" required>
+                                           <option value="">Chọn Quận huyện</option>
+                                           <!-- Các tùy chọn khác -->
+                                       </select>
+                                       <select class="form-control" id="ward" name="ward" required>
+                                           <option value="">Phường/Xã</option>
+                                           <!-- Các tùy chọn khác -->
+                                       </select>
+                                   </div>
 
                                     <div class="mb-3">
                                         <input type="text" class="form-control" name="street"
-                                            placeholder="Số nhà, tên đường...">
+                                            placeholder="Số nhà, tên đường..." required>
                                     </div>
 
                                     <div class="mb-3">
@@ -337,7 +337,7 @@
                                         <div class="mb-3">
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="receiverGender"
-                                                    id="maleReceiver" value="Anh" checked>
+                                                    id="maleReceiver" value="Anh">
                                                 <label class="form-check-label" for="maleReceiver">Anh</label>
                                             </div>
                                             <div class="form-check form-check-inline">
@@ -433,6 +433,11 @@
                                     <p>Số tài khoản: 123456789</p>
                                     <p>Chủ tài khoản: Nguyễn Văn A</p>
                                 </div>
+                                 <div class="payment-option">
+                                    <input type="radio" name="paymentMethod" id="VNPAY" value="VNPAY"
+                                        onchange="updateAction()">
+                                    <label for="VNPAY">Thanh toán vnpay</label>
+                                </div>
                                 <form action="<c:url value='/authorize_payment'/>" method="post" id="paymentForm">
                                     <input type="hidden" name="subtotal" value="${subtotal}">
                                     <input type="hidden" name="total" value="${subtotal}">
@@ -523,7 +528,7 @@
                     }
                 }
                  function updateAction() {
-
+                        var form = document.getElementById("paymentForm1");
                         const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
                         const bankInfo = document.getElementById('bank-info');
 
@@ -532,6 +537,11 @@
                             bankInfo.style.display = 'block'; // Hiển thị thông tin tài khoản
                         } else {
                             bankInfo.style.display = 'none'; // Ẩn thông tin tài khoản
+                        }
+                        console.log(paymentMethod);
+                        if(paymentMethod === 'VNPAY'){
+                             form.action = "<c:url value='/payment/create-payment'/>";
+                             form.method = "get";
                         }
                     }
             </script>
