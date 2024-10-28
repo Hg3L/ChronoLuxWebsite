@@ -19,7 +19,7 @@ public class AuthenticationProviderUtil {
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         if (account instanceof UserGoogleDto) {
             UserGoogleDto userGoogleDto = (UserGoogleDto) account;
-            CustomerO2Auth user = new CustomerO2Auth(" ", "", true, true, true, true, authorities);
+            CustomerO2Auth user = new CustomerO2Auth(userGoogleDto.getUserName(), "", true, true, true, true, authorities);
             user.setFullName(userGoogleDto.getGiven_name());
             user.setFirstName(userGoogleDto.getGiven_name());
             user.setSurName(userGoogleDto.getFamily_name());
@@ -33,7 +33,7 @@ public class AuthenticationProviderUtil {
         } else if (account instanceof UserFaceBookDto) {
             // Xử lý nếu object là kiểu AnotherClass
             UserFaceBookDto userFaceBookDto = (UserFaceBookDto) account;
-            CustomerO2Auth user = new CustomerO2Auth(" ", "", true, true, true, true, authorities);
+            CustomerO2Auth user = new CustomerO2Auth(userFaceBookDto.getUserName(), "", true, true, true, true, authorities);
             user.setFullName(userFaceBookDto.getName());
             //
             String[] parts = userFaceBookDto.getName().split(" ");

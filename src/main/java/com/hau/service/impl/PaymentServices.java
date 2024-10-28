@@ -20,16 +20,16 @@ public class PaymentServices {
     private static final String CLIENT_SECRET = "ECcJS5UVXSRL9HfU-eNRIuU7KrS8TFVldf8KrrTDwaBBPi0YZyj4_dAqUo4lVE2tqrmOEecDmDb6I0fB";
     private static final String MODE = "sandbox";
 
-    public String authorizePayment(CartItemDTO cartItemDTO, HttpServletRequest request) throws PayPalRESTException {
+    public String authorizePayment(List<CartItemDTO> cartItemDTOS, CartItemDTO cartItemDTO, HttpServletRequest request) throws PayPalRESTException {
         Payer payer =   getPayerInfomation();
         RedirectUrls redirectUrls = getRedirectURLs(request);
-        List<Transaction> listTransaction = getTransactionInfomation(cartItemDTO);
+        List<Transaction> listTransaction = getTransactionInfomation(cartItemDTOS,cartItemDTO);
 
         Payment requestPayment = new Payment();
         requestPayment.setTransactions(listTransaction)
                 .setRedirectUrls(redirectUrls)
                 .setPayer(payer)
-                .setIntent("authorize");
+                .setIntent("sale");
         APIContext apiContext = new APIContext(CLIENT_ID,CLIENT_SECRET,MODE);
         Payment approvedPayment =  requestPayment.create(apiContext);
         System.out.println(approvedPayment);
@@ -45,26 +45,33 @@ public class PaymentServices {
         }
         return approvalLink;
     }
-    private List<Transaction> getTransactionInfomation( CartItemDTO cartItemDTO){
+    private List<Transaction> getTransactionInfomation( List<CartItemDTO> cartItems, CartItemDTO cartItemDTO){
+        String subtotal = cartItemDTO.getSubtotal();
+        String total = cartItemDTO.getTotal();
+
         Details details = new Details();
-        details.setSubtotal(cartItemDTO.getSubtotal());
+        details.setSubtotal(subtotal);
 
         Amount amount = new Amount();
         amount.setCurrency("USD");
-        amount.setTotal(cartItemDTO.getTotal());
+        amount.setTotal(total);
+        amount.setDetails(details);
 
         Transaction transaction = new Transaction();
         transaction.setAmount(amount);
-        transaction.setDescription(cartItemDTO.getProductName());
+        transaction.setDescription("ChronoLux Watch Purchase");
 
         ItemList itemList = new ItemList();
         List<Item> items = new ArrayList<Item>();
-        Item item = new Item();
-        item.setCurrency("USD")
-                .setName(cartItemDTO.getProductName())
-                .setPrice(cartItemDTO.getSubtotal())
-                .setQuantity(cartItemDTO.getQuantity());
-        items.add(item);
+        for(CartItemDTO cartItem : cartItems){
+            Item item = new Item();
+            item.setCurrency("USD")
+                    .setName(cartItem.getProductName())
+                    .setPrice(cartItem.getProductPrice())
+                    .setQuantity(cartItem.getQuantity());
+            items.add(item);
+        }
+
         itemList.setItems(items);
         transaction.setItemList(itemList);
 
@@ -78,7 +85,10 @@ public class PaymentServices {
         String total =  request.getParameter("total");
         String subtotal =  request.getParameter("subtotal");
         redirectUrls.setCancelUrl( GetSiteURLUtil.getSiteURL(request)+"/checkout?subtotal="+subtotal+"&total="+total);
-        redirectUrls.setReturnUrl(GetSiteURLUtil.getSiteURL(request)+"/checkout/review");
+
+        redirectUrls.setReturnUrl(GetSiteURLUtil.getSiteURL(request)+"/checkout/review?voucher=10");
+
+
         return  redirectUrls;
     }
     public Payment getPaymentDetails(String paymentId) throws PayPalRESTException {
@@ -99,6 +109,8 @@ public class PaymentServices {
         payerInfo.setFirstName("DUC")
                 .setLastName("HUY")
                 .setEmail("damduc.huy@company.com");
+
+
         payer.setPayerInfo(payerInfo);
         return payer;
     }

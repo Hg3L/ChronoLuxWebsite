@@ -8,6 +8,7 @@ import com.hau.service.UserService;
 import com.hau.util.AuthenticationProviderUtil;
 import com.hau.util.UserFaceBookUtil;
 import com.hau.util.UserGoogleUtil;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +40,8 @@ public class LoginController {
         try {
             String token = UserGoogleUtil.getToken(code);
             UserGoogleDto userGoogleDto = UserGoogleUtil.toUser(token).getUserGoogleDto();
+            String userName = RandomStringUtils.randomAlphanumeric(10);
+            userGoogleDto.setUserName(userName);
             AuthenticationProviderUtil.GrantedPermissionO2Auth(userGoogleDto);
             if(userService.findOneByEmailAndRoleCode(userGoogleDto.getEmail(),"ROLE_USER_GOOGLE") == null){
                 UserDTO userDTO = new UserDTO();
@@ -49,7 +52,7 @@ public class LoginController {
                 rolescode.add("ROLE_USER_GOOGLE");
                 userDTO.setRoleCode(rolescode);
                 userDTO.setStatus(SystemConstant.ACTIVE_STATUS);
-                userDTO.setUserName(" ");
+                userDTO.setUserName(userName);
                 userDTO.setImgUrl(userGoogleDto.getPicture());
                 userService.save(userDTO, "user");
             }
@@ -67,6 +70,8 @@ public class LoginController {
         try {
             String token = UserFaceBookUtil.getToken(code);
             UserFaceBookDto userFaceBookDto = UserFaceBookUtil.toUser(token).getUserFaceBookDto();
+            String userName = RandomStringUtils.randomAlphanumeric(10);
+            userFaceBookDto.setUserName(userName);
             AuthenticationProviderUtil.GrantedPermissionO2Auth(userFaceBookDto);
             if(userService.findOneByEmailAndRoleCode(userFaceBookDto.getEmail(),"ROLE_USER_FACEBOOK") == null){
                 UserDTO userDTO = new UserDTO();
@@ -77,7 +82,7 @@ public class LoginController {
                 rolescode.add("ROLE_USER_FACEBOOK");
                 userDTO.setRoleCode(rolescode);
                 userDTO.setStatus(SystemConstant.ACTIVE_STATUS);
-                userDTO.setUserName(" ");
+                userDTO.setUserName(userName);
                 userDTO.setImgUrl(userFaceBookDto.getImgUrl());
                 userService.save(userDTO, "user");
             }

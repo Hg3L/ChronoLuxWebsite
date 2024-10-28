@@ -128,8 +128,8 @@
                                     <div class="nav-item dropdown">
                                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                                         <div class="dropdown-menu rounded-0 m-0">
-                                            <a href="cart.html" class="dropdown-item">Shopping Cart</a>
-                                            <a href="checkout.html" class="dropdown-item">Checkout</a>
+                                            <a href="<c:url value='/cart'/>" class="dropdown-item">Shopping Cart</a>
+                                            <a href="<c:url value='/checkout'/>" class="dropdown-item">Checkout</a>
                                         </div>
                                     </div>
                                     <a href="contact.html" class="nav-item nav-link">Contact</a>

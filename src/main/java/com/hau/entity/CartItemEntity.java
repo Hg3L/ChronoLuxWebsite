@@ -15,6 +15,18 @@ public class CartItemEntity extends BaseEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
+    @ManyToOne (fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "bill_id")
+    private BillEntity bill;
+
+    public BillEntity getBill() {
+        return bill;
+    }
+
+    public void setBill(BillEntity bill) {
+        this.bill = bill;
+    }
+
     private Integer quantity;
 
     public ProductEntity getProduct() {

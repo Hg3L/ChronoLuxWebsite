@@ -13,6 +13,7 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
     List<ProductEntity> findTop8ByOrderByIdDesc();
 
+    ProductEntity findOneByName(String name);
 
     @Query("SELECT COUNT(p) FROM ProductEntity p WHERE " +
             "(:gender IS NULL OR p.gender LIKE :gender) " +

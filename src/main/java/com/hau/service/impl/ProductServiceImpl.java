@@ -41,6 +41,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<ProductDTO> findAll() {
+        List<ProductDTO> products = new ArrayList<>();
+        List<ProductEntity> productEntities = productRepository.findAll();
+        for(ProductEntity productEntity : productEntities){
+            ProductDTO product = productConverter.toDTO(productEntity);
+            products.add(product);
+        }
+        return products;
+    }
+
+    @Override
     public List<ProductDTO> findAll(Pageable pageable,String keyword,String filter) {
 
         List<ProductDTO> products = new ArrayList<>();

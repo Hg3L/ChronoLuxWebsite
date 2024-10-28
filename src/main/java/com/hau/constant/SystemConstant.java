@@ -3,6 +3,10 @@ package com.hau.constant;
 public class SystemConstant {
     public static final int ACTIVE_STATUS = 1;
     public static final int INACTIVE_STATUS = 0;
+    public static final String PAYMENT_SUCCESS = "Thanh toán thành công";
+    public static final String PAYMENT_PENDING = "Chờ thanh toán";
+
+    public static final String PAYMENT_METHOD_PAYPAL = "PayPal";
     public static String GOOGLE_CLIENT_ID = "236344479421-3djectr8kffvuu3ec4o7ceges5jv2jld.apps.googleusercontent.com";
 
     public static String GOOGLE_CLIENT_SECRET = "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";
