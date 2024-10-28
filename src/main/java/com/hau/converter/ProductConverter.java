@@ -1,9 +1,6 @@
 package com.hau.converter;
 
-import com.hau.dto.BrandDTO;
 import com.hau.dto.ProductDTO;
-import com.hau.dto.ProductLineDTO;
-import com.hau.entity.BrandEntity;
 import com.hau.entity.ProductEntity;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +13,7 @@ public class ProductConverter {
         productDTO.setFaceSize(productEntity.getFaceSize());
         productDTO.setGender(productEntity.getGender());
         productDTO.setGlassMaterial(productEntity.getGlassMaterial());
+        productDTO.setStock(productEntity.getInstock());
         productDTO.setPrice(productEntity.getPrice());
         productDTO.setThickness(productEntity.getThickness());
         productDTO.setWatchType(productEntity.getWatchType());
@@ -45,6 +43,7 @@ public class ProductConverter {
         productEntity.setImgUrl(productDTO.getImgUrl());
         productEntity.setStrapMaterial(productDTO.getStrapMaterial());
         productEntity.setName(productDTO.getName());
+        productEntity.setInstock(productDTO.getStock());
         return productEntity;
     }
 }

@@ -118,6 +118,11 @@
                         color: #007bff;
                         /* Màu xanh dương cho link */
                     }
+                    .sold-out-btn {
+                            background-color: #cccccc; /* Màu xám nhạt hơn để thể hiện trạng thái không khả dụng */
+                            border-color: #cccccc;
+                            color: #666666; /* Màu chữ xám để làm rõ trạng thái "SOLD OUT" */
+                        }
                 </style>
         </head>
 
@@ -181,28 +186,43 @@
                         </div>
                         <h3 class="font-weight-semi-bold mb-4">$${model.price}</h3>
                         <p class="mb-4">Brand: ${model.brandName} - Country: ${model.country}</p>
-
-
+                        <c:if test="${model.stock < 10}">
+                                <p class="mb-4">
+                                    <span class="badge badge-danger">InStock:</span>
+                                    <span class="ml-2 font-weight-bold text-danger">${model.stock}</span>
+                                </p>
+                         </c:if>
                         <div class="d-flex align-items-center mb-4 pt-2">
+
                             <div class="input-group quantity mr-3" style="width: 130px;">
                                 <div class="input-group-btn">
-
                                     <button onclick="decreaseQuantity()" id="DecreaseQuantityBtn"
                                         class="btn btn-primary btn-minus">
                                         <i class="fa fa-minus"></i>
                                     </button>
                                 </div>
-                                <input type="text" id="quantity" class="form-control bg-secondary text-center"
-                                    value="1">
+                                <input type="text" onchange="handleQuantityChange()" name = "quantity" id="quantity" class="form-control bg-secondary text-center"
+                                    value="1" >
                                 <div class="input-group-btn">
                                     <button onclick="increaseQuantity()" id="IncreaseQuantityBtn"
                                         class="btn btn-primary btn-plus">
                                         <i class="fa fa-plus"></i>
                                     </button>
+                                    <input type="hidden" id="inStock" value="${model.stock}" />
                                 </div>
                             </div>
+                             <c:if test="${model.stock > 0}">
+                            <form action="<c:url value='/cart?productId=${model.id}'/>" method="post" id ="AddToCartForm">
+                                <input type="hidden" name = "quantity" id="quantity-hidden" value="1">
                             <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
                                 Cart</button>
+                            </form>
+                             </c:if>
+                           <c:if test="${model.stock <= 0}">
+                               <button class="btn btn-primary px-3 sold-out-btn" disabled>
+                                   <i class="fa fa-shopping-cart mr-1"></i> SOLD OUT
+                               </button>
+                           </c:if>
                         </div>
                         <div class="d-flex pt-2">
                             <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>
@@ -400,25 +420,7 @@
                 <div class="row px-xl-5">
                     <div class="col">
                         <div class="owl-carousel related-carousel">
-                            <div class="card product-item border-0">
-                                <div
-                                    class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                    <img class="img-fluid w-100" src="img/product-1.jpg" alt="">
-                                </div>
-                                <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                                    <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
-                                    <div class="d-flex justify-content-center">
-                                        <h6>$123.00</h6>
-                                        <h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                                    </div>
-                                </div>
-                                <div class="card-footer d-flex justify-content-between bg-light border">
-                                    <a href="" class="btn btn-sm text-dark p-0"><i
-                                            class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                                    <a href="" class="btn btn-sm text-dark p-0"><i
-                                            class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
-                                </div>
-                            </div>
+
                             <div class="card product-item border-0">
                                 <div
                                     class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
@@ -501,15 +503,31 @@
             </div>
             <!-- Products End -->
         <script>
-                function increaseQuantity() {
+                 const quantityInput = document.getElementById('quantity');
+                    const quantityHiddenInput = document.getElementById('quantity-hidden');
 
+                    // Hàm cập nhật giá trị vào input ẩn
+                    function updateHiddenQuantity() {
+                        quantityHiddenInput.value = quantityInput.value;
+                    }
+
+                    // Gán sự kiện input cho trường quantity
+                    quantityInput.addEventListener('input', updateHiddenQuantity);
+                function increaseQuantity() {
+                    let instockHidden = document.getElementById("inStock");
+                    let instock =  parseInt(instockHidden.value);
                     let quantityInput = document.getElementById("quantity");
                     let currentQuantity = parseInt(quantityInput.value);
+                    if(instock > currentQuantity    ){
+                        currentQuantity += 1;
+                        quantityInput.value = currentQuantity;
+                    }
+                    if(instock === currentQuantity){
+                     document.getElementById("IncreaseQuantityBtn").disabled = true;
+                    }
 
 
-                    currentQuantity += 1;
-
-                    quantityInput.value = currentQuantity;
+                    quantityHiddenInput.value = currentQuantity;
                 }
                 function decreaseQuantity() {
 
@@ -521,10 +539,36 @@
                         currentQuantity -= 1;
 
                         quantityInput.value = currentQuantity;
+                        quantityHiddenInput.value = currentQuantity;
 
                     } else {
                         quantityInput.value = 1;
+                        quantityHiddenInput.value = currentQuantity;
                     }
+                     document.getElementById("IncreaseQuantityBtn").disabled = false;
+                }
+                function handleQuantityChange() {
+                    let quantityInput = document.getElementById("quantity");
+                    let currentQuantity = parseInt(quantityInput.value);
+                    let instockHidden = document.getElementById("inStock");
+                    let instock =  parseInt(instockHidden.value);
+                    // Kiểm tra giá trị nhập vào có phải là số hợp lệ không
+                    if (!isNaN(currentQuantity) && currentQuantity > 0) {
+                        // Nếu hợp lệ, cập nhật giá trị của input
+                        quantityInput.value = currentQuantity;
+                    } else {
+                        // Nếu không hợp lệ, đặt lại giá trị mặc định là 1
+                        quantityInput.value = 1;
+                        alert("Vui lòng nhập một số hợp lệ lớn hơn 0.");
+                        quantityHiddenInput.value = 1;
+                    }
+                    if(currentQuantity > instock){
+                         alert(" Vui lòng nhập số lượng nhỏ hơn số hàng hóa trong kho");
+                         quantityInput.value = 1;
+                         quantityHiddenInput.value = 1;
+                    }
+
+
                 }
             </script>
         </body>

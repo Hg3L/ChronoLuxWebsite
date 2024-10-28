@@ -31,12 +31,36 @@ public class CartUtils {
         if(userDTO != null){
             for(CartItemDTO cartItem : cartDTO.getCartItemDTOS()){
                 if(cartItem.getUsername().equals(userDTO.getUserName())){
+                    if(cartItem.getProductQuantity() < Integer.parseInt(cartItem.getQuantity())){
+                        cartItem.setQuantity(cartItem.getProductQuantity());
+                    }
                     cartItemDTOs.add(cartItem);
                 }
             }
         } else {
             for(CartItemDTO cartItem : cartDTO.getCartItemDTOS()){
                 if(cartItem.getUsername().equals("null") ){
+                    if(cartItem.getProductQuantity() < Integer.parseInt(cartItem.getQuantity())){
+                        cartItem.setQuantity(cartItem.getProductQuantity());
+                    }
+                    cartItemDTOs.add(cartItem);
+                }
+            }
+        }
+        return  cartItemDTOs;
+    }
+    public static List<CartItemDTO> getCartItemByAuthenticationNoFillter( CartDTO cartDTO, UserDTO userDTO){
+        List<CartItemDTO> cartItemDTOs = new ArrayList<>();
+        if(userDTO != null){
+            for(CartItemDTO cartItem : cartDTO.getCartItemDTOS()){
+                if(cartItem.getUsername().equals(userDTO.getUserName())){
+                    cartItemDTOs.add(cartItem);
+                }
+            }
+        } else {
+            for(CartItemDTO cartItem : cartDTO.getCartItemDTOS()){
+                if(cartItem.getUsername().equals("null") ){
+
                     cartItemDTOs.add(cartItem);
                 }
             }

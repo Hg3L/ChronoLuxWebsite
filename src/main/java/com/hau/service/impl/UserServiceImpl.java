@@ -65,6 +65,18 @@ public class UserServiceImpl implements com.hau.service.UserService {
             userDTO.setRoleCode(rolescode);
             userDTO.setStatus(1);
         }
+        else if(typeAccount.equals("user_facebook")){
+            List<String>  rolescode = new ArrayList<>();
+            rolescode.add("ROLE_USER_FACEBOOK");
+            userDTO.setRoleCode(rolescode);
+            userDTO.setStatus(1);
+        }
+        else if(typeAccount.equals("user_google")){
+            List<String>  rolescode = new ArrayList<>();
+            rolescode.add("ROLE_USER_GOOGLE");
+            userDTO.setRoleCode(rolescode);
+            userDTO.setStatus(1);
+        }
         List<RoleEntity> roleEntities = new ArrayList<>();
         for(String roleCode : userDTO.getRoleCode()){
             RoleEntity roleEntity = roleRepository.findOneByCode(roleCode);

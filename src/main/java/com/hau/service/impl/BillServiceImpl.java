@@ -44,12 +44,14 @@ public class BillServiceImpl implements BillService {
         for(CartItemDTO cartItemDTO : billDTO.getCartItemDTOS()){
             CartItemEntity cartItemEntity = cartItemConverter.convertToEntity(cartItemDTO);
             ProductEntity productEntity = productRepository.findOneByName(cartItemDTO.getProductName());
+            productEntity.setInstock(productEntity.getInstock() - Integer.parseInt(cartItemDTO.getQuantity()));
             if(cartItemDTO.getUsername() != null && cartItemDTO.getUsername() != "null"){
                 UserEntity userEntity = userRepository.findOneByUserNameAndStatus(cartItemDTO.getUsername(),SystemConstant.ACTIVE_STATUS);
                 cartItemEntity.setUser( userEntity);
             }
             cartItemEntity.setProduct(productEntity);
             cartItemRepository.save(cartItemEntity);
+            productRepository.save(productEntity);
             cartItemEntities.add(cartItemEntity);
         }
         if(billDTO.getVoucherCode() != null){
