@@ -60,10 +60,7 @@ public class CartController {
                     if(Integer.parseInt(cartItem.getQuantity()) != 0){
                         cartItemDTOS.add(cartItem);
                     }
-
             }
-
-
 
         List<CartItemDTO> items = cartItemDTOS;
         if(items.size()>0){
@@ -76,8 +73,10 @@ public class CartController {
         c.setMaxAge(2*24*60*60);
         c.setPath("/ChronoLuxWeb");
         response.addCookie(c);
-
-        CartDTO cartDTO1 = CartUtils.getCartByCookie(request.getCookies(), productDTOList);
+        List<Cookie> cookieList = new ArrayList<>();
+        cookieList.add(c);
+        Cookie[] updatedCookies = cookieList.toArray(new Cookie[cookieList.size()]);
+        CartDTO cartDTO1 = CartUtils.getCartByCookie(updatedCookies , productDTOList);
         cartItemDTOS = CartUtils.getCartItemByAuthentication(cartDTO1,userDTO);
         mav.addObject("error",error);
         mav.addObject("cartItems",cartItemDTOS);

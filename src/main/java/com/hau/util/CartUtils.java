@@ -49,24 +49,7 @@ public class CartUtils {
         }
         return  cartItemDTOs;
     }
-    public static List<CartItemDTO> getCartItemByAuthenticationNoFillter( CartDTO cartDTO, UserDTO userDTO){
-        List<CartItemDTO> cartItemDTOs = new ArrayList<>();
-        if(userDTO != null){
-            for(CartItemDTO cartItem : cartDTO.getCartItemDTOS()){
-                if(cartItem.getUsername().equals(userDTO.getUserName())){
-                    cartItemDTOs.add(cartItem);
-                }
-            }
-        } else {
-            for(CartItemDTO cartItem : cartDTO.getCartItemDTOS()){
-                if(cartItem.getUsername().equals("null") ){
 
-                    cartItemDTOs.add(cartItem);
-                }
-            }
-        }
-        return  cartItemDTOs;
-    }
 
     public static CartDTO getCartByCookieAndDeleteCookie(Cookie[] arr , List<ProductDTO> productDTOList, String txt, HttpServletResponse response) {
         CartDTO cartDTO = null;
