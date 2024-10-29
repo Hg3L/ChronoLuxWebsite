@@ -90,10 +90,11 @@
 
                                                     <form action="<c:url value='/cart/update'/>" method="get">
                                                         <input type="text"
-                                                            class="form-control form-control-sm bg-secondary text-center"
-                                                            id="quantity-${status.index}" value="${item.quantity}"
-                                                            oninput="updateHiddenQuantity(${status.index})"
-                                                            style="width: 40px;">
+                                                               class="form-control form-control-sm bg-secondary text-center"
+                                                               id="quantity-${status.index}" value="${item.quantity}"
+                                                               onchange="updateHiddenQuantity(${status.index})"
+                                                               style="width: 40px;">
+                                                        <input type = "hidden" id = "instock-${status.index}" value = "${item.productQuantity}" >
 
                                                         <input type="hidden" id="hiddenQuantity-${status.index}"
                                                             name="quantity" value=${item.quantity}>
@@ -101,8 +102,16 @@
 
                                                     </form>
                                                     <form action="<c:url value='/cart/update' />" method="get">
+                                                     <c:if test="${item.quantity < item.productQuantity}">
                                                         <input type="hidden" name="quantity" value=${item.quantity+1}>
+
+                                                      </c:if>
+                                                        <c:if test="${item.quantity >= item.productQuantity}">
+                                                         <input type="hidden" name="quantity" value=${item.quantity}>
+                                                         <input type="hidden" id = "validQuantity-${status.index}" value="true">
+                                                        </c:if>
                                                         <input type="hidden" name="productId" value=${item.productId}>
+
                                                         <button type="submit" class="btn btn-sm btn-primary btn-plus"
                                                             onclick="increaseQuantity(${status.index})"
                                                             id="IncreaseQuantityBtn">
@@ -170,35 +179,50 @@
                                    </form>
                                 </div>
                             </div>
-
+                            <input type="hidden" id="cartItems" value='${fn:escapeXml(cartItemsJson)}'>
+                            <c:if test = "${not empty error}">
+                            <input type= "hidden" id = "error" value ="${error}">;
+                             </c:if>
                         </c:if>
                     </div>
                 </div>
             </div>
             <!-- Cart End -->
             <script>
+
+                let errorInput = document.getElementById("error").value;
+                if (errorInput !== null && errorInput !== "") {
+                    alert(errorInput);
+                }
+
+
+
                 function increaseQuantity(index) {
 
                     let quantityInputs = document.querySelectorAll("[id^='quantity-']");
-
+                    let validQuantity =  document.getElementById("validQuantity-" + index);
 
                     let quantityInput = quantityInputs[index];
 
+                    if(validQuantity.value === "true"){
+                          alert("Bạn đã nhập quá số lượng hàng trong kho, vui lòng nhập lại.");
+
+                    }
+                    else{
+                     let currentQuantity = parseInt(quantityInput.value) || 0;
+
+                     currentQuantity += 1;
 
 
-
-                    let currentQuantity = parseInt(quantityInput.value) || 0;
-
-                    currentQuantity += 1;
+                     quantityInput.value = currentQuantity;
+                    }
 
 
-                    quantityInput.value = currentQuantity;
 
                 }
                 function decreaseQuantity(index) {
                     let quantityInputs = document.querySelectorAll("[id^='quantity-']");
                     let quantityInput = quantityInputs[index];
-
 
                     let currentQuantity = parseInt(quantityInput.value);
 
@@ -215,11 +239,20 @@
                 function updateHiddenQuantity(index) {
 
                     let quantityInput = document.getElementById("quantity-" + index);
+                    let instock = document.getElementById("instock-" + index);
                     let hiddenQuantityInput = document.getElementById("hiddenQuantity-" + index);
 
                     if (quantityInput && hiddenQuantityInput) {
 
-                        hiddenQuantityInput.value = quantityInput.value;
+                        let instockValue = parseInt(instock.value, 10);
+                        let quantityValue = parseInt(quantityInput.value, 10);
+
+                        if (instockValue < quantityValue) {
+                            alert("Bạn đã nhập quá số lượng hàng trong kho, vui lòng nhập lại.");
+                            quantityInput.value = hiddenQuantityInput.value;
+                        } else {
+                            hiddenQuantityInput.value = quantityInput.value;
+                        }
                     }
                 }
             </script>

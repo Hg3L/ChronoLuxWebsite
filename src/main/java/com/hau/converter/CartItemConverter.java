@@ -17,7 +17,7 @@ public class CartItemConverter implements Converter<CartItemDTO, CartItemEntity>
         cartItemDTO.setProductPrice(entity.getProduct().getPrice());
         cartItemDTO.setQuantity(entity.getQuantity());
         cartItemDTO.setProductImgUrl(entity.getProduct().getImgUrl());
-        entity.getProduct().getPrice();
+        cartItemDTO.setProductQuantity(entity.getProduct().getInstock());
         return cartItemDTO;
     }
 

@@ -1,5 +1,6 @@
 package com.hau.controller.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hau.dto.CartDTO;
 import com.hau.dto.CartItemDTO;
 import com.hau.dto.ProductDTO;
@@ -37,20 +38,48 @@ public class CartController {
     @RequestMapping(value = "/cart", method = RequestMethod.GET)
     public ModelAndView cartPage(@AuthenticationPrincipal Authentication authentication,
                                  @RequestParam(value = "code",required = false) String code,
-                                 HttpServletRequest request) {
-
+                                 HttpServletRequest request,
+                                 HttpServletResponse response) {
+        String txt = "";
         ModelAndView mav = new ModelAndView("web/cart");
         UserDTO userDTO = null;
         List<CartItemDTO> cartItemDTOS = new ArrayList<>();
         List<ProductDTO> productDTOList = productService.findAll();
-        CartDTO cartDTO = CartUtils.getCartByCookie(request.getCookies(), productDTOList);
+        CartDTO cartDTO = CartUtils.getCartByCookieAndDeleteCookie(request.getCookies(), productDTOList,txt,response);
 
         //
         if(authentication != null){
             userDTO = userService.getCurrentLoggedInCustomer(authentication);
         }
-        cartItemDTOS =  CartUtils.getCartItemByAuthentication(cartDTO,userDTO);
+        String error = null;
+            for(CartItemDTO cartItem : cartDTO.getCartItemDTOS()){
+                    if(cartItem.getProductQuantity() < Integer.parseInt(cartItem.getQuantity())){
+                        cartItem.setQuantity(cartItem.getProductQuantity());
+                        error = "Số lượng bạn chọn đã đặt mức tối đa của sản phẩm này";
+                    }
+                    if(Integer.parseInt(cartItem.getQuantity()) != 0){
+                        cartItemDTOS.add(cartItem);
+                    }
 
+            }
+
+
+
+        List<CartItemDTO> items = cartItemDTOS;
+        if(items.size()>0){
+            txt = items.get(0).getUsername()+":"+items.get(0).getProductId()+":"+ items.get(0).getQuantity();
+            for(int i = 1 ; i<items.size(); i++) {
+                txt += "|" +items.get(i).getUsername() +":"+items.get(i).getProductId() +":"+ items.get(i).getQuantity();
+            }
+        }
+        Cookie c  = new Cookie("cart",txt);
+        c.setMaxAge(2*24*60*60);
+        c.setPath("/ChronoLuxWeb");
+        response.addCookie(c);
+
+        CartDTO cartDTO1 = CartUtils.getCartByCookie(request.getCookies(), productDTOList);
+        cartItemDTOS = CartUtils.getCartItemByAuthentication(cartDTO1,userDTO);
+        mav.addObject("error",error);
         mav.addObject("cartItems",cartItemDTOS);
         mav.addObject("totalPrice",cartDTO.getTotalByUser(userDTO));
         mav.addObject("voucher",voucherService.findOneByCode(code));
@@ -70,6 +99,7 @@ public class CartController {
 
         String txt = "";
         Cookie [] arr = request.getCookies();
+
         if(arr != null){
             for(Cookie o : arr){
                 if(o.getName().equals("cart")){
@@ -79,6 +109,7 @@ public class CartController {
                 }
             }
         }
+
         if(txt.isEmpty()){
             txt = userDTO.getUserName()+":"+productId+":"+quantity;
         }else {

@@ -1,7 +1,5 @@
 package com.hau.dto;
 
-import javax.persistence.Column;
-
 public class ProductDTO extends AbstractDTO{
 
     private double waterResistant;
@@ -9,6 +7,8 @@ public class ProductDTO extends AbstractDTO{
     private String watchType;
 
     private String glassMaterial;
+
+    private int stock;
 
     private String strapMaterial;
 
@@ -28,6 +28,14 @@ public class ProductDTO extends AbstractDTO{
     private String name;
     private String country;
     private long productLineId;
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
 
     public long getProductLineId() {
         return productLineId;

@@ -40,10 +40,10 @@ public class LoginController {
         try {
             String token = UserGoogleUtil.getToken(code);
             UserGoogleDto userGoogleDto = UserGoogleUtil.toUser(token).getUserGoogleDto();
-            String userName = RandomStringUtils.randomAlphanumeric(10);
-            userGoogleDto.setUserName(userName);
-            AuthenticationProviderUtil.GrantedPermissionO2Auth(userGoogleDto);
-            if(userService.findOneByEmailAndRoleCode(userGoogleDto.getEmail(),"ROLE_USER_GOOGLE") == null){
+            UserDTO user =  userService.findOneByEmailAndRoleCode(userGoogleDto.getEmail(),"ROLE_USER_GOOGLE");
+
+            if(user == null){
+                String userName = RandomStringUtils.randomAlphanumeric(10);
                 UserDTO userDTO = new UserDTO();
                 userDTO.setEmail(userGoogleDto.getEmail());
                 userDTO.setFullName(userGoogleDto.getFamily_name() +" "+ userGoogleDto.getGiven_name());
@@ -54,9 +54,13 @@ public class LoginController {
                 userDTO.setStatus(SystemConstant.ACTIVE_STATUS);
                 userDTO.setUserName(userName);
                 userDTO.setImgUrl(userGoogleDto.getPicture());
-                userService.save(userDTO, "user");
+                userService.save(userDTO, "user_google");
+                userGoogleDto.setUserName(userName);
             }
-
+            else{
+                userGoogleDto.setUserName(user.getUserName());
+            }
+            AuthenticationProviderUtil.GrantedPermissionO2Auth(userGoogleDto);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -70,10 +74,9 @@ public class LoginController {
         try {
             String token = UserFaceBookUtil.getToken(code);
             UserFaceBookDto userFaceBookDto = UserFaceBookUtil.toUser(token).getUserFaceBookDto();
-            String userName = RandomStringUtils.randomAlphanumeric(10);
-            userFaceBookDto.setUserName(userName);
-            AuthenticationProviderUtil.GrantedPermissionO2Auth(userFaceBookDto);
-            if(userService.findOneByEmailAndRoleCode(userFaceBookDto.getEmail(),"ROLE_USER_FACEBOOK") == null){
+            UserDTO user = userService.findOneByEmailAndRoleCode(userFaceBookDto.getEmail(),"ROLE_USER_FACEBOOK");
+            if(user == null){
+                String userName = RandomStringUtils.randomAlphanumeric(10);
                 UserDTO userDTO = new UserDTO();
                 userDTO.setEmail(userFaceBookDto.getEmail());
                 userDTO.setFullName(userFaceBookDto.getName());
@@ -84,8 +87,13 @@ public class LoginController {
                 userDTO.setStatus(SystemConstant.ACTIVE_STATUS);
                 userDTO.setUserName(userName);
                 userDTO.setImgUrl(userFaceBookDto.getImgUrl());
-                userService.save(userDTO, "user");
+                userService.save(userDTO, "user_facebook");
+                userFaceBookDto.setUserName(userName);
             }
+            else{
+                userFaceBookDto.setUserName(user.getUserName());
+            }
+            AuthenticationProviderUtil.GrantedPermissionO2Auth(userFaceBookDto);
 
         } catch (IOException e) {
             // TODO Auto-generated catch block

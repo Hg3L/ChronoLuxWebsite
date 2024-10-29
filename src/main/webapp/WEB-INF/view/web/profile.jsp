@@ -66,7 +66,7 @@
                                 <div class="row mt-3">
                                     <div class="col-md-12"><label class="labels">UserName</label><input type="text"
                                             name="userName" class="form-control" placeholder="enter your phone number"
-                                            value="${user.getUsername()}" required readonly></div>
+                                            value="${user.getUserName()}" required readonly></div>
                                     <div class="col-md-12"><label class="labels">Email</label><input type="text"
                                             name="email" class="form-control" placeholder="enter your email"
                                             value="${user.getEmail()}" required></div>
