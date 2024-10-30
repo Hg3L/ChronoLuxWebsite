@@ -17,6 +17,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
@@ -32,8 +36,10 @@ public class HomeController {
         brand.setListResult(brandService.findAll());
         ProductDTO product = new ProductDTO();
         product.setListResult(productService.findTop8ByOrderByIdDesc());
+        LinkedHashSet<ProductDTO> productTrendy = productService.findTop8BestSelling();
         model.addAttribute("brand",brand);
         model.addAttribute("product",product);
+        model.addAttribute("productTrendy",productTrendy.stream().collect(Collectors.toList()));
 
         return "web/home";
     }

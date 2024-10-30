@@ -16,8 +16,9 @@ import java.util.List;
 public class AuthenticationProviderUtil {
     public static void  GrantedPermissionO2Auth(Object account){
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+
         if (account instanceof UserGoogleDto) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_USER_GOOGLE"));
             UserGoogleDto userGoogleDto = (UserGoogleDto) account;
             CustomerO2Auth user = new CustomerO2Auth(userGoogleDto.getUserName(), "", true, true, true, true, authorities);
             user.setFullName(userGoogleDto.getGiven_name());
@@ -33,6 +34,7 @@ public class AuthenticationProviderUtil {
         } else if (account instanceof UserFaceBookDto) {
             // Xử lý nếu object là kiểu AnotherClass
             UserFaceBookDto userFaceBookDto = (UserFaceBookDto) account;
+            authorities.add(new SimpleGrantedAuthority("ROLE_USER_FACEBOOK"));
             CustomerO2Auth user = new CustomerO2Auth(userFaceBookDto.getUserName(), "", true, true, true, true, authorities);
             user.setFullName(userFaceBookDto.getName());
             //
