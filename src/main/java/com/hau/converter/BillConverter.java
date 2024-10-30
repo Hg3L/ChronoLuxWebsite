@@ -8,7 +8,26 @@ import org.springframework.stereotype.Component;
 public class BillConverter implements Converter<BillDTO, BillEntity> {
     @Override
     public BillDTO convertToDTO(BillEntity entity) {
-        return null;
+        BillDTO billDTO = new BillDTO();
+        billDTO.setId(entity.getId());
+        billDTO.setGender(entity.getGender());
+        billDTO.setStreet(entity.getAddress().split("-")[0]);
+        billDTO.setWard(entity.getAddress().split("-")[1]);
+        billDTO.setDistrict(entity.getAddress().split("-")[2]);
+        billDTO.setCity(entity.getAddress().split("-")[3]);
+        billDTO.setUsername(entity.getDisplayName());
+        billDTO.setPhone(entity.getPhone());
+        billDTO.setNote(entity.getNote());
+        billDTO.setTotal(entity.getTotal());
+        billDTO.setDisplayName(entity.getDisplayName());
+        billDTO.setStatus(entity.getStatus());
+        billDTO.setEmail(entity.getEmail());
+        billDTO.setSubtotal(entity.getSubtotal());
+        billDTO.setReceiverName(entity.getReceiverName());
+        billDTO.setReceiverGender(entity.getReceiverGender());
+        billDTO.setReceiverPhone(entity.getReceiverPhone());
+        billDTO.setPaymentMethod(entity.getPaymentMethod());
+        return billDTO;
     }
 
     @Override

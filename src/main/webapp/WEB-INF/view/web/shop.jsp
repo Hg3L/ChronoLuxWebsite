@@ -10,6 +10,8 @@
             <meta content="Free HTML Templates" name="keywords">
             <meta content="Free HTML Templates" name="description">
             <!-- Favicon -->
+             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+                                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
             <link href="<c:url value='/template/web/img/ChronoLuxIcon.svg'/>" rel="icon">
 
             <!-- Google Web Fonts -->
@@ -26,6 +28,7 @@
 
             <!-- Customized Bootstrap Stylesheet -->
             <link href=" <c:url value='/template/web/css/style.css'/>" rel="stylesheet">
+
             <%----------------------------%>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
                 <script type="text/javascript"
@@ -50,6 +53,24 @@
                         font-size: 1rem;
                         font-weight: normal;
                     }
+                    .banner-image {
+                        border-radius: 10px; /* Bo góc ảnh */
+                        height: 100%;
+                        width: 100%;
+                        object-fit: cover; /* Cắt ảnh để giữ tỉ lệ */
+                    }
+                    .carousel-inner {
+                        max-width: 1200px;
+                        margin: 0 auto;
+                    }
+                    .carousel-control-prev-icon,
+                    .carousel-control-next-icon {
+                        background-color: #000; /* Đổi màu nền nút điều khiển */
+                        border-radius: 50%;
+                    }
+                    .carousel-item {
+                        transition: transform 0.15s ease-in-out; /* Thời gian chuyển slide là 0.5 giây */
+                    }
                 </style>
 
         </head>
@@ -60,16 +81,51 @@
                 <i class="fas fa-home"></i> Trang chủ
             </a>
             <!-- Page Header Start -->
-            <div class="container-fluid bg-secondary mb-5">
-                <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-                    <h1 class="font-weight-semi-bold text-uppercase mb-3">Our Shop</h1>
-                    <div class="d-inline-flex">
-                        <p class="m-0"><a href="">Home</a></p>
-                        <p class="m-0 px-2">-</p>
-                        <p class="m-0">Shop</p>
-                    </div>
-                </div>
-            </div>
+           <div id="bannerCarousel" class="carousel slide carousel-slide" data-bs-ride="carousel" data-bs-interval="3000">
+               <div class="carousel-inner">
+                   <!-- Slide 1 -->
+                   <div class="carousel-item active">
+                       <div class="row">
+                           <div class="col-md-6">
+                               <a href="#">
+                                   <img src="https://www.watchstore.vn/images/products/collection/slideshow/2024/05/10/compress/banner-sale-off-orient_1715333758.webp"
+                                        class="d-block w-100 banner-image"
+                                        alt="Orient Sale 20%">
+                               </a>
+                           </div>
+                           <div class="col-md-6">
+                               <a href="#">
+                                   <img src="https://www.watchstore.vn/images/products/collection/slideshow/2024/05/10/compress/banner-sale-off-tissot_1715333668.webp"
+                                        class="d-block w-100 banner-image"
+                                        alt="Bonest Gatti Sale 35%">
+                               </a>
+                           </div>
+                       </div>
+                   </div>
+
+                    <!-- Slide 3 -->
+                   <div class="carousel-item">
+                       <div class="row">
+                           <div class="col-md-6">
+                               <a href="#">
+                                   <img src="https://www.watchstore.vn/images/products/collection/slideshow/2024/05/10/compress/banner-sale-off-bonestgatti_1715333537.webp"
+                                        class="d-block w-100 banner-image"
+                                        alt="Orient Sale 20%">
+                               </a>
+                           </div>
+                           <div class="col-md-6">
+                               <a href="#">
+                                   <img src="https://www.watchstore.vn/images/products/collection/slideshow/2024/05/10/compress/banner-sale-off-tissot_1715333668.webp"
+                                        class="d-block w-100 banner-image"
+                                        alt="Bonest Gatti Sale 35%">
+                               </a>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+
+
+           </div>
             <div class="highlight">
                 Đồng hồ xu hướng 2024 <i class="fas fa-check-circle"></i>
                 <span class="small-text">100% chính hãng</span>
@@ -227,7 +283,7 @@
                                             <div
                                                 class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
                                                 <img class="img-fluid w-100"
-                                                    src="<c:url value='/template/web/img/${product.imgUrl}'/>" alt="">
+                                                    src="<c:url value='/template/web/img/products/${product.imgUrl}'/>" alt="">
                                             </div>
                                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                                 <h6 class="text-truncate mb-3">${product.name}</h6>
@@ -279,6 +335,11 @@
             <!-- Shop End -->
 
             <script>
+                var carouselElement = document.getElementById('bannerCarousel');
+                    var carousel = new bootstrap.Carousel(carouselElement, {
+                        interval: 3000, // Thay đổi slide mỗi 3 giây
+                        ride: 'carousel'
+                    });
                 var currentPage = ${ model.page };
                 var limit = ${ model.limit };
                 var sortBy = "${model.sortBy}";

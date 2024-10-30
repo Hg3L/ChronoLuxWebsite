@@ -97,19 +97,14 @@
                     <i class="fas fa-home"></i> Trang chủ
                 </a>
                 >
-                <a href="<c:url value='/shop/brand?id=${brand.id}&page=1&limit=4'/>" class="about-link">
+                <a href="<c:url value='/shop/brand?id=${brand.id}&page=1&limit=8'/>" class="about-link">
                     ${brand.name}
                 </a>
             </div>
             <!-- Page Header Start -->
             <div class="container-fluid bg-secondary mb-5">
                 <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-                    <h1 class="font-weight-semi-bold text-uppercase mb-3">Our Shop</h1>
-                    <div class="d-inline-flex">
-                        <p class="m-0"><a href="">Home</a></p>
-                        <p class="m-0 px-2">-</p>
-                        <p class="m-0">Shop</p>
-                    </div>
+                    <img src="<c:url value='/template/web/img/brands/${brand.bannerUrl}'/>" alt="Our Shop" style="max-height: 300px; width: 100%; object-fit: cover;">
                 </div>
             </div>
             <div class="highlight">
@@ -122,7 +117,7 @@
                         <div class="card1-container">
                             <div class="card1">
 
-                                <a href="<c:url value='/shop/brand/product-line?idBrand=${model.id}&id=${item.id}&page=1&limit=4'/>"
+                                <a href="<c:url value='/shop/brand/product-line?idBrand=${model.id}&id=${item.id}&page=1&limit=8'/>"
                                     class="cat-img position-relative overflow-hidden mb-3">
                                     <img class="img-fluid"
                                         src="<c:url value='/template/web/img/product-lines/${item.iconUrl}'/>" alt="">
@@ -271,7 +266,7 @@
                                             <div
                                                 class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
                                                 <img class="img-fluid w-100"
-                                                    src="<c:url value='/template/web/img/${product.imgUrl}'/>" alt="">
+                                                    src="<c:url value='/template/web/img/products/${product.imgUrl}'/>" alt="">
                                             </div>
                                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                                 <h6 class="text-truncate mb-3">${product.name}</h6>

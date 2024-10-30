@@ -23,6 +23,13 @@
         </a>
     </li>
 
+    <li class="nav-item active">
+        <a class="nav-link" href="<c:url value='/admin/bills'/>">
+            <i class="ml-1 mr-2 fa-solid fa-receipt" style="font-size: 16px"></i>
+            <span style="font-size: 15px">Hóa đơn</span>
+        </a>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider">
     <%--<&lt;%&ndash;div class="sidebar-heading">
