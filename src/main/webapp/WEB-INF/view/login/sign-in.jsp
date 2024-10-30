@@ -1,151 +1,169 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-	<%@ include file="/common/taglib.jsp" %>
-		<!DOCTYPE html>
-		<html>
+<%@ include file="/common/taglib.jsp" %>
+<!DOCTYPE html>
+<html lang="en">
 
-		<head>
-			<title>ChronoLux -Sign in</title>
-			<meta charset="utf-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+	<title>ChronoLux - Sign In</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMRbc9Hf2d9zYmXybIYIjklm5Uzmc7IQZT4NIp" crossorigin="anonymous">
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		body, html {
+			font-family: 'Arial', sans-serif;
+			background-color: #f4f4f4;
+		}
 
-		</head>
+		.ftco-section {
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			background-image: url('<c:url value="/src/main/webapp/template/login/img/bg-1.jpg"/>');
+			background-size: cover;
+			background-position: center;
+			background-attachment: fixed;
+			color: #444;
+		}
 
-		<body>
-			<section class="ftco-section">
-				<div class="container">
+		.login-container {
+			background: rgba(255, 255, 255, 0.9);
+			border-radius: 10px;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+			padding: 30px;
+		}
 
-					<div class="row justify-content-center">
-						<div class="col-md-6 text-center mb-5">
-							<h2 class="heading-section">Login</h2>
+		h2.heading-section {
+			color: #333;
+			font-weight: 700;
+			letter-spacing: 1px;
+		}
+
+		.btn-primary {
+			background-color: #333;
+			border: none;
+			font-weight: bold;
+			transition: all 0.3s ease;
+		}
+
+		.btn-primary:hover {
+			background-color: #555;
+		}
+
+
+		.social-icon:hover {
+			background-color: #ddd;
+			color: #555;
+		}
+
+
+	.form-control, .btn {
+			border-radius: 50px;
+		}
+
+		.toast-container .toast-header {
+			background-color: #333;
+			color: #fff;
+		}
+	</style>
+</head>
+
+<body>
+<section class="ftco-section">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-6 text-center mb-5">
+				<h1 class="heading-section">Access Your ChronoLux Account</h1>
+			</div>
+		</div>
+		<div class="row justify-content-center">
+			<div class="col-md-8 col-lg-6">
+				<div class="login-container p-4 p-md-5">
+					<h3 class="mb-4 text-center">Sign In</h3>
+						<div class="d-flex justify-content-end mb-4">
+							<a href="https://www.facebook.com/v19.0/dialog/oauth?scope=email&client_id=1529293951010030&redirect_uri=http://localhost:8080/ChronoLuxWeb/login-facebook&prompt=login"
+							   class="social-icon d-flex align-items-center justify-content-center rounded-circle bg-light text-dark text-decoration-none me-3"
+							   style="width: 40px; height: 40px; font-size: 1.5rem;">
+								<i class="fa fa-facebook"></i>
+							</a>
+							<a href="https://accounts.google.com/o/oauth2/auth?scope=profile%20email&redirect_uri=http://localhost:8080/ChronoLuxWeb/login-google&response_type=code&client_id=236344479421-3djectr8kffvuu3ec4o7ceges5jv2jld.apps.googleusercontent.com&approval_prompt=force"
+							   class="social-icon d-flex align-items-center justify-content-center rounded-circle bg-light text-dark text-decoration-none"
+							   style="width: 40px; height: 40px; font-size: 1.5rem;">
+								<i class="fa fa-google"></i>
+							</a>
 						</div>
-
-					</div>
-					<div class="row justify-content-center">
-
-						<div class="col-md-12 col-lg-10">
-							<div class="wrap d-md-flex">
-
-								<div class="img"
-									style="background-image: url(<c:url value='/template/login/img/bg-1.jpg'/>);">
-								</div>
-								<div class="login-wrap p-4 p-md-5">
-									<div class="d-flex">
-										<div class="w-100">
-											<h3 class="mb-4">Sign In</h3>
-										</div>
-										<div class="w-100">
-											<p class="social-media d-flex justify-content-end">
-												<a href="https://www.facebook.com/v19.0/dialog/oauth?scope=email&client_id=1529293951010030&redirect_uri=http://localhost:8080/ChronoLuxWeb/login-facebook&prompt=login"
-													class="social-icon d-flex align-items-center justify-content-center"><span
-														class="fa fa-facebook"></span></a>
-												<a href="https://accounts.google.com/o/oauth2/auth?scope=profile%20email&redirect_uri=http://localhost:8080/ChronoLuxWeb/login-google&response_type=code&client_id=236344479421-3djectr8kffvuu3ec4o7ceges5jv2jld.apps.googleusercontent.com&approval_prompt=force"
-													class="social-icon d-flex align-items-center justify-content-center"><span
-														class="fa fa-google"></span></a>
-											</p>
-										</div>
-									</div>
-									<form action="<c:url value='/j_spring_security_check'/>" id ="formLogin" method="post" class="signin-form">
-										<div class="form-group mb-3">
-											<label class="label" for="name">Username</label>
-											<input type="text" class="form-control" name="j_username"
-												placeholder="Username" required>
-										</div>
-										<div class="form-group mb-3">
-											<label class="label" for="password">Password</label>
-											<div class="form-group">
-                                                <input type="password" id="password" class="form-control" name="j_password" placeholder="Password" required>
-                                                <input type="checkbox" id="showPassword"> <label for="showPassword">Hiện mật khẩu</label>
-                                            </div>
-										</div>
-										<div class="g-recaptcha" data-sitekey="6LcvolUqAAAAAHsPdMaMhrNDeg_HE-FuNR4XO95n"></div>
-										<div id ="error"> </div>
-										<c:if test = "${param.incorrectAccount != null}">
-										    <div class="alert alert-danger " role="alert" style="text-align: center;">
-                                                User invalid
-                                            </div>
-										</c:if>
-                                        <c:if test = "${param.accessDenied != null}">
-										    <div class="alert alert-danger" role="alert" style="text-align: center;">
-                                                You Not Authorize
-                                            </div>
-										</c:if>
-
-										<div class="form-group">
-											<button type="submit" class="form-control btn btn-primary rounded submit px-3">
-											Sign In</button>
-										</div>
-
-										<div class="form-group d-md-flex">
-											<div class="w-50 text-left">
-													<input type="checkbox" name="remember-me"/> Remember Me
-											</div>
-											<div class="w-50 text-md-right">
-												<a href="<c:url value='/login/forgot-password'/>">Forgot Password</a>
-											</div>
-										</div>
-									</form>
-									<p class="text-center">Not a member? <a href="<c:url value='/login/register'/>">Sign Up</a>
-									</p>
-								</div>
+					<form action="<c:url value='/j_spring_security_check'/>" id="formLogin" method="post" class="signin-form">
+						<div class="form-group mb-3">
+							<label class="label" for="name">Username</label>
+							<input type="text" class="form-control" name="j_username" placeholder="Username" required>
+						</div>
+						<div class="form-group mb-3">
+							<label class="label" for="password">Password</label>
+							<input type="password" class="form-control" name="j_password" placeholder="Password" required>
+						</div>
+						<div id="error" class="text-danger mb-3 text-center"></div>
+						<c:if test="${param.incorrectAccount != null}">
+							<div class="alert alert-danger text-center">User invalid</div>
+						</c:if>
+						<c:if test="${param.accessDenied != null}">
+							<div class="alert alert-danger text-center">You Not Authorized</div>
+						</c:if>
+						<div class="form-group mb-3 d-flex justify-content-center">
+							<div class="g-recaptcha" data-sitekey="6LcvolUqAAAAAHsPdMaMhrNDeg_HE-FuNR4XO95n"></div>
+						</div>
+						<div class="form-group">
+							<button type="submit" class="form-control btn btn-primary">Sign In</button>
+						</div>
+						<div class="form-group d-flex justify-content-between mt-3">
+							<div class="form-check">
+								<input type="checkbox" name="remember-me" class="form-check-input" id="rememberMe">
+								<label class="form-check-label" for="rememberMe">Remember Me</label>
 							</div>
+							<a href="<c:url value='/login/forgot-password'/>">Forgot Password?</a>
 						</div>
-
-					</div>
-
+					</form>
+					<p class="text-center mt-3">Not a member? <a href="<c:url value='/login/register'/>">Sign Up</a></p>
 				</div>
-				<div class="toast-container position-fixed bottom-0 end-0 p-3">
-                  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                    <div class="toast-header">
-                      <img src="<c:url value='/template/web/img/ChronoLuxIcon.svg'/>" class="rounded me-2" alt="...">
-                      <strong class="me-auto">Success!</strong>
-                      <small>11 mins ago</small>
-                      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                    </div>
-                    <div class="toast-body">
-                        Register successfully!
-                    </div>
-                  </div>
-                </div>
-			</section>
+			</div>
+		</div>
+	</div>
+	<div class="toast-container position-fixed bottom-0 end-0 p-3">
+		<div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="toast-header">
+				<img src="<c:url value='/template/web/img/ChronoLuxIcon.svg'/>" class="rounded me-2" alt="...">
+				<strong class="me-auto">Success!</strong>
+				<small>11 mins ago</small>
+				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+			</div>
+			<div class="toast-body">Register successfully!</div>
+		</div>
+	</div>
+</section>
 
-            <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-            <script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+<script>
+	<c:if test="${param.registerSuccessful != null}">
+	var toastLiveExample = document.getElementById("liveToast");
+	var toast = new bootstrap.Toast(toastLiveExample);
+	toast.show();
+	</c:if>
 
-             // Nếu có flash attribute showToast được truyền từ server, hiển thị toast
+	window.onload = function() {
+		const form = document.getElementById("formLogin");
+		const error = document.getElementById("error");
+		form.addEventListener("submit", function(event) {
+			event.preventDefault();
+			const response = grecaptcha.getResponse();
+			if (response) {
+				form.submit();
+			} else {
+				error.innerText = "Please complete the CAPTCHA";
+			}
+		});
+	}
+</script>
+</body>
 
-                <c:if test="${param.registerSuccessful != null}">
-                 var toastLiveExample = document.getElementById("liveToast");
-                 var toast = new bootstrap.Toast(toastLiveExample);
-                 toast.show();
-                </c:if>
-
-                window.onload = function(){
-                    let isValid = false;
-                    const form = document.getElementById("formLogin");
-                    const error = document.getElementById("error");
-
-                    form.addEventListener("submit",function(event){
-                        event.preventDefault();
-                        const response = grecaptcha.getResponse();
-                        if(response){
-                               form.submit();
-                        }
-                        else{
-                            error.innerHTML = "Please Check";
-                        }
-
-                    });
-                }
-                document.getElementById('showPassword').addEventListener('change', function() {
-                    const passwordInput = document.getElementById('password');
-                    if (this.checked) {
-                        passwordInput.type = 'text'; // Hiện mật khẩu
-                    } else {
-                        passwordInput.type = 'password'; // Ẩn mật khẩu
-                    }
-                });
-             </script>
-		</body>
-
-		</html>
+</html>
