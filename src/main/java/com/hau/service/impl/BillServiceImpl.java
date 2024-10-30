@@ -85,6 +85,10 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public Double getTotalOfPaidBills() {
+        Double total = billRepository.findTotalOfPaidBills();
+        if(total == null){
+            return 0.0;
+        }
         return billRepository.findTotalOfPaidBills();
     }
 
@@ -114,6 +118,10 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public Double getTotalOfSuccessfulBillsInMonth(int month, int year) {
+        Double total = billRepository.findTotalOfSuccessfulBillsInMonth(month, year);
+        if(total == null){
+            return 0.0;
+        }
         return billRepository.findTotalOfSuccessfulBillsInMonth(month, year);
     }
 }

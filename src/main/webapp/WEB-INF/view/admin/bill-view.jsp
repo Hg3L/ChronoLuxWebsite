@@ -20,7 +20,7 @@
     </div>
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <button class="nav-link active" id="nav-admin-tab" data-bs-toggle="tab" data-bs-target="#nav-admin" type="button" role="tab" aria-controls="nav-admin" aria-selected="true">Chưa thanh toánn</button>
+            <button class="nav-link active" id="nav-admin-tab" data-bs-toggle="tab" data-bs-target="#nav-admin" type="button" role="tab" aria-controls="nav-admin" aria-selected="true">Chưa thanh toán</button>
             <button class="nav-link" id="nav-user-tab" data-bs-toggle="tab" data-bs-target="#nav-user" type="button" role="tab" aria-controls="nav-user" aria-selected="false">Đã thanh toán</button>
         </div>
     </nav>
@@ -34,25 +34,27 @@
                             <table class="table table-bordered" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
-                                    <th>Ảnh đại diện</th>
-                                    <th>Tên tài khoản</th>
-                                    <th>Tên người dùng</th>
-                                    <th>Email</th>
-                                    <th>Ngày tạo</th>
-                                    <th>Tạo bởi</th>
+                                    <th>Thời gian đặt</th>
+                                    <th>Họ & tên khách hàng</th>
+                                    <th>Tài khoản đặt hàng</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Hình thức thanh toán</th>
+                                    <th>Tổng đơn hàng</th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="account" items="${adminAccountPage.content}">
+                                <c:forEach var="ub" items="${unpaidBillsPage.content}">
                                     <tr>
+                                        <td>${ub.createdDate}</td>
+                                        <td>${ub.username}</td>
+                                        <td>${ub.createdBy}</td>
+                                        <td>${ub.phone}</td>
+                                        <td>${ub.paymentMethod}</td>
+                                        <td>${ub.total}</td>
                                         <td>
-                                            <img src="<c:url value="/template/web/img/user-logos/${account.imgUrl}"/>" alt="Logo" style="max-width:50px; border-radius: 50%;"/>
+                                            <a href="${pageContext.request.contextPath}/admin/bill/view/?id=${ub.id}" class="btn btn-info btn-sm mr-2"> Xem chi tiết</a>
                                         </td>
-                                        <td>${account.userName}</td>
-                                        <td>${account.fullName}</td>
-                                        <td>${account.email}</td>
-                                        <td>${account.createdDate}</td>
-                                        <td>${account.createdBy}</td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
@@ -60,21 +62,21 @@
                         </div>
                         <nav aria-label="Page navigation example" class="d-flex justify-content-center">
                             <ul class="pagination">
-                                <c:if test="${currentAdminPage > 1}">
+                                <c:if test="${currentUnpaidPage > 1}">
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=${currentAdminPage - 1}&size=${adminAccountPage.size}" aria-label="Previous">
+                                        <a class="page-link" href="?page=${currentUnpaidPage - 1}&size=${unpaidBillsPage.size}" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
                                 </c:if>
-                                <c:forEach var="i" begin="1" end="${adminAccountPage.totalPages}">
-                                    <li class="page-item ${i == currentAdminPage ? 'active' : ''}">
-                                        <a class="page-link" href="?page=${i}&size=${adminAccountPage.size}">${i}</a>
+                                <c:forEach var="i" begin="1" end="${unpaidBillsPage.totalPages}">
+                                    <li class="page-item ${i == currentUnpaidPage ? 'active' : ''}">
+                                        <a class="page-link" href="?page=${i}&size=${unpaidBillsPage.size}">${i}</a>
                                     </li>
                                 </c:forEach>
-                                <c:if test="${currentAdminPage < adminAccountPage.totalPages}">
+                                <c:if test="${currentUnpaidPage < unpaidBillsPage.totalPages}">
                                     <li class="page-item">
-                                        <a class="page-link" href="?page=${currentAdminPage + 1}&size=${adminAccountPage.size}" aria-label="Next">
+                                        <a class="page-link" href="?page=${currentUnpaidPage + 1}&size=${unpaidBillsPage.size}" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
                                     </li>
