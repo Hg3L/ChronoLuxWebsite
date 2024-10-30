@@ -74,6 +74,13 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
+    public void confirmPaidBill(Long id) {
+        BillEntity billEntity = billRepository.findOne(id);
+        billEntity.setStatus("Thanh toán thành công");
+        billRepository.save(billEntity);
+    }
+
+    @Override
     public int getTotalUnpaidBill() {
         return billRepository.countTotalUnpaidBill();
     }

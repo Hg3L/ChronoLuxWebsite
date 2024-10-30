@@ -10,6 +10,8 @@ public class BillConverter implements Converter<BillDTO, BillEntity> {
     public BillDTO convertToDTO(BillEntity entity) {
         BillDTO billDTO = new BillDTO();
         billDTO.setId(entity.getId());
+        billDTO.setCreatedDate(entity.getCreateDate());
+        billDTO.setModifiedBy(entity.getModifiedBy());
         billDTO.setGender(entity.getGender());
         billDTO.setStreet(entity.getAddress().split("-")[0]);
         billDTO.setWard(entity.getAddress().split("-")[1]);
@@ -26,7 +28,15 @@ public class BillConverter implements Converter<BillDTO, BillEntity> {
         billDTO.setReceiverName(entity.getReceiverName());
         billDTO.setReceiverGender(entity.getReceiverGender());
         billDTO.setReceiverPhone(entity.getReceiverPhone());
-        billDTO.setPaymentMethod(entity.getPaymentMethod());
+        if(entity.getPaymentMethod().equals("cod")) {
+            billDTO.setPaymentMethod("Thanh toán khi nhận hàng");
+        }
+        else if(entity.getPaymentMethod().equals("bank-transfer")) {
+            billDTO.setPaymentMethod("Chuyển khoản");
+        }
+        else{
+            billDTO.setPaymentMethod(entity.getPaymentMethod());
+        }
         return billDTO;
     }
 

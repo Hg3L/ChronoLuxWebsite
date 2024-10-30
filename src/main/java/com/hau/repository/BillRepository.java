@@ -17,11 +17,12 @@ public interface BillRepository extends JpaRepository<BillEntity,Long> {
     @Query("SELECT COUNT(b) FROM BillEntity b WHERE b.status = 'Thanh toán thành công'")
     int countTotalPaidBill();
 
-    @Query("SELECT b FROM BillEntity b WHERE b.status = 'Chờ thanh toán'")
+    @Query("SELECT b FROM BillEntity b WHERE b.status = 'Chờ thanh toán' ORDER BY b.createDate DESC")
     Page<BillEntity> findUnpaidBills(Pageable pageable);
 
-    @Query("SELECT b FROM BillEntity b WHERE b.status = 'Thanh toán thành công'")
+    @Query("SELECT b FROM BillEntity b WHERE b.status = 'Thanh toán thành công' ORDER BY b.createDate DESC")
     Page<BillEntity> findPaidBills(Pageable pageable);
+
 
     @Query("SELECT SUM(b.total) FROM BillEntity b WHERE b.status = 'Thanh toán thành công'")
     Double findTotalOfPaidBills();

@@ -14,11 +14,20 @@ public class BillController {
 
     @GetMapping("/admin/bills")
     public String showBill(Model model,
-                           @RequestParam(defaultValue = "1") int page,
+                           @RequestParam(defaultValue = "1") int unpaidPage,
+                            @RequestParam(defaultValue = "1") int paidPage,
                            @RequestParam(defaultValue = "10") int limit) {
-        model.addAttribute("unpaidBillsPage", billService.getUnPaidBills(page, limit));
-        model.addAttribute("paidBillsPage", billService.getPaidBills(page, limit));
-        model.addAttribute("currentUnpaidPage", page);
+        model.addAttribute("unpaidBillsPage", billService.getUnPaidBills(unpaidPage, limit));
+        model.addAttribute("paidBillsPage", billService.getPaidBills(unpaidPage, limit));
+        model.addAttribute("currentUnpaidPage", unpaidPage);
+        model.addAttribute("currentPaidPage", paidPage);
         return "admin/bill-view";
+    }
+
+    @GetMapping("/admin/bill/update")
+    public String updateBill(@RequestParam Long id,
+                             @RequestParam int currentUnpaidPage) {
+        billService.confirmPaidBill(id);
+        return "redirect:/admin/bills/?unpaidPage=" + currentUnpaidPage;
     }
 }
