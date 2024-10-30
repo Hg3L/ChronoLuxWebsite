@@ -84,7 +84,7 @@ public class CartController {
         mav.addObject("voucher",voucherService.findOneByCode(code));
         return mav;
     }
-    @PostMapping("/cart")
+    @GetMapping("/cart/add")
     public String addToCart(@RequestParam("productId") long productId,
                             @RequestParam("quantity") int quantity,
                             @AuthenticationPrincipal Authentication authentication,
@@ -116,6 +116,7 @@ public class CartController {
         }
             Cookie c = new Cookie("cart",txt);
             c.setMaxAge(2*24*60*60);
+            c.setPath("/ChronoLuxWeb");
             response.addCookie(c);
 
         return "redirect:/cart";

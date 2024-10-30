@@ -122,16 +122,12 @@
                                 <div class="navbar-nav mr-auto py-0">
                                     <a href="<c:url value='/home'/>" class="nav-item nav-link">Home</a>
                                     <a href="<c:url value='/shop?page=1&limit=8'/>" class="nav-item nav-link">Shop</a>
-                                    <a href="<c:url value='/shop?page=1&limit=8'/>" class="nav-item nav-link">Male</a>
-                                    <a href="<c:url value='/shop?page=1&limit=8'/>" class="nav-item nav-link">Female</a>
+                                    <a href="<c:url value='/shop?page=1&limit=8&filter=nam'/>" class="nav-item nav-link">Male</a>
+                                    <a href="<c:url value='/shop?page=1&limit=8&filter=nu'/>" class="nav-item nav-link">Female</a>
+                                    <a href="<c:url value='/cart'/>" class="nav-item nav-link">Shopping Cart</a>
 
-                                    <div class="nav-item dropdown">
-                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
-                                        <div class="dropdown-menu rounded-0 m-0">
-                                            <a href="<c:url value='/cart'/>" class="dropdown-item">Shopping Cart</a>
-                                            <a href="<c:url value='/checkout'/>" class="dropdown-item">Checkout</a>
-                                        </div>
-                                    </div>
+
+
                                     <a href="contact.html" class="nav-item nav-link">Contact</a>
                                 </div>
 
