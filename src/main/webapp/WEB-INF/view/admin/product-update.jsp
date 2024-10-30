@@ -81,6 +81,11 @@
                 <div id="price-error" class="text-danger" style="display:none;">Vui lòng nhập số tiền hợp lệ!</div>
             </div>
             <div class="form-group col-md-6">
+                <label for="stock">Số lượng hàng *</label>
+                <form:input path="stock" type="text" class="form-control" id="stock" required="required" onkeyup="validateStock(this)" />
+                <div id="stock-error" class="text-danger" style="display:none;">Vui lòng nhập số lượng hàng hợp lệ!</div>
+            </div>
+            <div class="form-group col-md-6">
                 <label for="thickness">Độ dày *</label>
                 <form:input path="thickness" type="text" class="form-control" id="thickness" required="required" />
             </div>
@@ -101,20 +106,21 @@
                 <form:input path="watchType" type="text" class="form-control" id="watchType" required="required" />
             </div>
             <div class="form-group col-md-6">
+                <label for="waterResistant">Kháng nước *</label>
+                <form:input path="waterResistant" type="text" class="form-control" id="waterResistant" required="required" />
+            </div>
+            <div class="form-group col-md-6">
                 <label for="img">Tải ảnh sản phẩm</label>
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" id="img" name="img" accept="image/*" onchange="previewImage(event, 'imgPreview')">
                     <label class="custom-file-label" for="img">Chọn ảnh</label>
                 </div>
             </div>
-            <div class="form-group col-md-6">
-                <label for="waterResistant">Kháng nước *</label>
-                <form:input path="waterResistant" type="text" class="form-control" id="waterResistant" required="required" />
-            </div>
-            <!-- Phần xem trước ảnh -->
-            <div class="form-group">
-                <img id="imgPreview" src="<c:url value='/template/web/img/products/${product.imgUrl}'/>" alt="Img Preview" class="img-fluid border border-dark p-3 bg-light" style="max-width: 300px;" />
-            </div>
+
+        </div>
+        <!-- Phần xem trước ảnh -->
+        <div class="form-group">
+            <img id="imgPreview" src="<c:url value='/template/web/img/products/${product.imgUrl}'/>" alt="Img Preview" class="img-fluid border border-dark p-3 bg-light" style="max-width: 300px;" />
         </div>
         <div class="form-group col-md-6">
             <label class="text-danger">(*) Thông tin bắt buộc </label>
@@ -208,6 +214,38 @@
             document.getElementById("price-error").style.display = "none";
             return true;
         }
+    }
+    document.querySelector("form").onsubmit = validateForm;
+</script>
+<script>
+    function validateStock(input) {
+        const stockValue = input.value;
+        const errorElement = document.getElementById("stock-error");
+
+        // Kiểm tra xem stockValue có phải là số tự nhiên lớn hơn hoặc bằng 0
+        if (!/^\d+$/.test(stockValue) || parseInt(stockValue) < 0) {
+            errorElement.style.display = "block";
+            input.classList.add("is-invalid");
+        } else {
+            errorElement.style.display = "none";
+            input.classList.remove("is-invalid");
+        }
+    }
+
+    // Hàm kiểm tra hợp lệ trước khi gửi form
+    function validateForm() {
+        var stockInput = document.getElementById("stock");
+        // Kiểm tra số lượng tồn kho
+        var stockValue = stockInput.value;
+        if (!/^\d+$/.test(stockValue) || parseInt(stockValue) < 0) {
+            stockInput.classList.add("is-invalid");
+            document.getElementById("stock-error").style.display = "block";
+            return false;
+        } else {
+            stockInput.classList.remove("is-invalid");
+            document.getElementById("stock-error").style.display = "none";
+        }
+        return true; // Form hợp lệ
     }
     document.querySelector("form").onsubmit = validateForm;
 </script>
