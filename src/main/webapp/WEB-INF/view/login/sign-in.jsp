@@ -12,23 +12,28 @@
 		</head>
 
 		<body>
-			<section class="ftco-section">
+
+		<section class="ftco-section"style="background-image: url('<c:url value='/src/main/webapp/template/login/img/bg-1.jpg'/>');
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-attachment: fixed;">
 				<div class="container">
 
 					<div class="row justify-content-center">
 						<div class="col-md-6 text-center mb-5">
-							<h2 class="heading-section">Login</h2>
+							<h2 class="heading-section">Access Your ChronoLux Account</h2>
 						</div>
 
 					</div>
 					<div class="row justify-content-center">
 
-						<div class="col-md-12 col-lg-10">
-							<div class="wrap d-md-flex">
+						<div class="col-md-8 col-lg-6">
+							<div class="row justify-content-center">
 
-								<div class="img"
-									style="background-image: url(<c:url value='/template/login/img/bg-1.jpg'/>);">
-								</div>
+<%--								<div class="img"--%>
+<%--									style="background-image: url(<c:url value='/template/login/img/bg-1.jpg'/>);">--%>
+<%--								</div>--%>
 								<div class="login-wrap p-4 p-md-5">
 									<div class="d-flex">
 										<div class="w-100">
@@ -56,7 +61,6 @@
 											<input type="password" class="form-control" name="j_password"
 												placeholder="Password" required>
 										</div>
-										<div class="g-recaptcha" data-sitekey="6LcvolUqAAAAAHsPdMaMhrNDeg_HE-FuNR4XO95n"></div>
 										<div id ="error"> </div>
 										<c:if test = "${param.incorrectAccount != null}">
 										    <div class="alert alert-danger " role="alert" style="text-align: center;">
@@ -68,7 +72,9 @@
                                                 You Not Authorize
                                             </div>
 										</c:if>
-
+										<div class="form-group mb-3 d-flex justify-content-center">
+											<div class="g-recaptcha" data-sitekey="6LcvolUqAAAAAHsPdMaMhrNDeg_HE-FuNR4XO95n"></div>
+										</div>
 										<div class="form-group">
 											<button type="submit" class="form-control btn btn-primary rounded submit px-3">
 											Sign In</button>

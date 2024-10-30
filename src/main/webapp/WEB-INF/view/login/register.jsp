@@ -14,7 +14,7 @@
 <body>
 	<!-- main -->
 	<div class="main-w3layouts wrapper">
-		<h1>Creative SignUp Form</h1>
+		<h1>Create Your ChronoLux Account</h1>
 		<div class="main-agileinfo">
 			<div class="agileits-top">
 				<form:form method="post" id="formSubmit"  action="${pageContext.request.contextPath}/login/add" enctype="multipart/form-data" >
@@ -39,7 +39,6 @@
                 						Sign Up
                 					</button>
                 				</form:form>
-
 				<p> Don't have an Account? <a href="#"> Login Now!</a> </p>
 				    <div class="alert alert-danger" role="alert" id="message" style="text-align: center; display: none;"> </div>
 			</div>
