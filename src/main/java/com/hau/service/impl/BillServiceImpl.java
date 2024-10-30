@@ -9,11 +9,17 @@ import com.hau.entity.*;
 import com.hau.repository.*;
 import com.hau.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BillServiceImpl implements BillService {
@@ -65,5 +71,49 @@ public class BillServiceImpl implements BillService {
         for(CartItemEntity cartItemEntity : cartItemEntities){
             cartItemEntity.setBill(bill);
         }
+    }
+
+    @Override
+    public int getTotalUnpaidBill() {
+        return billRepository.countTotalUnpaidBill();
+    }
+
+    @Override
+    public int getTotalPaidBill() {
+        return billRepository.countTotalPaidBill();
+    }
+
+    @Override
+    public Double getTotalOfPaidBills() {
+        return billRepository.findTotalOfPaidBills();
+    }
+
+    @Override
+    public Page<BillDTO> getUnPaidBills(int page, int limit) {
+        Pageable pageable = new PageRequest(page - 1, limit);
+        Page<BillEntity> billEntities = billRepository.findUnpaidBills(pageable);
+        List<BillDTO> billDTOS = billEntities.getContent().stream().map(billEntity -> {
+            BillDTO billDTO = billConverter.convertToDTO(billEntity);
+            billDTO.setUsername(billEntity.getUser().getUserName());
+            return billDTO;
+        }).collect(Collectors.toList());
+        return new PageImpl<>(billDTOS, pageable, billEntities.getTotalElements());
+    }
+
+    @Override
+    public Page<BillDTO> getPaidBills(int page, int limit) {
+        Pageable pageable = new PageRequest(page - 1, limit);
+        Page<BillEntity> billEntities = billRepository.findPaidBills(pageable);
+        List<BillDTO> billDTOS = billEntities.getContent().stream().map(billEntity -> {
+            BillDTO billDTO = billConverter.convertToDTO(billEntity);
+            billDTO.setUsername(billEntity.getUser().getUserName());
+            return billDTO;
+        }).collect(Collectors.toList());
+        return new PageImpl<>(billDTOS, pageable, billEntities.getTotalElements());
+    }
+
+    @Override
+    public Double getTotalOfSuccessfulBillsInMonth(int month, int year) {
+        return billRepository.findTotalOfSuccessfulBillsInMonth(month, year);
     }
 }

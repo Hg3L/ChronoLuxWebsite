@@ -17,7 +17,7 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-start mb-3">
-        <i class="h3 mb-1 mr-2 fa-solid fa-boxes-stacked" style="font-size: 28px"></i>
+        <i class="h3 mb-1 mr-3 fa-solid fa-boxes-stacked" style="font-size: 28px"></i>
         <h1 class="h3 mb-1 text-gray-800">Đồng hồ</h1>
     </div>
     <hr/>
