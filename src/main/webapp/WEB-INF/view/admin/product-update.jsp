@@ -73,7 +73,6 @@
                 <select class="custom-select form-control" id="genderSelect" name="gender" aria-label="Select product line" required>
                     <option value="Nam" <c:if test="${product.gender == 'Nam'}">selected</c:if>>Nam</option>
                     <option value="Nữ" <c:if test="${product.gender == 'Nữ'}">selected</c:if>>Nữ</option>
-                    <option value="Unisex" <c:if test="${product.gender == 'Unisex'}">selected</c:if>>Unisex</option>
                 </select>
             </div>
             <div class="form-group col-md-6">

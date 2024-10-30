@@ -111,8 +111,8 @@
                                     </td>
                                     <td>${account.userName}</td>
                                     <td>${account.fullName}</td>
-                                    <td>${account.createdDate}</td>
                                     <td>${account.email}</td>
+                                    <td>${account.createdDate}</td>
                                     <td>
                                         <a href="${pageContext.request.contextPath}/admin/account/view/?id=${account.id}" class="btn btn-info btn-sm mr-2">
                                             <i class="fas fa-eye mr-1"></i> Xem hoạt động

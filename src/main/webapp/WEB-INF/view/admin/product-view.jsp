@@ -16,7 +16,8 @@
 <body>
 <!-- Begin Page Content -->
 <div class="container-fluid">
-    <div class="d-sm-flex align-items-center justify-content-between mb-3">
+    <div class="d-sm-flex align-items-center justify-content-start mb-3">
+        <i class="h3 mb-1 mr-2 fa-solid fa-boxes-stacked" style="font-size: 28px"></i>
         <h1 class="h3 mb-1 text-gray-800">Đồng hồ</h1>
     </div>
     <hr/>
@@ -64,7 +65,8 @@
                         <th>Tên đồng hồ</th>
                         <th>Tên thương hiệu</th>
                         <th>Dòng đồng hồ</th>
-                        <th>Giá</th>
+                        <th>Tồn kho</th>
+                        <th>Giá sản phẩm</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -75,6 +77,8 @@
                             <td>${product.name}</td>
                             <td>${product.brandName}</td>
                             <td>${product.productLineName}</td>
+                            <td>${product.stock}</td>
+                            <td>${product.price}</td>
                             <td>
                                 <a href="${pageContext.request.contextPath}/admin/product/update/?id=${product.id}&currentPage=${currentPage}" class="btn btn-info btn-sm mr-2">
                                     <i class="fas fa-pencil-alt mr-1"></i> Sửa

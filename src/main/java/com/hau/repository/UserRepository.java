@@ -20,6 +20,12 @@ public interface UserRepository extends JpaRepository<UserEntity,Long> {
     @Query("SELECT u FROM UserEntity u WHERE u.email = :email AND u.password IS NOT NULL ")
     UserEntity findOneByEmailAndPasswordNotNull(@Param("email") String email);
 
+    @Query("SELECT u FROM UserEntity u JOIN u.roles r WHERE r.code = 'ROLE_ADMIN' AND u.status = 1")
+    Page<UserEntity> findAllNotBannedUserAccounts(Pageable pageable);
+
+    @Query("SELECT u FROM UserEntity u JOIN u.roles r WHERE r.code = 'ROLE_ADMIN' AND u.status = 0")
+    Page<UserEntity> findAllBannedUserAccounts(Pageable pageable);
+
     @Query("SELECT u FROM UserEntity u JOIN u.roles r WHERE r.code = 'ROLE_ADMIN'")
     Page<UserEntity> findAllAdminAccounts(Pageable pageable);
 
@@ -27,11 +33,11 @@ public interface UserRepository extends JpaRepository<UserEntity,Long> {
     Page<UserEntity> findAllUserAccounts(Pageable pageable);
 
     @Modifying
-    @Query("UPDATE UserEntity u SET u.status = 0 WHERE u IN (SELECT u FROM UserEntity u JOIN u.roles r WHERE r.code = 'USER')")
-    void lockUserAccounts();
+    @Query("UPDATE UserEntity u SET u.status = 0 WHERE u.id = :id")
+    void lockUserAccounts(Long id);
 
     @Modifying
-    @Query("UPDATE UserEntity u SET u.status = 1 WHERE u IN (SELECT u FROM UserEntity u JOIN u.roles r WHERE r.code = 'USER')")
-    void unlockUserAccounts();
+    @Query("UPDATE UserEntity u SET u.status = 1 WHERE u.id = :id")
+    void unlockUserAccounts(Long id);
 
 }

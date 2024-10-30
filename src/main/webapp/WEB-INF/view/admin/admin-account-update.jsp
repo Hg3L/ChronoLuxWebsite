@@ -33,6 +33,7 @@
             </div>
             <hr/>
             <form:hidden path="id" />
+            <form:hidden path="status" />
             <div class="row">
                 <div class="col-md-3 border-right">
                     <div class="d-flex flex-column align-items-center text-center" style="height: 250px; position: relative;">

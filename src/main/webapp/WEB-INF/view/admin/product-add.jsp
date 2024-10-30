@@ -73,13 +73,17 @@
                     <option value="" disabled selected>Chọn giới tính</option>
                     <option value="Nam">Nam</option>
                     <option value="Nữ">Nữ</option>
-                    <option value="Unisex">Unisex</option>
                 </select>
             </div>
             <div class="form-group col-md-6">
                 <label for="price">Giá sản phẩm *</label>
                 <form:input path="price" type="text" class="form-control" id="price" required="required" onkeyup="validatePrice(this)" />
                 <div id="price-error" class="text-danger" style="display:none;">Vui lòng nhập số tiền hợp lệ!</div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="price">Số lượng hàng *</label>
+                <form:input path="stock" type="text" class="form-control" id="stock" required="required" onkeyup="validateStock(this)" />
+                <div id="price-error" class="text-danger" style="display:none;">Vui lòng nhập số lượng hàng hợp lệ!</div>
             </div>
             <div class="form-group col-md-6">
                 <label for="thickness">Độ dày *</label>
@@ -212,7 +216,21 @@
     }
     document.querySelector("form").onsubmit = validateForm;
 </script>
+<script>
+    function validateStock(input) {
+        const stockValue = input.value;
+        const errorElement = document.getElementById("price-error");
 
+        // Kiểm tra xem stockValue có phải là số tự nhiên lớn hơn hoặc bằng 0
+        if (!/^\d+$/.test(stockValue)) {
+            errorElement.style.display = "block";
+            input.classList.add("is-invalid");
+        } else {
+            errorElement.style.display = "none";
+            input.classList.remove("is-invalid");
+        }
+    }
+</script>
 <!-- Validate product line -->
 <%--<script>
     // Kiểm tra xem có dữ liệu trong select hay không

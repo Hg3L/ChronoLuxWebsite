@@ -53,6 +53,7 @@ public class AccountController {
     @PostMapping("/admin/account/save")
     public String saveAdminAccounts(@ModelAttribute("account") UserDTO account,
                                     @RequestParam("img")MultipartFile img,
+                                    @RequestParam("page") int currentPage,
                                     HttpServletRequest request) throws Exception {
         request.setCharacterEncoding("UTF-8");
         if(!img.isEmpty() && account.getId() == null){ // create new account, avatar != null
@@ -73,7 +74,7 @@ public class AccountController {
             account.setImgUrl(avatar);
         }
         userService.save(account, "admin");
-        return "redirect:/admin/accounts";
+        return "redirect:/admin/accounts?adminPage=" + currentPage;
     }
 
     @PostMapping("/admin/account/update")
@@ -101,5 +102,19 @@ public class AccountController {
         }
         userService.update(account);
         return "redirect:/admin/accounts";
+    }
+
+    @GetMapping("/admin/account/ban-account")
+    public String banAccount(@RequestParam Long id,
+                             @RequestParam int currentPage){
+        userService.lockUserAccounts(id);
+        return "redirect:/admin/accounts?userPage=" + currentPage;
+    }
+
+    @GetMapping("/admin/account/unban-account")
+    public String unbanAccount(@RequestParam Long id,
+                               @RequestParam int currentPage){
+        userService.unlockUserAccounts(id);
+        return "redirect:/admin/accounts?userPage=" + currentPage;
     }
 }

@@ -10,6 +10,7 @@ import com.hau.entity.UserEntity;
 import com.hau.exception.CustomerNotFoundException;
 import com.hau.repository.RoleRepository;
 import com.hau.repository.UserRepository;
+import com.hau.service.UserService;
 import com.hau.util.EncodePasswordUtil;
 import com.hau.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements com.hau.service.UserService {
+public class UserServiceImpl implements UserService {
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
@@ -111,6 +112,7 @@ public class UserServiceImpl implements com.hau.service.UserService {
     public void update(UserDTO userDTO) {
         UserEntity user = userRepository.findOne(userDTO.getId());
         user.setFullName(userDTO.getFullName());
+        user.setStatus(userDTO.getStatus());
         if(userDTO.getEmail() != null){
             user.setEmail(userDTO.getEmail());
         }
@@ -192,12 +194,12 @@ public class UserServiceImpl implements com.hau.service.UserService {
     }
 
     @Override
-    public void lockUserAccounts() {
-
+    public void lockUserAccounts(Long id) {
+        userRepository.lockUserAccounts(id);
     }
 
     @Override
-    public void unlockUserAccounts() {
-
+    public void unlockUserAccounts(Long id) {
+        userRepository.unlockUserAccounts(id);
     }
 }

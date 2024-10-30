@@ -21,7 +21,7 @@ public class PaymentServices {
     private static final String MODE = "sandbox";
 
     public String authorizePayment(List<CartItemDTO> cartItemDTOS, CartItemDTO cartItemDTO, HttpServletRequest request) throws PayPalRESTException {
-        Payer payer =   getPayerInfomation();
+        Payer payer = getPayerInfomation();
         RedirectUrls redirectUrls = getRedirectURLs(request);
         List<Transaction> listTransaction = getTransactionInfomation(cartItemDTOS,cartItemDTO);
 

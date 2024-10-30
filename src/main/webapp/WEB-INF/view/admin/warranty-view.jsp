@@ -16,7 +16,8 @@
 <body>
 <!-- Begin Page Content -->
 <div class="container-fluid">
-    <div class="d-sm-flex align-items-center justify-content-between mb-3">
+    <div class="d-sm-flex align-items-center justify-content-start mb-3">
+        <i class="h3 mb-1 mr-2 fa-solid fa-paperclip" style="font-size: 28px"></i>
         <h1 class="h3 mb-1 text-gray-800">Chính sách bảo hành</h1>
     </div>
     <hr/>
@@ -110,22 +111,22 @@
                     <!-- Nút Previous -->
                     <c:if test="${currentPage > 1}">
                         <li class="page-item">
-                            <a class="page-link" href="?page=${currentPage - 1}&size=${brandPage.size}" aria-label="Previous">
+                            <a class="page-link" href="?page=${currentPage - 1}&size=${productLines.size}" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                                 <span class="sr-only">Previous</span>
                             </a>
                         </li>
                     </c:if>
                     <!-- Hiển thị các số trang -->
-                    <c:forEach var="i" begin="1" end="${brandPage.totalPages}">
+                    <c:forEach var="i" begin="1" end="${productLines.totalPages}">
                         <li class="page-item ${i == currentPage ? 'active' : ''}">
-                            <a class="page-link" href="?page=${i}&size=${brandPage.size}">${i}</a>
+                            <a class="page-link" href="?page=${i}&size=${productLines.size}">${i}</a>
                         </li>
                     </c:forEach>
                     <!-- Nút Next -->
-                    <c:if test="${currentPage < brandPage.totalPages}">
+                    <c:if test="${currentPage < productLines.totalPages}">
                         <li class="page-item">
-                            <a class="page-link" href="?page=${currentPage + 1}&size=${brandPage.size}" aria-label="Next">
+                            <a class="page-link" href="?page=${currentPage + 1}&size=${productLines.size}" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                                 <span class="sr-only">Next</span>
                             </a>

@@ -16,7 +16,8 @@
 <body>
 <!-- Begin Page Content -->
 <div class="container-fluid">
-    <div class="d-sm-flex align-items-center justify-content-between mb-3">
+    <div class="d-sm-flex align-items-start justify-content-start mb-3">
+        <i class="fa-solid fa-newspaper h3 mb-1 mr-2" style="font-size: 28px"></i>
         <h1 class="h3 mb-1 text-gray-800">Bài viết</h1>
     </div>
     <hr/>

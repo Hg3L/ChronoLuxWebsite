@@ -19,7 +19,7 @@
     <li class="nav-item active">
         <a class="nav-link" href="<c:url value='/admin/home'/>">
             <i class="fas fa-fw fa-tachometer-alt" style="font-size: 16px"></i>
-            <span style="font-size: 16px">Dashboard</span>
+            <span style="font-size: 15px">Dashboard</span>
         </a>
     </li>
 
@@ -31,25 +31,25 @@
     <li class="nav-item">
         <a class="nav-link" href="<c:url value='/admin/brands'/>">
             <i class="fas fa-star" style="font-size: 16px"></i>
-            <span style="font-size: 16px">Thương hiệu</span>
+            <span style="font-size: 15px">Thương hiệu</span>
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="<c:url value='/admin/product-lines'/>">
             <i class="fa-solid fa-sitemap" style="font-size: 16px"></i>
-            <span style="font-size: 16px">Dòng sản phẩm</span>
+            <span style="font-size: 15px">Dòng sản phẩm</span>
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="<c:url value='/admin/warranty'/>">
             <i class="fa-solid fa-paperclip" style="font-size: 16px"></i>
-            <span style="font-size: 16px">Chính sách bảo hành</span>
+            <span style="font-size: 15px">Chính sách bảo hành</span>
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="<c:url value='/admin/products'/>">
             <i class="fa-solid fa-boxes-stacked" style="font-size: 16px"></i>
-            <span style="font-size: 16px">Sản phẩm</span>
+            <span style="font-size: 15px">Sản phẩm</span>
         </a>
     </li>
     <!-- Divider -->
@@ -57,20 +57,20 @@
     <li class="nav-item">
         <a class="nav-link" href="<c:url value='/admin/corporation'/>">
             <i class="fa-solid fa-circle-info" style="font-size: 16px"></i>
-            <span style="font-size: 16px">Thông tin doanh nghiệp</span>
+            <span style="font-size: 15px">Thông tin doanh nghiệp</span>
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="<c:url value='/admin/posts'/>">
             <i class="fa-solid fa-newspaper" style="font-size: 16px"></i>
-            <span style="font-size: 16px">Bài viết</span>
+            <span style="font-size: 15px">Bài viết</span>
         </a>
     </li>
     <hr class="sidebar-divider">
     <li class="nav-item">
         <a class="nav-link" href="<c:url value='/admin/accounts'/>">
             <i class="fa-solid fa-users" style="font-size: 16px"></i>
-            <span style="font-size: 16px">Quản lý tài khoản</span>
+            <span style="font-size: 15px">Quản lý tài khoản</span>
         </a>
     </li>
 </ul>

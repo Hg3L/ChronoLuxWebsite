@@ -4,6 +4,7 @@ import com.hau.dto.UserDTO;
 import com.hau.exception.CustomerNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 
 
 public interface UserService {
@@ -19,6 +20,6 @@ public interface UserService {
     public UserDTO findOneByEmailAndRoleCode(String email , String roleCode);
     Page<UserDTO> findAllAdminAccounts(int page, int limit);
     Page<UserDTO> findAllUserAccounts(int page, int limit);
-    void lockUserAccounts();
-    void unlockUserAccounts();
+    void lockUserAccounts(Long id);
+    void unlockUserAccounts(Long id);
 }

@@ -36,6 +36,7 @@ public class UserEntity extends BaseEntity {
 
     @OneToMany(mappedBy = "user")
     private List<BillEntity> bills = new ArrayList<>();
+
     public String getUserName() {
         return userName;
     }

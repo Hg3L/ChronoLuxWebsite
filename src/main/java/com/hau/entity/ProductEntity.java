@@ -36,11 +36,11 @@ public class ProductEntity extends BaseEntity {
     private List<BillEntity> bills;
 
 
-    public int getInstock() {
+    public Integer getInstock() {
         return instock;
     }
 
-    public void setInstock(int instock) {
+    public void setInstock(Integer instock) {
         this.instock = instock;
     }
 
