@@ -9,10 +9,16 @@ public class CartItemConverter implements Converter<CartItemDTO, CartItemEntity>
     @Override
     public CartItemDTO convertToDTO(CartItemEntity entity) {
         CartItemDTO cartItemDTO = new CartItemDTO();
-        cartItemDTO.setId(entity.getId());
+        if(entity.getId() != 0){
+            cartItemDTO.setId(entity.getId());
+        }
         cartItemDTO.setProductId(entity.getProduct().getId());
-        cartItemDTO.setUserId(entity.getUser().getId());
-        cartItemDTO.setCustomerName(entity.getUser().getFullName());
+        if(entity.getUser() != null){
+            cartItemDTO.setUsername(entity.getUser().getUserName());
+            cartItemDTO.setCustomerName(entity.getUser().getFullName());
+            cartItemDTO.setUserId(entity.getUser().getId());
+        }
+
         cartItemDTO.setProductName(entity.getProduct().getName());
         cartItemDTO.setProductPrice(entity.getProduct().getPrice());
         cartItemDTO.setQuantity(entity.getQuantity());

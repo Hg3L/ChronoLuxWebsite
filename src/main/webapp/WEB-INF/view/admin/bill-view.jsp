@@ -10,6 +10,7 @@
             rel="stylesheet">
     <link href="<c:url value='/template/admin/css/sb-admin-2.min.css'/>" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <script src="<c:url value='/template/admin/js/script.js'/>"></script>
 </head>
 <body>
 <!-- Begin Page Content -->
@@ -50,7 +51,7 @@
                                         <td>${ub.displayName}</td>
                                         <td>${ub.phone}</td>
                                         <td>${ub.paymentMethod}</td>
-                                        <td>${ub.total}</td>
+                                        <td class="currency">${ub.total}</td>
                                         <td>
                                             <a href="${pageContext.request.contextPath}/admin/bill/view/?id=${ub.id}" class="btn btn-secondary btn-sm mr-2">
                                                 <i class="fa-solid fa-eye mr-1"></i>
@@ -144,7 +145,7 @@
                                     <td>${ub.displayName}</td>
                                     <td>${ub.phone}</td>
                                     <td>${ub.paymentMethod}</td>
-                                    <td>${ub.total}</td>
+                                    <td class="currency">${ub.total}</td>
                                     <td>
                                         <a href="${pageContext.request.contextPath}/admin/bill/view/?id=${ub.id}" class="btn btn-secondary btn-sm mr-2">
                                             <i class="fa-solid fa-eye mr-1"></i>
@@ -185,9 +186,10 @@
     </div>
 </div>
 <script>
-    function confirmDelete(id) {
-        return confirm("Bạn có chắc muốn xóa thương hiệu này?");
-    }
+    document.querySelectorAll('.currency').forEach(element => {
+        const value = parseFloat(element.innerText);
+        element.innerText = formatToVND(value);
+    });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>

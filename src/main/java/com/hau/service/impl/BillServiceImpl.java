@@ -105,7 +105,6 @@ public class BillServiceImpl implements BillService {
         Page<BillEntity> billEntities = billRepository.findUnpaidBills(pageable);
         List<BillDTO> billDTOS = billEntities.getContent().stream().map(billEntity -> {
             BillDTO billDTO = billConverter.convertToDTO(billEntity);
-            billDTO.setUsername(billEntity.getUser().getUserName());
             return billDTO;
         }).collect(Collectors.toList());
         return new PageImpl<>(billDTOS, pageable, billEntities.getTotalElements());
@@ -117,7 +116,6 @@ public class BillServiceImpl implements BillService {
         Page<BillEntity> billEntities = billRepository.findPaidBills(pageable);
         List<BillDTO> billDTOS = billEntities.getContent().stream().map(billEntity -> {
             BillDTO billDTO = billConverter.convertToDTO(billEntity);
-            billDTO.setUsername(billEntity.getUser().getUserName());
             return billDTO;
         }).collect(Collectors.toList());
         return new PageImpl<>(billDTOS, pageable, billEntities.getTotalElements());
@@ -130,5 +128,20 @@ public class BillServiceImpl implements BillService {
             return 0.0;
         }
         return billRepository.findTotalOfSuccessfulBillsInMonth(month, year);
+    }
+
+    @Override
+    public BillDTO findByIdWithDetail(Long id) {
+        BillEntity billEntity = billRepository.findOne(id);
+        List<CartItemDTO> cartItemDTOS = billEntity.getCartItems().stream().map(cartItemEntity -> {
+            CartItemDTO cartItemDTO = cartItemConverter.convertToDTO(cartItemEntity);
+            cartItemDTO.setProductName(cartItemEntity.getProduct().getName());
+            cartItemDTO.setProductImgUrl(cartItemEntity.getProduct().getImgUrl());
+            cartItemDTO.setTotal(cartItemEntity.getQuantity() * cartItemEntity.getProduct().getPrice());
+            return cartItemDTO;
+        }).toList();
+        BillDTO billDTO = billConverter.convertToDTO(billEntity);
+        billDTO.setCartItemDTOS(cartItemDTOS);
+        return billDTO;
     }
 }

@@ -30,4 +30,11 @@ public class BillController {
         billService.confirmPaidBill(id);
         return "redirect:/admin/bills/?unpaidPage=" + currentUnpaidPage;
     }
+
+    @GetMapping("/admin/bill/view")
+    public String viewBill(@RequestParam Long id,
+                           Model model) {
+        model.addAttribute("billDTO", billService.findByIdWithDetail(id));
+        return "admin/bill-detail-view";
+    }
 }

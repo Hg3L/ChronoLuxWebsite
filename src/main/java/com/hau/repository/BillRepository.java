@@ -32,4 +32,12 @@ public interface BillRepository extends JpaRepository<BillEntity,Long> {
             "AND MONTH(b.createDate) = :month " +
             "AND YEAR(b.createDate) = :year")
     Double findTotalOfSuccessfulBillsInMonth(@Param("month") int month,@Param("year") int year);
+
+    /*@Query("SELECT b FROM BillEntity b " +
+            "LEFT JOIN FETCH b.voucher " +
+            "LEFT JOIN FETCH b.user " +
+            "LEFT JOIN FETCH b.products " +
+            "LEFT JOIN FETCH b.cartItems " +
+            "WHERE b.id = :billId")
+    BillEntity findBillWithDetailsById(Long billId);*/
 }
