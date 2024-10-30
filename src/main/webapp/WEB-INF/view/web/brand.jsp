@@ -125,8 +125,7 @@
                                 <a href="<c:url value='/shop/brand/product-line?idBrand=${model.id}&id=${item.id}&page=1&limit=4'/>"
                                     class="cat-img position-relative overflow-hidden mb-3">
                                     <img class="img-fluid"
-                                        src="<c:url value='/template/web/img/product-lines/${item.iconUrl}'/>"
-                                        alt="">
+                                        src="<c:url value='/template/web/img/product-lines/${item.iconUrl}'/>" alt="">
                                 </a>
                                 <div class="card1-title">${item.name}</div>
                             </div>
@@ -282,13 +281,12 @@
                                                 </div>
                                             </div>
                                             <div class="card-footer d-flex justify-content-between bg-light border">
-
                                                 <a href="<c:url value='/product-detail?id=${product.id}'/>"
                                                     class="btn btn-sm text-dark p-0"><i
                                                         class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                                                <a href="" class="btn btn-sm text-dark p-0"><i
-                                                        class="fas fa-shopping-cart text-primary mr-1"></i>Add To
-                                                    Cart</a>
+                                                 <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>" class="btn btn-sm text-dark p-0"><i
+                                                    class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+
                                             </div>
                                         </div>
 
@@ -327,6 +325,7 @@
             <!-- Shop End -->
 
             <script>
+
                 var id = ${ model.id };
                 var currentPage = ${ model.page };
                 var limit = ${ model.limit };

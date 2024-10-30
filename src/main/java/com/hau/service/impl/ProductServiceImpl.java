@@ -16,8 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,7 +38,16 @@ public class ProductServiceImpl implements ProductService {
         }
         return products;
     }
-
+    @Override
+    public LinkedHashSet<ProductDTO> findTop8BestSelling(){
+        LinkedHashSet<ProductDTO> products = new LinkedHashSet<>();
+        LinkedHashSet<ProductEntity> productEntities = productRepository.findTop8BestSellingProducts();
+        for(ProductEntity productEntity : productEntities){
+            ProductDTO product = productConverter.toDTO(productEntity);
+            products.add(product);
+        }
+        return products;
+    }
     @Override
     public List<ProductDTO> findAll() {
         List<ProductDTO> products = new ArrayList<>();

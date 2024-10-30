@@ -4,11 +4,14 @@ import com.hau.dto.ProductDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.TreeSet;
 
 
 public interface ProductService {
     public List<ProductDTO> findTop8ByOrderByIdDesc();
+    LinkedHashSet<ProductDTO> findTop8BestSelling();
     List<ProductDTO> findAll();
     public List<ProductDTO> findAll(Pageable pageable,String keyword,String filter);
     public long getTotalItem(String keyword,String filter);

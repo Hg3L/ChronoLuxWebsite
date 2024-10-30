@@ -64,21 +64,15 @@
                                             placeholder="surname" required></div>
                                 </div>
                                 <div class="row mt-3">
-                                    <div class="col-md-12"><label class="labels">UserName</label><input type="text"
+                                <security:authorize access="hasRole('ROLE_USER')">
+                                        <div class="col-md-12"><label class="labels">UserName</label><input type="text"
                                             name="userName" class="form-control" placeholder="enter your phone number"
                                             value="${user.getUserName()}" required readonly></div>
+                                </security:authorize>
+
                                     <div class="col-md-12"><label class="labels">Email</label><input type="text"
                                             name="email" class="form-control" placeholder="enter your email"
                                             value="${user.getEmail()}" required></div>
-                                    <c:if test="${user.password != null}">
-                                        <div class="col-md-12"><label class="labels">Password</label><input
-                                                type="password" name="password" class="form-control"
-                                                placeholder="enter your password" value="${user.getPassword()}"
-                                                required></div>
-                                    </c:if>
-
-
-
                                 </div>
                                 <c:if test="${param.success != null}">
                                     <div class="alert alert-success " role="alert" style="text-align: center;">
