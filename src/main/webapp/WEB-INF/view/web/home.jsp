@@ -11,6 +11,100 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
+    <!-- Favicon -->
+    <link href="<c:url value='/template/web/img/ChronoLuxIcon.svg'/>" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+            rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="<c:url value='/template/web/lib/owlcarousel/assets/owl.carousel.min.css'/>" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href=" <c:url value='/template/web/css/style.css'/>" rel="stylesheet">
+    <%----------------------------%>
+    <style>
+        .product-card {
+            width: 320px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            margin: 15px;
+            display: inline-block;
+        }
+
+        .product-card img {
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .try-on-label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: white;
+            font-size: 12px;
+            padding: 3px 7px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .wishlist-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .product-info {
+            margin-top: 10px;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .product-description {
+            color: #555;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        .product-price {
+            font-size: 16px;
+            color: #007b00;
+            margin: 10px 0;
+        }
+
+        .add-to-bag-btn {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -224,23 +318,44 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-                <div class="card product-item border-0 mb-4">
-                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <img class="img-fluid w-100" src="${pageContext.request.contextPath}/template/web/img/home/hot product/hp4.png" alt="">
-                    </div>
-                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                        <h6 class="text-truncate mb-3">Patek Philippe Grandmaster Chime Reference 6300G</h6>
-                        <div class="d-flex justify-content-center">
-                            <h6>$5,400,000.00</h6>
+            <c:forEach var="item" items="${product.listResult}">
+                <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                    <div class="card product-item border-0 mb-4">
+                        <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                            <img class="img-fluid w-100" src="${pageContext.request.contextPath}/template/web/img/home/hot product/hp4.png" alt="">
+                        </div>
+                        <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                            <h6 class="text-truncate mb-3">${item.name}</h6>
+                            <h6 class="text-truncate mb-3">${item.watchType}</h6>
+                            <div class="d-flex justify-content-center">
+                                <h6>$${item.price}</h6>
+                            </div>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between bg-light border">
+                            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                            <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
                         </div>
                     </div>
-                    <div class="card-footer d-flex justify-content-between bg-light border">
-                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                </div>
+                <div class="product-card">
+                    <c:if test="${item.stock <= 0}">
+                        <span class="try-on-label">SOLD OUT</span>
+                    </c:if>
+
+                    <a href="<c:url value='/product-detail?id=${item.id}'/>">
+                        <img src="https://www.watchstore.vn/images/products/2024/resized/mtp-v002l-1b3udf-1-617104041-1694610294-1712487198.webp"
+                             alt="Santos De Cartier Watch">
+                    </a>
+                    <div class="product-info">
+                        <div class="product-name">${item.name}</div>
+                        <div class="product-description">watch type: ${item.watchType}</div>
+                        <div class="product-price">$${item.price}</div>
+                        <form action="<c:url value='/cart?productId=${item.id}&quantity=1'/>" method="post">
+                            <button class="add-to-bag-btn">ADD TO BAG</button>
+                        </form>
                     </div>
                 </div>
-            </div>
+            </c:forEach>
         </div>
     </div>
     <!-- Products End -->

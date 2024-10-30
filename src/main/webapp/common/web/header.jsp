@@ -1,4 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="com.hau.util.SecurityUtil" %>
+<%@ page import="org.springframework.security.core.Authentication" %>
+<%@ page import="org.springframework.security.core.GrantedAuthority" %>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
+<%@ page import="com.hau.dto.CustomerO2Auth" %>
+<%@ page import="com.hau.dto.MyUser" %>
+<%@ include file="/common/taglib.jsp" %>
 
 <!-- Topbar Start -->
 <div class="container-fluid">
@@ -76,8 +83,42 @@
 
                     <!-- Right-aligned Navbar Links (Login/Register) -->
                     <div class="navbar-nav">
-                        <a href="login.html" class="nav-item nav-link">Login</a>
-                        <a href="register.html" class="nav-item nav-link">Register</a>
+                        <security:authorize access="isAnonymous()">
+                            <div class="navbar-nav ml-auto py-0">
+                                <a href="<c:url value ='/login'/>" class="nav-item nav-link">Login</a>
+                                <a href="<c:url value='/login/register'/>"
+                                   class="nav-item nav-link">Register</a>
+                            </div>
+                        </security:authorize>
+
+                        <security:authorize access="isAuthenticated()">
+                            <div class="navbar-nav ml-auto py-0">
+                                <div class="nav-item dropdown">
+                                    <%
+                                        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                                        String fullName = "";
+
+                                        if (principal instanceof CustomerO2Auth) {
+
+                                            fullName = SecurityUtil.getPrincipalO2Auth().getFullName();
+                                        } else if (principal instanceof MyUser) {
+
+                                            fullName = SecurityUtil.getPrincipal().getFullName();
+                                        }
+                                    %>
+                                    <a href="#" class="nav-link dropdown-toggle" id="userDropdown" role="button"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Welcome, <%=fullName%>
+                                    </a>
+
+                                    <div class="dropdown-menu dropdown-menu-right"
+                                         aria-labelledby="userDropdown">
+                                        <a class="dropdown-item" href="<c:url value='/user-profile'/>">Profile</a>
+                                        <a class="dropdown-item" href="<c:url value='/logout'/>">Logout</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </security:authorize>
                     </div>
                 </div>
             </nav>
