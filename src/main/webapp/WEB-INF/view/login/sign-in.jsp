@@ -53,8 +53,10 @@
 										</div>
 										<div class="form-group mb-3">
 											<label class="label" for="password">Password</label>
-											<input type="password" class="form-control" name="j_password"
-												placeholder="Password" required>
+											<div class="form-group">
+                                                <input type="password" id="password" class="form-control" name="j_password" placeholder="Password" required>
+                                                <input type="checkbox" id="showPassword"> <label for="showPassword">Hiện mật khẩu</label>
+                                            </div>
 										</div>
 										<div class="g-recaptcha" data-sitekey="6LcvolUqAAAAAHsPdMaMhrNDeg_HE-FuNR4XO95n"></div>
 										<div id ="error"> </div>
@@ -109,6 +111,7 @@
 
             <script src="https://www.google.com/recaptcha/api.js" async defer></script>
             <script>
+
              // Nếu có flash attribute showToast được truyền từ server, hiển thị toast
 
                 <c:if test="${param.registerSuccessful != null}">
@@ -134,6 +137,14 @@
 
                     });
                 }
+                document.getElementById('showPassword').addEventListener('change', function() {
+                    const passwordInput = document.getElementById('password');
+                    if (this.checked) {
+                        passwordInput.type = 'text'; // Hiện mật khẩu
+                    } else {
+                        passwordInput.type = 'password'; // Ẩn mật khẩu
+                    }
+                });
              </script>
 		</body>
 

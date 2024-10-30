@@ -202,4 +202,10 @@ public class UserServiceImpl implements UserService {
     public void unlockUserAccounts(Long id) {
         userRepository.unlockUserAccounts(id);
     }
+
+    @Override
+    public boolean usernameExists(String username) {
+        UserEntity userEntity = userRepository.findOneByUserName(username);
+        return userEntity != null;
+    }
 }
