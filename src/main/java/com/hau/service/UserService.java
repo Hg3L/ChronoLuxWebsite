@@ -22,4 +22,5 @@ public interface UserService {
     Page<UserDTO> findAllUserAccounts(int page, int limit);
     void lockUserAccounts(Long id);
     void unlockUserAccounts(Long id);
+    boolean usernameExists(String username);
 }

@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface UserRepository extends JpaRepository<UserEntity,Long> {
     public UserEntity findOneByUserNameAndStatus(String username,Integer status);
-
+    public UserEntity findOneByUserName(String username);
     public UserEntity findOneByResetPasswordToken(String token);
 
     @Query("SELECT u FROM UserEntity u JOIN u.roles r WHERE u.email = :email AND r.code = :roleCode")

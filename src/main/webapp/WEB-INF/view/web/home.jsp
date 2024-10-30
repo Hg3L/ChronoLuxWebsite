@@ -305,7 +305,7 @@
                             </c:if>
 
                             <a href="<c:url value='/product-detail?id=${item.id}'/>">
-                                <img src="https://www.watchstore.vn/images/products/2024/resized/mtp-v002l-1b3udf-1-617104041-1694610294-1712487198.webp"
+                                <img src="<c:url value='/template/web/img/products/${item.imgUrl}'/>"
                                     alt="Santos De Cartier Watch">
                             </a>
                             <div class="product-info">

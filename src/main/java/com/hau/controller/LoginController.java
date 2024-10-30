@@ -10,15 +10,16 @@ import com.hau.util.UserFaceBookUtil;
 import com.hau.util.UserGoogleUtil;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class LoginController {
@@ -101,6 +102,14 @@ public class LoginController {
         }
         return mav;
 
+    }
+    @PostMapping("/check-username")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> checkUsername(@RequestParam String userName) {
+        Map<String, Object> response = new HashMap<>();
+        boolean exists = userService.usernameExists(userName); // Kiểm tra trong cơ sở dữ liệu
+        response.put("exists", exists);
+        return ResponseEntity.ok(response);
     }
 
 }

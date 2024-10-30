@@ -18,7 +18,8 @@
 		<div class="main-agileinfo">
 			<div class="agileits-top">
 				<form:form method="post" id="formSubmit"  action="${pageContext.request.contextPath}/login/add" enctype="multipart/form-data" >
-                					<input class="text" type="text" name="userName" id="userName" placeholder="Username" required="">
+                					 <input class="text" type="text" name="userName" id="userName" placeholder="Username" required minlength="6" maxlength="20">
+                                        <span id="usernameFeedback" style="color: red; display: none;"></span>
                 					<input class="text email" type="email" name="email" placeholder="Email" required="">
 
                 					<input class="text" type="text" name="fullName" placeholder="FullName" required="">
@@ -29,8 +30,8 @@
                 					    <img id = "imgPreview" alt = "Avt Preview"/>
 
                 					<br> </br>
-                					<input class="text" type="password" name="password" id="password" placeholder="Password" required="">
-                					<input class="text w3lpass" type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="Confirm Password" oninput="checkPasswordMatch(this);" required="">
+                					<input class="text" type="password" name="password" id="password" placeholder="Password" required="" minlength = "6">
+                					<input class="text w3lpass" type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="Confirm Password" oninput="checkPasswordMatch(this);" required="" >
                 					<div class="wthree-text">
                 					</div>
                 					<div class="g-recaptcha" data-sitekey="6LcvolUqAAAAAHsPdMaMhrNDeg_HE-FuNR4XO95n"></div>
@@ -106,6 +107,31 @@
             }
             reader.readAsDataURL(file);
         }
+        $(document).ready(function() {
+            $('#userName').on('blur', function() {
+                const username = $(this).val();
+                const usernameInput = $(this)[0]; // Lấy phần tử DOM của input
+                // Gửi yêu cầu tới server
+                $.ajax({
+                    url:  "<c:url value='/check-username'/>" ,
+                    method: 'POST',
+                    data: { userName: username },
+                    success: function(response) {
+                        const feedback = $('#usernameFeedback');
+                        if (response.exists) {
+                            feedback.text('Username đã tồn tại. Vui lòng chọn tên khác.').show();
+                             usernameInput.setCustomValidity('Username đã tồn tại.');
+                        } else {
+                            feedback.hide();
+                            usernameInput.setCustomValidity("");
+                        }
+                    },
+                    error: function() {
+                        console.error('Lỗi khi kiểm tra tên người dùng.');
+                    }
+                });
+            });
+        });
     </script>
 
 
