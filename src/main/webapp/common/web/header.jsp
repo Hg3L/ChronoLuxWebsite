@@ -12,7 +12,7 @@
     <div class="row align-items-center py-3 px-xl-5">
         <div class="col-lg-3 d-none d-lg-block">
             <a href="" class="text-decoration-none">
-                <img src="${pageContext.request.contextPath}/template/web/img/header/Logo.svg" alt="ChronoLux Logo">
+                <img src="${pageContext.request.contextPath}/template/web/img/Logo.svg" alt="ChronoLux Logo">
             </a>
         </div>
         <div class="col-lg-6 col-6 text-left">
@@ -31,7 +31,7 @@
 
             <a href="<c:url value='/cart'/>" class="btn border">
                 <i class="fas fa-shopping-cart text-primary"></i>
-                <span class="badge1">0</span>
+                <span class="badge">5</span>
             </a>
         </div>
     </div>
