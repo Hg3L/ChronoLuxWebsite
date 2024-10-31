@@ -231,11 +231,11 @@
 
 
 <!-- Products Start -->
-<div class="container-fluid pt-5">
+<div class="container-fluid pt-5 px-5">
     <div class="text-center mb-4">
-        <h2 class="section-title px-5"><span class="px-2">Trandy Products</span></h2>
+        <h2 class="section-title px-5"><span class="px-2">Trendy Products</span></h2>
     </div>
-    <div class="row px-xl-5 pb-3">
+    <div class="product_list d-flex justify-content-center align-items-center flex-wrap">
         <c:forEach var="item" items="${productTrendy}">
             <div class="product-card">
                 <c:if test="${item.stock <= 0}">
@@ -249,13 +249,34 @@
                 <div class="product-info">
                     <div class="product-name">${item.name}</div>
                     <div class="product-description">watch type: ${item.watchType}</div>
-                    <div id="price">${item.price}đ</div>
-                    <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn" >ADD TO BAG</a>
+                    <div class="product-price">
+                        <span id="price" >${item.price}đ</span>
+                    </div>
+                    <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-warning" >ADD TO BAG</a>
                 </div>
             </div>
         </c:forEach>
     </div>
 </div>
+<style>
+    .product_list {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem; /* Adjusts space between items */
+    }
+
+    .product_card {
+        max-width: 250px; /* Set a fixed or responsive max width */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+</style>
+
+
 <!-- Products End -->
 
 
@@ -287,7 +308,7 @@
     <div class="text-center mb-4">
         <h2 class="section-title px-5"><span class="px-2">Just Arrived</span></h2>
     </div>
-    <div class="row px-xl-5 pb-3">
+    <div class="product_list d-flex justify-content-center align-items-center flex-wrap">
         <c:forEach var="item" items="${product.listResult}">
             <div class="product-card">
                 <c:if test="${item.stock <= 0}">
@@ -304,7 +325,7 @@
                     <div class="product-price">
                         <span id="price" >${item.price}đ</span>
                     </div>
-                    <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn" >ADD TO BAG</a>
+                    <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-warning" >ADD TO BAG</a>
                 </div>
             </div>
         </c:forEach>
