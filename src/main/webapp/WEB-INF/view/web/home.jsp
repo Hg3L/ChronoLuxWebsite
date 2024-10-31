@@ -107,46 +107,47 @@
 </head>
 
 <body>
-<!-- Navbar Start -->
+<!-- Banner Start -->
 <div class="container-fluid mb-5">
     <div class="row border-top px-xl-5">
+        <div id="header-carousel" class="carousel slide" style="width: 100%;" data-ride="carousel">
+            <!-- Carousel Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#header-carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#header-carousel" data-slide-to="1"></li>
+            </ol>
 
-        <div class="col-lg-9">
-
-            <div id="header-carousel" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                <c:forEach var="item" items="${posts}" varStatus="status">
-                    <c:choose>
-                        <c:when test="${status.first}">
-                            <div class="carousel-item active" style="height: 410px;">
-                                <img class="img-fluid" src="<c:url value='/template/web/img/posts/${item.img}'/>" alt="Image">
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <div class="carousel-item" style="height: 410px;">
-                                <img class="img-fluid" src="<c:url value='/template/web/img/posts/${item.img}'/>" alt="Image">
-                            </div>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-
-
+            <div class="carousel-inner">
+                <div class="carousel-item active" style="height: 410px;">
+                    <img class="img-fluid" src="${pageContext.request.contextPath}/template/web/img/home/Banner-1.webp" alt="Image">
+                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                        <div class="p-3" style="max-width: 700px;">
+                            <h3 class="display-4 text-white font-weight-semi-bold mb-4">Elite Style</h3>
+                            <h4 class="text-light text-uppercase font-weight-medium mb-3">
+                                Elevate your wrist with watches that define <br> timeless prestige and contemporary flair
+                            </h4>
+                            <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
+                        </div>
+                    </div>
                 </div>
-                <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">
-                    <div class="btn btn-dark" style="width: 45px; height: 45px;">
-                        <span class="carousel-control-prev-icon mb-n2"></span>
+
+                <div class="carousel-item" style="height: 410px;">
+                    <img class="img-fluid" src="${pageContext.request.contextPath}/template/web/img/home/Banner-2.jpg" alt="Image">
+                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                        <div class="p-3" style="max-width: 700px;">
+                            <h3 class="display-4 text-white font-weight-semi-bold mb-4">Trend-Setting Class</h3>
+                            <h4 class="text-light text-uppercase font-weight-medium mb-3">
+                                Elevate your wrist with watches that define <br> timeless prestige and contemporary flair
+                            </h4>
+                            <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
+                        </div>
                     </div>
-                </a>
-                <a class="carousel-control-next" href="#header-carousel" data-slide="next">
-                    <div class="btn btn-dark" style="width: 45px; height: 45px;">
-                        <span class="carousel-control-next-icon mb-n2"></span>
-                    </div>
-                </a>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Navbar End -->
+<!-- Banner End -->
 
 
 <!-- Featured Start -->
@@ -230,11 +231,11 @@
 
 
 <!-- Products Start -->
-<div class="container-fluid pt-5">
+<div class="container-fluid pt-5 px-5">
     <div class="text-center mb-4">
-        <h2 class="section-title px-5"><span class="px-2">Trandy Products</span></h2>
+        <h2 class="section-title px-5"><span class="px-2">Trendy Products</span></h2>
     </div>
-    <div class="row px-xl-5 pb-3">
+    <div class="product_list d-flex justify-content-center align-items-center flex-wrap">
         <c:forEach var="item" items="${productTrendy}">
             <div class="product-card">
                 <c:if test="${item.stock <= 0}">
@@ -248,13 +249,34 @@
                 <div class="product-info">
                     <div class="product-name">${item.name}</div>
                     <div class="product-description">watch type: ${item.watchType}</div>
-                    <div id="price">${item.price}đ</div>
-                    <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn" >ADD TO BAG</a>
+                    <div class="product-price">
+                        <span id="price" >${item.price}đ</span>
+                    </div>
+                    <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-warning" >ADD TO BAG</a>
                 </div>
             </div>
         </c:forEach>
     </div>
 </div>
+<style>
+    .product_list {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem; /* Adjusts space between items */
+    }
+
+    .product_card {
+        max-width: 250px; /* Set a fixed or responsive max width */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+</style>
+
+
 <!-- Products End -->
 
 
@@ -286,7 +308,7 @@
     <div class="text-center mb-4">
         <h2 class="section-title px-5"><span class="px-2">Just Arrived</span></h2>
     </div>
-    <div class="row px-xl-5 pb-3">
+    <div class="product_list d-flex justify-content-center align-items-center flex-wrap">
         <c:forEach var="item" items="${product.listResult}">
             <div class="product-card">
                 <c:if test="${item.stock <= 0}">
@@ -303,7 +325,7 @@
                     <div class="product-price">
                         <span id="price" >${item.price}đ</span>
                     </div>
-                    <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn" >ADD TO BAG</a>
+                    <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-warning" >ADD TO BAG</a>
                 </div>
             </div>
         </c:forEach>

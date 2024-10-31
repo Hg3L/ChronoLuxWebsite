@@ -66,44 +66,45 @@
 	</nav>
 </header>
 
-<div class="container">
+<div class="container bg-dark">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"> <!-- Font Awesome CSS -->
 	<div class="row py-5 mt-4 align-items-center border rounded-5 p-3 bg-light shadow box-area">
 		<!-- Left Column -->
 		<div class="col-md-5 mb-5 mb-md-0 d-flex flex-column justify-content-center align-items-center ml-5">
 			<h1>Tạo Tài Khoản ChronoLux</h1>
-			<p class="font-italic text-muted">Trở thành ChronoMember để nhận nhiều ưu đãi hấp dẫn</p>
+			<p class="font-italic " style="color: #cd9a2a;">Trở thành ChronoMember để nhận nhiều ưu đãi hấp dẫn</p>
 		</div>
 		<!-- Registration Form -->
 		<div class="col-md-7 col-lg-6 ml-auto">
-				<div class="row col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
-					<!-- First Name -->
-					<form:form method="post" id="formSubmit"  action="${pageContext.request.contextPath}/login/add" enctype="multipart/form-data" >
-					<div class="row ml-5 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
-						<input class="text" type="text" name="userName" id="userName" placeholder="Username" required minlength="6" maxlength="20">
+			<div class="row col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
+				<!-- First Name -->
+				<form:form method="post" id="formSubmit" action="${pageContext.request.contextPath}/login/add" enctype="multipart/form-data">
+					<div class="row ml-5 rounded-5 d-flex justify-content-center align-items-center flex-column left-box">
+						<input class="text mb-0" type="text" name="userName" id="userName" placeholder="Username" required minlength="6" maxlength="20">
 						<span id="usernameFeedback" style="color: red; display: none;"></span>
-						<input class="text email" type="email" name="email" placeholder="Email" required="">
+						<input class="text email mt-3 mb-3" type="email" name="email" placeholder="Email" required="">
+						<input class="text  mt-0 mb-3" type="text" name="fullName" placeholder="FullName" required="">
 
-						<input class="text" type="text" name="fullName" placeholder="FullName" required="">
-						<br> </br>
-						<label> Avatar: </label>
-						<input class="text" type="file" name="img" id ="img" accept="image/*"  >
-						<br> </br>
-						<img id = "imgPreview" alt = "Avt Preview"/>
+						<label class="mt-2"> Avatar: </label>
+						<input class="text mb-3" type="file" name="img" id="img" accept="image/*">
+						<img id="imgPreview" alt="Avt Preview" class="mb-3"/>
 
-						<br> </br>
-						<input class="text" type="password" name="password" id="password" placeholder="Password" required="" minlength = "6">
-						<input class="text w3lpass" type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="Confirm Password" oninput="checkPasswordMatch(this);" required="" >
-						<div class="wthree-text">
-						</div>
-						<div class="g-recaptcha" data-sitekey="6LcvolUqAAAAAHsPdMaMhrNDeg_HE-FuNR4XO95n"></div>
-						<div id ="error"> </div>
-						<button type="submit" class="btn btn-success btn-sm">
+						<input class="text mb-0" type="password" name="password" id="password" placeholder="Password" required minlength="6">
+						<input class="text w3lpass mt-3 mb-3" type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="Confirm Password" oninput="checkPasswordMatch(this);" required="">
+
+						<div class="g-recaptcha mb-0" data-sitekey="6LcvolUqAAAAAHsPdMaMhrNDeg_HE-FuNR4XO95n"></div>
+						<div id="error" class="mb-3"></div>
+
+						<button type="submit" class="btn btn-success btn-sm mb-3">
 							Sign Up
 						</button>
 					</div>
-					</form:form>
+				</form:form>
+				<div class="row ml-5 mb-2 rounded-5 d-flex justify-content-center align-items-center flex-column left-box">
+					<p class="text-center mt-3">Đã là ChronoMember?</p>
+					<a href="<c:url value ='/login'/>">Đăng Nhập</a>
 				</div>
+			</div>
 		</div>
 	</div>
 </div>

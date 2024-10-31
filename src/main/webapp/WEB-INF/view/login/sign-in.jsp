@@ -18,7 +18,7 @@
 		}
 
 		.ftco-section {
-			min-height: 100vh;
+			min-height: 80vh;
 			display: flex;
 			align-items: center;
 			background-image: url('<c:url value="/src/main/webapp/template/login/img/bg-1.jpg"/>');
@@ -71,25 +71,34 @@
 </head>
 
 <body>
-<section class="ftco-section">
-	<div class="container">
+<header class="header mb-0 ">
+	<nav class="navbar navbar-expand-lg navbar-light mb-0">
+		<div class="container">
+			<a href="<c:url value='/home'/>" class="navbar-brand">
+				<img src="${pageContext.request.contextPath}/template/web/img/Logo.svg" alt="ChronoLux Logo">
+			</a>
+		</div>
+	</nav>
+</header>
+<section class="ftco-section pt-0">
+	<div class="container py-5 mt-0 align-items-center border rounded-5 bg-light shadow box-area">
 		<div class="row justify-content-center">
-			<div class="col-md-6 text-center mb-5">
-				<h1 class="heading-section">Access Your ChronoLux Account</h1>
+			<div class="col-md-6 text-center mb-3">
+				<h1 class="heading-section font-weight-bold ">Access Your ChronoLux Account</h1>
 			</div>
 		</div>
-		<div class="row justify-content-center">
-			<div class="col-md-8 col-lg-6">
+		<div class="row justify-content-center mx-0">
+			<div class="col-md-6 col-lg-6">
 				<div class="login-container p-4 p-md-5">
 					<h3 class="mb-4 text-center">Sign In</h3>
 						<div class="d-flex justify-content-end mb-4">
 							<a href="https://www.facebook.com/v19.0/dialog/oauth?scope=email&client_id=1529293951010030&redirect_uri=http://localhost:8080/ChronoLuxWeb/login-facebook&prompt=login"
-							   class="social-icon d-flex align-items-center justify-content-center rounded-circle bg-light text-dark text-decoration-none me-3"
+							   class="social-icon d-flex align-items-center justify-content-center rounded-circle bg-light text-primary text-decoration-none me-3"
 							   style="width: 40px; height: 40px; font-size: 1.5rem;">
 								<i class="fa fa-facebook"></i>
 							</a>
 							<a href="https://accounts.google.com/o/oauth2/auth?scope=profile%20email&redirect_uri=http://localhost:8080/ChronoLuxWeb/login-google&response_type=code&client_id=236344479421-3djectr8kffvuu3ec4o7ceges5jv2jld.apps.googleusercontent.com&approval_prompt=force"
-							   class="social-icon d-flex align-items-center justify-content-center rounded-circle bg-light text-dark text-decoration-none"
+							   class="social-icon d-flex align-items-center justify-content-center rounded-circle bg-light text-warning text-decoration-none"
 							   style="width: 40px; height: 40px; font-size: 1.5rem;">
 								<i class="fa fa-google"></i>
 							</a>
