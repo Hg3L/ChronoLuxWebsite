@@ -49,75 +49,74 @@
     }
 </style>
 
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0 justify-content-between">
-                <!-- Left-aligned Logo Section (visible only on smaller screens) -->
-                <a href="/" class="navbar-brand d-lg-none">
-                    <img src="${pageContext.request.contextPath}/template/web/img/header/Logo.svg" alt="ChronoLux Logo">
-                </a>
+<div class="container-fluid mx-0">
+    <div class="col-lg-12">
+        <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+            <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarCollapse">
+                <!-- Left Spacer (empty div with equal flex) -->
+                <div class="d-none d-lg-flex flex-grow-1"></div>
 
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <!-- Centered Navbar Links with spacing adjustments -->
-                    <div class="navbar-nav mx-auto navbar-nav-center">
-                        <a href="<c:url value='/home'/>" class="nav-item nav-link active">Home</a>
-                        <a href="<c:url value='/shop?page=1&limit=8'/>" class="nav-item nav-link">Shop</a>
-                        <a href="<c:url value='/shop?page=1&limit=8&filter=nam'/>" class="nav-item nav-link">Nam</a>
-                         <a href="<c:url value='/shop?page=1&limit=8&filter=nu'/>" class="nav-item nav-link">Nữ</a>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
-                    </div>
-
-                    <!-- Right-aligned Navbar Links (Login/Register) -->
-                    <div class="navbar-nav">
-                        <security:authorize access="isAnonymous()">
-                            <div class="navbar-nav ml-auto py-0">
-                                <a href="<c:url value ='/login'/>" class="nav-item nav-link">Login</a>
-                                <a href="<c:url value='/login/register'/>"
-                                   class="nav-item nav-link">Register</a>
-                            </div>
-                        </security:authorize>
-
-                        <security:authorize access="isAuthenticated()">
-                            <div class="navbar-nav ml-auto py-0">
-                                <div class="nav-item dropdown">
-                                    <%
-                                        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-                                        String fullName = "";
-
-                                        if (principal instanceof CustomerO2Auth) {
-
-                                            fullName = SecurityUtil.getPrincipalO2Auth().getFullName();
-                                        } else if (principal instanceof MyUser) {
-
-                                            fullName = SecurityUtil.getPrincipal().getFullName();
-                                        }
-                                    %>
-                                    <a href="#" class="nav-link dropdown-toggle" id="userDropdown" role="button"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Welcome, <%=fullName%>
-                                    </a>
-
-                                    <div class="dropdown-menu dropdown-menu-right"
-                                         aria-labelledby="userDropdown">
-                                        <a class="dropdown-item" href="<c:url value='/user-profile'/>">Profile</a>
-                                        <a class="dropdown-item" href="<c:url value='/logout'/>">Logout</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </security:authorize>
-                    </div>
+                <!-- Centered Navbar Links -->
+                <div class="navbar-nav mx-auto d-flex justify-content-center">
+                    <a href="<c:url value='/home'/>" class="nav-item nav-link ">Trang Chủ</a>
+                    <a href="<c:url value='/shop?page=1&limit=8'/>" class="nav-item nav-link">Cửa Hàng</a>
+                    <a href="<c:url value='/shop?page=1&limit=8&filter=nam'/>" class="nav-item nav-link">Cho Nam</a>
+                    <a href="<c:url value='/shop?page=1&limit=8&filter=nu'/>" class="nav-item nav-link">Cho Nữ</a>
+                    <a href="contact.html" class="nav-item nav-link">Liên Hệ</a>
                 </div>
-            </nav>
-        </div>
+
+                <!-- Right-aligned Navbar Links (Login/Register) with equal flex -->
+                <div class="navbar-nav d-flex align-items-center flex-grow-1 justify-content-end">
+                    <security:authorize access="isAnonymous()">
+                        <a href="<c:url value='/login'/>" class="nav-item nav-link">Login</a>
+                        <a href="<c:url value='/login/register'/>" class="nav-item nav-link">Register</a>
+                    </security:authorize>
+
+                    <security:authorize access="isAuthenticated()">
+                        <div class="nav-item dropdown">
+                            <%
+                                Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                                String fullName = "";
+
+                                if (principal instanceof CustomerO2Auth) {
+                                    fullName = SecurityUtil.getPrincipalO2Auth().getFullName();
+                                } else if (principal instanceof MyUser) {
+                                    fullName = SecurityUtil.getPrincipal().getFullName();
+                                }
+                            %>
+                            <a href="#" class="nav-link dropdown-toggle" id="userDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Welcome, <%=fullName%>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right"
+                                 aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="<c:url value='/user-profile'/>">Profile</a>
+                                <a class="dropdown-item" href="<c:url value='/logout'/>">Logout</a>
+                            </div>
+                        </div>
+                    </security:authorize>
+                </div>
+            </div>
+            <style>
+                .navbar-nav .nav-link {
+                    padding-left: 0;
+                    padding-right: 0;
+                    margin-left: 5px;
+                    margin-right: 5px;
+                }
+                .navbar-collapse > .flex-grow-1 {
+                    flex-basis: 0;
+                    flex-grow: 1;
+                }
+            </style>
+        </nav>
     </div>
 </div>
-
-
 
  <script>
      $(document).ready(function() {
