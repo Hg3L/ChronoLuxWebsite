@@ -113,37 +113,38 @@
         <div id="header-carousel" class="carousel slide" style="width: 100%;" data-ride="carousel">
             <!-- Carousel Indicators -->
             <ol class="carousel-indicators">
-                <li data-target="#header-carousel" data-slide-to="0" class="active"></li>
-                <li data-target="#header-carousel" data-slide-to="1"></li>
+                <c:forEach var="item" items="${posts}" varStatus="status">
+                    <c:choose>
+                        <c:when test="${status.first}">
+                            <li data-target="#header-carousel" data-slide-to="${status.index}" class="active"></li>
+                        </c:when>
+                        <c:otherwise>
+                            <li data-target="#header-carousel" data-slide-to="${status.index}"></li>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
             </ol>
 
+            <!-- Carousel Items -->
             <div class="carousel-inner">
-                <div class="carousel-item active" style="height: 410px;">
-                    <img class="img-fluid" src="${pageContext.request.contextPath}/template/web/img/home/Banner-1.webp" alt="Image">
-                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                        <div class="p-3" style="max-width: 700px;">
-                            <h3 class="display-4 text-white font-weight-semi-bold mb-4">Elite Style</h3>
-                            <h4 class="text-light text-uppercase font-weight-medium mb-3">
-                                Elevate your wrist with watches that define <br> timeless prestige and contemporary flair
-                            </h4>
-                            <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
-                        </div>
-                    </div>
-                </div>
+                <c:forEach var="item" items="${posts}" varStatus="status">
+                    <c:choose>
+                        <c:when test="${status.first}">
+                            <div class="carousel-item active" style="height: 410px;">
+                                <img class="img-fluid" src="${pageContext.request.contextPath}/template/web/img/posts/${item.img}" alt="Image">
 
-                <div class="carousel-item" style="height: 410px;">
-                    <img class="img-fluid" src="${pageContext.request.contextPath}/template/web/img/home/Banner-2.jpg" alt="Image">
-                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                        <div class="p-3" style="max-width: 700px;">
-                            <h3 class="display-4 text-white font-weight-semi-bold mb-4">Trend-Setting Class</h3>
-                            <h4 class="text-light text-uppercase font-weight-medium mb-3">
-                                Elevate your wrist with watches that define <br> timeless prestige and contemporary flair
-                            </h4>
-                            <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
-                        </div>
-                    </div>
-                </div>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="carousel-item" style="height: 410px;">
+                                <img class="img-fluid" src="${pageContext.request.contextPath}/template/web/img/posts/${item.img}" alt="Image">
+
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
             </div>
+
         </div>
     </div>
 </div>
