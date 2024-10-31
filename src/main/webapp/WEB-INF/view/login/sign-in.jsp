@@ -93,7 +93,7 @@
 							<i class="fa fa-facebook"></i>
 						</a>
 						<a href="https://accounts.google.com/o/oauth2/auth?scope=profile%20email&redirect_uri=http://localhost:8080/ChronoLuxWeb/login-google&response_type=code&client_id=236344479421-3djectr8kffvuu3ec4o7ceges5jv2jld.apps.googleusercontent.com&approval_prompt=force"
-						   class="social-icon d-flex align-items-center justify-content-center rounded-circle bg-light text-warning text-decoration-none"
+						   class="social-icon d-flex align-items-center justify-content-center rounded-circle bg-light text-dark text-decoration-none"
 						   style="width: 40px; height: 40px; font-size: 1.5rem; transition: background-color 0.3s;">
 							<i class="fa fa-google"></i>
 						</a>
