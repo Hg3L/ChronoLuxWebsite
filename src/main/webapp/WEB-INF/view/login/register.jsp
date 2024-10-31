@@ -102,7 +102,7 @@
 				</form:form>
 				<div class="row ml-5 mb-2 rounded-5 d-flex justify-content-center align-items-center flex-column left-box">
 					<p class="text-center mt-3">Đã là ChronoMember?</p>
-					<a href="<c:url value='/login/register'/>">Đăng Nhập</a>
+					<a href="<c:url value ='/login'/>">Đăng Nhập</a>
 				</div>
 			</div>
 		</div>
