@@ -12,6 +12,7 @@
     <link href="<c:url value='/template/admin/css/styles.css'/>" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="<c:url value='/template/admin/js/script.js'/>"></script>
 </head>
 <body>
 <!-- Begin Page Content -->
@@ -78,7 +79,7 @@
                             <td>${product.brandName}</td>
                             <td>${product.productLineName}</td>
                             <td>${product.stock}</td>
-                            <td>${product.price}</td>
+                            <td class="currency">${product.price}</td>
                             <td>
                                 <a href="${pageContext.request.contextPath}/admin/product/update/?id=${product.id}&currentPage=${currentPage}" class="btn btn-info btn-sm mr-2">
                                     <i class="fas fa-pencil-alt mr-1"></i> Sửa
@@ -205,5 +206,11 @@
     });
 
 
+</script>
+<script>
+    document.querySelectorAll('.currency').forEach(element => {
+        const value = parseFloat(element.innerText);
+        element.innerText = formatToVND(value);
+    });
 </script>
 </body>

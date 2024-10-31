@@ -10,6 +10,7 @@
             rel="stylesheet">
     <link href="<c:url value='/template/admin/css/sb-admin-2.min.css'/>" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <script src="<c:url value='/template/admin/js/script.js'/>"></script>
 </head>
 <body>
 <!-- Begin Page Content -->
@@ -25,37 +26,70 @@
         </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
+        <%--<input type="hidden" name="unpaidPage" value="${currentUnpaidPage}">--%>
         <%--Admin--%>
         <div class="tab-pane fade show active" id="nav-admin" role="tabpanel" aria-labelledby="nav-admin-tab">
             <div class="mt-4">
                 <div class="card shadow mb-4 mt-4">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered" width="100%" cellspacing="0">
-                                <thead>
+                            <table class="table table-bordered text-center align-middle" width="100%" cellspacing="0">
+                                <thead class="table-secondary">
                                 <tr>
                                     <th>Thời gian đặt</th>
                                     <th>Họ & tên khách hàng</th>
-                                    <th>Tài khoản đặt hàng</th>
                                     <th>Số điện thoại</th>
                                     <th>Hình thức thanh toán</th>
                                     <th>Tổng đơn hàng</th>
-                                    <th></th>
+                                    <th>Hành động</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <c:forEach var="ub" items="${unpaidBillsPage.content}">
                                     <tr>
                                         <td>${ub.createdDate}</td>
-                                        <td>${ub.username}</td>
-                                        <td>${ub.createdBy}</td>
+                                        <td>${ub.displayName}</td>
                                         <td>${ub.phone}</td>
                                         <td>${ub.paymentMethod}</td>
-                                        <td>${ub.total}</td>
+                                        <td class="currency">${ub.total}</td>
                                         <td>
-                                            <a href="${pageContext.request.contextPath}/admin/bill/view/?id=${ub.id}" class="btn btn-info btn-sm mr-2"> Xem chi tiết</a>
+                                            <a href="${pageContext.request.contextPath}/admin/bill/view/?id=${ub.id}" class="btn btn-secondary btn-sm mr-2">
+                                                <i class="fa-solid fa-eye mr-1"></i>
+                                                Xem
+                                            </a>
+                                            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#confirmModal${ub.id}">
+                                                <i class="fa-solid fa-check mr-1"></i>
+                                                Xác nhận thanh toán
+                                            </button>
                                         </td>
                                     </tr>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="confirmModal${ub.id}" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel${ub.id}" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="confirmModalLabel${ub.id}">Xác nhận thanh toán</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Xác nhận đơn hàng của <strong>${ub.displayName}</strong> đã thanh toán?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                        <i class="fa-solid fa-reply mr-1"></i>
+                                                        Trở lại
+                                                    </button>
+                                                    <a href="${pageContext.request.contextPath}/admin/bill/update/?id=${ub.id}&currentUnpaidPage=${currentUnpaidPage}" class="btn btn-warning">
+                                                        <i class="fa-solid fa-check mr-1"></i>
+                                                        Xác nhận
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </c:forEach>
                                 </tbody>
                             </table>
@@ -93,33 +127,29 @@
             <div class="card shadow mb-4 mt-4">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" width="100%" cellspacing="0">
-                            <thead>
+                        <table class="table table-bordered text-center align-middle" width="100%" cellspacing="0">
+                            <thead class="table-secondary">
                             <tr>
-                                <th>Ảnh đại diện</th>
-                                <th>Tên tài khoản</th>
-                                <th>Tên người dùng</th>
-                                <th>Email</th>
-                                <th>Ngày tạo</th>
-                                <th>Hành động</th>
+                                <th>Thời gian đặt</th>
+                                <th>Họ & tên khách hàng</th>
+                                <th>Số điện thoại</th>
+                                <th>Hình thức thanh toán</th>
+                                <th>Tổng đơn hàng</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach var="account" items="${userAccountPage.content}">
+                            <c:forEach var="ub" items="${paidBillsPage.content}">
                                 <tr>
+                                    <td>${ub.createdDate}</td>
+                                    <td>${ub.displayName}</td>
+                                    <td>${ub.phone}</td>
+                                    <td>${ub.paymentMethod}</td>
+                                    <td class="currency">${ub.total}</td>
                                     <td>
-                                        <img src="<c:url value="/template/web/img/user-logos/${account.imgUrl}"/>" alt="Logo" style="max-width:50px; border-radius: 50%;"/>
-                                    </td>
-                                    <td>${account.userName}</td>
-                                    <td>${account.fullName}</td>
-                                    <td>${account.email}</td>
-                                    <td>${account.createdDate}</td>
-                                    <td>
-                                        <a href="${pageContext.request.contextPath}/admin/account/view/?id=${account.id}" class="btn btn-info btn-sm mr-2">
-                                            <i class="fas fa-eye mr-1"></i> Xem hoạt động
-                                        </a>
-                                        <a href="${pageContext.request.contextPath}/admin/account/lock?id=${account.id}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn khóa tài khoản này?');">
-                                            <i class="fas fa-lock mr-1"></i> Khóa tài khoản
+                                        <a href="${pageContext.request.contextPath}/admin/bill/view/?id=${ub.id}" class="btn btn-secondary btn-sm mr-2">
+                                            <i class="fa-solid fa-eye mr-1"></i>
+                                            Xem
                                         </a>
                                     </td>
                                 </tr>
@@ -129,21 +159,21 @@
                     </div>
                     <nav aria-label="Page navigation example" class="d-flex justify-content-center">
                         <ul class="pagination">
-                            <c:if test="${currentUserPage > 1}">
+                            <c:if test="${currentPaidPage > 1}">
                                 <li class="page-item">
-                                    <a class="page-link" href="?page=${currentUserPage - 1}&size=${userAccountPage.size}" aria-label="Previous">
+                                    <a class="page-link" href="?page=${currentPaidPage - 1}&size=${paidBillsPage.size}" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
                             </c:if>
-                            <c:forEach var="i" begin="1" end="${userAccountPage.totalPages}">
-                                <li class="page-item ${i == currentUserPage ? 'active' : ''}">
-                                    <a class="page-link" href="?page=${i}&size=${userAccountPage.size}">${i}</a>
+                            <c:forEach var="i" begin="1" end="${paidBillsPage.totalPages}">
+                                <li class="page-item ${i == currentPaidPage ? 'active' : ''}">
+                                    <a class="page-link" href="?page=${i}&size=${paidBillsPage.size}">${i}</a>
                                 </li>
                             </c:forEach>
-                            <c:if test="${currentUserPage < userAccountPage.totalPages}">
+                            <c:if test="${currentPaidPage < paidBillsPage.totalPages}">
                                 <li class="page-item">
-                                    <a class="page-link" href="?page=${currentUserPage + 1}&size=${userAccountPage.size}" aria-label="Next">
+                                    <a class="page-link" href="?page=${currentPaidPage + 1}&size=${paidBillsPage.size}" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
@@ -156,9 +186,10 @@
     </div>
 </div>
 <script>
-    function confirmDelete(id) {
-        return confirm("Bạn có chắc muốn xóa thương hiệu này?");
-    }
+    document.querySelectorAll('.currency').forEach(element => {
+        const value = parseFloat(element.innerText);
+        element.innerText = formatToVND(value);
+    });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
