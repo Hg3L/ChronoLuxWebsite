@@ -29,7 +29,7 @@ public interface UserRepository extends JpaRepository<UserEntity,Long> {
     @Query("SELECT u FROM UserEntity u JOIN u.roles r WHERE r.code = 'ROLE_ADMIN'")
     Page<UserEntity> findAllAdminAccounts(Pageable pageable);
 
-    @Query("SELECT u FROM UserEntity u JOIN u.roles r WHERE r.code = 'ROLE_USER'")
+    @Query("SELECT u FROM UserEntity u JOIN u.roles r WHERE r.code = 'ROLE_USER' OR r.code = 'ROLE_USER_FACEBOOK' OR r.code = 'ROLE_USER_GOOGLE' ")
     Page<UserEntity> findAllUserAccounts(Pageable pageable);
 
     @Modifying
