@@ -1,5 +1,6 @@
 package com.hau.service.impl;
 
+import com.hau.constant.SystemConstant;
 import com.hau.dto.CartItemDTO;
 import com.hau.util.GetSiteURLUtil;
 import com.paypal.api.payments.*;
@@ -46,20 +47,8 @@ public class PaymentServices {
         return approvalLink;
     }
     private List<Transaction> getTransactionInfomation( List<CartItemDTO> cartItems, CartItemDTO cartItemDTO){
-        String subtotal = cartItemDTO.getSubtotal();
-        String total = cartItemDTO.getTotal();
-
-        Details details = new Details();
-        details.setSubtotal(subtotal);
-
-        Amount amount = new Amount();
-        amount.setCurrency("USD");
-        amount.setTotal(total);
-        amount.setDetails(details);
-
-        Transaction transaction = new Transaction();
-        transaction.setAmount(amount);
-        transaction.setDescription("ChronoLux Watch Purchase");
+        Double subtotal = 0.0 ;
+        Double total = 0.0;
 
         ItemList itemList = new ItemList();
         List<Item> items = new ArrayList<Item>();
@@ -67,10 +56,24 @@ public class PaymentServices {
             Item item = new Item();
             item.setCurrency("USD")
                     .setName(cartItem.getProductName())
-                    .setPrice(cartItem.getProductPrice())
+                    .setPrice(String.format("%.2f",convertVndToUsd(cartItem.getProductPrice())))
                     .setQuantity(cartItem.getQuantity());
             items.add(item);
+            Double itemPrice = Double.parseDouble(String.format("%.2f",convertVndToUsd(cartItem.getProductPrice()))) ;
+            subtotal += itemPrice * Integer.parseInt(cartItem.getQuantity());
         }
+
+        Details details = new Details();
+        details.setSubtotal(String.format(subtotal.toString()));
+
+        Amount amount = new Amount();
+        amount.setCurrency("USD");
+        amount.setTotal(subtotal.toString());
+        amount.setDetails(details);
+
+        Transaction transaction = new Transaction();
+        transaction.setAmount(amount);
+        transaction.setDescription("ChronoLux Watch Purchase");
 
         itemList.setItems(items);
         transaction.setItemList(itemList);
@@ -113,5 +116,16 @@ public class PaymentServices {
 
         payer.setPayerInfo(payerInfo);
         return payer;
+    }
+
+
+    public static Double convertVndToUsd(String vndAmount) {
+        try {
+            Double amountVnd = Double.parseDouble(vndAmount);
+            return amountVnd / SystemConstant.EXCHANGE_RATE;
+        } catch (NumberFormatException e) {
+            System.err.println("Lỗi định dạng số: " + e.getMessage());
+            return 0.0;
+        }
     }
 }

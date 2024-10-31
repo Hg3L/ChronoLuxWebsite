@@ -17,6 +17,7 @@
                 href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
                 rel="stylesheet">
 
+
             <!-- Font Awesome -->
             <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
@@ -253,13 +254,13 @@
                                                </c:if>
 
                                                <a href="<c:url value='/product-detail?id=${item.id}'/>">
-                                                   <img src="https://www.watchstore.vn/images/products/2024/resized/mtp-v002l-1b3udf-1-617104041-1694610294-1712487198.webp"
+                                                   <img src="<c:url value='/template/web/img/products/${item.imgUrl}'/>"
                                                        alt="Santos De Cartier Watch">
                                                </a>
                                                <div class="product-info">
                                                    <div class="product-name">${item.name}</div>
                                                    <div class="product-description">watch type: ${item.watchType}</div>
-                                                   <div class="product-price">$${item.price}</div>
+                                                   <div id="price">${item.price}đ</div>
                                                    <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn" >ADD TO BAG</a>
                                                </div>
                                            </div>
@@ -311,7 +312,9 @@
                             <div class="product-info">
                                 <div class="product-name">${item.name}</div>
                                 <div class="product-description">watch type: ${item.watchType}</div>
-                                <div class="product-price">$${item.price}</div>
+                                <div class="product-price">
+                                  <span id="price" >${item.price}đ</span>
+                                </div>
                                 <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn" >ADD TO BAG</a>
                             </div>
                         </div>
@@ -319,6 +322,13 @@
                 </div>
             </div>
 
+<script>
+        document.querySelectorAll('#price').forEach(element => {
+                let price = parseInt(element.innerText.replace("đ", ""), 10);
+                element.innerText = price.toLocaleString("vi-VN") + "đ";
+            });
+
+</script>
 
             <!-- Products End -->
         </body>

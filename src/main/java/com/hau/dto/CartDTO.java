@@ -47,8 +47,8 @@ public class CartDTO extends  AbstractDTO<CartDTO>{
             cartItemDTOS.remove(getItemByIdAndUserName(id,username));
         }
     }
-    public double getTotalByUser(UserDTO user){
-        double t = 0;
+    public long getTotalByUser(UserDTO user){
+        long t = 0;
         String username;
         if (user == null){
             username = "null";
@@ -58,7 +58,7 @@ public class CartDTO extends  AbstractDTO<CartDTO>{
         }
         for(CartItemDTO item : cartItemDTOS){
             if(item.getUsername().equals(username) ){
-                t += Integer.parseInt(item.getQuantity())  * Double.parseDouble(item.getProductPrice()) ;
+                t += Integer.parseInt(item.getQuantity())  * Long.parseLong(item.getProductPrice()) ;
             }
         }
         return  t;
@@ -81,7 +81,7 @@ public class CartDTO extends  AbstractDTO<CartDTO>{
                 int productId = Integer.parseInt(n[1]);
                 Integer quantity = Integer.parseInt(n[2]) ;
                 ProductDTO productDTO = getProductById(productId,list);
-                CartItemDTO cartItemDTO = new CartItemDTO(quantity,productDTO.getName(),productDTO.getPrice(),productId,productDTO.getImgUrl(),userName,productDTO.getStock());
+                CartItemDTO cartItemDTO = new CartItemDTO(quantity,productDTO.getName(),productDTO.getPrice() ,productId,productDTO.getImgUrl(),userName,productDTO.getStock());
                 addItem(cartItemDTO);
             }
         }

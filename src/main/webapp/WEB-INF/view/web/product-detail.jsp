@@ -212,8 +212,9 @@
                                 </div>
                             </div>
                              <c:if test="${model.stock > 0}">
-                            <form action="<c:url value='/cart/add?productId=${model.id}'/>" method="get" id ="AddToCartForm">
+                            <form action="<c:url value='/cart/add'/>" method="get" id ="AddToCartForm">
                                 <input type="hidden" name = "quantity" id="quantity-hidden" value="1">
+                                  <input type="hidden" name = "productId"  value="${model.id}">
                             <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
                                 Cart</button>
                             </form>

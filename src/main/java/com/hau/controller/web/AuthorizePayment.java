@@ -69,7 +69,6 @@ public class AuthorizePayment {
     @PostMapping("/execute_payment")
     public ModelAndView ExecutePayment (@RequestParam("paymentId") String paymentId,
                                         @RequestParam("PayerID") String payerId,
-                                        @RequestParam(value = "VoucherCode",required = false) String voucherCode,
                                         @AuthenticationPrincipal Authentication authentication,
                                         HttpServletRequest request,
                                         HttpServletResponse response){
@@ -109,7 +108,12 @@ public class AuthorizePayment {
             else {
                 billDTO.setUsername(null);
             }
-            billDTO.setSubtotal(Double.parseDouble(amount.getDetails().getSubtotal()));
+
+            long subtotal =  Math.round (Double.parseDouble(amount.getDetails().getSubtotal())) * 24000;
+            long total = Math.round (Double.parseDouble(amount.getTotal())) * 24000;
+
+
+            billDTO.setSubtotal(subtotal);
             List<CartItemDTO> cartItemDTOS = new ArrayList<>();
             for(Item item : transaction.getItemList().getItems()){
                CartItemDTO cartItemDTO = new CartItemDTO();
@@ -121,7 +125,7 @@ public class AuthorizePayment {
                cartItemDTOS.add(cartItemDTO);
             }
             billDTO.setPaymentMethod(SystemConstant.PAYMENT_METHOD_PAYPAL);
-            billDTO.setTotal(Double.parseDouble(amount.getTotal()));
+            billDTO.setTotal(total);
             billDTO.setCartItemDTOS(cartItemDTOS);
             billService.save(billDTO);
 

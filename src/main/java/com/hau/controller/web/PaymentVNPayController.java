@@ -55,7 +55,7 @@ public class PaymentVNPayController {
 
        // long amount = Integer.parseInt(req.getParameter("amount"))*100;
       //  String bankCode = req.getParameter("bankCode");
-        Double total = billDTO.getTotal() * 1000000;
+        Double total = billDTO.getTotal() * 100;
         long amount = total.longValue();
         String vnp_TxnRef = VNPayConfig.getRandomNumber(8);
        // String vnp_IpAddr = VNPayConfig.getIpAddress(req);

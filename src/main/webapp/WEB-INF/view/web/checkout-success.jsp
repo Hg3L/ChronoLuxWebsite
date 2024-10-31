@@ -43,8 +43,8 @@
                     <i class="fas fa-check-circle"></i>
                 </div>
                 <!-- Thông báo thanh toán thành công -->
-                <h3 class="mt-3 text-success">Thanh toán thành công!</h3>
-                <p class="text-muted">Cảm ơn bạn đã mua hàng. Đơn hàng của bạn đã được xử lý thành công.</p>
+                <h3 class="mt-3 text-success">Đặt hàng thành công!</h3>
+                <p class="text-muted">Cảm ơn bạn đã mua hàng. Đơn hàng của bạn đã được tiếp nhận để xử lý.</p>
                 <a href="<c:url value='/home'/>" class="btn btn-primary mt-3">Quay lại trang chủ</a>
             </div>
         </div>
