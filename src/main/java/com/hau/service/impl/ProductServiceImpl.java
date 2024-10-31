@@ -188,4 +188,16 @@ public class ProductServiceImpl implements ProductService {
         productRepository.delete(id);
     }
 
+    @Override
+    public List<ProductDTO> findAllByIdBrandNotPage(Long id) {
+        List<ProductEntity> productEntities = null;
+        List<ProductDTO> products = new ArrayList<>();
+        productEntities = productRepository.findAllByIdBrandNotPage(id);
+        for(ProductEntity productEntity : productEntities){
+            ProductDTO product = productConverter.toDTO(productEntity);
+            products.add(product);
+        }
+        return products;
+    }
+
 }

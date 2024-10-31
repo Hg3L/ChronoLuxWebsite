@@ -19,8 +19,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
 @Service
 public class CartItemServiceImpl implements CartItemService {
     @Autowired
@@ -105,6 +105,18 @@ public class CartItemServiceImpl implements CartItemService {
         ProductEntity productEntity = productRepository.findOne(productId);
         CartItemEntity cartItemEntity = cartItemRepository.findOneByUserAndProduct(userEntity,productEntity);
         cartItemRepository.delete(cartItemEntity);
+    }
+
+    @Override
+    public Map<String, Integer> findTotalQuantityPerProduct() {
+        List<Object[]> results = cartItemRepository.findTotalQuantityPerProduct();
+        Map<String, Integer> totalQuantityMap = new LinkedHashMap<>();
+        for (Object[] result : results) {
+            ProductEntity product = (ProductEntity) result[0];
+            Integer quantityTotal = ((Number) result[1]).intValue();
+            totalQuantityMap.put(product.getName(), quantityTotal);
+        }
+        return totalQuantityMap;
     }
 
 }

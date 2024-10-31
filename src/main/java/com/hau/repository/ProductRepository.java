@@ -70,7 +70,11 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
                                          @Param("minPrice") Long minPrice,
                                          @Param("maxPrice") Long maxPrice,
                                          Pageable pageable);
-
+    
+    @Query("SELECT p FROM ProductEntity p " +
+            "INNER JOIN p.productLine pl " +
+            "WHERE pl.brand.id = :brandId ")
+    List<ProductEntity> findAllByIdBrandNotPage(@Param("brandId") Long brandId);
 
     @Query("SELECT COUNT(p) FROM ProductEntity p " +
             "WHERE p.productLine.id = :productLineId " +

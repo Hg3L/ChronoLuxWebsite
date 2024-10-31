@@ -1,6 +1,7 @@
 package com.hau.controller.admin;
 
 import com.hau.service.BillService;
+import com.hau.service.CartItemService;
 import com.hau.service.CurrencyFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,8 @@ public class HomeController {
     private BillService billService;
     @Autowired
     private CurrencyFormat currencyFormat;
+    @Autowired
+    private CartItemService cartItemService;
 
     @RequestMapping("/admin/home")
     public String showDashboard(Model model) {
@@ -31,6 +34,7 @@ public class HomeController {
         model.addAttribute("currentYear", currentYear);
         model.addAttribute("totalOfPaidBills", currencyFormat.formatCurrency(billService.getTotalOfPaidBills()));
         model.addAttribute("totalOfSuccessfulBillsInMonth", currencyFormat.formatCurrency(billService.getTotalOfSuccessfulBillsInMonth(currentMonth, currentYear)));
+        model.addAttribute("top5", cartItemService.findTotalQuantityPerProduct());
         return "admin/home";
     }
 
@@ -44,4 +48,10 @@ public class HomeController {
         return ResponseEntity.ok(total != null ? total : 0.0);
     }
 
+    @GetMapping("/admin/total-quantity")
+    @ResponseBody
+    public ResponseEntity<Map<String, Integer>> getTotalQuantityPerProduct() {
+        Map<String, Integer> totalQuantityPerProduct = cartItemService.findTotalQuantityPerProduct();
+        return ResponseEntity.ok(totalQuantityPerProduct);
+    }
 }

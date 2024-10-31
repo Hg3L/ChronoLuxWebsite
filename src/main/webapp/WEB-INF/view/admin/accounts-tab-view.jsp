@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <head>
     <title>ChronoLux - Accounts Information</title>
     <!-- Custom fonts for this template-->
@@ -107,7 +108,14 @@
                             <c:forEach var="account" items="${userAccountPage.content}">
                                 <tr>
                                     <td>
-                                        <img src="<c:url value="/template/web/img/user-logos/${account.imgUrl}"/>" alt="Logo" style="max-width:50px; border-radius: 50%;"/>
+                                        <c:choose>
+                                            <c:when test="${fn:startsWith(account.imgUrl, 'http')}">
+                                                <img src="${account.imgUrl}" alt="Logo" style="max-width:50px; border-radius: 50%;"/>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img src="<c:url value='/template/web/img/user-logos/${account.imgUrl}'/>" alt="Logo" style="max-width:50px; border-radius: 50%;"/>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </td>
                                     <td>${account.userName}</td>
                                     <td>${account.fullName}</td>
