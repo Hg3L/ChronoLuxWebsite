@@ -7,6 +7,8 @@ import com.hau.service.ProductService;
 import com.hau.service.ProductLineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,8 +34,12 @@ public class ProductController {
 
     @GetMapping(value = "/product-detail")
     public String productDetailPage(Model model,@RequestParam("id") long id) {
+
         ProductDTO product = productService.findOneById(id);
+
         model.addAttribute("model",product);
+
+        model.addAttribute("productByBrands",productService.findAllByIdBrandNotPage( product.getBrandId()));
         return "web/product-detail";
     }
 

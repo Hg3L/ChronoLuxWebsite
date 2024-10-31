@@ -30,14 +30,14 @@
     <script src="<c:url value='/template/web/lib/easing/easing.min.js'/>"></script>
 
     <script src="<c:url value='/template/web/lib/owlcarousel/owl.carousel.min.js'/>"></script>
-
+    <script src="<c:url value='/template/web/js/main.js'/>"></script>
     <!-- Contact Javascript File -->
     <script src="<c:url value='/template/web/mail/jqBootstrapValidation.min.js'/>"></script>
 
     <script src="<c:url value='/template/web/mail/contact.js'/>"></script>
 
     <!-- Template Javascript -->
-    <script src="<c:url value='/template/web/js/main.js'/>"></script>
+
 
 </body>
 </html>

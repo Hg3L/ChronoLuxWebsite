@@ -25,6 +25,7 @@ public interface ProductService {
     Page<ProductDTO> findAll(int page, int limit);
     void save(ProductDTO productDTO);
     void delete(long id);
+    List<ProductDTO> findAllByIdBrandNotPage(Long id);
     // admin
 
 }
