@@ -118,7 +118,7 @@
 							<div class="g-recaptcha" data-sitekey="6LcvolUqAAAAAHsPdMaMhrNDeg_HE-FuNR4XO95n"></div>
 						</div>
 						<div class="form-group">
-							<button type="submit" class="form-control btn btn-primary" style="width: 100%;">Sign In</button>
+							<button type="submit" class="form-control btn btn-primary" style="width: 100%;">Đăng Nhập</button>
 						</div>
 						<div class="form-group d-flex justify-content-between mt-3">
 							<div class="form-check">
