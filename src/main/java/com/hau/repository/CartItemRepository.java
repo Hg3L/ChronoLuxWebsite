@@ -14,4 +14,11 @@ public interface CartItemRepository extends JpaRepository<CartItemEntity,Long> {
     List<CartItemEntity> findAllByUser(UserEntity user);
     CartItemEntity findOneByUserAndProduct(UserEntity user, ProductEntity productEntity);
     Page<CartItemEntity> findByUserId(Pageable pageable, Long userId);
+
+    @Query("SELECT c.product AS product, SUM(c.quantity) AS quantityTotal " +
+            "FROM CartItemEntity c " +
+            "GROUP BY c.product " +
+            "ORDER BY quantityTotal DESC")
+    List<Object[]> findTotalQuantityPerProduct();
+
 }

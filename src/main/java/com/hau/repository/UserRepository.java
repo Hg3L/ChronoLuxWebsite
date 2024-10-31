@@ -31,13 +31,4 @@ public interface UserRepository extends JpaRepository<UserEntity,Long> {
 
     @Query("SELECT u FROM UserEntity u JOIN u.roles r WHERE r.code = 'ROLE_USER' OR r.code = 'ROLE_USER_FACEBOOK' OR r.code = 'ROLE_USER_GOOGLE' ")
     Page<UserEntity> findAllUserAccounts(Pageable pageable);
-
-    @Modifying
-    @Query("UPDATE UserEntity u SET u.status = 0 WHERE u.id = :id")
-    void lockUserAccounts(Long id);
-
-    @Modifying
-    @Query("UPDATE UserEntity u SET u.status = 1 WHERE u.id = :id")
-    void unlockUserAccounts(Long id);
-
 }
