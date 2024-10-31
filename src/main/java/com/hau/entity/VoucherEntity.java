@@ -14,7 +14,7 @@ public class VoucherEntity extends BaseEntity {
     @Column(name = "code")
     private String code;
     @Column(name = "discount")
-    private double discount;
+    private long discount;
     @Column(name = "begin_day")
     private Date beginDay;
     @Column(name = "end_day")
@@ -29,11 +29,11 @@ public class VoucherEntity extends BaseEntity {
         this.code = code;
     }
 
-    public double getDiscount() {
+    public long getDiscount() {
         return discount;
     }
 
-    public void setDiscount(double discount) {
+    public void setDiscount(long discount) {
         this.discount = discount;
     }
 
