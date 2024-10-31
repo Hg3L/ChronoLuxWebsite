@@ -4,6 +4,7 @@ import com.hau.dto.CorporationDTO;
 import com.hau.service.CorporationService;
 import com.hau.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,5 +46,10 @@ public class CorporationController {
         }
         corporationService.saveCorporation(corporationDTO);
         return "redirect:/admin/corporation";
+    }
+
+    @GetMapping("/coporation")
+    public ResponseEntity<CorporationDTO> GetCoporation(){
+        return ResponseEntity.ok(corporationService.getAllCorporationInformation());
     }
 }

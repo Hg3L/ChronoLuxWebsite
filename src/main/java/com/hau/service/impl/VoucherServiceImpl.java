@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -24,8 +25,9 @@ public class VoucherServiceImpl implements VoucherService {
     public VoucherDTO findOneByCode(String code) {
         VoucherDTO voucherDTO = null;
         if (code != null && !code.isEmpty()) {
-            if (voucherRepository.findOneByCode(code) != null) {
-                return voucherConverter.convertToDTO(voucherRepository.findOneByCode(code));
+            Date now = new Date();
+            if (voucherRepository.findOneByCodeAndValidVoucher(code, now) != null) {
+                return voucherConverter.convertToDTO(voucherRepository.findOneByCodeAndValidVoucher(code,now));
             }
         }
         return null;
