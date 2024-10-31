@@ -13,12 +13,11 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"> <!-- Font Awesome CSS -->
 	<style>
 		body {
+			background-color: #2e2f37;
 			background-size: cover;
 			background-position: center;
 			background-repeat: no-repeat;
 		}
-
-
 		.overlay {
 			position: fixed;
 			top: 0;
@@ -66,11 +65,12 @@
 </header>
 
 <div class="container">
-	<div class="row py-5 mt-4 align-items-center">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"> <!-- Font Awesome CSS -->
+	<div class="row py-5 mt-4 align-items-center border rounded-5 p-3 bg-light shadow box-area">
 		<!-- Left Column -->
-		<div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
+		<div class="col-md-5 mb-5 mb-md-0 d-flex flex-column justify-content-center align-items-center ml-5">
 			<h1>Tạo Tài Khoản ChronoLux</h1>
-			<p class="font-italic text-muted mb-0">Trở thành ChronoMember để nhận nhiều ưu đãi hấp dẫn</p>
+			<p class="font-italic text-muted">Trở thành ChronoMember để nhận nhiều ưu đãi hấp dẫn</p>
 		</div>
 
 		<!-- Registration Form -->
@@ -81,7 +81,7 @@
 					<div class="input-group col-lg-6 mb-4">
 						<div class="input-group-prepend">
                                 <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                    <i class="fa-regular fa-user text-primary"></i>
+                                    <i class="fa-regular fa-user text-muted"></i>
                                 </span>
 						</div>
 						<input id="firstName" type="text" name="firstname" placeholder="First Name" class="form-control bg-white border-left-0 border-md" required>
@@ -91,7 +91,7 @@
 					<div class="input-group col-lg-6 mb-4">
 						<div class="input-group-prepend">
                                 <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                    <i class="fa fa-user text-primary"></i>
+                                    <i class="fa fa-user text-muted"></i>
                                 </span>
 						</div>
 						<input id="lastName" type="text" name="lastname" placeholder="Last Name" class="form-control bg-white border-left-0 border-md" required>
@@ -129,34 +129,20 @@
 
 					<!-- Avatar Upload -->
 					<div class="input-group col-lg-12 mb-4 align-items-center">
-						<label for="img">Avatar:</label>
+						<label for="img">Avatar: </label>
 						<input class="text form-control" type="file" name="img" id="img" accept="image/*">
 					</div>
 
 					<!-- Google reCAPTCHA -->
-					<div class="form-group mb-3 d-flex justify-content-center">
-						<div class="g-recaptcha mb-4" data-sitekey="6LcvolUqAAAAAHsPdMaMhrNDeg_HE-FuNR4XO95n"></div>
-						<script>
-							<c:if test="${param.registerSuccessful != null}">
-							var toastLiveExample = document.getElementById("liveToast");
-							var toast = new bootstrap.Toast(toastLiveExample);
-							toast.show();
-							</c:if>
-
-							window.onload = function() {
-								const form = document.getElementById("formLogin");
-								const error = document.getElementById("error");
-								form.addEventListener("submit", function(event) {
-									event.preventDefault();
-									const response = grecaptcha.getResponse();
-									if (response) {
-										form.submit();
-									} else {
-										error.innerText = "Please complete the CAPTCHA";
-									}
-								});
-							}
-						</script>
+					<div id="error" class="text-danger mb-3 text-center"></div>
+					<c:if test="${param.incorrectAccount != null}">
+						<div class="alert alert-danger text-center">User invalid</div>
+					</c:if>
+					<c:if test="${param.accessDenied != null}">
+						<div class="alert alert-danger text-center">You Not Authorized</div>
+					</c:if>
+					<div class="captcha col-lg-8 mb-4 align-items-center">
+						<div class="g-recaptcha" data-sitekey="6LcvolUqAAAAAHsPdMaMhrNDeg_HE-FuNR4XO95n"></div>
 					</div>
 
 
@@ -176,7 +162,7 @@
 
 					<!-- Social Login -->
 					<div class="form-group col-lg-12 mx-auto">
-						<a href="href=https://www.facebook.com/v19.0/dialog/oauth?scope=email&client_id=1529293951010030&redirect_uri=http://localhost:8080/ChronoLuxWeb/login-facebook&prompt=login" class="btn btn-primary btn-block py-2 btn-facebook">
+						<a href="https://www.facebook.com/v19.0/dialog/oauth?scope=email&client_id=1529293951010030&redirect_uri=http://localhost:8080/ChronoLuxWeb/login-facebook&prompt=login" class="btn btn-primary btn-block py-2 btn-facebook">
 							<i class="fab fa-facebook-f mr-2"></i>
 							<span class="font-weight-bold">Continue with Facebook</span>
 						</a>
