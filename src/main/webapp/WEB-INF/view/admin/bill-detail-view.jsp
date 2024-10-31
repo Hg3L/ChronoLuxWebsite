@@ -43,26 +43,27 @@
             <table class="table table-sm mt-1">
                 <thead>
                 <tr>
-                    <th scope="col">Hình ảnh</th>
-                    <th scope="col">Tên sản phẩm</th>
-                    <th scope="col">Số lượng</th>
-                    <th scope="col">Đơn giá</th>
-                    <th scope="col">Tổng tiền</th>
+                    <th scope="col">Hình ảnh sản phẩm</th>
+                    <th scope="col" style="text-align: right;">Tên sản phẩm</th>
+                    <th scope="col" style="text-align: right;">Số lượng</th>
+                    <th scope="col" style="text-align: right;">Đơn giá</th>
+                    <th scope="col" style="text-align: right;">Tổng tiền</th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach var="item" items="${billDTO.cartItemDTOS}">
                     <tr>
                         <td><img src="${pageContext.request.contextPath}/template/web/img/products/${item.productImgUrl}" alt="${item.productName}" width="80"></td>
-                        <td>${item.productName}</td>
-                        <td>${item.quantity}</td>
-                        <td><span class="currency">${item.productPrice}</span></td>
-                        <td><span class="currency">${item.total}</span></td>
+                        <td style="text-align: right;">${item.productName}</td>
+                        <td style="text-align: right;">${item.quantity}</td>
+                        <td style="text-align: right;"><span class="currency">${item.productPrice}</span></td>
+                        <td style="text-align: right;"><span class="currency">${item.total}</span></td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
-            <hr>
+
+            <hr style="height: 3px; background-color: #333; border: none;">
             <div class="row">
                 <div class="col-md-6"><strong>Tạm tính:</strong></div>
                 <div class="col-md-6 text-right"><span class="currency">${billDTO.subtotal}</span></div>
@@ -72,8 +73,8 @@
                 <div class="col-md-6 text-right"><span class="currency">${billDTO.discount}</span></div>
             </div>
             <div class="row">
-                <div class="col-md-6"><strong>Tổng cộng:</strong></div>
-                <div class="col-md-6 text-right font-weight-bold"><span class="currency">${billDTO.total}</span></div>
+                <div class="col-md-6" style="font-size: 20px;"><strong>Tổng cộng:</strong></div>
+                <div class="col-md-6 text-right font-weight-bold" ><span class="currency" style="font-size: 20px;">${billDTO.total}</span></div>
             </div>
         </div>
     </div>
