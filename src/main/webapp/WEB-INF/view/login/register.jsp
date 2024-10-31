@@ -60,7 +60,7 @@
 	<nav class="navbar navbar-expand-lg navbar-light py-3">
 		<div class="container">
 			<a href="#" class="navbar-brand">
-				<img src="https://bootstrapious.com/i/snippets/sn-registeration/logo.svg" alt="logo" width="150">
+				<img src="${pageContext.request.contextPath}/template/web/img/Logo.svg" alt="ChronoLux Logo">
 			</a>
 		</div>
 	</nav>
