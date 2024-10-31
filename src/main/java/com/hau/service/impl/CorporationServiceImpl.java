@@ -26,12 +26,11 @@ public class CorporationServiceImpl implements CorporationService {
     @Override
     public CorporationDTO getAllCorporationInformation() {
        List<CorporationEntity> list = corporationRepository.findAll();
-        System.out.println("size: " + list.size());
 
         if (list.isEmpty()) {
             return new CorporationDTO();
         }
-        System.out.println("id: " + list.getFirst().getId());
+
         return converter.convertToDTO(list.getFirst());
     }
 
