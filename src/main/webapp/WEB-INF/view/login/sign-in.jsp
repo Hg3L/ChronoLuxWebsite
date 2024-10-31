@@ -17,7 +17,7 @@
 		}
 
 		.ftco-section {
-			min-height: 100vh;
+			min-height: 80vh;
 			display: flex;
 			align-items: center;
 			background-image: url('<c:url value="/src/main/webapp/template/login/img/bg-1.jpg"/>');
@@ -70,6 +70,15 @@
 </head>
 
 <body>
+<header class="header">
+	<nav class="navbar navbar-expand-lg navbar-light py-2">
+		<div class="container">
+			<a href="<c:url value='/home'/>" class="navbar-brand">
+				<img src="${pageContext.request.contextPath}/template/web/img/Logo.svg" alt="ChronoLux Logo">
+			</a>
+		</div>
+	</nav>
+</header>
 <section class="ftco-section">
 	<div class="container">
 		<div class="row justify-content-center">
