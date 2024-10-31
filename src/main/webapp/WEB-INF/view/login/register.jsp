@@ -78,108 +78,131 @@
 			<form id="registrationForm" enctype="multipart/form-data">
 				<div class="row">
 					<!-- First Name -->
-					<div class="input-group col-lg-6 mb-4">
-						<div class="input-group-prepend">
-                                <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                    <i class="fa-regular fa-user text-muted"></i>
-                                </span>
+					<form:form method="post" id="formSubmit"  action="${pageContext.request.contextPath}/login/add" enctype="multipart/form-data" >
+						<input class="text" type="text" name="userName" id="userName" placeholder="Username" required minlength="6" maxlength="20">
+						<span id="usernameFeedback" style="color: red; display: none;"></span>
+						<input class="text email" type="email" name="email" placeholder="Email" required="">
+
+						<input class="text" type="text" name="fullName" placeholder="FullName" required="">
+						<br> </br>
+						<label> Avatar: </label>
+						<input class="text" type="file" name="img" id ="img" accept="image/*"  >
+						<br> </br>
+						<img id = "imgPreview" alt = "Avt Preview"/>
+
+						<br> </br>
+						<input class="text" type="password" name="password" id="password" placeholder="Password" required="" minlength = "6">
+						<input class="text w3lpass" type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="Confirm Password" oninput="checkPasswordMatch(this);" required="" >
+						<div class="wthree-text">
 						</div>
-						<input id="firstName" type="text" name="firstname" placeholder="First Name" class="form-control bg-white border-left-0 border-md" required>
-					</div>
-
-					<!-- Last Name -->
-					<div class="input-group col-lg-6 mb-4">
-						<div class="input-group-prepend">
-                                <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                    <i class="fa fa-user text-muted"></i>
-                                </span>
-						</div>
-						<input id="lastName" type="text" name="lastname" placeholder="Last Name" class="form-control bg-white border-left-0 border-md" required>
-					</div>
-
-					<!-- Email Address -->
-					<div class="input-group col-lg-12 mb-4">
-						<div class="input-group-prepend">
-                                <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                    <i class="fa-regular fa-envelope"></i>
-                                </span>
-						</div>
-						<input id="email" type="email" name="email" placeholder="Email Address" class="form-control bg-white border-left-0 border-md" required>
-					</div>
-
-					<!-- Password -->
-					<div class="input-group col-lg-6 mb-4">
-						<div class="input-group-prepend">
-                                <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                    <i class="fa fa-lock text-muted"></i>
-                                </span>
-						</div>
-						<input id="password" type="password" name="password" placeholder="Password" class="form-control bg-white border-left-0 border-md" required minlength="6">
-					</div>
-
-					<!-- Password Confirmation -->
-					<div class="input-group col-lg-6 mb-4">
-						<div class="input-group-prepend">
-                                <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                    <i class="fa fa-lock text-muted"></i>
-                                </span>
-						</div>
-						<input id="passwordConfirmation" type="password" name="passwordConfirmation" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md" required oninput="checkPasswordMatch(this);">
-					</div>
-
-					<!-- Avatar Upload -->
-					<div class="input-group col-lg-12 mb-4 align-items-center">
-						<label for="img">Avatar: </label>
-						<input class="text form-control" type="file" name="img" id="img" accept="image/*">
-					</div>
-
-					<!-- Google reCAPTCHA -->
-					<div id="error" class="text-danger mb-3 text-center"></div>
-					<c:if test="${param.incorrectAccount != null}">
-						<div class="alert alert-danger text-center">User invalid</div>
-					</c:if>
-					<c:if test="${param.accessDenied != null}">
-						<div class="alert alert-danger text-center">You Not Authorized</div>
-					</c:if>
-					<div class="captcha col-lg-8 mb-4 align-items-center">
 						<div class="g-recaptcha" data-sitekey="6LcvolUqAAAAAHsPdMaMhrNDeg_HE-FuNR4XO95n"></div>
-					</div>
-
-
-					<!-- Submit Button -->
-					<div class="form-group col-lg-12 mx-auto mb-0">
-						<button type="submit" class="btn btn-primary btn-block py-2">
-							<span class="font-weight-bold">Create your account</span>
+						<div id ="error"> </div>
+						<button type="submit" class="btn btn-success btn-sm">
+							Sign Up
 						</button>
-					</div>
+					</form:form>
+<%--					<div class="input-group col-lg-6 mb-4">--%>
+<%--						<div class="input-group-prepend">--%>
+<%--                                <span class="input-group-text bg-white px-4 border-md border-right-0">--%>
+<%--                                    <i class="fa-regular fa-user text-muted"></i>--%>
+<%--                                </span>--%>
+<%--						</div>--%>
+<%--						<input id="firstName" type="text" name="firstname" placeholder="First Name" class="form-control bg-white border-left-0 border-md" required>--%>
+<%--					</div>--%>
 
-					<!-- Divider Text -->
-					<div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
-						<div class="border-bottom w-100 ml-5"></div>
-						<span class="px-2 small text-muted font-weight-bold text-muted">OR</span>
-						<div class="border-bottom w-100 mr-5"></div>
-					</div>
+<%--					<!-- Last Name -->--%>
+<%--					<div class="input-group col-lg-6 mb-4">--%>
+<%--						<div class="input-group-prepend">--%>
+<%--                                <span class="input-group-text bg-white px-4 border-md border-right-0">--%>
+<%--                                    <i class="fa fa-user text-muted"></i>--%>
+<%--                                </span>--%>
+<%--						</div>--%>
+<%--						<input id="lastName" type="text" name="lastname" placeholder="Last Name" class="form-control bg-white border-left-0 border-md" required>--%>
+<%--					</div>--%>
 
-					<!-- Social Login -->
-					<div class="form-group col-lg-12 mx-auto">
-						<a href="https://www.facebook.com/v19.0/dialog/oauth?scope=email&client_id=1529293951010030&redirect_uri=http://localhost:8080/ChronoLuxWeb/login-facebook&prompt=login" class="btn btn-primary btn-block py-2 btn-facebook">
-							<i class="fab fa-facebook-f mr-2"></i>
-							<span class="font-weight-bold">Continue with Facebook</span>
-						</a>
-						<a href="https://accounts.google.com/o/oauth2/auth?scope=profile%20email&redirect_uri=http://localhost:8080/ChronoLuxWeb/login-google&response_type=code&client_id=236344479421-3djectr8kffvuu3ec4o7ceges5jv2jld.apps.googleusercontent.com&approval_prompt=force" class="btn btn-primary btn-block py-2 btn-twitter">
-							<i class="fab fa-twitter mr-2"></i>
-							<span class="font-weight-bold">Continue with Gmail</span>
-						</a>
-					</div>
+<%--					<!-- Email Address -->--%>
+<%--					<div class="input-group col-lg-12 mb-4">--%>
+<%--						<div class="input-group-prepend">--%>
+<%--                                <span class="input-group-text bg-white px-4 border-md border-right-0">--%>
+<%--                                    <i class="fa-regular fa-envelope"></i>--%>
+<%--                                </span>--%>
+<%--						</div>--%>
+<%--						<input id="email" type="email" name="email" placeholder="Email Address" class="form-control bg-white border-left-0 border-md" required>--%>
+<%--					</div>--%>
 
-					<!-- Already Registered -->
-					<div class="text-center w-100">
-						<p class="text-muted font-weight-bold">Already Registered? <a href="<c:url value ='/login'/>" class="text-primary ml-2">Login</a></p>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
+<%--					<!-- Password -->--%>
+<%--					<div class="input-group col-lg-6 mb-4">--%>
+<%--						<div class="input-group-prepend">--%>
+<%--                                <span class="input-group-text bg-white px-4 border-md border-right-0">--%>
+<%--                                    <i class="fa fa-lock text-muted"></i>--%>
+<%--                                </span>--%>
+<%--						</div>--%>
+<%--						<input id="password" type="password" name="password" placeholder="Password" class="form-control bg-white border-left-0 border-md" required minlength="6">--%>
+<%--					</div>--%>
+
+<%--					<!-- Password Confirmation -->--%>
+<%--					<div class="input-group col-lg-6 mb-4">--%>
+<%--						<div class="input-group-prepend">--%>
+<%--                                <span class="input-group-text bg-white px-4 border-md border-right-0">--%>
+<%--                                    <i class="fa fa-lock text-muted"></i>--%>
+<%--                                </span>--%>
+<%--						</div>--%>
+<%--						<input id="passwordConfirmation" type="password" name="passwordConfirmation" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md" required oninput="checkPasswordMatch(this);">--%>
+<%--					</div>--%>
+
+<%--					<!-- Avatar Upload -->--%>
+<%--					<div class="input-group col-lg-12 mb-4 align-items-center">--%>
+<%--						<label for="img">Avatar: </label>--%>
+<%--						<input class="text form-control" type="file" name="img" id="img" accept="image/*">--%>
+<%--					</div>--%>
+
+<%--					<!-- Google reCAPTCHA -->--%>
+<%--					<div id="error" class="text-danger mb-3 text-center"></div>--%>
+<%--					<c:if test="${param.incorrectAccount != null}">--%>
+<%--						<div class="alert alert-danger text-center">User invalid</div>--%>
+<%--					</c:if>--%>
+<%--					<c:if test="${param.accessDenied != null}">--%>
+<%--						<div class="alert alert-danger text-center">You Not Authorized</div>--%>
+<%--					</c:if>--%>
+<%--					<div class="captcha col-lg-8 mb-4 align-items-center">--%>
+<%--						<div class="g-recaptcha" data-sitekey="6LcvolUqAAAAAHsPdMaMhrNDeg_HE-FuNR4XO95n"></div>--%>
+<%--					</div>--%>
+
+
+<%--					<!-- Submit Button -->--%>
+<%--					<div class="form-group col-lg-12 mx-auto mb-0">--%>
+<%--						<button type="submit" class="btn btn-primary btn-block py-2">--%>
+<%--							<span class="font-weight-bold">Create your account</span>--%>
+<%--						</button>--%>
+<%--					</div>--%>
+
+<%--					<!-- Divider Text -->--%>
+<%--					<div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">--%>
+<%--						<div class="border-bottom w-100 ml-5"></div>--%>
+<%--						<span class="px-2 small text-muted font-weight-bold text-muted">OR</span>--%>
+<%--						<div class="border-bottom w-100 mr-5"></div>--%>
+<%--					</div>--%>
+
+<%--					<!-- Social Login -->--%>
+<%--					<div class="form-group col-lg-12 mx-auto">--%>
+<%--						<a href="https://www.facebook.com/v19.0/dialog/oauth?scope=email&client_id=1529293951010030&redirect_uri=http://localhost:8080/ChronoLuxWeb/login-facebook&prompt=login" class="btn btn-primary btn-block py-2 btn-facebook">--%>
+<%--							<i class="fab fa-facebook-f mr-2"></i>--%>
+<%--							<span class="font-weight-bold">Continue with Facebook</span>--%>
+<%--						</a>--%>
+<%--						<a href="https://accounts.google.com/o/oauth2/auth?scope=profile%20email&redirect_uri=http://localhost:8080/ChronoLuxWeb/login-google&response_type=code&client_id=236344479421-3djectr8kffvuu3ec4o7ceges5jv2jld.apps.googleusercontent.com&approval_prompt=force" class="btn btn-primary btn-block py-2 btn-twitter">--%>
+<%--							<i class="fab fa-twitter mr-2"></i>--%>
+<%--							<span class="font-weight-bold">Continue with Gmail</span>--%>
+<%--						</a>--%>
+<%--					</div>--%>
+
+<%--					<!-- Already Registered -->--%>
+<%--					<div class="text-center w-100">--%>
+<%--						<p class="text-muted font-weight-bold">Already Registered? <a href="<c:url value ='/login'/>" class="text-primary ml-2">Login</a></p>--%>
+<%--					</div>--%>
+<%--				</div>--%>
+<%--			</form>--%>
+<%--		</div>--%>
+<%--	</div>--%>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> <!-- jQuery -->
@@ -187,44 +210,71 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> <!-- Bootstrap JS -->
 <script src='https://www.google.com/recaptcha/api.js'></script> <!-- Google reCAPTCHA API -->
 <script>
-	// Check Password Match
-	function checkPasswordMatch(input) {
-		var password = document.getElementById("password").value;
-		var passwordConfirmation = input.value;
-		if (password !== passwordConfirmation) {
-			input.setCustomValidity("Passwords do not match.");
-		} else {
-			input.setCustomValidity('');
+	$(document).ready(function() {
+		$('#img').on('change', function() {
+			showImage(this);
+		});
+	});
+
+	function checkPasswordMatch(fieldConfirmPassword){
+		if(fieldConfirmPassword.value != $('#password').val()){
+			fieldConfirmPassword.setCustomValidity("Password do not match");
+		}
+		else{
+			fieldConfirmPassword.setCustomValidity("");
 		}
 	}
 
-	// Image Preview
-	document.getElementById("img").addEventListener("change", function (e) {
-		const [file] = e.target.files;
-		if (file) {
-			const imgPreview = document.getElementById("imgPreview");
-			imgPreview.src = URL.createObjectURL(file);
-			imgPreview.style.display = 'block'; // Show the image
+	window.onload = function(){
+		let isValid = false;
+		const form = document.getElementById("formSubmit");
+		const error = document.getElementById("error");
+
+		form.addEventListener("submit",function(event){
+			event.preventDefault();
+			const response = grecaptcha.getResponse();
+			if(response){
+				form.submit();
+			}
+			else{
+				error.innerHTML = "Please Check";
+			}
+
+		});
+	}
+	function showImage(fileInput){
+		file = fileInput.files[0];
+		reader = new FileReader();
+
+		reader.onload = function(e){
+			$('#imgPreview').attr('src',e.target.result);
 		}
-	});
-
-	// Handle Form Submission
-	document.getElementById("registrationForm").addEventListener("submit", function (event) {
-		event.preventDefault(); // Prevent default form submission
-
-		// Validate reCAPTCHA
-		const response = grecaptcha.getResponse();
-		if (response.length === 0) {
-			document.getElementById("error").innerText = "Please complete the reCAPTCHA.";
-			document.getElementById("error").style.display = "block";
-			return;
-		}
-
-		// Here you can handle form submission (e.g., using AJAX)
-		alert("Form submitted successfully!");
-		// Reset the form after submission
-		this.reset();
-		document.getElementById("imgPreview").style.display = 'none'; // Hide the image preview
+		reader.readAsDataURL(file);
+	}
+	$(document).ready(function() {
+		$('#userName').on('blur', function() {
+			const username = $(this).val();
+			const usernameInput = $(this)[0]; // Lấy phần tử DOM của input
+			// Gửi yêu cầu tới server
+			$.ajax({
+				url:  "<c:url value='/check-username'/>" ,
+				method: 'POST',
+				data: { userName: username },
+				success: function(response) {
+					const feedback = $('#usernameFeedback');
+					if (response.exists) {
+						feedback.text('Username đã tồn tại. Vui lòng chọn tên khác.').show();
+						usernameInput.setCustomValidity('Username đã tồn tại.');
+					} else {
+						feedback.hide();
+						usernameInput.setCustomValidity("");
+					}
+				},
+				error: function() {
+					console.error('Lỗi khi kiểm tra tên người dùng.');
+				}
+			});
+		});
 	});
 </script>
 </body>
