@@ -1,10 +1,7 @@
 package com.hau.controller.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hau.dto.CartDTO;
-import com.hau.dto.CartItemDTO;
-import com.hau.dto.ProductDTO;
-import com.hau.dto.UserDTO;
+import com.hau.dto.*;
 import com.hau.service.CartItemService;
 import com.hau.service.ProductService;
 import com.hau.service.UserService;
@@ -82,7 +79,15 @@ public class CartController {
         mav.addObject("error",error);
         mav.addObject("cartItems",cartItemDTOS);
         mav.addObject("totalPrice",cartDTO.getTotalByUser(userDTO));
-        mav.addObject("voucher",voucherService.findOneByCode(code));
+        if(code != null) {
+        VoucherDTO voucherDTO = voucherService.findOneByCode(code);
+            if (voucherDTO != null) {
+                mav.addObject("voucher", voucherDTO);
+            } else {
+                mav.addObject("InvalidVoucher", "Mã giảm giá không tồn tại. Vui lòng thử lại!");
+            }
+        }
+
         return mav;
     }
     @GetMapping("/cart/add")

@@ -31,7 +31,7 @@
 
             <a href="<c:url value='/cart'/>" class="btn border">
                 <i class="fas fa-shopping-cart text-primary"></i>
-                <span class="badge">5</span>
+                <span class="badge" id = "cart">0</span>
             </a>
         </div>
     </div>
@@ -126,8 +126,8 @@
              url: "<c:url value='/cart/total'/>" , // URL của endpoint
              type: 'GET',
              success: function(total) {
-                 // Cập nhật giá trị của <span class="badge">
-                 $('.badge1').text(total.toFixed(0)); // Làm tròn và hiển thị
+
+                 $('#cart').text(total.toFixed(0)); // Làm tròn và hiển thị
              },
              error: function(jqXHR, textStatus, errorThrown) {
                  console.error("Error fetching cart total: ", textStatus, errorThrown);
