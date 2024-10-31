@@ -194,16 +194,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void lockUserAccounts(Long id) {
-        userRepository.lockUserAccounts(id);
-    }
-
-    @Override
-    public void unlockUserAccounts(Long id) {
-        userRepository.unlockUserAccounts(id);
-    }
-
-    @Override
     public boolean usernameExists(String username) {
         UserEntity userEntity = userRepository.findOneByUserName(username);
         return userEntity != null;

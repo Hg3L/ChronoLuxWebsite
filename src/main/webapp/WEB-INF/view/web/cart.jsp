@@ -65,7 +65,7 @@
                                     <c:forEach var="item" items="${cartItems}" varStatus="status">
                                         <tr>
                                             <td class="align-middle"><img
-                                                    src="<c:url value='/template/web/img/user-logos/images.png'/>"
+                                                    src="<c:url value='/template/web/img/products/${item.productImgUrl}'/>"
                                                     alt="" style="width: 50px;">
                                             </td>
                                             <td class="align-middle"> ${item.productName} </td>
@@ -146,6 +146,10 @@
                                     <div class="input-group-append">
                                         <button class="btn btn-primary">Apply Coupon</button>
                                     </div>
+                                    <div id="coupon-error" class="text-danger mt-2" >
+                                            ${InvalidVoucher}
+                                    </div>
+
                                 </div>
                             </form>
                             <div class="card border-secondary mb-5">

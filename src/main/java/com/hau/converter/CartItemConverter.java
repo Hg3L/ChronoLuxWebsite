@@ -18,7 +18,11 @@ public class CartItemConverter implements Converter<CartItemDTO, CartItemEntity>
             cartItemDTO.setCustomerName(entity.getUser().getFullName());
             cartItemDTO.setUserId(entity.getUser().getId());
         }
-
+        if(entity.getBill() != null){
+            cartItemDTO.setBillId(entity.getBill().getId());
+        }
+        cartItemDTO.setCreatedBy(entity.getCreateBy());
+        cartItemDTO.setCreatedDate(entity.getCreateDate());
         cartItemDTO.setProductName(entity.getProduct().getName());
         cartItemDTO.setProductPrice(entity.getProduct().getPrice());
         cartItemDTO.setQuantity(entity.getQuantity());
