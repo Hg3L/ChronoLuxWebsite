@@ -70,7 +70,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6"><strong>Voucher:</strong></div>
-                <div class="col-md-6 text-right"><span class="currency">${billDTO.voucherCode}</span></div>
+                <div class="col-md-6 text-right"><span>${billDTO.voucherCode}</span></div>
             </div>
             <div class="row">
                 <div class="col-md-6"><strong>Giảm giá:</strong></div>
