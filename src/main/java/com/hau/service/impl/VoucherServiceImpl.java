@@ -22,11 +22,15 @@ public class VoucherServiceImpl implements VoucherService {
     private VoucherConverter voucherConverter;
     @Override
     public VoucherDTO findOneByCode(String code) {
-        if(code != null && !code.isEmpty()){
-            return voucherConverter.convertToDTO(voucherRepository.findOneByCode(code));
+        VoucherDTO voucherDTO = null;
+        if (code != null && !code.isEmpty()) {
+            if (voucherRepository.findOneByCode(code) != null) {
+                return voucherConverter.convertToDTO(voucherRepository.findOneByCode(code));
+            }
         }
-        else return null;
+        return null;
     }
+
 
     @Override
     public Page<VoucherDTO> findValidVouchers(int validVoucherPage, int limit) {
