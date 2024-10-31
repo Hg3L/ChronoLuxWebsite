@@ -1,9 +1,11 @@
-<!DOCTYPE html>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="/common/taglib.jsp" %>
+<c:url var="loginURL" value="/login"/>
+<c:url var="registerURL" value="/login/register"/>
+<c:url var="APIurl" value="/api/user"/>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,7 +31,7 @@
 		}
 
 		h1 {
-			font-size: 2.5rem; /* Increase title size */
+			font-size: 3rem; /* Increase title size */
 			color: white;
 		}
 
@@ -57,7 +59,7 @@
 <header class="header">
 	<nav class="navbar navbar-expand-lg navbar-light py-3">
 		<div class="container">
-			<a href="#" class="navbar-brand">
+			<a href="<c:url value='/home'/>" class="navbar-brand">
 				<img src="${pageContext.request.contextPath}/template/web/img/Logo.svg" alt="ChronoLux Logo">
 			</a>
 		</div>
@@ -72,13 +74,12 @@
 			<h1>Tạo Tài Khoản ChronoLux</h1>
 			<p class="font-italic text-muted">Trở thành ChronoMember để nhận nhiều ưu đãi hấp dẫn</p>
 		</div>
-
 		<!-- Registration Form -->
 		<div class="col-md-7 col-lg-6 ml-auto">
-			<form id="registrationForm" enctype="multipart/form-data">
-				<div class="row">
+				<div class="row col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
 					<!-- First Name -->
 					<form:form method="post" id="formSubmit"  action="${pageContext.request.contextPath}/login/add" enctype="multipart/form-data" >
+					<div class="row ml-5 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
 						<input class="text" type="text" name="userName" id="userName" placeholder="Username" required minlength="6" maxlength="20">
 						<span id="usernameFeedback" style="color: red; display: none;"></span>
 						<input class="text email" type="email" name="email" placeholder="Email" required="">
@@ -100,114 +101,13 @@
 						<button type="submit" class="btn btn-success btn-sm">
 							Sign Up
 						</button>
+					</div>
 					</form:form>
-<%--					<div class="input-group col-lg-6 mb-4">--%>
-<%--						<div class="input-group-prepend">--%>
-<%--                                <span class="input-group-text bg-white px-4 border-md border-right-0">--%>
-<%--                                    <i class="fa-regular fa-user text-muted"></i>--%>
-<%--                                </span>--%>
-<%--						</div>--%>
-<%--						<input id="firstName" type="text" name="firstname" placeholder="First Name" class="form-control bg-white border-left-0 border-md" required>--%>
-<%--					</div>--%>
-
-<%--					<!-- Last Name -->--%>
-<%--					<div class="input-group col-lg-6 mb-4">--%>
-<%--						<div class="input-group-prepend">--%>
-<%--                                <span class="input-group-text bg-white px-4 border-md border-right-0">--%>
-<%--                                    <i class="fa fa-user text-muted"></i>--%>
-<%--                                </span>--%>
-<%--						</div>--%>
-<%--						<input id="lastName" type="text" name="lastname" placeholder="Last Name" class="form-control bg-white border-left-0 border-md" required>--%>
-<%--					</div>--%>
-
-<%--					<!-- Email Address -->--%>
-<%--					<div class="input-group col-lg-12 mb-4">--%>
-<%--						<div class="input-group-prepend">--%>
-<%--                                <span class="input-group-text bg-white px-4 border-md border-right-0">--%>
-<%--                                    <i class="fa-regular fa-envelope"></i>--%>
-<%--                                </span>--%>
-<%--						</div>--%>
-<%--						<input id="email" type="email" name="email" placeholder="Email Address" class="form-control bg-white border-left-0 border-md" required>--%>
-<%--					</div>--%>
-
-<%--					<!-- Password -->--%>
-<%--					<div class="input-group col-lg-6 mb-4">--%>
-<%--						<div class="input-group-prepend">--%>
-<%--                                <span class="input-group-text bg-white px-4 border-md border-right-0">--%>
-<%--                                    <i class="fa fa-lock text-muted"></i>--%>
-<%--                                </span>--%>
-<%--						</div>--%>
-<%--						<input id="password" type="password" name="password" placeholder="Password" class="form-control bg-white border-left-0 border-md" required minlength="6">--%>
-<%--					</div>--%>
-
-<%--					<!-- Password Confirmation -->--%>
-<%--					<div class="input-group col-lg-6 mb-4">--%>
-<%--						<div class="input-group-prepend">--%>
-<%--                                <span class="input-group-text bg-white px-4 border-md border-right-0">--%>
-<%--                                    <i class="fa fa-lock text-muted"></i>--%>
-<%--                                </span>--%>
-<%--						</div>--%>
-<%--						<input id="passwordConfirmation" type="password" name="passwordConfirmation" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md" required oninput="checkPasswordMatch(this);">--%>
-<%--					</div>--%>
-
-<%--					<!-- Avatar Upload -->--%>
-<%--					<div class="input-group col-lg-12 mb-4 align-items-center">--%>
-<%--						<label for="img">Avatar: </label>--%>
-<%--						<input class="text form-control" type="file" name="img" id="img" accept="image/*">--%>
-<%--					</div>--%>
-
-<%--					<!-- Google reCAPTCHA -->--%>
-<%--					<div id="error" class="text-danger mb-3 text-center"></div>--%>
-<%--					<c:if test="${param.incorrectAccount != null}">--%>
-<%--						<div class="alert alert-danger text-center">User invalid</div>--%>
-<%--					</c:if>--%>
-<%--					<c:if test="${param.accessDenied != null}">--%>
-<%--						<div class="alert alert-danger text-center">You Not Authorized</div>--%>
-<%--					</c:if>--%>
-<%--					<div class="captcha col-lg-8 mb-4 align-items-center">--%>
-<%--						<div class="g-recaptcha" data-sitekey="6LcvolUqAAAAAHsPdMaMhrNDeg_HE-FuNR4XO95n"></div>--%>
-<%--					</div>--%>
-
-
-<%--					<!-- Submit Button -->--%>
-<%--					<div class="form-group col-lg-12 mx-auto mb-0">--%>
-<%--						<button type="submit" class="btn btn-primary btn-block py-2">--%>
-<%--							<span class="font-weight-bold">Create your account</span>--%>
-<%--						</button>--%>
-<%--					</div>--%>
-
-<%--					<!-- Divider Text -->--%>
-<%--					<div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">--%>
-<%--						<div class="border-bottom w-100 ml-5"></div>--%>
-<%--						<span class="px-2 small text-muted font-weight-bold text-muted">OR</span>--%>
-<%--						<div class="border-bottom w-100 mr-5"></div>--%>
-<%--					</div>--%>
-
-<%--					<!-- Social Login -->--%>
-<%--					<div class="form-group col-lg-12 mx-auto">--%>
-<%--						<a href="https://www.facebook.com/v19.0/dialog/oauth?scope=email&client_id=1529293951010030&redirect_uri=http://localhost:8080/ChronoLuxWeb/login-facebook&prompt=login" class="btn btn-primary btn-block py-2 btn-facebook">--%>
-<%--							<i class="fab fa-facebook-f mr-2"></i>--%>
-<%--							<span class="font-weight-bold">Continue with Facebook</span>--%>
-<%--						</a>--%>
-<%--						<a href="https://accounts.google.com/o/oauth2/auth?scope=profile%20email&redirect_uri=http://localhost:8080/ChronoLuxWeb/login-google&response_type=code&client_id=236344479421-3djectr8kffvuu3ec4o7ceges5jv2jld.apps.googleusercontent.com&approval_prompt=force" class="btn btn-primary btn-block py-2 btn-twitter">--%>
-<%--							<i class="fab fa-twitter mr-2"></i>--%>
-<%--							<span class="font-weight-bold">Continue with Gmail</span>--%>
-<%--						</a>--%>
-<%--					</div>--%>
-
-<%--					<!-- Already Registered -->--%>
-<%--					<div class="text-center w-100">--%>
-<%--						<p class="text-muted font-weight-bold">Already Registered? <a href="<c:url value ='/login'/>" class="text-primary ml-2">Login</a></p>--%>
-<%--					</div>--%>
-<%--				</div>--%>
-<%--			</form>--%>
-<%--		</div>--%>
-<%--	</div>--%>
+				</div>
+		</div>
+	</div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> <!-- jQuery -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script> <!-- Popper.js -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> <!-- Bootstrap JS -->
 <script src='https://www.google.com/recaptcha/api.js'></script> <!-- Google reCAPTCHA API -->
 <script>
 	$(document).ready(function() {
@@ -278,5 +178,4 @@
 	});
 </script>
 </body>
-
 </html>
