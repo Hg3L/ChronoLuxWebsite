@@ -37,6 +37,14 @@ public class BillConverter implements Converter<BillDTO, BillEntity> {
         else{
             billDTO.setPaymentMethod(entity.getPaymentMethod());
         }
+        if(entity.getVoucher() != null){
+            billDTO.setVoucherCode(entity.getVoucher().getCode());
+            billDTO.setDiscount(entity.getVoucher().getDiscount());
+        }
+        else{
+            billDTO.setVoucherCode("Không có");
+            billDTO.setDiscount(0);
+        }
         return billDTO;
     }
 

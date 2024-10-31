@@ -31,6 +31,7 @@
 
             <%----------------------------%>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
                 <script type="text/javascript"
                     src="<c:url value='/template/paging/jquery.twbsPagination.js' />"></script>
 
@@ -71,6 +72,7 @@
                     .carousel-item {
                         transition: transform 0.15s ease-in-out; /* Thời gian chuyển slide là 0.5 giây */
                     }
+
                 </style>
 
         </head>
@@ -288,8 +290,8 @@
                                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                                 <h6 class="text-truncate mb-3">${product.name}</h6>
                                                 <div class="d-flex justify-content-center">
-                                                    <h6>$123.00</h6>
-                                                    <h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                                                    <h6 id = "price" style="color: red; font-weight: bold;">${product.price}đ</h6>
+
                                                 </div>
                                             </div>
                                             <div class="card-footer d-flex justify-content-between bg-light border">
@@ -403,7 +405,14 @@
                     var newFilters = currentFilters.join(",");
                     window.location.href = "<c:url value='/shop?page=1&limit=8&filter='/>" + newFilters; // Cập nhật URL với bộ lọc mới
                 });
+                 // Lấy phần tử chứa giá tiền
+                    const priceElement = document.getElementById("price");
 
+
+                    let price = parseInt(priceElement.innerText, 10);
+
+
+                    priceElement.innerText = price.toLocaleString("vi-VN") + " đ";
 
 
             </script>

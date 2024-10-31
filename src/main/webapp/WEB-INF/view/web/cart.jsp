@@ -69,7 +69,7 @@
                                                     alt="" style="width: 50px;">
                                             </td>
                                             <td class="align-middle"> ${item.productName} </td>
-                                            <td class="align-middle">$${item.productPrice}</td>
+                                            <td id = "price" class="align-middle">${item.productPrice}</td>
                                             <td class="align-middle">
                                                 <div class="input-group quantity mx-auto" style="width: 100px;">
                                                     <div class="input-group-btn">
@@ -120,7 +120,7 @@
                                                     </form>
                                                 </div>
                                             </td>
-                                            <td class="align-middle">$${item.productPrice*item.quantity}</td>
+                                            <td id ="price" class="align-middle">${item.productPrice*item.quantity}</td>
                                             <td class="align-middle">
                                                 <form action="<c:url value='/cart/del'/>" method="get">
                                                     <button class="btn btn-sm btn-primary"><i
@@ -155,23 +155,23 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between mb-3 pt-1">
                                         <h6 class="font-weight-medium">Subtotal</h6>
-                                        <h6 class="font-weight-medium">$${totalPrice}</h6>
+                                        <h6 id = "price" class="font-weight-medium">${totalPrice}</h6>
                                     </div>
                                     <c:if test="${not empty voucher}">
                                         <div class="d-flex justify-content-between mb-3 pt-1">
                                             <h6 class="font-weight-medium">Discount</h6>
-                                            <h6 class="font-weight-medium">$${voucher.discount}</h6>
+                                            <h6 id = "price" class="font-weight-medium">${voucher.discount}</h6>
                                         </div>
                                     </c:if>
                                 </div>
                                 <div class="card-footer border-secondary bg-transparent">
                                     <div class="d-flex justify-content-between mt-2">
                                         <h5 class="font-weight-bold">Total</h5>
-                                        <h5 class="font-weight-bold">$${(totalPrice - voucher.discount) > 0 ? (totalPrice - voucher.discount) : 0}</h5>
+                                        <h5 id = "price" class="font-weight-bold">${(totalPrice - voucher.discount) > 0 ? (totalPrice - voucher.discount) : 0}</h5>
                                     </div>
                                    <form action="<c:url value='/checkout'/>" method="get">
                                     <button  class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button>
-                                    <input type="hidden" name = "subtotal" value = "${totalPrice}">
+                                    <input  type="hidden" name = "subtotal" value = "${totalPrice}">
                                     <c:if test="${not empty voucher}">
                                     <input type="hidden" name = "voucherCode" value = "${voucher.code}">
                                      </c:if>
@@ -255,6 +255,15 @@
                         }
                     }
                 }
+
+
+            </script>
+            <script>
+                    document.querySelectorAll('#price').forEach(element => {
+                            let price = parseInt(element.innerText.replace("đ", ""), 10);
+                            element.innerText = price.toLocaleString("vi-VN") + "đ";
+                        });
+
             </script>
         </body>
 

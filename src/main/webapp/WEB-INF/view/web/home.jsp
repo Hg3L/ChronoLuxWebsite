@@ -17,6 +17,7 @@
                 href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
                 rel="stylesheet">
 
+
             <!-- Font Awesome -->
             <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
@@ -253,13 +254,13 @@
                                                </c:if>
 
                                                <a href="<c:url value='/product-detail?id=${item.id}'/>">
-                                                   <img src="https://www.watchstore.vn/images/products/2024/resized/mtp-v002l-1b3udf-1-617104041-1694610294-1712487198.webp"
+                                                   <img src="<c:url value='/template/web/img/products/${item.imgUrl}'/>"
                                                        alt="Santos De Cartier Watch">
                                                </a>
                                                <div class="product-info">
                                                    <div class="product-name">${item.name}</div>
                                                    <div class="product-description">watch type: ${item.watchType}</div>
-                                                   <div class="product-price">$${item.price}</div>
+                                                   <div id="price">${item.price}đ</div>
                                                    <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn" >ADD TO BAG</a>
                                                </div>
                                            </div>
@@ -346,16 +347,30 @@
                         </div>
                     </div>
                 </div>
+            <!-- Products Start -->
+            <div class="container-fluid pt-5">
+                <div class="text-center mb-4">
+                    <h2 class="section-title px-5"><span class="px-2">Just Arrived</span></h2>
+                </div>
+                <div class="row px-xl-5 pb-3">
+                    <c:forEach var="item" items="${product.listResult}">
+                        <div class="product-card">
+                            <c:if test="${item.stock <= 0}">
+                                <span class="try-on-label">SOLD OUT</span>
+                            </c:if>
 
-                <div class="carousel-item" style="height: 410px;">
-                    <img class="img-fluid" src="${pageContext.request.contextPath}/template/web/img/home/Banner-2.jpg" alt="Image">
-                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                        <div class="p-3" style="max-width: 700px;">
-                            <h3 class="display-4 text-white font-weight-semi-bold mb-4">Trend-Setting Class</h3>
-                            <h4 class="text-light text-uppercase font-weight-medium mb-3">
-                                Elevate your wrist with watches that define <br> timeless prestige and contemporary flair
-                            </h4>
-                            <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
+                            <a href="<c:url value='/product-detail?id=${item.id}'/>">
+                                <img src="<c:url value='/template/web/img/products/${item.imgUrl}'/>"
+                                    alt="Santos De Cartier Watch">
+                            </a>
+                            <div class="product-info">
+                                <div class="product-name">${item.name}</div>
+                                <div class="product-description">watch type: ${item.watchType}</div>
+                                <div class="product-price">
+                                  <span id="price" >${item.price}đ</span>
+                                </div>
+                                <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn" >ADD TO BAG</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -756,6 +771,13 @@
 <!-- Vendor End -->
 <%-- thiếu thư viện--%>
 
+<script>
+        document.querySelectorAll('#price').forEach(element => {
+                let price = parseInt(element.innerText.replace("đ", ""), 10);
+                element.innerText = price.toLocaleString("vi-VN") + "đ";
+            });
+
+</script>
 
 
 

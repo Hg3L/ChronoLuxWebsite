@@ -4,6 +4,7 @@ import com.hau.dto.CartDTO;
 import com.hau.dto.CartItemDTO;
 import com.hau.dto.ProductDTO;
 import com.hau.dto.UserDTO;
+import com.hau.service.UserService;
 import org.springframework.security.core.Authentication;
 
 import javax.servlet.http.Cookie;
@@ -106,5 +107,8 @@ public class CartUtils {
         c.setMaxAge(2*24*60*60);
         c.setPath("/ChronoLuxWeb");
         response.addCookie(c);
+    }
+    public static int GetTotalCartItemByAuthentication(UserDTO userDTO,CartDTO cartDTO){
+        return getCartItemByAuthentication(cartDTO,userDTO).size();
     }
 }

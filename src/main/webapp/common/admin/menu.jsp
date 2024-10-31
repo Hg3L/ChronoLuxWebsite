@@ -48,15 +48,21 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="<c:url value='/admin/warranty'/>">
-            <i class="fa-solid fa-paperclip" style="font-size: 16px"></i>
-            <span style="font-size: 15px">Chính sách bảo hành</span>
-        </a>
-    </li>
-    <li class="nav-item">
         <a class="nav-link" href="<c:url value='/admin/products'/>">
             <i class="fa-solid fa-boxes-stacked" style="font-size: 16px"></i>
             <span style="font-size: 15px">Sản phẩm</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="<c:url value='/admin/vouchers'/>">
+            <i class="fa-solid fa-ticket" style="font-size: 16px"></i>
+            <span style="font-size: 15px">Mã giảm giá</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="<c:url value='/admin/warranty'/>">
+            <i class="fa-solid fa-paperclip" style="font-size: 16px"></i>
+            <span style="font-size: 15px">Chính sách bảo hành</span>
         </a>
     </li>
     <!-- Divider -->
