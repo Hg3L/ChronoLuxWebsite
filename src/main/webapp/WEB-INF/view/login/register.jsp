@@ -13,11 +13,11 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"> <!-- Font Awesome CSS -->
 	<style>
 		body {
-			background-image: url('https://bootstrapious.com/i/snippets/sn-registeration/bg-1.jpg');
 			background-size: cover;
 			background-position: center;
 			background-repeat: no-repeat;
 		}
+
 
 		.overlay {
 			position: fixed;
@@ -25,7 +25,7 @@
 			left: 0;
 			width: 100%;
 			height: 100%;
-			background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+			background-color: rgba(12, 10, 10, 0.93); /* Semi-transparent overlay */
 			z-index: 1;
 		}
 
@@ -53,7 +53,7 @@
 </head>
 
 <body>
-<div class="overlay"></div> <!-- Semi-transparent overlay -->
+<div class="overlay"></div>
 
 <!-- Navbar -->
 <header class="header">
@@ -137,7 +137,27 @@
 					<!-- Google reCAPTCHA -->
 					<div class="form-group mb-3 d-flex justify-content-center">
 						<div class="g-recaptcha mb-4" data-sitekey="6LcvolUqAAAAAHsPdMaMhrNDeg_HE-FuNR4XO95n"></div>
-						<div class="alert alert-danger" role="alert" id="error"></div>
+						<script>
+							<c:if test="${param.registerSuccessful != null}">
+							var toastLiveExample = document.getElementById("liveToast");
+							var toast = new bootstrap.Toast(toastLiveExample);
+							toast.show();
+							</c:if>
+
+							window.onload = function() {
+								const form = document.getElementById("formLogin");
+								const error = document.getElementById("error");
+								form.addEventListener("submit", function(event) {
+									event.preventDefault();
+									const response = grecaptcha.getResponse();
+									if (response) {
+										form.submit();
+									} else {
+										error.innerText = "Please complete the CAPTCHA";
+									}
+								});
+							}
+						</script>
 					</div>
 
 
@@ -157,11 +177,11 @@
 
 					<!-- Social Login -->
 					<div class="form-group col-lg-12 mx-auto">
-						<a href="#" class="btn btn-primary btn-block py-2 btn-facebook">
+						<a href="href=https://www.facebook.com/v19.0/dialog/oauth?scope=email&client_id=1529293951010030&redirect_uri=http://localhost:8080/ChronoLuxWeb/login-facebook&prompt=login" class="btn btn-primary btn-block py-2 btn-facebook">
 							<i class="fab fa-facebook-f mr-2"></i>
 							<span class="font-weight-bold">Continue with Facebook</span>
 						</a>
-						<a href="#" class="btn btn-primary btn-block py-2 btn-twitter">
+						<a href="https://accounts.google.com/o/oauth2/auth?scope=profile%20email&redirect_uri=http://localhost:8080/ChronoLuxWeb/login-google&response_type=code&client_id=236344479421-3djectr8kffvuu3ec4o7ceges5jv2jld.apps.googleusercontent.com&approval_prompt=force" class="btn btn-primary btn-block py-2 btn-twitter">
 							<i class="fab fa-twitter mr-2"></i>
 							<span class="font-weight-bold">Continue with Gmail</span>
 						</a>
@@ -169,7 +189,7 @@
 
 					<!-- Already Registered -->
 					<div class="text-center w-100">
-						<p class="text-muted font-weight-bold">Already Registered? <a href="#" class="text-primary ml-2">Login</a></p>
+						<p class="text-muted font-weight-bold">Already Registered? <a href="<c:url value ='/login'/>" class="text-primary ml-2">Login</a></p>
 					</div>
 				</div>
 			</form>
