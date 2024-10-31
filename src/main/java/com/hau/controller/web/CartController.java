@@ -11,6 +11,7 @@ import com.hau.service.UserService;
 import com.hau.service.VoucherService;
 import com.hau.util.CartUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
@@ -187,5 +188,14 @@ public class CartController {
         CartUtils.DeleteCartItemByProductIdAndAuthentication(userDTO,cartDTO,txt,response,productId);
         return "redirect:/cart";
     }
-
+    @GetMapping("/cart/total")
+    public ResponseEntity<Integer> getTotalCartItem(@AuthenticationPrincipal Authentication authentication, HttpServletRequest request){
+        UserDTO userDTO = null;
+        if(authentication != null){
+            userDTO = userService.getCurrentLoggedInCustomer(authentication);
+        }
+        List<ProductDTO> productDTOList = productService.findAll();
+        CartDTO cartDTO = CartUtils.getCartByCookie(request.getCookies(),productDTOList );
+        return ResponseEntity.ok(CartUtils.GetTotalCartItemByAuthentication(userDTO,cartDTO)) ;
+    }
 }

@@ -4,6 +4,8 @@ import com.hau.dto.ProductDTO;
 import com.hau.entity.ProductEntity;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+
 @Component
 public class ProductConverter {
     public ProductDTO toDTO(ProductEntity productEntity){

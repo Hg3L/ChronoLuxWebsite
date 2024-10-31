@@ -35,9 +35,9 @@ public class CheckoutController {
     @Autowired
     private VoucherService voucherService;
     @RequestMapping(value = "/checkout", method = RequestMethod.GET)
-    public ModelAndView checkoutPage(@RequestParam("subtotal") double subtotal,
+    public ModelAndView checkoutPage(@RequestParam("subtotal") long subtotal,
                                      @RequestParam( value = "voucherCode",required = false) String voucherCode,
-                                     @RequestParam("total") double total,
+                                     @RequestParam("total") long total,
                                      @AuthenticationPrincipal Authentication authentication,
                                      HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("web/checkout");

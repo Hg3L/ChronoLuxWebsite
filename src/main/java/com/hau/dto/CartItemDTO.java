@@ -5,13 +5,13 @@ public class CartItemDTO extends AbstractDTO<CartItemDTO>{
     private String customerName;
     private String productName;
     private Integer productQuantity;
-    private double productPrice;
+    private long productPrice;
     private long productId;
     private long userId;
     private String productImgUrl;
-    private double subtotal;
-    private double total;
-    private Double discount;
+    private long subtotal;
+    private long total;
+    private long discount;
     private String username;
 
     public Integer getProductQuantity() {
@@ -22,11 +22,11 @@ public class CartItemDTO extends AbstractDTO<CartItemDTO>{
         this.productQuantity = productQuantity;
     }
 
-    public Double getDiscount() {
+    public long getDiscount() {
         return discount;
     }
 
-    public void setDiscount(Double discount) {
+    public void setDiscount(long discount) {
         this.discount = discount;
     }
 
@@ -41,7 +41,7 @@ public class CartItemDTO extends AbstractDTO<CartItemDTO>{
     public CartItemDTO() {
     }
 
-    public CartItemDTO(Integer quantity, String productName, double productPrice, long productId, String productImgUrl,String username,Integer productQuantity) {
+    public CartItemDTO(Integer quantity, String productName, long productPrice, long productId, String productImgUrl,String username,Integer productQuantity) {
         this.quantity = quantity;
         this.productName = productName;
         this.productPrice = productPrice;
@@ -53,24 +53,24 @@ public class CartItemDTO extends AbstractDTO<CartItemDTO>{
 
     public CartItemDTO(String productName, String subtotal, String total, String quantity) {
         this.productName = productName;
-        this.subtotal =Double.parseDouble(subtotal)  ;
-        this.total =Double.parseDouble(total);
+        this.subtotal =Long.parseLong(subtotal)  ;
+        this.total =Long.parseLong(total);
         this.quantity = Integer.parseInt(quantity);
     }
 
     public String getTotal() {
-        return String.format("%.2f",total);
+        return String.valueOf(total);
     }
 
-    public void setTotal(double total) {
+    public void setTotal(long total) {
         this.total = total;
     }
 
     public String getSubtotal() {
-        return String.format("%.2f",subtotal) ;
+        return String.valueOf(subtotal) ;
     }
 
-    public void setSubtotal(double subtotal) {
+    public void setSubtotal(long subtotal) {
         this.subtotal = subtotal;
     }
 
@@ -123,10 +123,10 @@ public class CartItemDTO extends AbstractDTO<CartItemDTO>{
     }
 
     public String getProductPrice() {
-        return String.format("%.2f",productPrice);
+        return String.valueOf(productPrice);
     }
 
-    public void setProductPrice(double productPrice) {
+    public void setProductPrice(long productPrice) {
         this.productPrice = productPrice;
     }
 }
