@@ -39,6 +39,7 @@
 			color: #333;
 			font-weight: 700;
 			letter-spacing: 1px;
+			font-family: Corbel;
 		}
 
 		.btn-primary {
@@ -81,60 +82,55 @@
 	</nav>
 </header>
 <section class="ftco-section pt-0">
-	<div class="container py-5 mt-0 align-items-center border rounded-5 bg-light shadow box-area">
-		<div class="row justify-content-center">
-			<div class="col-md-6 text-center mb-3">
-				<h1 class="heading-section font-weight-bold ">Access Your ChronoLux Account</h1>
-			</div>
-		</div>
-		<div class="row justify-content-center mx-0">
-			<div class="col-md-6 col-lg-6">
-				<div class="login-container p-4 p-md-5">
-					<h3 class="mb-4 text-center">Sign In</h3>
-						<div class="d-flex justify-content-end mb-4">
-							<a href="https://www.facebook.com/v19.0/dialog/oauth?scope=email&client_id=1529293951010030&redirect_uri=http://localhost:8080/ChronoLuxWeb/login-facebook&prompt=login"
-							   class="social-icon d-flex align-items-center justify-content-center rounded-circle bg-light text-primary text-decoration-none me-3"
-							   style="width: 40px; height: 40px; font-size: 1.5rem;">
-								<i class="fa fa-facebook"></i>
-							</a>
-							<a href="https://accounts.google.com/o/oauth2/auth?scope=profile%20email&redirect_uri=http://localhost:8080/ChronoLuxWeb/login-google&response_type=code&client_id=236344479421-3djectr8kffvuu3ec4o7ceges5jv2jld.apps.googleusercontent.com&approval_prompt=force"
-							   class="social-icon d-flex align-items-center justify-content-center rounded-circle bg-light text-warning text-decoration-none"
-							   style="width: 40px; height: 40px; font-size: 1.5rem;">
-								<i class="fa fa-google"></i>
-							</a>
-						</div>
+		<div class="row justify-content-center mx-0 py-5"style="background-image: url('${pageContext.request.contextPath}/template/login/img/bg-6.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 400px;">
+			<div class="col-md-6 col-lg-6 py-5">
+				<div class="login-container p-4 rounded-5 bg-white shadow col-12 col-sm-8 col-md-6 col-lg-5 mx-auto"style="border-radius: 1rem;">
+					<h3 class="mb-4 text-center">Đăng Nhập</h3>
+					<div class="d-flex justify-content-end mb-4">
+						<a href="https://www.facebook.com/v19.0/dialog/oauth?scope=email&client_id=1529293951010030&redirect_uri=http://localhost:8080/ChronoLuxWeb/login-facebook&prompt=login"
+						   class="social-icon d-flex align-items-center justify-content-center rounded-circle bg-light text-primary text-decoration-none me-3"
+						   style="width: 40px; height: 40px; font-size: 1.5rem; transition: background-color 0.3s;">
+							<i class="fa fa-facebook"></i>
+						</a>
+						<a href="https://accounts.google.com/o/oauth2/auth?scope=profile%20email&redirect_uri=http://localhost:8080/ChronoLuxWeb/login-google&response_type=code&client_id=236344479421-3djectr8kffvuu3ec4o7ceges5jv2jld.apps.googleusercontent.com&approval_prompt=force"
+						   class="social-icon d-flex align-items-center justify-content-center rounded-circle bg-light text-warning text-decoration-none"
+						   style="width: 40px; height: 40px; font-size: 1.5rem; transition: background-color 0.3s;">
+							<i class="fa fa-google"></i>
+						</a>
+					</div>
 					<form action="<c:url value='/j_spring_security_check'/>" id="formLogin" method="post" class="signin-form">
 						<div class="form-group mb-3">
-							<label class="label" for="name">Username</label>
-							<input type="text" class="form-control" name="j_username" placeholder="Username" required>
+							<label class="label" for="name">Tên Người Dùng</label>
+							<input type="text" class="form-control" name="j_username" placeholder="Tên Người Dùng" required style="width: 100%;">
 						</div>
 						<div class="form-group mb-3">
-							<label class="label" for="password">Password</label>
-							<input type="password" class="form-control" name="j_password" placeholder="Password" required>
+							<label class="label" for="password">Mật Khẩu</label>
+							<input type="password" class="form-control" name="j_password" placeholder="Mật Khẩu" required style="width: 100%;">
 						</div>
 						<div id="error" class="text-danger mb-3 text-center"></div>
 						<c:if test="${param.incorrectAccount != null}">
-							<div class="alert alert-danger text-center">User invalid</div>
+							<div class="alert alert-danger text-center">Người Dùng Không Tồn Tại</div>
 						</c:if>
 						<c:if test="${param.accessDenied != null}">
-							<div class="alert alert-danger text-center">You Not Authorized</div>
+							<div class="alert alert-danger text-center">Truy Cập Từ Chối</div>
 						</c:if>
 						<div class="form-group mb-3 d-flex justify-content-center">
 							<div class="g-recaptcha" data-sitekey="6LcvolUqAAAAAHsPdMaMhrNDeg_HE-FuNR4XO95n"></div>
 						</div>
 						<div class="form-group">
-							<button type="submit" class="form-control btn btn-primary">Sign In</button>
+							<button type="submit" class="form-control btn btn-primary" style="width: 100%;">Sign In</button>
 						</div>
 						<div class="form-group d-flex justify-content-between mt-3">
 							<div class="form-check">
 								<input type="checkbox" name="remember-me" class="form-check-input" id="rememberMe">
-								<label class="form-check-label" for="rememberMe">Remember Me</label>
+								<label class="form-check-label" for="rememberMe">Ghi Nhớ Tài Khoản</label>
 							</div>
-							<a href="<c:url value='/login/forgot-password'/>">Forgot Password?</a>
+							<a href="<c:url value='/login/forgot-password'/>">Quên Mật Khẩu?</a>
 						</div>
 					</form>
-					<p class="text-center mt-3">Not a member? <a href="<c:url value='/login/register'/>">Sign Up</a></p>
+					<p class="text-center mt-3">Chưa có Tài Khoản? <a href="<c:url value='/login/register'/>">Tham Gia Ngay</a></p>
 				</div>
+
 			</div>
 		</div>
 	</div>
