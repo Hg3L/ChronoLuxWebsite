@@ -53,7 +53,6 @@
 </head>
 
 <body>
-<div class="overlay"></div>
 
 <!-- Navbar -->
 <header class="header">
