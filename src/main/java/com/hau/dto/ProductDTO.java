@@ -19,6 +19,7 @@ public class ProductDTO extends AbstractDTO{
     private String imgUrl;
 
     private String gender;
+    private long brandId;
 
     private String warrantyContent;
 
@@ -28,6 +29,14 @@ public class ProductDTO extends AbstractDTO{
     private String name;
     private String country;
     private long productLineId;
+
+    public long getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(long brandId) {
+        this.brandId = brandId;
+    }
 
     public int getStock() {
         return stock;

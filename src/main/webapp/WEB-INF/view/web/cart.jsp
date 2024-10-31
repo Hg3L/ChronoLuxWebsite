@@ -73,11 +73,9 @@
                                             <td class="align-middle">
                                                 <div class="input-group quantity mx-auto" style="width: 100px;">
                                                     <div class="input-group-btn">
-                                                        <form action="<c:url value='/cart/update' />" method="get">
-                                                            <input type="hidden" name="quantity"
-                                                                value=${item.quantity-1}>
-                                                            <input type="hidden" name="productId"
-                                                                value=${item.productId}>
+                                                        <form action="<c:url value='/cart/update'/>" method="get">
+                                                            <input type="hidden" name="quantity" value=${item.quantity-1}>
+                                                            <input type="hidden" name="productId" value=${item.productId}>
 
                                                             <button type="submit"
                                                                 class="btn btn-sm btn-primary btn-minus"
@@ -101,10 +99,9 @@
                                                         <input type="hidden" name="productId" value=${item.productId}>
 
                                                     </form>
-                                                    <form action="<c:url value='/cart/update' />" method="get">
+                                                    <form action="<c:url value='/cart/update'/>" method="get">
                                                      <c:if test="${item.quantity < item.productQuantity}">
                                                         <input type="hidden" name="quantity" value=${item.quantity+1}>
-
                                                       </c:if>
                                                         <c:if test="${item.quantity >= item.productQuantity}">
                                                          <input type="hidden" name="quantity" value=${item.quantity}>

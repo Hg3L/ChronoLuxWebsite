@@ -26,6 +26,8 @@
 
             <!-- Customized Bootstrap Stylesheet -->
             <link href=" <c:url value='/template/web/css/style.css'/>" rel="stylesheet">
+
+
             <%----------------------------%>
             <style>
                     .commitment-container {
@@ -150,18 +152,10 @@
                             <div class="carousel-inner border">
                                 <div class="carousel-item active">
                                     <img class="w-100 h-100"
-                                        src="https://www.watchstore.vn/images/products/2024/08/27/large/t120-410-22-051-00-1_1724748279.webp"
+                                        src="<c:url value='/template/web/img/products/${model.imgUrl}'/>"
                                         alt="Image">
                                 </div>
-                                <div class="carousel-item">
-                                    <img class="w-100 h-100" src="img/product-2.jpg" alt="Image">
-                                </div>
-                                <div class="carousel-item">
-                                    <img class="w-100 h-100" src="img/product-3.jpg" alt="Image">
-                                </div>
-                                <div class="carousel-item">
-                                    <img class="w-100 h-100" src="img/product-4.jpg" alt="Image">
-                                </div>
+
                             </div>
                             <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
                                 <i class="fa fa-2x fa-angle-left text-dark"></i>
@@ -179,12 +173,12 @@
                                 <small class="fas fa-star"></small>
                                 <small class="fas fa-star"></small>
                                 <small class="fas fa-star"></small>
-                                <small class="fas fa-star-half-alt"></small>
-                                <small class="far fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
                             </div>
-                            <small class="pt-1">(50 Reviews)</small>
+
                         </div>
-                        <h3 class="font-weight-semi-bold mb-4">$${model.price}</h3>
+                        <h3 id="price" class="font-weight-semi-bold mb-4">${model.price}</h3>
                         <p class="mb-4">Brand: ${model.brandName} - Country: ${model.country}</p>
                         <c:if test="${model.stock < 10}">
                                 <p class="mb-4">
@@ -225,23 +219,7 @@
                                </button>
                            </c:if>
                         </div>
-                        <div class="d-flex pt-2">
-                            <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>
-                            <div class="d-inline-flex">
-                                <a class="text-dark px-2" href="">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                                <a class="text-dark px-2" href="">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                                <a class="text-dark px-2" href="">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                                <a class="text-dark px-2" href="">
-                                    <i class="fab fa-pinterest"></i>
-                                </a>
-                            </div>
-                        </div>
+
 
                         <div class="commitment-container">
                             <div class="commitment-title">CAM KẾT CỦA CHRONOLUX.COM</div>
@@ -273,7 +251,7 @@
                             <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">Warranty Policy</a>
                             <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Size Selection Guide</a>
                      
-                            <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-4">Reviews (0)</a>
+
                         </div>
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="tab-pane-1">
@@ -344,68 +322,17 @@
                                 ${model.warrantyContent}
                             </div>
                             <div class="tab-pane fade" id="tab-pane-3">
-
-                                <h4 class="mb-4">1 review for "Colorful Stylish Shirt"</h4>
+                              <p>Sở th&iacute;ch của mỗi người l&agrave; kh&aacute;c nhau, c&oacute; người tay nhỏ nhưng lại th&iacute;ch đeo đồng hồ size to, c&oacute; người tay to nhưng lại th&iacute;ch đeo đồng hồ size nhỏ, nhưng để đeo 1 chiếc đồng hồ mang t&iacute;nh thẩm mỹ nhất th&igrave; bạn cũng n&ecirc;n tham khảo c&aacute;ch lựa size đồng hồ dưới đ&acirc;y nh&eacute;:<br />
+                               <br />
+                               <strong>Bước 1:</strong>&nbsp;Đo size cổ tay (chu vi cổ tay)<br />
+                               &nbsp;<br />
+                               &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <img alt="Chọn size mặt đồng hồ phù hợp nhất với tay - Ảnh 1" src="https://i.imgur.com/Q9lydDN.png" /><br />
+                               <br />
+                               <strong>Bước 2:</strong>&nbsp;Tham chiếu size cổ tay của bạn để chọn size mặt đồng hồ ph&ugrave; hợp dưới đ&acirc;y<br />
+                                   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img alt="Chọn size mặt đồng hồ phù hợp nhất với tay - Ảnh 2" src="https://i.imgur.com/VAOlz7D.png" /></p>
 
                             </div>
-                            <div class="tab-pane fade" id="tab-pane-4">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <h4 class="mb-4">1 review for "Colorful Stylish Shirt"</h4>
-                                        <div class="media mb-4">
-                                            <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1"
-                                                style="width: 45px;">
-                                            <div class="media-body">
-                                                <h6>John Doe<small> - <i>01 Jan 2045</i></small></h6>
-                                                <div class="text-primary mb-2">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star-half-alt"></i>
-                                                    <i class="far fa-star"></i>
-                                                </div>
-                                                <p>Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam
-                                                    ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod
-                                                    ipsum.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h4 class="mb-4">Leave a review</h4>
-                                        <small>Your email address will not be published. Required fields are marked
-                                            *</small>
-                                        <div class="d-flex my-3">
-                                            <p class="mb-0 mr-2">Your Rating * :</p>
-                                            <div class="text-primary">
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-                                        </div>
-                                        <form>
-                                            <div class="form-group">
-                                                <label for="message">Your Review *</label>
-                                                <textarea id="message" cols="30" rows="5"
-                                                    class="form-control"></textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="name">Your Name *</label>
-                                                <input type="text" class="form-control" id="name">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="email">Your Email *</label>
-                                                <input type="email" class="form-control" id="email">
-                                            </div>
-                                            <div class="form-group mb-0">
-                                                <input type="submit" value="Leave Your Review"
-                                                    class="btn btn-primary px-3">
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -420,89 +347,37 @@
                 </div>
                 <div class="row px-xl-5">
                     <div class="col">
-                        <div class="owl-carousel related-carousel">
 
+                        <div class="owl-carousel related-carousel">
+                        <c:forEach var="item" items="${productByBrands}">
                             <div class="card product-item border-0">
                                 <div
                                     class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                    <img class="img-fluid w-100" src="img/product-2.jpg" alt="">
+                                    <img class="img-fluid w-100" src="<c:url value='/template/web/img/products/${item.imgUrl}'/>" alt="">
                                 </div>
                                 <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                                    <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
+                                    <h6 class="text-truncate mb-3">${item.name}</h6>
                                     <div class="d-flex justify-content-center">
-                                        <h6>$123.00</h6>
-                                        <h6 class="text-muted ml-2"><del>$123.00</del></h6>
+
+                                        <h6 id = "price" ><del>${item.price}</del></h6>
                                     </div>
                                 </div>
                                 <div class="card-footer d-flex justify-content-between bg-light border">
-                                    <a href="" class="btn btn-sm text-dark p-0"><i
+                                    <a href="<c:url value='/product-detail?id=${item.id}'/>" class="btn btn-sm text-dark p-0"><i
                                             class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                                    <a href="" class="btn btn-sm text-dark p-0"><i
+                                    <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="btn btn-sm text-dark p-0"><i
                                             class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
                                 </div>
                             </div>
-                            <div class="card product-item border-0">
-                                <div
-                                    class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                    <img class="img-fluid w-100" src="img/product-3.jpg" alt="">
-                                </div>
-                                <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                                    <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
-                                    <div class="d-flex justify-content-center">
-                                        <h6>$123.00</h6>
-                                        <h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                                    </div>
-                                </div>
-                                <div class="card-footer d-flex justify-content-between bg-light border">
-                                    <a href="" class="btn btn-sm text-dark p-0"><i
-                                            class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                                    <a href="" class="btn btn-sm text-dark p-0"><i
-                                            class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
-                                </div>
-                            </div>
-                            <div class="card product-item border-0">
-                                <div
-                                    class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                    <img class="img-fluid w-100" src="img/product-4.jpg" alt="">
-                                </div>
-                                <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                                    <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
-                                    <div class="d-flex justify-content-center">
-                                        <h6>$123.00</h6>
-                                        <h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                                    </div>
-                                </div>
-                                <div class="card-footer d-flex justify-content-between bg-light border">
-                                    <a href="" class="btn btn-sm text-dark p-0"><i
-                                            class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                                    <a href="" class="btn btn-sm text-dark p-0"><i
-                                            class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
-                                </div>
-                            </div>
-                            <div class="card product-item border-0">
-                                <div
-                                    class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                    <img class="img-fluid w-100" src="img/product-5.jpg" alt="">
-                                </div>
-                                <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                                    <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
-                                    <div class="d-flex justify-content-center">
-                                        <h6>$123.00</h6>
-                                        <h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                                    </div>
-                                </div>
-                                <div class="card-footer d-flex justify-content-between bg-light border">
-                                    <a href="" class="btn btn-sm text-dark p-0"><i
-                                            class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                                    <a href="" class="btn btn-sm text-dark p-0"><i
-                                            class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
-                                </div>
-                            </div>
+                                 </c:forEach>
                         </div>
+
                     </div>
+
                 </div>
             </div>
             <!-- Products End -->
+
         <script>
                  const quantityInput = document.getElementById('quantity');
                     const quantityHiddenInput = document.getElementById('quantity-hidden');
@@ -571,6 +446,13 @@
 
 
                 }
+            </script>
+            <script>
+                document.querySelectorAll('#price').forEach(element => {
+                    let price = parseInt(element.innerText.replace("đ", ""), 10);
+                    element.innerText = price.toLocaleString("vi-VN") + "đ";
+                });
+
             </script>
         </body>
 

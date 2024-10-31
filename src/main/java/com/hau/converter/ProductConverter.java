@@ -25,6 +25,7 @@ public class ProductConverter {
         productDTO.setProductLineName(productEntity.getProductLine().getName());
         productDTO.setBrandName(productEntity.getProductLine().getBrand().getName());
         productDTO.setCountry(productEntity.getProductLine().getBrand().getCountry());
+        productDTO.setBrandId(productEntity.getProductLine().getBrand().getId());
         if(productEntity.getProductLine().getWarranty() != null){
             productDTO.setWarrantyContent(productEntity.getProductLine().getWarranty().getContent());
         }
