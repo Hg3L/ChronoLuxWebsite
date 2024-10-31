@@ -11,8 +11,10 @@ import java.util.List;
 
 public interface CartItemService {
     List<CartItemDTO> findAllByUser(UserDTO userDTO);
+    Page<CartItemDTO> findHistoryByUser(Long id, int page, int limit);
     CartItemDTO save(UserDTO userDTO, Long productId,Integer quantity);
     long getTotalPrice(UserDTO userDTO);
     void updateQuantity(UserDTO userDTO,Long productId,Integer quantity);
     void delete(UserDTO userDTO,Long productId);
 }
+

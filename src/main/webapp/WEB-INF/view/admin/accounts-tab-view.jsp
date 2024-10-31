@@ -115,10 +115,7 @@
                                     <td>${account.createdDate}</td>
                                     <td>
                                         <a href="${pageContext.request.contextPath}/admin/account/view/?id=${account.id}" class="btn btn-info btn-sm mr-2">
-                                            <i class="fas fa-eye mr-1"></i> Xem hoạt động
-                                        </a>
-                                        <a href="${pageContext.request.contextPath}/admin/account/lock?id=${account.id}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn khóa tài khoản này?');">
-                                            <i class="fas fa-lock mr-1"></i> Khóa tài khoản
+                                            <i class="fas fa-eye mr-1"></i> Lịch sử đặt hàng
                                         </a>
                                     </td>
                                 </tr>
@@ -154,10 +151,5 @@
         </div>
     </div>
 </div>
-<script>
-    function confirmDelete(id) {
-        return confirm("Bạn có chắc muốn xóa thương hiệu này?");
-    }
-</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>

@@ -7,6 +7,7 @@ public class CartItemDTO extends AbstractDTO<CartItemDTO>{
     private Integer productQuantity;
     private long productPrice;
     private long productId;
+    private Long billId;
     private long userId;
     private String productImgUrl;
     private long subtotal;
@@ -56,6 +57,14 @@ public class CartItemDTO extends AbstractDTO<CartItemDTO>{
         this.subtotal =Long.parseLong(subtotal)  ;
         this.total =Long.parseLong(total);
         this.quantity = Integer.parseInt(quantity);
+    }
+
+    public Long getBillId() {
+        return billId;
+    }
+
+    public void setBillId(Long billId) {
+        this.billId = billId;
     }
 
     public String getTotal() {

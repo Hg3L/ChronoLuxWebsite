@@ -1,6 +1,7 @@
 package com.hau.controller.admin;
 
 import com.hau.dto.UserDTO;
+import com.hau.service.CartItemService;
 import com.hau.service.FileService;
 import com.hau.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class AccountController {
+    @Autowired
+    private CartItemService cartItemService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -104,17 +107,14 @@ public class AccountController {
         return "redirect:/admin/accounts";
     }
 
-    @GetMapping("/admin/account/ban-account")
-    public String banAccount(@RequestParam Long id,
-                             @RequestParam int currentPage){
-        userService.lockUserAccounts(id);
-        return "redirect:/admin/accounts?userPage=" + currentPage;
-    }
-
-    @GetMapping("/admin/account/unban-account")
-    public String unbanAccount(@RequestParam Long id,
-                               @RequestParam int currentPage){
-        userService.unlockUserAccounts(id);
-        return "redirect:/admin/accounts?userPage=" + currentPage;
+    @GetMapping("/admin/account/view")
+    public String viewHistory(@RequestParam Long id,
+                              @RequestParam(defaultValue = "1") int page,
+                              @RequestParam(defaultValue = "10") int limit,
+                              Model model) {
+        model.addAttribute("account", userService.findOneById(id));
+        model.addAttribute("history", cartItemService.findHistoryByUser(id, page, limit));
+        model.addAttribute("currentPage", page);
+        return "admin/account-bill-history-view";
     }
 }

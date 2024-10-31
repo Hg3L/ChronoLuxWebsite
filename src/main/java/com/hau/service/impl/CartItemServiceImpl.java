@@ -45,6 +45,20 @@ public class CartItemServiceImpl implements CartItemService {
     }
 
     @Override
+    public Page<CartItemDTO> findHistoryByUser(Long id, int page, int limit) {
+        Pageable pageable = new PageRequest(page - 1, limit);
+        UserDTO userDTO = userConverter.toDTO(userRepository.findOne(id));
+        Long userId = userDTO.getId();
+        Page<CartItemEntity> cartItemEntities = cartItemRepository.findByUserId(pageable, userId);
+        List<CartItemDTO> cartItemDTOList = new ArrayList<>();
+        for(CartItemEntity cartItemEntity : cartItemEntities){
+            CartItemDTO cartItemDTO = cartItemConverter.convertToDTO(cartItemEntity);
+            cartItemDTOList.add(cartItemDTO);
+        }
+        return new PageImpl<>(cartItemDTOList,pageable,cartItemEntities.getTotalElements());
+    }
+
+    @Override
     @Transactional
     public CartItemDTO save(UserDTO userDTO,Long productId, Integer quantity) {
         UserEntity userEntity = userRepository.findOne(userDTO.getId());
