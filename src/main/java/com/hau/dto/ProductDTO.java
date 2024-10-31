@@ -22,7 +22,7 @@ public class ProductDTO extends AbstractDTO{
 
     private String warrantyContent;
 
-    private double price;
+    private long price;
     private String productLineName;
     private String brandName;
     private String name;
@@ -133,11 +133,11 @@ public class ProductDTO extends AbstractDTO{
         this.imgUrl = imgUrl;
     }
 
-    public double getPrice() {
+    public long getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(long price) {
         this.price = price;
     }
 

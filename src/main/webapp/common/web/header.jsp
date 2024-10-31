@@ -28,13 +28,10 @@
             </form>
         </div>
         <div class="col-lg-3 col-6 text-right">
-            <a href="" class="btn border">
-                <i class="fas fa-heart text-primary"></i>
-                <span class="badge">0</span>
-            </a>
-            <a href="" class="btn border">
+
+            <a href="<c:url value='/cart'/>" class="btn border">
                 <i class="fas fa-shopping-cart text-primary"></i>
-                <span class="badge">0</span>
+                <span class="badge1">0</span>
             </a>
         </div>
     </div>
@@ -70,14 +67,8 @@
                     <div class="navbar-nav mx-auto navbar-nav-center">
                         <a href="<c:url value='/home'/>" class="nav-item nav-link active">Home</a>
                         <a href="<c:url value='/shop?page=1&limit=8'/>" class="nav-item nav-link">Shop</a>
-                        <a href="<c:url value='/shop?page=1&limit=8'/>" class="nav-item nav-link">Shop Detail</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More</a>
-                            <div class="dropdown-menu rounded-0 m-0">
-                                <a href="cart.html" class="dropdown-item">Your Cart</a>
-                                <a href="checkout.html" class="dropdown-item">Checkout</a>
-                            </div>
-                        </div>
+                        <a href="<c:url value='/shop?page=1&limit=8&filter=nam'/>" class="nav-item nav-link">Nam</a>
+                         <a href="<c:url value='/shop?page=1&limit=8&filter=nu'/>" class="nav-item nav-link">Nữ</a>
                         <a href="contact.html" class="nav-item nav-link">Contact</a>
                     </div>
 
@@ -125,3 +116,22 @@
         </div>
     </div>
 </div>
+
+
+
+ <script>
+     $(document).ready(function() {
+         // Gọi AJAX khi trang được tải
+         $.ajax({
+             url: "<c:url value='/cart/total'/>" , // URL của endpoint
+             type: 'GET',
+             success: function(total) {
+                 // Cập nhật giá trị của <span class="badge">
+                 $('.badge1').text(total.toFixed(0)); // Làm tròn và hiển thị
+             },
+             error: function(jqXHR, textStatus, errorThrown) {
+                 console.error("Error fetching cart total: ", textStatus, errorThrown);
+             }
+         });
+     });
+ </script>

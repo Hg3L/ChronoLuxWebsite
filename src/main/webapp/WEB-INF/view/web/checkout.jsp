@@ -371,14 +371,14 @@
                                     <c:forEach var="item" items="${cartItems}" varStatus="status">
                                         <div class="cart-item">
                                             <div class="cart-item-content">
-                                                <button class="remove-btn">×</button>
+
                                                 <img src="https://www.watchstore.vn/images/products/2024/06/14/small/mtp-vt01l-1budf_1718332985.webp"
                                                     alt="Product Image" class="product-image">
                                                 <div class="product-details">
                                                     <p class="product-name">${item.productName}</p>
                                                     <p class="product-price">
-                                                        <span class="current-price">$${item.productPrice}</span>
-                                                        <span class="old-price">1.182.000₫</span>
+                                                        <span id="price" class="current-price">${item.productPrice}</span>
+
                                                     </p>
                                                 </div>
                                                 <div class="quantity-control">
@@ -391,13 +391,13 @@
                                     <hr class="mt-0">
                                     <div class="d-flex justify-content-between mb-3 pt-1">
                                         <h6 class="font-weight-medium">Subtotal</h6>
-                                        <h6 class="font-weight-medium">$${subtotal}</h6>
+                                        <h6 id ="price" class="font-weight-medium">${subtotal}</h6>
                                     <input type="hidden" name="subtotal" value="${subtotal}">
                                     </div>
                                     <c:if test="${not empty voucher}">
                                         <div class="d-flex justify-content-between">
                                             <h6 class="font-weight-medium">Discount</h6>
-                                            <h6 class="font-weight-medium">$${voucher.discount}</h6>
+                                            <h6 id ="price" class="font-weight-medium">${voucher.discount}</h6>
                                              <input type="hidden" name="voucherCode" value="${voucher.code}">
                                         </div>
                                     </c:if>
@@ -405,7 +405,7 @@
                                 <div class="card-footer border-secondary bg-transparent">
                                     <div class="d-flex justify-content-between mt-2">
                                         <h5 class="font-weight-bold">Total</h5>
-                                        <h5 class="font-weight-bold">$${totalPrice}</h5>
+                                        <h5 id ="price" class="font-weight-bold">${totalPrice}</h5>
                                         <input type="hidden" name="total" value="${totalPrice}">
                                     </div>
                                 </div>
@@ -427,12 +427,13 @@
                                 </div>
 
                                 <!-- Thông tin tài khoản ngân hàng -->
-                                <div id="bank-info" style="display: none;">
-                                    <h4>Thông tin tài khoản ngân hàng:</h4>
-                                    <p>Ngân hàng: ABC Bank</p>
-                                    <p>Số tài khoản: 123456789</p>
-                                    <p>Chủ tài khoản: Nguyễn Văn A</p>
-                                </div>
+                               <div id="bank-info" style="display: none;">
+                                   <h4>Thông tin tài khoản ngân hàng:</h4>
+                                   <p>Ngân hàng: ABC Bank</p>
+                                   <p>Số tài khoản: 123456789</p>
+                                   <p>Chủ tài khoản: Nguyễn Văn A</p>
+
+                               </div>
                                  <div class="payment-option">
                                     <input type="radio" name="paymentMethod" id="VNPAY" value="VNPAY"
                                         onchange="updateAction()">
@@ -544,6 +545,13 @@
                              form.method = "get";
                         }
                     }
+            </script>
+            <script>
+                    document.querySelectorAll('#price').forEach(element => {
+                            let price = parseInt(element.innerText.replace("đ", ""), 10);
+                            element.innerText = price.toLocaleString("vi-VN") + "đ";
+                        });
+
             </script>
         </body>
 

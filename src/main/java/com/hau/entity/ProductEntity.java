@@ -24,7 +24,7 @@ public class ProductEntity extends BaseEntity {
     @Column(name = "gender")
     private String gender;
     @Column(name = "price")
-    private double price;
+    private long price;
     @Column(name = "name")
     private String name;
     @Column(name = "instock")
@@ -118,11 +118,11 @@ public class ProductEntity extends BaseEntity {
         this.gender = gender;
     }
 
-    public double getPrice() {
+    public long getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(long price) {
         this.price = price;
     }
 
