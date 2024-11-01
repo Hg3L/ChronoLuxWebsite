@@ -4,6 +4,8 @@ import com.hau.entity.ProductLineEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -11,6 +13,10 @@ public interface ProductLineRepository extends JpaRepository<ProductLineEntity,L
     List<ProductLineEntity> findAllByBrand_Id(Long brandId);
     Page<ProductLineEntity> findAllByBrand_Id(Long brandId, Pageable page);
     ProductLineEntity findOneById(long id);
+
+    @Query("SELECT p FROM ProductLineEntity p LEFT JOIN FETCH p.warranty WHERE p.id = :id")
+    ProductLineEntity findByIdWithWarranty(@Param("id") Long id);
+
     Page<ProductLineEntity> findByWarrantyIsNotNull(Pageable pageable);
     Page<ProductLineEntity> findByWarrantyIsNull(Pageable pageable);
     Page<ProductLineEntity> findByBrand_IdAndWarrantyIsNotNull(Long brandId, Pageable pageable);

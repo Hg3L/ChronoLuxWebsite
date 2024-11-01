@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
+
 @Service
 public class WarrantyServiceImpl implements WarrantyService {
     @Autowired
@@ -25,11 +27,19 @@ public class WarrantyServiceImpl implements WarrantyService {
     @Override
     public void saveWarranty(WarrantyDTO warrantyDTO) {
         WarrantyEntity warrantyEntity = converter.convertToEntity(warrantyDTO);
-        ProductLineEntity productLineEntity = productLineRepository.findOneById(warrantyDTO.getProductLineId());
-        warrantyEntity.setProductLineEntity(productLineEntity);
-        productLineEntity.setWarranty(warrantyEntity);
-        warrantyRepository.save(warrantyEntity);
+
+        ProductLineEntity productLineEntity = productLineRepository.findByIdWithWarranty(warrantyDTO.getProductLineId());
+        if(productLineEntity.getWarranty() != null) {
+            warrantyEntity.setProductLineEntity(productLineEntity);
+            warrantyRepository.save(warrantyEntity);
+        }
+        else{
+            warrantyEntity.setProductLineEntity(productLineEntity);
+            productLineEntity.setWarranty(warrantyEntity);
+            productLineRepository.save(productLineEntity);
+        }
     }
+
 
     @Override
     public WarrantyDTO findOneByProductLineId(long id) {
