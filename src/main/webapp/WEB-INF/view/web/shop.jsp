@@ -141,10 +141,10 @@
                 <div class="row px-xl-5 pb-3">
                     <c:forEach var="item" items="${brand.listResult}">
                         <div class="col-lg-2 col-md-6">
-                            <div class="item d-flex flex-column border p-0 pt-2 my-3" style="border-radius: 1rem;max-width: 293px; max-height: 113px;">
+                            <div class="item d-flex flex-column p-0 pt-2 my-3" style="border: 3px solid;border-radius: 1rem;max-width: 293px; max-height: 113px;">
                                 <a href="<c:url value='/shop/brand?id=${item.id}&page=1&limit=8'/>"
                                     class="cat-img position-relative overflow-hidden mb-3 ">
-                                    <img class="img-fluid" style="width: 100%; height: 100%;object-fit: cover"
+                                    <img class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;"
                                         src="<c:url value='/template/web/img/brands/${item.iconUrl}'/>" alt="">
                                 </a>
                             </div>
@@ -243,7 +243,7 @@
                             <!-- Search -->
                             <form action="<c:url value='/shop'/>" method="get" class="d-flex w-auto">
                                 <div class="input-group" style="width: 250px;"> <!-- Set width of the search bar -->
-                                    <input type="text" class="form-control" placeholder="Search by name" name="keyword">
+                                    <input type="text" class="form-control" placeholder="Tìm Kiếm" name="keyword">
                                     <input type="hidden" value="1" name="page">
                                     <input type="hidden" value="8" name="limit">
                                     <div class="input-group-append">
@@ -258,20 +258,20 @@
                             <div class="dropdown ml-3">
                                 <button class="btn border dropdown-toggle" type="button" id="triggerId"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Sort by
+                                    Bộ Lọc
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
                                     <a class="dropdown-item"
                                         href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&sortName=name&sortBy=asc&keyword=${model.keyword}'/>">
-                                        <i class="fas fa-sort-alpha-down"></i> Sort by Name: A-Z
+                                        <i class="fas fa-sort-alpha-down"></i> Theo tên: A-Z
                                     </a>
                                     <a class="dropdown-item"
                                         href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&sortName=price&sortBy=asc&keyword=${model.keyword}'/>">
-                                        <i class="fas fa-arrow-up"></i> Sort by Price: Low to High
+                                        <i class="fas fa-arrow-up"></i> Theo giá: Tăng dần
                                     </a>
                                     <a class="dropdown-item"
                                         href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&sortName=price&sortBy=desc&keyword=${model.keyword}'/>">
-                                        <i class="fas fa-arrow-down"></i>Sort by Price: High to Low
+                                        <i class="fas fa-arrow-down"></i> Theo giá: Giảm dần
                                     </a>
                                 </div>
                             </div>
@@ -282,23 +282,23 @@
                     <div class="row px-xl-5">
                         <!-- Shop Product Start -->
                         <div class="col-lg-12 col-md-12">
-                            <div class="row pb-3 d-flex justify-content-center align-items-center flex-wrap">
+                            <div class="product-list d-flex justify-content-center align-items-center flex-wrap">
                                 <c:forEach var="product" items="${products}">
-                                    <div class="product-card p-2 rounded-5 bg-white shadow mx-3 my-3 " style="border-radius: 1rem;">
+                                    <div class="product-card p-2 bg-white shadow mx-3 my-3 " style="border-radius: 1rem; max-width: 300px">
                                         <div class="card product-item border-0 mb-4">
-                                                <img class="img-fluid w-70" style="width: fit-content;"
+                                                <img class="img-fluid p-5" style="width: fit-content;"
                                                     src="<c:url value='/template/web/img/products/${product.imgUrl}'/>" alt="">
                                             <div class="card-body text-center p-0 pt-4 pb-3">
                                                 <h6 class="text-truncate mb-3">${product.name}</h6>
                                                 <div class="d-flex justify-content-center">
-                                                    <h6 id = "price" style="color:green;">${product.price}</h6>
+                                                    <h6 id="price" style="color:green;">${product.price}đ</h6>
                                                 </div>
                                             </div>
                                             <div class="button-container p-0 my-1 mx-2 d-flex ">
                                                 <a href="<c:url value='/product-detail?id=${product.id}'/>"
                                                    class="btn bg-dark text-light p-2 flex-grow-1" style="border-radius: 1rem">Chi Tiết</a>
                                             </div>
-                                            <div class="button-container p-0 my-1 mx-2 d-flex ">
+                                            <div class="button-container p-0 my-1 mx-2 d-flex">
                                                 <c:if test="${product.stock <= 0}">
                                                   <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>"
                                                      class="btn btn-sm text-dark p-2 flex-grow-1 disabled-link"
@@ -315,6 +315,7 @@
                                     </div>
                                 </c:forEach>
                             </div>
+
                             <div class="col-12 pb-1">
                                 <nav aria-label="Page navigation">
                                     <ul class="pagination justify-content-center mb-3" id="pagination"> </ul>
@@ -414,12 +415,15 @@
                     var newFilters = currentFilters.join(",");
                     window.location.href = "<c:url value='/shop?page=1&limit=8&filter='/>" + newFilters; // Cập nhật URL với bộ lọc mới
                 });
-            </script>
-            <script>
-                document.querySelectorAll('#price').forEach(element => {
-                    let price = parseInt(element.innerText.replace("đ", ""), 10);
-                    element.innerText = price.toLocaleString("vi-VN") + "đ";
-                });
+                 // Lấy phần tử chứa giá tiền
+                    const priceElement = document.getElementById("price");
+
+
+                    let price = parseInt(priceElement.innerText, 10);
+
+
+                    priceElement.innerText = price.toLocaleString("vi-VN") + " đ";
+
 
             </script>
         </body>
