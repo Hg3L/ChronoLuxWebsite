@@ -321,13 +321,13 @@
                 </a>
                 <div class="product-info">
 
-                    <div class="product-name">${item.name}</div>
+                    <div class="product-name " style="color: black">${item.name}</div>
                     <div class="product-description">Loại máy: ${item.watchType}</div>
 
                     <div class="product-price">
-                       <span>Giá: </span>  <span id="price" >${item.price}đ</span>
+                       <span id="price" >${item.price}đ</span>
                     </div>
-                    <div class="button-container p-0 mx-auto">
+                    <div class="button-container p-0 mt-3 mx-auto">
                         <c:if test="${item.stock <= 0}">
                             <a href="#" class="add-to-bag-btn bg-danger disabled" >Thêm Vào Giỏ(đang tạm hết)</a>
                         </c:if>
@@ -407,14 +407,14 @@
                     <div class="product-price">
                         <span id="price" >${item.price}đ</span>
                     </div>
-
-                    <c:if test="${item.stock <= 0}">
-                       <a href="#" class="add-to-bag-btn bg-danger disabled">Thêm Vào Giỏ(đang tạm hết)</a>
-                     </c:if>
-                      <c:if test="${item.stock > 0}">
-                           <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-dark" >Thêm Vào Giỏ</a>
-                      </c:if>
-
+                    <div class="button-container p-0 mt-3 mx-auto">
+                        <c:if test="${item.stock <= 0}">
+                            <a href="#" class="add-to-bag-btn bg-danger disabled" >Thêm Vào Giỏ(đang tạm hết)</a>
+                        </c:if>
+                        <c:if test="${item.stock > 0}">
+                            <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-dark">Thêm Vào Giỏ</a>
+                        </c:if>
+                    </div>
                 </div>
             </div>
         </c:forEach>
