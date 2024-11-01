@@ -283,15 +283,14 @@
     <div class="text-center mb-4">
         <h2 class="section-title px-5" style="font-family: Arial"><span class="px-2">Thương Hiệu</span></h2>
     </div>
-    <div class="row g-4 px-xl-5 pb-3">
+    <div class="row px-xl-5 pb-3">
         <c:forEach var="item" items="${brand.listResult}">
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1 pb-1"> <!-- Chỉnh responsive -->
-                <div class="item d-flex flex-column border bg-light m-0 pt-3 px-2" style="padding: 4px; border-radius: 1rem">
+            <div class="col-lg-2 col-md-6">
+                <div class="item d-flex flex-column p-0 pt-2 my-3" style="border: 3px solid;border-radius: 1rem;max-width: 293px; max-height: 113px;">
                     <a href="<c:url value='/shop/brand?id=${item.id}&page=1&limit=8'/>"
-                       class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid"
-                             src="<c:url value='/template/web/img/brands/${item.iconUrl}'/>" alt=""
-                             style="max-width: 100%; height: auto;"> <!-- Giới hạn kích thước hình ảnh -->
+                       class="cat-img position-relative overflow-hidden mb-3 ">
+                        <img class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;"
+                             src="<c:url value='/template/web/img/brands/${item.iconUrl}'/>" alt="">
                     </a>
                 </div>
             </div>
@@ -329,10 +328,10 @@
                     </div>
                     <div class="button-container p-0 mt-3 mx-auto">
                         <c:if test="${item.stock <= 0}">
-                            <a href="#" class="add-to-bag-btn bg-danger disabled" >Thêm Vào Giỏ(đang tạm hết)</a>
+                            <a href="#" class="add-to-bag-btn bg-danger disabled" style="text-decoration: none" >Thêm Vào Giỏ(đang tạm hết)</a>
                         </c:if>
                         <c:if test="${item.stock > 0}">
-                            <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-dark">Thêm Vào Giỏ</a>
+                            <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-dark" style="text-decoration: none">Thêm Vào Giỏ</a>
                         </c:if>
                     </div>
                 </div>
@@ -409,10 +408,10 @@
                     </div>
                     <div class="button-container p-0 mt-3 mx-auto">
                         <c:if test="${item.stock <= 0}">
-                            <a href="#" class="add-to-bag-btn bg-danger disabled" >Thêm Vào Giỏ(đang tạm hết)</a>
+                            <a href="#" class="add-to-bag-btn bg-danger disabled" style="text-decoration: none" >Thêm Vào Giỏ(đang tạm hết)</a>
                         </c:if>
                         <c:if test="${item.stock > 0}">
-                            <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-dark">Thêm Vào Giỏ</a>
+                            <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-dark" style="text-decoration: none">Thêm Vào Giỏ</a>
                         </c:if>
                     </div>
                 </div>
@@ -471,8 +470,8 @@ function autoSlide() {
 // Khởi tạo hình ảnh ban đầu
 showSlides(currentIndex);
 
-// Thiết lập tự động lướt slide mỗi 3 giây (3000ms)
-setInterval(autoSlide, 3000);
+// Thiết lập tự động lướt slide mỗi 5 giây (5000ms)
+setInterval(autoSlide, 5000);
 
 </script>
 
