@@ -142,10 +142,10 @@
                </div>
 
            </div>
-            <div class="highlight p-4 ml-0" style="background-color: rgba(0,0,0,0.05)">
-                <h1 style="font-family:Arial">Đồng hồ xu hướng 2024</h1>
+            <div class="highlight p-4 ml-0" style="background-image: url('https://img.freepik.com/free-vector/sparkling-golden-glowing-lights-background_1017-37780.jpg');background-position: center;background-size: cover;background-repeat: no-repeat; border: 1px solid ">
+                <h1 style="font-family:Arial">Đồng Hồ Xu Hướng 2024</h1>
                 <i class="fas fa-check-circle"></i>
-                <span class="small-text">100% chính hãng</span>
+                <span class="small-text">100% Chính Hãng</span>
             </div>
             <div class="container-fluid pt-5">
                 <div class="row px-xl-5 pb-3">
