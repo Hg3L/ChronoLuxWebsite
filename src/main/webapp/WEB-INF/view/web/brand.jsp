@@ -107,16 +107,20 @@
         </head>
 
         <body>
+        <div class="link-container py-3 pl-lg-5 pl-5 mb-3" style=" border-bottom: 2px solid; border-color: rgb(234,189,43)">
+            <a href="<c:url value='/home'/>" class="home-link">
+                <i class="fas fa-home"></i> Trang chủ
+            </a>
+            >
+            <a href="<c:url value='/shop/brand?id=${brand.id}&page=1&limit=8'/>" class="about-link">
+                ${brand.name}
+            </a>
+        </div>
             <!-- Page Header Start -->
             <div class="container-fluid bg-light mb-5 px-0">
                 <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
                     <img src="<c:url value='/template/web/img/brands/${brand.bannerUrl}'/>" alt="Our Shop" style="max-height: 300px; width: 100%; object-fit: cover;">
                 </div>
-            </div>
-            <div class="highlight p-4 ml-0" style="background-image: url('https://png.pngtree.com/png-vector/20240611/ourmid/pngtree-sleek-and-sophisticated-beautiful-grey-silk-or-satin-texture-ideal-for-png-image_12323800.png');background-position: center;background-size: cover;background-repeat: no-repeat;">
-                <h1 style="font-family:Arial">Đồng Hồ Xu Hướng 2024</h1>
-                <i class="fas fa-check-circle" style="color: rgb(234,189,43)"></i>
-                <span class="small-text">100% Chính Hãng</span>
             </div>
             <div class="container-fluid pt-5">
                 <div class="row px-xl-5 pb-0">
@@ -132,15 +136,6 @@
                         </div>
                     </c:forEach>
                 </div>
-            </div>
-            <div class="link-container pb-4 mb-2 ml-4 pl-4">
-                <a href="<c:url value='/home'/>" class="home-link">
-                    <i class="fas fa-home"></i> Trang chủ
-                </a>
-                >
-                <a href="<c:url value='/shop/brand?id=${brand.id}&page=1&limit=8'/>" class="about-link">
-                    ${brand.name}
-                </a>
             </div>
             <!-- Page Header End -->
             <div class="col-12 pb-1">
