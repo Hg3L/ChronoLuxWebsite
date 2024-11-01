@@ -30,9 +30,11 @@
 			z-index: 1;
 		}
 
-		h1 {
-			font-size: 3rem; /* Increase title size */
-			color: white;
+		h2 {
+			color: #333;
+			font-weight: 700;
+			letter-spacing: 1px;
+			font-family: Corbel;
 		}
 
 		.form-control {
@@ -66,47 +68,66 @@
 	</nav>
 </header>
 
-<div class="container bg-dark">
+<div class="row justify-content-center mx-0 py-5"style="background-image: url('${pageContext.request.contextPath}/template/login/img/bg-6.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 400px;">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"> <!-- Font Awesome CSS -->
-	<div class="row py-5 mt-4 align-items-center border rounded-5 p-3 bg-light shadow box-area">
-		<!-- Left Column -->
-		<div class="col-md-5 mb-5 mb-md-0 d-flex flex-column justify-content-center align-items-center ml-5">
-			<h1>Tạo Tài Khoản ChronoLux</h1>
-			<p class="font-italic " style="color: #cd9a2a;">Trở thành ChronoMember để nhận nhiều ưu đãi hấp dẫn</p>
-		</div>
-		<!-- Registration Form -->
-		<div class="col-md-7 col-lg-6 ml-auto">
-			<div class="row col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
-				<!-- First Name -->
+	<div class="login-container p-4 rounded-5 bg-white shadow col-12 col-sm-8 col-md-6 col-lg-5 mx-auto" style="border-radius: 1rem;">
+		<div class="row flex-nowrap ">
+			<!-- Left Column -->
+			<div class="col-md-5 mx-3 d-flex flex-column justify-content-center align-items-center text-center border-end ">
+				<img class="mx-5" src="${pageContext.request.contextPath}/template/login/img/promo-1.png" alt="ChronoLux Logo">
+				<h2 class="mt-5">Tạo Tài Khoản ChronoLux</h2>
+				<p class="font-italic " style="color: #cd9a2a;">Trở thành ChronoMember <br> để nhận được nhiều ưu đãi hấp dẫn</p>
+				<img class="mt-5" src="${pageContext.request.contextPath}/template/web/img/Logo.svg" alt="ChronoLux Logo">
+			</div>
+
+			<!-- Vertical Divider -->
+			<div class="d-none d-md-block" style="width: 1px; background-color: #cd9a2a;"></div>
+
+			<!-- Registration Form -->
+			<div class="col-md-7 col-lg-6 ml-3">
 				<form:form method="post" id="formSubmit" action="${pageContext.request.contextPath}/login/add" enctype="multipart/form-data">
-					<div class="row ml-5 rounded-5 d-flex justify-content-center align-items-center flex-column left-box">
-						<input class="text mb-0" type="text" name="userName" id="userName" placeholder="Username" required minlength="6" maxlength="20">
+					<div class="row mx-5 rounded-5 d-flex justify-content-center align-items-center flex-column left-box">
+						<input class="text mb-0 mt-2" type="text" name="userName" id="userName" placeholder="Tên Tài Khoản" required minlength="6" maxlength="20">
 						<span id="usernameFeedback" style="color: red; display: none;"></span>
 						<input class="text email mt-3 mb-3" type="email" name="email" placeholder="Email" required="">
-						<input class="text  mt-0 mb-3" type="text" name="fullName" placeholder="FullName" required="">
+						<input class="text mt-0 mb-3" type="text" name="fullName" placeholder="Họ Và Tên" required="">
+						<input class="text mb-0" type="password" name="password" id="password" placeholder="Mật Khẩu" required minlength="6">
+						<input class="text w3lpass mt-3 mb-3" type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="Xác Nhân Mật Khẩu" oninput="checkPasswordMatch(this);" required="">
+						<label class="mt-2">Avatar:</label>
+						<input class="text mb-3" type="file" name="img" id="img" accept="image/*" onchange="previewImage(event)">
+						<img id="imgPreview" alt="Avt Preview" class="mb-3" style="display: none; max-width: 100px; max-height: 100px;" />
+						<script>
+							function previewImage(event) {
+								const imgPreview = document.getElementById('imgPreview');
+								const file = event.target.files[0];
 
-						<label class="mt-2"> Avatar: </label>
-						<input class="text mb-3" type="file" name="img" id="img" accept="image/*">
-						<img id="imgPreview" alt="Avt Preview" class="mb-3"/>
+								if (file) {
+									const reader = new FileReader();
 
-						<input class="text mb-0" type="password" name="password" id="password" placeholder="Password" required minlength="6">
-						<input class="text w3lpass mt-3 mb-3" type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="Confirm Password" oninput="checkPasswordMatch(this);" required="">
+									reader.onload = function(e) {
+										imgPreview.src = e.target.result;
+										imgPreview.style.display = 'block'; // Show the image preview
+									};
 
+									reader.readAsDataURL(file);
+								} else {
+									imgPreview.style.display = 'none'; // Hide the image preview if no file is selected
+								}
+							}
+						</script>
 						<div class="g-recaptcha mb-0" data-sitekey="6LcvolUqAAAAAHsPdMaMhrNDeg_HE-FuNR4XO95n"></div>
 						<div id="error" class="mb-3"></div>
-
-						<button type="submit" class="btn btn-success btn-sm mb-3">
-							Sign Up
-						</button>
+						<button type="submit" class="btn btn-success mb-3 w-75">Đăng Ký</button>
+						<div class="row mx-5 mb-2 rounded-5 d-flex justify-content-center align-items-center flex-column left-box">
+							<p class="text-center">Đã là ChronoMember?</p>
+							<a href="<c:url value='/login'/>">Đăng Nhập</a>
+						</div>
 					</div>
 				</form:form>
-				<div class="row ml-5 mb-2 rounded-5 d-flex justify-content-center align-items-center flex-column left-box">
-					<p class="text-center mt-3">Đã là ChronoMember?</p>
-					<a href="<c:url value ='/login'/>">Đăng Nhập</a>
-				</div>
 			</div>
 		</div>
 	</div>
+
 </div>
 
 <script src='https://www.google.com/recaptcha/api.js'></script> <!-- Google reCAPTCHA API -->
