@@ -28,6 +28,9 @@
             <link href=" <c:url value='/template/web/css/style.css'/>" rel="stylesheet">
 
 
+
+
+
             <%----------------------------%>
             <style>
                     .commitment-container {
@@ -125,22 +128,35 @@
                             border-color: #cccccc;
                             color: #666666; /* Màu chữ xám để làm rõ trạng thái "SOLD OUT" */
                         }
+                   .owl-prev,
+                   .owl-next {
+                       position: absolute;
+                       top: 50%;
+                       transform: translateY(-50%);
+                       background-color: rgba(0, 0, 0, 0.5);
+                       color: white;
+                       border: none;
+                       padding: 10px;
+                       cursor: pointer;
+                       font-size: 24px;
+                       z-index: 1;
+                   }
+
+                   .owl-prev {
+                       left: 10px; /* Vị trí nút trước */
+                   }
+
+                   .owl-next {
+                       right: 10px; /* Vị trí nút tiếp theo */
+                   }
+
                 </style>
         </head>
 
         <body>
 
             <!-- Page Header Start -->
-            <div class="container-fluid bg-secondary mb-5">
-                <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-                    <h1 class="font-weight-semi-bold text-uppercase mb-3">Shop Detail</h1>
-                    <div class="d-inline-flex">
-                        <p class="m-0"><a href="">Home</a></p>
-                        <p class="m-0 px-2">-</p>
-                        <p class="m-0">Shop Detail</p>
-                    </div>
-                </div>
-            </div>
+
             <!-- Page Header End -->
 
 
@@ -343,36 +359,33 @@
             <!-- Products Start -->
             <div class="container-fluid py-5">
                 <div class="text-center mb-4">
-                    <h2 class="section-title px-5"><span class="px-2">You May Also Like</span></h2>
+                    <h2 class="section-title px-5"><span class="px-2"> Có Thể Bạn Cũng Thích</span></h2>
                 </div>
                 <div class="row px-xl-5">
                     <div class="col">
-
                         <div class="owl-carousel related-carousel">
-                        <c:forEach var="item" items="${productByBrands}">
-                            <div class="card product-item border-0">
-                                <div
-                                    class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                    <img class="img-fluid w-100" src="<c:url value='/template/web/img/products/${item.imgUrl}'/>" alt="">
-                                </div>
-                                <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                                    <h6 class="text-truncate mb-3">${item.name}</h6>
-                                    <div class="d-flex justify-content-center">
-
-                                        <h6 id = "price" ><del>${item.price}</del></h6>
+                            <c:forEach var="item" items="${productByBrands}">
+                                <div class="card product-item border-0">
+                                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                        <img class="img-fluid w-100" src="<c:url value='/template/web/img/products/${item.imgUrl}'/>" alt="">
+                                    </div>
+                                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                                        <h6 class="text-truncate mb-3">${item.name}</h6>
+                                        <div class="d-flex justify-content-center">
+                                            <h6 id="price"><del>${item.price}</del></h6>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer d-flex justify-content-between bg-light border">
+                                        <a href="<c:url value='/product-detail?id=${item.id}'/>" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                                        <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
                                     </div>
                                 </div>
-                                <div class="card-footer d-flex justify-content-between bg-light border">
-                                    <a href="<c:url value='/product-detail?id=${item.id}'/>" class="btn btn-sm text-dark p-0"><i
-                                            class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                                    <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="btn btn-sm text-dark p-0"><i
-                                            class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
-                                </div>
-                            </div>
-                                 </c:forEach>
+                            </c:forEach>
                         </div>
-
+                        <button class="owl-prev">❮</button>
+                        <button class="owl-next">❯</button>
                     </div>
+
 
                 </div>
             </div>
@@ -446,6 +459,37 @@
 
 
                 }
+               $(document).ready(function() {
+                   // Khởi tạo Owl Carousel
+                   var owl = $('.related-carousel').owlCarousel({
+                       items: 3, // Số lượng sản phẩm hiển thị
+                       loop: true,
+                       nav: true, // Bật nút điều hướng
+                       navText: ["<div class='owl-prev'>❮</div>", "<div class='owl-next'>❯</div>"],
+                       responsive: {
+                           0: {
+                               items: 1 // Hiển thị 1 sản phẩm khi màn hình nhỏ hơn 600px
+                           },
+                           600: {
+                               items: 2 // Hiển thị 2 sản phẩm khi màn hình từ 600px đến 999px
+                           },
+                           1000: {
+                               items: 3 // Hiển thị 3 sản phẩm khi màn hình lớn hơn 1000px
+                           }
+                       }
+                   });
+
+                   // Bổ sung sự kiện cho nút điều hướng tùy chỉnh (nếu cần)
+                   $('.owl-prev').click(function() {
+                       owl.trigger('prev.owl.carousel');
+                   });
+
+                   $('.owl-next').click(function() {
+                       owl.trigger('next.owl.carousel');
+                   });
+
+                });
+
             </script>
             <script>
                 document.querySelectorAll('#price').forEach(element => {
@@ -454,6 +498,7 @@
                 });
 
             </script>
+
         </body>
 
         </html>
