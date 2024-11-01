@@ -118,17 +118,17 @@
 						<div class="g-recaptcha" data-sitekey="6LcvolUqAAAAAHsPdMaMhrNDeg_HE-FuNR4XO95n"></div>
 					</div>
 					<div class="form-group">
-						<button type="submit" class="form-control btn btn-primary w-100">Đăng Nhập</button>
+						<button type="submit" class="form-control btn btn-dark w-100">Đăng Nhập</button>
 					</div>
 					<div class="form-group d-flex justify-content-between mt-3">
 						<div class="form-check">
 							<input type="checkbox" name="remember-me" class="form-check-input" id="rememberMe">
 							<label class="form-check-label" for="rememberMe">Ghi Nhớ Tài Khoản</label>
 						</div>
-						<a href="<c:url value='/login/forgot-password'/>">Quên Mật Khẩu?</a>
+						<a href="<c:url value='/login/forgot-password'/>" style="text-decoration: none">Quên Mật Khẩu?</a>
 					</div>
 				</form>
-				<p class="text-center mt-3">Chưa có Tài Khoản? <a href="<c:url value='/login/register'/>">Tham Gia Ngay</a></p>
+				<p class="text-center mt-3">Chưa có Tài Khoản? <a href="<c:url value='/login/register'/>" style="text-decoration: none">Đăng ký</a></p>
 			</div>
 		</div>
 	</div>
