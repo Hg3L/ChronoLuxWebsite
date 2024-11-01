@@ -16,16 +16,7 @@
             </a>
         </div>
         <div class="col-lg-6 col-6 text-left">
-            <form action="">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Find Your Watch">
-                    <div class="input-group-append">
-                        <span class="input-group-text bg-transparent text-primary">
-                            <i class="fa fa-search"></i>
-                        </span>
-                    </div>
-                </div>
-            </form>
+
         </div>
         <div class="col-lg-3 col-6 text-right">
 
@@ -90,7 +81,7 @@
                             %>
                             <a href="#" class="nav-link dropdown-toggle" id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Welcome, <%=fullName%>
+                                Chào mừng, <%=fullName%>
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right"

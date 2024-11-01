@@ -71,6 +71,12 @@
                     .carousel-item {
                         transition: transform 0.15s ease-in-out; /* Thời gian chuyển slide là 0.5 giây */
                     }
+                    .disabled {
+                        pointer-events: none; /* Ngăn chặn sự tương tác */
+                        opacity: 0.5; /* Giảm độ mờ của nút */
+                        cursor: not-allowed; /* Hiển thị con trỏ như không cho phép */
+                    }
+
 
                 </style>
 
@@ -297,8 +303,17 @@
                                                 <a href="<c:url value='/product-detail?id=${product.id}'/>"
                                                     class="btn btn-sm text-dark p-0"><i
                                                         class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                                                <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>" class="btn btn-sm text-dark p-0"><i
-                                                    class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+
+                                                 <c:if test="${product.stock <= 0}">
+                                                                      <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>" class="btn btn-sm text-dark p-0 disabled">
+                                                                          <i class="fas fa-shopping-cart text-primary mr-1"></i>Đang tạm hết
+                                                                      </a>
+
+                                                                     </c:if>
+                                                                      <c:if test="${product.stock > 0}">
+                                                                           <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>" class="btn btn-sm text-dark p-0"><i
+                                                                                                                               class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ</a>
+                                                                      </c:if>
                                             </div>
                                         </div>
 

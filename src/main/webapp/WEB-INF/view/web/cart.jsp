@@ -131,7 +131,8 @@
                             </table>
                         </c:if>
                         <c:if test="${empty cartItems}">
-                            <h3> You have not chosen any product yet </h3>
+                            <h3> Giỏ hàng hiện tại của bạn chưa có sản phẩm. </h3>
+                            Hiện không có sản phẩm nào được lưu. Bạn cần tư vấn có thể liên hệ qua Holine 093 189 2222 hoặc Zalo. ChronoLuxStore sẽ hỗ trợ bạn.
                         </c:if>
                     </div>
                     <div class="col-lg-4">
