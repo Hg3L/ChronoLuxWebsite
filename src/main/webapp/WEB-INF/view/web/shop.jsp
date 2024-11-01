@@ -84,7 +84,7 @@
 
         <body>
             <!-- Page Header Start -->
-           <div id="bannerCarousel" class="carousel slide carousel-slide" data-bs-ride="carousel" data-bs-interval="3000">
+           <div id="bannerCarousel" class="carousel slide carousel-slide my-3 pb-4" data-bs-ride="carousel" data-bs-interval="3000">
                <div class="carousel-inner">
                    <!-- Slide 1 -->
                    <div class="carousel-item active">
@@ -127,9 +127,8 @@
                    </div>
                </div>
 
-
            </div>
-            <div class="highlight p-4 rounded-5 bg-white shadow col-12 col-sm-12 col-md-6 col-lg-4 mx-auto " style="border-radius: 1rem;">
+            <div class="highlight p-4 ml-0" style="background-color: rgba(0,0,0,0.05)">
                 <h1 style="font-family:Arial">Đồng hồ xu hướng 2024</h1>
                 <i class="fas fa-check-circle"></i>
                 <span class="small-text">100% chính hãng</span>
@@ -137,9 +136,8 @@
             <div class="container-fluid pt-5">
                 <div class="row px-xl-5 pb-3">
                     <c:forEach var="item" items="${brand.listResult}">
-                        <div class="col-lg-2 col-md-6 pb-1">
-                            <div class="cat-item d-flex flex-column border mb-4" style="padding: 20px;">
-                                <p class="text-right">15 Products</p>
+                        <div class="col-lg-2 col-md-6">
+                            <div class="item d-flex flex-column border p-0 pt-2" style="border-radius: 1rem;">
                                 <a href="<c:url value='/shop/brand?id=${item.id}&page=1&limit=8'/>"
                                     class="cat-img position-relative overflow-hidden mb-3">
                                     <img class="img-fluid"
@@ -290,27 +288,22 @@
                                                 <h6 class="text-truncate mb-3">${product.name}</h6>
                                                 <div class="d-flex justify-content-center">
                                                     <h6 id = "price" style="color: red; font-weight: bold;">${product.price}đ</h6>
-
                                                 </div>
                                             </div>
                                             <div class="card-footer d-flex justify-content-between bg-light border">
                                                 <a href="<c:url value='/product-detail?id=${product.id}'/>"
                                                     class="btn btn-sm text-dark p-0"><i
                                                         class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-
-                                                 <c:if test="${product.stock <= 0}">
-                                                                      <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>" class="btn btn-sm text-dark p-0 disabled">
-                                                                          <i class="fas fa-shopping-cart text-primary mr-1"></i>Đang tạm hết
-                                                                      </a>
-
-                                                                     </c:if>
-                                                                      <c:if test="${product.stock > 0}">
-                                                                           <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>" class="btn btn-sm text-dark p-0"><i
-                                                                                                                               class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ</a>
-                                                                      </c:if>
+                                                <c:if test="${product.stock <= 0}">
+                                                    <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>" class="btn btn-sm text-dark p-0 disabled">
+                                                        <i class="fas fa-shopping-cart text-primary mr-1"></i>Đang tạm hết
+                                                    </a>
+                                                </c:if>
+                                                <c:if test="${product.stock > 0}">
+                                                    <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ</a>
+                                                </c:if>
                                             </div>
                                         </div>
-
                                     </div>
                                 </c:forEach>
                             </div>
