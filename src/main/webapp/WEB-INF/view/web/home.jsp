@@ -328,7 +328,7 @@
                     </div>
                     <div class="button-container p-0 mt-3 mx-auto">
                         <c:if test="${item.stock <= 0}">
-                            <a href="#" class="add-to-bag-btn bg-danger disabled" style="text-decoration: none" >Thêm Vào Giỏ(đang tạm hết)</a>
+                            <a href="#" class="add-to-bag-btn  disabled" style="text-decoration: none" >Tạm hết</a>
                         </c:if>
                         <c:if test="${item.stock > 0}">
                             <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-dark" style="text-decoration: none">Thêm Vào Giỏ</a>
@@ -408,7 +408,7 @@
                     </div>
                     <div class="button-container p-0 mt-3 mx-auto">
                         <c:if test="${item.stock <= 0}">
-                            <a href="#" class="add-to-bag-btn bg-danger disabled" style="text-decoration: none" >Thêm Vào Giỏ(đang tạm hết)</a>
+                            <a href="#" class="add-to-bag-btn disabled" style="text-decoration: none" >Tạm hết</a>
                         </c:if>
                         <c:if test="${item.stock > 0}">
                             <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-dark" style="text-decoration: none">Thêm Vào Giỏ</a>

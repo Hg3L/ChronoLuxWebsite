@@ -81,6 +81,16 @@
                         opacity: 0.5;
                         cursor: default;
                     }
+                            .try-on-label {
+                                 position: absolute;
+                                 top: 10px;
+                                 left: 10px;
+                                 background-color: white;
+                                 font-size: 12px;
+                                 padding: 3px 7px;
+                                 border-radius: 5px;
+                                 border: 1px solid #ddd;
+                             }
 
                 </style>
 
@@ -286,6 +296,9 @@
                                 <c:forEach var="product" items="${products}">
                                     <div class="product-card p-2 bg-white shadow mx-3 my-3 " style="border-radius: 1rem; max-width: 300px">
                                         <div class="card product-item border-0 mb-4">
+                                         <c:if test="${product.stock <= 0}">
+                                                                                                                                                    <span class="try-on-label">Bán Hết</span>
+                                                                                                                                     </c:if>
                                                 <img class="img-fluid p-5" style="width: fit-content;"
                                                     src="<c:url value='/template/web/img/products/${product.imgUrl}'/>" alt="">
                                             <div class="card-body text-center p-0 pt-4 pb-3">
