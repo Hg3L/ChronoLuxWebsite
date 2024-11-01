@@ -24,6 +24,9 @@ public class WarrantyConverter implements Converter<WarrantyDTO, WarrantyEntity>
         if(dto.getId() != null) {
             warrantyEntity.setId(dto.getId());
         }
+        else{
+            warrantyEntity.setId(0L);
+        }
         warrantyEntity.setContent(dto.getContent());
         return warrantyEntity;
     }
