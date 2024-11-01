@@ -101,6 +101,73 @@
             border-radius: 5px;
             margin-top: 10px;
         }
+     #carousel {
+         display: flex;
+         overflow: hidden;
+         position: relative;
+         height: 400px; /* Đặt chiều cao theo ý bạn */
+     }
+
+     .slide-item {
+         flex: 0 0 45%; /* Mỗi hình ảnh chiếm 45% chiều rộng */
+         background-size: cover;
+         background-position: center;
+         background-repeat: no-repeat;
+         border-radius: 15px; /* Bo tròn góc */
+         margin: 0 10px; /* Khoảng cách giữa hai hình ảnh */
+         transition: transform 0.5s ease;
+     }
+
+     .spring-collection {
+         background-image: url('https://www.watchstore.vn/images/banners/compress/fc-luxury-banner_1711707751.webp');
+     }
+
+     .winter-collection {
+         background-image: url('https://www.watchstore.vn/images/banners/compress/omega-luxury-banner_1711707171.webp');
+     }
+
+     .slide-link {
+         display: block; /* Làm cho thẻ a trở thành khối */
+         width: 100%; /* Chiều rộng 100% để phủ toàn bộ slide */
+         height: 100%; /* Chiều cao 100% để phủ toàn bộ slide */
+         position: absolute; /* Đặt vị trí tuyệt đối */
+         top: 0; /* Đặt vị trí ở trên cùng */
+         left: 0; /* Đặt vị trí ở bên trái */
+         text-decoration: none; /* Bỏ gạch chân */
+     }
+
+     .slide-btn {
+         position: absolute;
+         top: 50%;
+         transform: translateY(-50%);
+         background-color: rgba(0, 0, 0, 0.5);
+         color: white;
+         border: none;
+         padding: 10px;
+         cursor: pointer;
+         font-size: 24px;
+         z-index: 1;
+     }
+
+     .prev {
+         left: 10px; /* Vị trí nút trước */
+     }
+
+     .next {
+         right: 10px; /* Vị trí nút tiếp theo */
+     }
+
+     .slide-btn:hover {
+         background-color: rgba(0, 0, 0, 0.7); /* Hiệu ứng hover */
+     }
+     .disabled {
+         pointer-events: none; /* Không cho phép tương tác */
+         opacity: 0.5; /* Giảm độ mờ */
+         cursor: not-allowed; /* Hiển thị con trỏ như không cho phép */
+     }
+
+
+
     </style>
 
 
@@ -189,7 +256,7 @@
         <c:forEach var="item" items="${brand.listResult}">
             <div class="col-lg-2 col-md-6 pb-1">
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 20px;">
-                    <p class="text-right">15 Products</p>
+
                     <a href="<c:url value='/shop/brand?id=${item.id}&page=1&limit=8'/>"
                        class="cat-img position-relative overflow-hidden mb-3">
                         <img class="img-fluid"
@@ -205,28 +272,33 @@
 
 <!-- Offer Start -->
 <div class="container-fluid offer pt-5">
-    <div class="row px-xl-5">
-        <div class="col-md-6 pb-4">
-            <div class="position-relative bg-secondary text-center text-md-right text-white mb-2 py-5 px-5">
-                <img src="img/offer-1.png" alt="">
-                <div class="position-relative" style="z-index: 1;">
-                    <h5 class="text-uppercase text-primary mb-3">20% off the all order</h5>
-                    <h1 class="mb-4 font-weight-semi-bold">Spring Collection</h1>
-                    <a href="" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 pb-4">
-            <div class="position-relative bg-secondary text-center text-md-left text-white mb-2 py-5 px-5">
-                <img src="img/offer-2.png" alt="">
-                <div class="position-relative" style="z-index: 1;">
-                    <h5 class="text-uppercase text-primary mb-3">20% off the all order</h5>
-                    <h1 class="mb-4 font-weight-semi-bold">Winter Collection</h1>
-                    <a href="" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
-                </div>
-            </div>
-        </div>
-    </div>
+   <div class="row px-xl-5">
+       <div class="col-md-12 pb-4">
+           <div id="carousel" class="d-flex position-relative justify-content-center">
+               <div class="slide-item">
+                   <a href="link_to_spring_collection" class="slide-link">
+                       <div class="spring-collection"></div>
+                   </a>
+                   <a href="link_to_another_spring_collection" class="slide-link">
+                       <div class="spring-collection"></div>
+                   </a>
+               </div>
+               <div class="slide-item">
+                   <a href="link_to_winter_collection" class="slide-link">
+                       <div class="winter-collection"></div>
+                   </a>
+                   <a href="link_to_another_winter_collection" class="slide-link">
+                       <div class="winter-collection"></div>
+                   </a>
+               </div>
+               <button class="slide-btn prev" onclick="prevSlide()">&#10094;</button>
+               <button class="slide-btn next" onclick="nextSlide()">&#10095;</button>
+           </div>
+       </div>
+
+   </div>
+
+
 </div>
 <!-- Offer End -->
 
@@ -234,13 +306,13 @@
 <!-- Products Start -->
 <div class="container-fluid pt-5 px-5">
     <div class="text-center mb-4">
-        <h2 class="section-title px-5"><span class="px-2">Trendy Products</span></h2>
+        <h2 class="section-title px-5"><span class="px-2">Sản Phẩm Bán Nhiều</span></h2>
     </div>
     <div class="product_list d-flex justify-content-center align-items-center flex-wrap">
         <c:forEach var="item" items="${productTrendy}">
             <div class="product-card">
                 <c:if test="${item.stock <= 0}">
-                    <span class="try-on-label">SOLD OUT</span>
+                    <span class="try-on-label">Bán Hết</span>
                 </c:if>
 
                 <a href="<c:url value='/product-detail?id=${item.id}'/>">
@@ -249,11 +321,17 @@
                 </a>
                 <div class="product-info">
                     <div class="product-name">${item.name}</div>
-                    <div class="product-description">watch type: ${item.watchType}</div>
+                    <div class="product-description">Loại máy: ${item.watchType}</div>
                     <div class="product-price">
-                        <span id="price" >${item.price}đ</span>
+                       <span>Giá: </span>  <span id="price" >${item.price}đ</span>
                     </div>
-                    <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-warning" >ADD TO BAG</a>
+                     <c:if test="${item.stock <= 0}">
+                       <a href="#" class="add-to-bag-btn bg-warning disabled">Thêm Vào Giỏ(đang tạm hết)</a>
+                     </c:if>
+                      <c:if test="${item.stock > 0}">
+                           <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-warning" >Thêm Vào Giỏ</a>
+                      </c:if>
+
                 </div>
             </div>
         </c:forEach>
@@ -307,13 +385,13 @@
 <!-- Products Start -->
 <div class="container-fluid pt-5">
     <div class="text-center mb-4">
-        <h2 class="section-title px-5"><span class="px-2">Just Arrived</span></h2>
+        <h2 class="section-title px-5"><span class="px-2">Hàng Mới Về</span></h2>
     </div>
     <div class="product_list d-flex justify-content-center align-items-center flex-wrap">
         <c:forEach var="item" items="${product.listResult}">
             <div class="product-card">
                 <c:if test="${item.stock <= 0}">
-                    <span class="try-on-label">SOLD OUT</span>
+                    <span class="try-on-label">Bán hết</span>
                 </c:if>
 
                 <a href="<c:url value='/product-detail?id=${item.id}'/>">
@@ -326,7 +404,12 @@
                     <div class="product-price">
                         <span id="price" >${item.price}đ</span>
                     </div>
-                    <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-warning" >ADD TO BAG</a>
+                    <c:if test="${item.stock <= 0}">
+                       <a href="#" class="add-to-bag-btn bg-warning disabled">Thêm Vào Giỏ(đang tạm hết)</a>
+                     </c:if>
+                      <c:if test="${item.stock > 0}">
+                           <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-warning" >Thêm Vào Giỏ</a>
+                      </c:if>
                 </div>
             </div>
         </c:forEach>
@@ -338,6 +421,53 @@
         let price = parseInt(element.innerText.replace("đ", ""), 10);
         element.innerText = price.toLocaleString("vi-VN") + "đ";
     });
+
+</script>
+<script>
+const images = [
+    ['https://www.watchstore.vn/images/banners/compress/fc-luxury-banner_1711707751.webp', 'https://www.watchstore.vn/images/banners/compress/omega-luxury-banner_1711707171.webp'],
+    ['https://www.watchstore.vn/images/banners/compress/omega-luxury-banner_1711707171.webp', 'https://www.watchstore.vn/images/banners/compress/lg-giam-34-banner_1711707950.webp'],
+];
+
+let currentIndex = 0;
+
+function showSlides(index) {
+    const slideItems = document.querySelectorAll('.slide-item');
+
+    // Kiểm tra nếu index nằm trong phạm vi hợp lệ
+    if (index >= 0 && index < images.length) {
+        // Kiểm tra nếu `images[index]` tồn tại và có đủ 2 phần tử
+        if (images[index] && images[index].length >= 2) {
+            slideItems[0].style.backgroundImage = 'url(' + images[index][0] + ')';
+            slideItems[1].style.backgroundImage = 'url(' + images[index][1] + ')';
+        } else {
+            console.error("Hình ảnh không đủ trong mảng images[index].");
+        }
+    } else {
+        console.error("Index nằm ngoài phạm vi của mảng images.");
+    }
+}
+
+function nextSlide() {
+    currentIndex = (currentIndex + 1) % images.length;
+    showSlides(currentIndex);
+}
+
+function prevSlide() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    showSlides(currentIndex);
+}
+
+// Hàm tự động lướt slide sau mỗi 3 giây
+function autoSlide() {
+    nextSlide(); // Gọi hàm nextSlide để chuyển đến slide tiếp theo
+}
+
+// Khởi tạo hình ảnh ban đầu
+showSlides(currentIndex);
+
+// Thiết lập tự động lướt slide mỗi 3 giây (3000ms)
+setInterval(autoSlide, 3000);
 
 </script>
 

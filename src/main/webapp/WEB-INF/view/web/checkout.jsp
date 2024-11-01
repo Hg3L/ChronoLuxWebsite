@@ -437,7 +437,7 @@
                                  <div class="payment-option">
                                     <input type="radio" name="paymentMethod" id="VNPAY" value="VNPAY"
                                         onchange="updateAction()">
-                                    <label for="VNPAY">Thanh toán vnpay</label>
+                                    <label for="VNPAY">Thanh toán VNPAY</label>
                                 </div>
                                 <form action="<c:url value='/authorize_payment'/>" method="post" id="paymentForm">
                                     <input type="hidden" name="subtotal" value="${subtotal}">
