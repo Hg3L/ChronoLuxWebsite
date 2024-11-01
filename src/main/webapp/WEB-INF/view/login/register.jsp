@@ -93,25 +93,8 @@
 						<input class="text mt-2 mb-2 w-100" type="text" name="fullName" placeholder="Họ Và Tên" required="">
 						<input class="text mb-2 w-100" type="password" name="password" id="password" placeholder="Mật Khẩu" required minlength="6">
 						<input class="text mt-2 mb-2 w-100" type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="Xác Nhận Mật Khẩu" oninput="checkPasswordMatch(this);" required="">
-						<input class="text mb-2 w-100" type="file" name="img" id="img" accept="image/*" onchange="previewImage(event)">
-						<img id="imgPreview" alt="Avatar Preview" class="mb-2 img-fluid d-none d-md-block" style="display: none; max-width: 100px; max-height: 100px;" />
-						<script>
-							function previewImage(event) {
-								const imgPreview = document.getElementById('imgPreview');
-								const file = event.target.files[0];
-
-								if (file) {
-									const reader = new FileReader();
-									reader.onload = function(e) {
-										imgPreview.src = e.target.result;
-										imgPreview.style.display = 'block'; // Explicitly set display to block
-									};
-									reader.readAsDataURL(file);
-								} else {
-									imgPreview.style.display = 'none'; // Explicitly hide if no file
-								}
-							}
-						</script>
+						<input class="text mb-3" type="file" name="img" id="img" accept="image/*" onchange="showImage(fileInput)">
+						<img id="imgPreview" alt="Avt Preview" class="mb-3" style="display: none; max-width: 100px; max-height: 100px;" />
 						<div class="g-recaptcha mb-2" data-sitekey="6LcvolUqAAAAAHsPdMaMhrNDeg_HE-FuNR4XO95n"></div>
 						<div id="error" class="mb-2"></div>
 						<button type="submit" class="btn btn-success mb-2 w-75">Đăng Ký</button>
@@ -170,15 +153,22 @@
 
 		});
 	}
-	function showImage(fileInput){
-		file = fileInput.files[0];
-		reader = new FileReader();
+	function showImage(fileInput) {
+		const file = fileInput.files[0];
+		const imgPreview = $('#imgPreview'); // Using jQuery to select the image preview element
 
-		reader.onload = function(e){
-			$('#imgPreview').attr('src',e.target.result);
+		if (file) {
+			const reader = new FileReader();
+			reader.onload = function(e) {
+				imgPreview.attr('src', e.target.result);
+				imgPreview.css('display', 'block'); // Show the image preview by setting display to block
+			};
+			reader.readAsDataURL(file);
+		} else {
+			imgPreview.css('display', 'none'); // Hide the image preview if no file is selected
 		}
-		reader.readAsDataURL(file);
 	}
+
 	$(document).ready(function() {
 		$('#userName').on('blur', function() {
 			const username = $(this).val();
