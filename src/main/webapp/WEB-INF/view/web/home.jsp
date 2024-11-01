@@ -177,7 +177,7 @@
 <!-- Banner Start -->
 <div class="container-fluid mb-5">
     <div class="row border-top px-xl-5">
-        <div id="header-carousel" class="carousel slide" style="width: 100%;" data-ride="carousel">
+        <div id="header-carousel" class="carousel slide" style="width: 100%;" data-ride="carousel" data-interval="5000">
             <!-- Carousel Indicators -->
             <ol class="carousel-indicators">
                 <c:forEach var="item" items="${posts}" varStatus="status">
@@ -218,40 +218,43 @@
 <!-- Banner End -->
 
 
-<!-- Featured Start -->
-<div class="container-fluid pt-5">
-    <div class="row px-xl-5 pb-3">
-        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
-                <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
-                <h5 class="font-weight-semi-bold m-0">Quality Product</h5>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
-                <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
-                <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
-                <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
-                <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
-                <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
-                <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Featured End -->
+<%--<!-- Featured Start -->--%>
+<%--<div class="container-fluid pt-5">--%>
+<%--    <div class="row px-xl-5 pb-3">--%>
+<%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+<%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+<%--                <h1 class="fa fa-check text-primary m-0 mr-3"></h1>--%>
+<%--                <h5 class="font-weight-semi-bold m-0">Quality Product</h5>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+<%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+<%--                <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>--%>
+<%--                <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+<%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+<%--                <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>--%>
+<%--                <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+<%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+<%--                <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>--%>
+<%--                <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</div>--%>
+<%--<!-- Featured End -->--%>
 
 
 <!-- Brand Start -->
 <div class="container-fluid pt-5">
+    <div class="text-center mb-4">
+        <h2 class="section-title px-5" style="font-family: Arial"><span class="px-2">Thương Hiệu</span></h2>
+    </div>
     <div class="row px-xl-5 pb-3">
         <c:forEach var="item" items="${brand.listResult}">
             <div class="col-lg-2 col-md-6 pb-1">
@@ -270,6 +273,8 @@
 <!-- Categories End -->
 
 
+
+  
 <!-- Offer Start -->
 <div class="container-fluid offer pt-5">
    <div class="row px-xl-5">
@@ -303,14 +308,17 @@
 <!-- Offer End -->
 
 
+
 <!-- Products Start -->
 <div class="container-fluid pt-5 px-5">
     <div class="text-center mb-4">
+
         <h2 class="section-title px-5"><span class="px-2">Sản Phẩm Bán Nhiều</span></h2>
+
     </div>
     <div class="product_list d-flex justify-content-center align-items-center flex-wrap">
         <c:forEach var="item" items="${productTrendy}">
-            <div class="product-card">
+            <div class="product-card p-5">
                 <c:if test="${item.stock <= 0}">
                     <span class="try-on-label">Bán Hết</span>
                 </c:if>
@@ -320,17 +328,21 @@
                          alt="Santos De Cartier Watch">
                 </a>
                 <div class="product-info">
+
                     <div class="product-name">${item.name}</div>
                     <div class="product-description">Loại máy: ${item.watchType}</div>
+
                     <div class="product-price">
                        <span>Giá: </span>  <span id="price" >${item.price}đ</span>
                     </div>
+
                      <c:if test="${item.stock <= 0}">
                        <a href="#" class="add-to-bag-btn bg-warning disabled">Thêm Vào Giỏ(đang tạm hết)</a>
                      </c:if>
                       <c:if test="${item.stock > 0}">
                            <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-warning" >Thêm Vào Giỏ</a>
                       </c:if>
+
 
                 </div>
             </div>
@@ -359,37 +371,39 @@
 <!-- Products End -->
 
 
-<!-- Subscribe Start -->
-<div class="container-fluid bg-secondary my-5">
-    <div class="row justify-content-md-center py-5 px-xl-5">
-        <div class="col-md-6 col-12 py-5">
-            <div class="text-center mb-2 pb-2">
-                <h2 class="section-title px-5 mb-3"><span class="bg-secondary px-2">Stay Updated</span></h2>
-                <p>Amet lorem at rebum amet dolores. Elitr lorem dolor sed amet diam labore at justo ipsum
-                    eirmod duo labore labore.</p>
-            </div>
-            <form action="">
-                <div class="input-group">
-                    <input type="text" class="form-control border-white p-4" placeholder="Email Goes Here">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary px-4">Subscribe</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- Subscribe End -->
+<%--<!-- Subscribe Start -->--%>
+<%--<div class="container-fluid bg-secondary my-5">--%>
+<%--    <div class="row justify-content-md-center py-5 px-xl-5">--%>
+<%--        <div class="col-md-6 col-12 py-5">--%>
+<%--            <div class="text-center mb-2 pb-2">--%>
+<%--                <h2 class="section-title px-5 mb-3"><span class="bg-secondary px-2">Stay Updated</span></h2>--%>
+<%--                <p>Amet lorem at rebum amet dolores. Elitr lorem dolor sed amet diam labore at justo ipsum--%>
+<%--                    eirmod duo labore labore.</p>--%>
+<%--            </div>--%>
+<%--            <form action="">--%>
+<%--                <div class="input-group">--%>
+<%--                    <input type="text" class="form-control border-white p-4" placeholder="Email Goes Here">--%>
+<%--                    <div class="input-group-append">--%>
+<%--                        <button class="btn btn-primary px-4">Subscribe</button>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </form>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</div>--%>
+<%--<!-- Subscribe End -->--%>
 
 
 <!-- Products Start -->
 <div class="container-fluid pt-5">
     <div class="text-center mb-4">
+
         <h2 class="section-title px-5"><span class="px-2">Hàng Mới Về</span></h2>
+
     </div>
     <div class="product_list d-flex justify-content-center align-items-center flex-wrap">
         <c:forEach var="item" items="${product.listResult}">
-            <div class="product-card">
+            <div class="product-card p-5">
                 <c:if test="${item.stock <= 0}">
                     <span class="try-on-label">Bán hết</span>
                 </c:if>
@@ -399,17 +413,19 @@
                          alt="Santos De Cartier Watch">
                 </a>
                 <div class="product-info">
-                    <div class="product-name">${item.name}</div>
-                    <div class="product-description">watch type: ${item.watchType}</div>
+                    <div class="product-name" style="color: black">${item.name}</div>
+                    <div class="product-description">Loại Đồng Hồ: ${item.watchType}</div>
                     <div class="product-price">
                         <span id="price" >${item.price}đ</span>
                     </div>
+
                     <c:if test="${item.stock <= 0}">
                        <a href="#" class="add-to-bag-btn bg-warning disabled">Thêm Vào Giỏ(đang tạm hết)</a>
                      </c:if>
                       <c:if test="${item.stock > 0}">
                            <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-warning" >Thêm Vào Giỏ</a>
                       </c:if>
+
                 </div>
             </div>
         </c:forEach>
