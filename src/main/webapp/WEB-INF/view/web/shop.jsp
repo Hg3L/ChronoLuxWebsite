@@ -137,10 +137,10 @@
                 <div class="row px-xl-5 pb-3">
                     <c:forEach var="item" items="${brand.listResult}">
                         <div class="col-lg-2 col-md-6">
-                            <div class="item d-flex flex-column border p-0 pt-2" style="border-radius: 1rem;">
+                            <div class="item d-flex flex-column border p-0 pt-2 my-3" style="border-radius: 1rem;max-width: 293px; max-height: 113px;">
                                 <a href="<c:url value='/shop/brand?id=${item.id}&page=1&limit=8'/>"
-                                    class="cat-img position-relative overflow-hidden mb-3">
-                                    <img class="img-fluid"
+                                    class="cat-img position-relative overflow-hidden mb-3 ">
+                                    <img class="img-fluid" style="width: 100%; height: 100%;object-fit: cover"
                                         src="<c:url value='/template/web/img/brands/${item.iconUrl}'/>" alt="">
                                 </a>
                             </div>
@@ -287,20 +287,23 @@
                                             <div class="card-body text-center p-0 pt-4 pb-3">
                                                 <h6 class="text-truncate mb-3">${product.name}</h6>
                                                 <div class="d-flex justify-content-center">
-                                                    <h6 id = "price" style="color: red; font-weight: bold;">${product.price}đ</h6>
+                                                    <h6 id = "price" style="color:green;">${product.price}đ</h6>
                                                 </div>
                                             </div>
-                                            <div class="card-footer d-flex justify-content-between bg-light border">
+                                            <div class="button-container p-0 my-1 mx-2 d-flex ">
                                                 <a href="<c:url value='/product-detail?id=${product.id}'/>"
-                                                    class="btn btn-sm text-dark p-0"><i
-                                                        class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                                                   class="btn bg-dark text-light p-2 flex-grow-1" style="border-radius: 1rem">Chi Tiết</a>
+                                            </div>
+                                            <div class="button-container p-0 my-1 mx-2 d-flex ">
                                                 <c:if test="${product.stock <= 0}">
-                                                    <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>" class="btn btn-sm text-dark p-0 disabled">
+                                                    <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>"
+                                                       class="btn btn-sm text-dark p-2 flex-grow-1" style="border-radius: 1rem">
                                                         <i class="fas fa-shopping-cart text-primary mr-1"></i>Đang tạm hết
                                                     </a>
                                                 </c:if>
                                                 <c:if test="${product.stock > 0}">
-                                                    <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ</a>
+                                                    <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>"
+                                                       class="btn bg-dark text-light p-2 flex-grow-1" style="border-radius: 1rem">Thêm vào giỏ</a>
                                                 </c:if>
                                             </div>
                                         </div>
