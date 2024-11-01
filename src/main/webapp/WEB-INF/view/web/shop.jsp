@@ -415,17 +415,14 @@
                     var newFilters = currentFilters.join(",");
                     window.location.href = "<c:url value='/shop?page=1&limit=8&filter='/>" + newFilters; // Cập nhật URL với bộ lọc mới
                 });
-                 // Lấy phần tử chứa giá tiền
-                    const priceElement = document.getElementById("price");
-
-
-                    let price = parseInt(priceElement.innerText, 10);
-
-
-                    priceElement.innerText = price.toLocaleString("vi-VN") + " đ";
-
-
             </script>
+            <script>
+                            document.querySelectorAll('#price').forEach(element => {
+                                let price = parseInt(element.innerText.replace("đ", ""), 10);
+                                element.innerText = price.toLocaleString("vi-VN") + "đ";
+                            });
+
+                        </script>
         </body>
 
         </html>
