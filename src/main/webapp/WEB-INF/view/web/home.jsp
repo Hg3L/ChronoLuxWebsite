@@ -249,16 +249,44 @@
 <%--</div>--%>
 <%--<!-- Featured End -->--%>
 
+<!-- Offer Start -->
+<div class="container-fluid offer pt-5">
+    <div class="row px-xl-5">
+        <div class="col-md-12 pb-4">
+            <div id="carousel" class="d-flex position-relative justify-content-center">
+                <div class="slide-item">
+                    <a href="link_to_spring_collection" class="slide-link">
+                        <div class="spring-collection"></div>
+                    </a>
+                    <a href="link_to_another_spring_collection" class="slide-link">
+                        <div class="spring-collection"></div>
+                    </a>
+                </div>
+                <div class="slide-item">
+                    <a href="link_to_winter_collection" class="slide-link">
+                        <div class="winter-collection"></div>
+                    </a>
+                    <a href="link_to_another_winter_collection" class="slide-link">
+                        <div class="winter-collection"></div>
+                    </a>
+                </div>
+                <button class="slide-btn prev" onclick="prevSlide()">&#10094;</button>
+                <button class="slide-btn next" onclick="nextSlide()">&#10095;</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Offer End -->
 
 <!-- Brand Start -->
 <div class="container-fluid pt-5">
     <div class="text-center mb-4">
         <h2 class="section-title px-5" style="font-family: Arial"><span class="px-2">Thương Hiệu</span></h2>
     </div>
-    <div class="row px-xl-5 pb-3">
+    <div class="row g-4 px-xl-5 pb-3">
         <c:forEach var="item" items="${brand.listResult}">
             <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1 pb-1"> <!-- Chỉnh responsive -->
-                <div class="item d-flex flex-column border m-1" style="padding: 4px;">
+                <div class="item d-flex flex-column border bg-light m-0 pt-3 px-2" style="padding: 4px; border-radius: 1rem">
                     <a href="<c:url value='/shop/brand?id=${item.id}&page=1&limit=8'/>"
                        class="cat-img position-relative overflow-hidden mb-3">
                         <img class="img-fluid"
@@ -272,40 +300,6 @@
 </div>
 <!-- Categories End -->
 
-
-
-
-<!-- Offer Start -->
-<div class="container-fluid offer pt-5">
-   <div class="row px-xl-5">
-       <div class="col-md-12 pb-4">
-           <div id="carousel" class="d-flex position-relative justify-content-center">
-               <div class="slide-item">
-                   <a href="link_to_spring_collection" class="slide-link">
-                       <div class="spring-collection"></div>
-                   </a>
-                   <a href="link_to_another_spring_collection" class="slide-link">
-                       <div class="spring-collection"></div>
-                   </a>
-               </div>
-               <div class="slide-item">
-                   <a href="link_to_winter_collection" class="slide-link">
-                       <div class="winter-collection"></div>
-                   </a>
-                   <a href="link_to_another_winter_collection" class="slide-link">
-                       <div class="winter-collection"></div>
-                   </a>
-               </div>
-               <button class="slide-btn prev" onclick="prevSlide()">&#10094;</button>
-               <button class="slide-btn next" onclick="nextSlide()">&#10095;</button>
-           </div>
-       </div>
-
-   </div>
-
-
-</div>
-<!-- Offer End -->
 
 
 
@@ -333,15 +327,14 @@
                     <div class="product-price">
                        <span>Giá: </span>  <span id="price" >${item.price}đ</span>
                     </div>
-
-                     <c:if test="${item.stock <= 0}">
-                       <a href="#" class="add-to-bag-btn bg-warning disabled">Thêm Vào Giỏ(đang tạm hết)</a>
-                     </c:if>
-                      <c:if test="${item.stock > 0}">
-                           <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-warning" >Thêm Vào Giỏ</a>
-                      </c:if>
-
-
+                    <div class="button-container p-0 mx-auto">
+                        <c:if test="${item.stock <= 0}">
+                            <a href="#" class="add-to-bag-btn bg-danger disabled" >Thêm Vào Giỏ(đang tạm hết)</a>
+                        </c:if>
+                        <c:if test="${item.stock > 0}">
+                            <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-dark">Thêm Vào Giỏ</a>
+                        </c:if>
+                    </div>
                 </div>
             </div>
         </c:forEach>
@@ -416,10 +409,10 @@
                     </div>
 
                     <c:if test="${item.stock <= 0}">
-                       <a href="#" class="add-to-bag-btn bg-warning disabled">Thêm Vào Giỏ(đang tạm hết)</a>
+                       <a href="#" class="add-to-bag-btn bg-danger disabled">Thêm Vào Giỏ(đang tạm hết)</a>
                      </c:if>
                       <c:if test="${item.stock > 0}">
-                           <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-warning" >Thêm Vào Giỏ</a>
+                           <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-dark" >Thêm Vào Giỏ</a>
                       </c:if>
 
                 </div>
