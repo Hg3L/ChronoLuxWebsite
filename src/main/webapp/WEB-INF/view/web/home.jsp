@@ -190,13 +190,13 @@
     </div>
     <div class="row px-xl-5 pb-3">
         <c:forEach var="item" items="${brand.listResult}">
-            <div class="col-lg-2 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 20px;">
-                    <p class="text-right">15 Products</p>
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1 pb-1"> <!-- Chỉnh responsive -->
+                <div class="item d-flex flex-column border m-1" style="padding: 4px;">
                     <a href="<c:url value='/shop/brand?id=${item.id}&page=1&limit=8'/>"
                        class="cat-img position-relative overflow-hidden mb-3">
                         <img class="img-fluid"
-                             src="<c:url value='/template/web/img/brands/${item.iconUrl}'/>" alt="">
+                             src="<c:url value='/template/web/img/brands/${item.iconUrl}'/>" alt=""
+                             style="max-width: 100%; height: auto;"> <!-- Giới hạn kích thước hình ảnh -->
                     </a>
                 </div>
             </div>
@@ -257,8 +257,8 @@
                         <span id="price" >${item.price}đ</span>
                     </div>
                     <div class="button-list d-flex justify-content-center align-items-center flex-wrap">
-                        <a href="<c:url value='/product-detail?id=${item.id}'/>" class="add-to-bag-btn bg-warning" style="width: 300px">Thông Tin Chi Tiết</a>
-                        <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-warning" style="width: 300px">Thêm Vào Giỏ Hàng</a>
+                        <a href="<c:url value='/product-detail?id=${item.id}'/>" class="add-to-bag-btn bg-dark" style="width: 300px">Thông Tin Chi Tiết</a>
+                        <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-dark" style="width: 300px">Thêm Vào Giỏ Hàng</a>
                     </div>
                 </div>
             </div>
@@ -333,8 +333,8 @@
                         <span id="price" >${item.price}đ</span>
                     </div>
                     <div class="button-list d-flex justify-content-center align-items-center flex-wrap">
-                        <a href="<c:url value='/product-detail?id=${item.id}'/>" class="add-to-bag-btn bg-warning" style="width: 300px">Thông Tin Chi Tiết</a>
-                        <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-warning" style="width: 300px">Thêm Vào Giỏ Hàng</a>
+                        <a href="<c:url value='/product-detail?id=${item.id}'/>" class="add-to-bag-btn bg-dark text-decoration-none" style="width: 300px">Thông Tin Chi Tiết</a>
+                        <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-dark text-decoration-none" style="width: 300px">Thêm Vào Giỏ Hàng</a>
                     </div>
                 </div>
             </div>

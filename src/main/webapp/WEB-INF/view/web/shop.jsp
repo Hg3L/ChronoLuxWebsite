@@ -77,10 +77,6 @@
         </head>
 
         <body>
-
-            <a href="<c:url value='/home'/>" class="home-link">
-                <i class="fas fa-home"></i> Trang chủ
-            </a>
             <!-- Page Header Start -->
            <div id="bannerCarousel" class="carousel slide carousel-slide" data-bs-ride="carousel" data-bs-interval="3000">
                <div class="carousel-inner">
@@ -127,8 +123,9 @@
 
 
            </div>
-            <div class="highlight">
-                Đồng hồ xu hướng 2024 <i class="fas fa-check-circle"></i>
+            <div class="highlight p-4 rounded-5 bg-white shadow col-12 col-sm-12 col-md-6 col-lg-4 mx-auto " style="border-radius: 1rem;">
+                <h1 style="font-family:Arial">Đồng hồ xu hướng 2024</h1>
+                <i class="fas fa-check-circle"></i>
                 <span class="small-text">100% chính hãng</span>
             </div>
             <div class="container-fluid pt-5">
@@ -277,16 +274,13 @@
                     <div class="row px-xl-5">
                         <!-- Shop Product Start -->
                         <div class="col-lg-12 col-md-12">
-                            <div class="row pb-3">
+                            <div class="row pb-3 d-flex justify-content-center align-items-center flex-wrap">
                                 <c:forEach var="product" items="${products}">
-                                    <div class="col-lg-3 col-md-4 col-sm-6 col-12 pb-1">
+                                    <div class="product-card p-2 rounded-5 bg-white shadow mx-3 my-3 " style="border-radius: 1rem;">
                                         <div class="card product-item border-0 mb-4">
-                                            <div
-                                                class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                                <img class="img-fluid w-100"
+                                                <img class="img-fluid w-70" style="width: fit-content;"
                                                     src="<c:url value='/template/web/img/products/${product.imgUrl}'/>" alt="">
-                                            </div>
-                                            <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                                            <div class="card-body text-center p-0 pt-4 pb-3">
                                                 <h6 class="text-truncate mb-3">${product.name}</h6>
                                                 <div class="d-flex justify-content-center">
                                                     <h6 id = "price" style="color: red; font-weight: bold;">${product.price}đ</h6>
