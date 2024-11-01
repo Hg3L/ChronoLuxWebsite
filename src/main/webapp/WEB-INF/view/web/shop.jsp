@@ -149,7 +149,7 @@
                 </c:if>
             </div>
             <div class="col-12 py-2" style="margin-left: 35px;">
-                <span class="font-weight-bold mr-2"style=" color: black; font-family: Arial">Phổ biến:</span>
+                <span class="font-weight-bold mr-2" style=" color: black; font-family: Arial">Phổ biến:</span>
                 <c:choose>
                     <c:when test="${not empty model.filter}">
                         <c:set var="currentFilters" value="${fn:split(model.filter, ',')}" />
