@@ -76,7 +76,11 @@
                         opacity: 0.5; /* Giảm độ mờ của nút */
                         cursor: not-allowed; /* Hiển thị con trỏ như không cho phép */
                     }
-
+                    .disabled-link {
+                        pointer-events: none;
+                        opacity: 0.5;
+                        cursor: default;
+                    }
 
                 </style>
 
@@ -287,7 +291,7 @@
                                             <div class="card-body text-center p-0 pt-4 pb-3">
                                                 <h6 class="text-truncate mb-3">${product.name}</h6>
                                                 <div class="d-flex justify-content-center">
-                                                    <h6 id = "price" style="color:green;">${product.price}đ</h6>
+                                                    <h6 id = "price" style="color:green;">${product.price}</h6>
                                                 </div>
                                             </div>
                                             <div class="button-container p-0 my-1 mx-2 d-flex ">
@@ -296,10 +300,11 @@
                                             </div>
                                             <div class="button-container p-0 my-1 mx-2 d-flex ">
                                                 <c:if test="${product.stock <= 0}">
-                                                    <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>"
-                                                       class="btn btn-sm text-dark p-2 flex-grow-1" style="border-radius: 1rem">
-                                                        <i class="fas fa-shopping-cart text-primary mr-1"></i>Đang tạm hết
-                                                    </a>
+                                                  <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>"
+                                                     class="btn btn-sm text-dark p-2 flex-grow-1 disabled-link"
+                                                     style="border-radius: 1rem">
+                                                      Đang tạm hết
+                                                  </a>
                                                 </c:if>
                                                 <c:if test="${product.stock > 0}">
                                                     <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>"
@@ -409,15 +414,12 @@
                     var newFilters = currentFilters.join(",");
                     window.location.href = "<c:url value='/shop?page=1&limit=8&filter='/>" + newFilters; // Cập nhật URL với bộ lọc mới
                 });
-                 // Lấy phần tử chứa giá tiền
-                    const priceElement = document.getElementById("price");
-
-
-                    let price = parseInt(priceElement.innerText, 10);
-
-
-                    priceElement.innerText = price.toLocaleString("vi-VN") + " đ";
-
+            </script>
+            <script>
+                document.querySelectorAll('#price').forEach(element => {
+                    let price = parseInt(element.innerText.replace("đ", ""), 10);
+                    element.innerText = price.toLocaleString("vi-VN") + "đ";
+                });
 
             </script>
         </body>
