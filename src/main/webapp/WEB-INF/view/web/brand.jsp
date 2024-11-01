@@ -122,21 +122,21 @@
                     <img src="<c:url value='/template/web/img/brands/${brand.bannerUrl}'/>" alt="Our Shop" style="max-height: 300px; width: 100%; object-fit: cover;">
                 </div>
             </div>
-            <div class="container-fluid pt-5">
-                <div class="row px-xl-5 pb-0">
-                    <c:forEach var="item" items="${brand.listResult}">
-                        <div class="col-lg-2 col-md-6">
-                            <div class="item d-flex flex-column p-0 pt-2 my-3" style="border: 3px solid;border-radius: 1rem;max-width: 293px; max-height: 113px;">
-                                <a href="<c:url value='/shop/brand?id=${item.id}&page=1&limit=8'/>"
-                                   class="cat-img position-relative overflow-hidden mb-3 ">
-                                    <img class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;"
-                                         src="<c:url value='/template/web/img/brands/${item.iconUrl}'/>" alt="">
-                                </a>
-                            </div>
+        <div class="container-fluid pt-1 pb-3 mb-4">
+            <div class="row px-xl-5 pb-3" style="height: 100px">
+                <c:forEach var="item" items="${productLine.listResult}">
+                    <div class="card1-container">
+                        <div class="card1" style="height: 100%" >
+                            <a href="<c:url value='/shop/brand/product-line?idBrand=${model.id}&id=${item.id}&page=1&limit=8'/>"
+                               class="img position-relative overflow-hidden mb-3">
+                                <img class="img" style="height: 60%; width: fit-content; max-width: 100%" src="<c:url value='/template/web/img/product-lines/${item.iconUrl}'/>" alt="">
+                                <div class="card1-title">${item.name}</div>
+                            </a>
                         </div>
-                    </c:forEach>
-                </div>
+                    </div>
+                </c:forEach>
             </div>
+        </div>
             <!-- Page Header End -->
             <div class="col-12 pb-1">
                 <c:if test="${not empty model.filter}">
