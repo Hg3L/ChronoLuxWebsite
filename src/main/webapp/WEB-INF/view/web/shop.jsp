@@ -76,76 +76,41 @@
                         opacity: 0.5; /* Giảm độ mờ của nút */
                         cursor: not-allowed; /* Hiển thị con trỏ như không cho phép */
                     }
-
+                    .disabled-link {
+                        pointer-events: none;
+                        opacity: 0.5;
+                        cursor: default;
+                    }
+                            .try-on-label {
+                                 position: absolute;
+                                 top: 10px;
+                                 left: 10px;
+                                 background-color: white;
+                                 font-size: 12px;
+                                 padding: 3px 7px;
+                                 border-radius: 5px;
+                                 border: 1px solid #ddd;
+                             }
 
                 </style>
 
         </head>
 
         <body>
-
-            <a href="<c:url value='/home'/>" class="home-link">
-                <i class="fas fa-home"></i> Trang chủ
-            </a>
             <!-- Page Header Start -->
-           <div id="bannerCarousel" class="carousel slide carousel-slide" data-bs-ride="carousel" data-bs-interval="3000">
-               <div class="carousel-inner">
-                   <!-- Slide 1 -->
-                   <div class="carousel-item active">
-                       <div class="row">
-                           <div class="col-md-6">
-                               <a href="#">
-                                   <img src="https://www.watchstore.vn/images/products/collection/slideshow/2024/05/10/compress/banner-sale-off-orient_1715333758.webp"
-                                        class="d-block w-100 banner-image"
-                                        alt="Orient Sale 20%">
-                               </a>
-                           </div>
-                           <div class="col-md-6">
-                               <a href="#">
-                                   <img src="https://www.watchstore.vn/images/products/collection/slideshow/2024/05/10/compress/banner-sale-off-tissot_1715333668.webp"
-                                        class="d-block w-100 banner-image"
-                                        alt="Bonest Gatti Sale 35%">
-                               </a>
-                           </div>
-                       </div>
-                   </div>
-
-                    <!-- Slide 3 -->
-                   <div class="carousel-item">
-                       <div class="row">
-                           <div class="col-md-6">
-                               <a href="#">
-                                   <img src="https://www.watchstore.vn/images/products/collection/slideshow/2024/05/10/compress/banner-sale-off-bonestgatti_1715333537.webp"
-                                        class="d-block w-100 banner-image"
-                                        alt="Orient Sale 20%">
-                               </a>
-                           </div>
-                           <div class="col-md-6">
-                               <a href="#">
-                                   <img src="https://www.watchstore.vn/images/products/collection/slideshow/2024/05/10/compress/banner-sale-off-tissot_1715333668.webp"
-                                        class="d-block w-100 banner-image"
-                                        alt="Bonest Gatti Sale 35%">
-                               </a>
-                           </div>
-                       </div>
-                   </div>
-               </div>
-
-
-           </div>
-            <div class="highlight">
-                Đồng hồ xu hướng 2024 <i class="fas fa-check-circle"></i>
-                <span class="small-text">100% chính hãng</span>
+            <div class="highlight p-4 ml-0" style="background-image: url('https://png.pngtree.com/png-vector/20240611/ourmid/pngtree-sleek-and-sophisticated-beautiful-grey-silk-or-satin-texture-ideal-for-png-image_12323800.png');background-position: center;background-size: cover;background-repeat: no-repeat;">
+                <h1 style="font-family:Arial">Đồng Hồ Xu Hướng 2024</h1>
+                <i class="fas fa-check-circle" style="color: rgb(234,189,43)"></i>
+                <span class="small-text">100% Chính Hãng</span>
             </div>
             <div class="container-fluid pt-5">
                 <div class="row px-xl-5 pb-3">
                     <c:forEach var="item" items="${brand.listResult}">
-                        <div class="col-lg-2 col-md-6 pb-1">
-                            <div class="cat-item d-flex flex-column border mb-4" style="padding: 20px;">
-                                <p class="text-right">15 Products</p>
+                        <div class="col-lg-2 col-md-6">
+                            <div class="item d-flex flex-column p-0 pt-2 my-3" style="border: 3px solid;border-radius: 1rem;max-width: 293px; max-height: 113px;">
                                 <a href="<c:url value='/shop/brand?id=${item.id}&page=1&limit=8'/>"
-                                    class="cat-img position-relative overflow-hidden mb-3">
-                                    <img class="img-fluid"
+                                    class="cat-img position-relative overflow-hidden mb-3 ">
+                                    <img class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;"
                                         src="<c:url value='/template/web/img/brands/${item.iconUrl}'/>" alt="">
                                 </a>
                             </div>
@@ -158,7 +123,7 @@
                 <c:if test="${not empty model.filter}">
                     <div class="row mb-4" style="margin-left: 20px;"> <!-- Dịch sang trái một chút -->
                         <div class="col-12">
-                            <span class="font-weight-bold">Đã chọn:</span>
+                            <span class="font-weight-bold" style="color: black; font-family: Arial">Đã chọn:</span>
 
                             <!-- Tách filter thành mảng -->
                             <c:set var="filterArray" value="${fn:split(model.filter, ',')}" />
@@ -184,7 +149,7 @@
                 </c:if>
             </div>
             <div class="col-12 py-2" style="margin-left: 35px;">
-                <span class="font-weight-bold mr-2">Phổ biến:</span>
+                <span class="font-weight-bold mr-2" style=" color: black; font-family: Arial">Phổ biến:</span>
                 <c:choose>
                     <c:when test="${not empty model.filter}">
                         <c:set var="currentFilters" value="${fn:split(model.filter, ',')}" />
@@ -199,7 +164,7 @@
                                               and (filterKey == 'duoi-1-trieu' or filterKey == 'tu-1-3-trieu' or filterKey == 'tu-3-6-trieu' or filterKey == 'tu-6-9-trieu' or filterKey == 'tren-9-trieu')}">
                                     <!-- Nếu đã chọn giá, hiện thông báo khi người dùng cố gắng chọn thêm giá -->
                                     <a href="javascript:void(0);"
-                                        class="btn btn-outline-danger btn-sm rounded-pill mx-1"
+                                        class="btn btn-outline-danger btn-sm rounded-pill mx-1" style="border: 2px solid"
                                         onclick="alert('Bạn đã chọn một mức giá. Không thể chọn thêm!');">
                                         ${filterValue}
                                     </a>
@@ -207,7 +172,7 @@
                                 <c:otherwise>
                                     <!-- Nếu chưa chọn giá hoặc là bộ lọc giới tính thì cho phép chọn -->
                                     <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=${model.filter},${filterKey}'/>"
-                                        class="btn btn-outline-primary btn-sm rounded-pill mx-1">${filterValue}</a>
+                                        class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">${filterValue}</a>
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
@@ -217,19 +182,19 @@
 
                     <c:otherwise>
                         <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=nam'/>"
-                            class="btn btn-outline-primary btn-sm rounded-pill mx-1">Nam</a>
+                            class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">Nam</a>
                         <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=nu'/>"
-                            class="btn btn-outline-primary btn-sm rounded-pill mx-1">Nữ</a>
+                            class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">Nữ</a>
                         <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=duoi-1-trieu'/>"
-                            class="btn btn-outline-primary btn-sm rounded-pill mx-1">Dưới 1 triệu</a>
+                            class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">Dưới 1 triệu</a>
                         <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tu-1-3-trieu'/>"
-                            class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 1 - 3 triệu</a>
+                            class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">Từ 1 - 3 triệu</a>
                         <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tu-3-6-trieu'/>"
-                            class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 3 - 6 triệu</a>
+                            class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">Từ 3 - 6 triệu</a>
                         <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tu-6-9-trieu'/>"
-                            class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 6 - 9 triệu</a>
+                            class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">Từ 6 - 9 triệu</a>
                         <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tren-9-trieu'/>"
-                            class="btn btn-outline-primary btn-sm rounded-pill mx-1">Trên 9 triệu</a>
+                            class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">Trên 9 triệu</a>
                     </c:otherwise>
                 </c:choose>
             </div>
@@ -242,9 +207,9 @@
                         <!-- Search and Filter aligned to the right -->
                         <div class="col-12 d-flex justify-content-end">
                             <!-- Search -->
-                            <form action="<c:url value='/shop'/>" method="get" class="d-flex w-auto">
+                            <form action="<c:url value='/shop'/>" method="get" class="d-flex w-auto" style="border: 2px solid; border-color: rgb(234,189,43)">
                                 <div class="input-group" style="width: 250px;"> <!-- Set width of the search bar -->
-                                    <input type="text" class="form-control" placeholder="Search by name" name="keyword">
+                                    <input type="text" class="form-control" placeholder="Tìm Kiếm" name="keyword"  style="border-right: 2px solid; border-right-color: rgb(234,189,43)">
                                     <input type="hidden" value="1" name="page">
                                     <input type="hidden" value="8" name="limit">
                                     <div class="input-group-append">
@@ -257,22 +222,22 @@
 
                             <!-- Filter -->
                             <div class="dropdown ml-3">
-                                <button class="btn border dropdown-toggle" type="button" id="triggerId"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Sort by
+                                <button class="btn dropdown-toggle" type="button" id="triggerId"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: 2px solid; border-color: rgb(234,189,43)" >
+                                    Bộ Lọc
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
                                     <a class="dropdown-item"
                                         href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&sortName=name&sortBy=asc&keyword=${model.keyword}'/>">
-                                        <i class="fas fa-sort-alpha-down"></i> Sort by Name: A-Z
+                                        <i class="fas fa-sort-alpha-down"></i> Theo tên: A-Z
                                     </a>
                                     <a class="dropdown-item"
                                         href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&sortName=price&sortBy=asc&keyword=${model.keyword}'/>">
-                                        <i class="fas fa-arrow-up"></i> Sort by Price: Low to High
+                                        <i class="fas fa-arrow-up"></i> Theo giá: Tăng dần
                                     </a>
                                     <a class="dropdown-item"
                                         href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&sortName=price&sortBy=desc&keyword=${model.keyword}'/>">
-                                        <i class="fas fa-arrow-down"></i>Sort by Price: High to Low
+                                        <i class="fas fa-arrow-down"></i> Theo giá: Giảm dần
                                     </a>
                                 </div>
                             </div>
@@ -283,43 +248,43 @@
                     <div class="row px-xl-5">
                         <!-- Shop Product Start -->
                         <div class="col-lg-12 col-md-12">
-                            <div class="row pb-3">
+                            <div class="product-list d-flex justify-content-center align-items-center flex-wrap">
                                 <c:forEach var="product" items="${products}">
-                                    <div class="col-lg-3 col-md-4 col-sm-6 col-12 pb-1">
+                                    <div class="product-card p-2 bg-white shadow mx-3 my-3 " style="border-radius: 1rem; max-width: 300px">
                                         <div class="card product-item border-0 mb-4">
-                                            <div
-                                                class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                                <img class="img-fluid w-100"
+                                         <c:if test="${product.stock <= 0}">
+                                             <span class="try-on-label">Bán Hết</span>
+                                         </c:if>
+                                                <img class="img-fluid p-5" style="width: fit-content;"
                                                     src="<c:url value='/template/web/img/products/${product.imgUrl}'/>" alt="">
-                                            </div>
-                                            <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                                            <div class="card-body text-center p-0 pt-4 pb-3">
                                                 <h6 class="text-truncate mb-3">${product.name}</h6>
                                                 <div class="d-flex justify-content-center">
-                                                    <h6 id = "price" style="color: red; font-weight: bold;">${product.price}đ</h6>
-
+                                                    <h6 id="price" style="color:green;">${product.price}đ</h6>
                                                 </div>
                                             </div>
-                                            <div class="card-footer d-flex justify-content-between bg-light border">
+                                            <div class="button-container p-0 my-1 mx-2 d-flex ">
                                                 <a href="<c:url value='/product-detail?id=${product.id}'/>"
-                                                    class="btn btn-sm text-dark p-0"><i
-                                                        class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-
-                                                 <c:if test="${product.stock <= 0}">
-                                                                      <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>" class="btn btn-sm text-dark p-0 disabled">
-                                                                          <i class="fas fa-shopping-cart text-primary mr-1"></i>Đang tạm hết
-                                                                      </a>
-
-                                                                     </c:if>
-                                                                      <c:if test="${product.stock > 0}">
-                                                                           <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>" class="btn btn-sm text-dark p-0"><i
-                                                                                                                               class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ</a>
-                                                                      </c:if>
+                                                   class="btn bg-dark text-light p-2 flex-grow-1" style="border-radius: 1rem">Chi Tiết</a>
+                                            </div>
+                                            <div class="button-container p-0 my-1 mx-2 d-flex">
+                                                <c:if test="${product.stock <= 0}">
+                                                  <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>"
+                                                     class="btn btn-sm text-light p-2 flex-grow-1 disabled-link"
+                                                     style="border-radius: 1rem; background-color: gray;">
+                                                      Tạm Hết Hàng
+                                                  </a>
+                                                </c:if>
+                                                <c:if test="${product.stock > 0}">
+                                                    <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>"
+                                                       class="btn bg-dark text-light p-2 flex-grow-1" style="border-radius: 1rem">Thêm Vào Giỏ</a>
+                                                </c:if>
                                             </div>
                                         </div>
-
                                     </div>
                                 </c:forEach>
                             </div>
+
                             <div class="col-12 pb-1">
                                 <nav aria-label="Page navigation">
                                     <ul class="pagination justify-content-center mb-3" id="pagination"> </ul>
@@ -345,6 +310,49 @@
                     </div>
                 </form>
                 <!-- Shop Product End -->
+            </div>
+            <div id="bannerCarousel" class="carousel slide carousel-slide my-3 pb-4" data-bs-ride="carousel" data-bs-interval="3000">
+                <div class="carousel-inner">
+                    <!-- Slide 1 -->
+                    <div class="carousel-item active">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a href="#">
+                                    <img src="https://www.watchstore.vn/images/products/collection/slideshow/2024/05/10/compress/banner-sale-off-orient_1715333758.webp"
+                                         class="d-block w-100 banner-image"
+                                         alt="Orient Sale 20%">
+                                </a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="#">
+                                    <img src="https://www.watchstore.vn/images/products/collection/slideshow/2024/05/10/compress/banner-sale-off-tissot_1715333668.webp"
+                                         class="d-block w-100 banner-image"
+                                         alt="Bonest Gatti Sale 35%">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="carousel-item">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a href="#">
+                                    <img src="https://www.watchstore.vn/images/products/collection/slideshow/2024/05/10/compress/banner-sale-off-bonestgatti_1715333537.webp"
+                                         class="d-block w-100 banner-image"
+                                         alt="Orient Sale 20%">
+                                </a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="#">
+                                    <img src="https://www.watchstore.vn/images/products/collection/slideshow/2024/05/10/compress/banner-sale-off-tissot_1715333668.webp"
+                                         class="d-block w-100 banner-image"
+                                         alt="Bonest Gatti Sale 35%">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             </div>
@@ -419,17 +427,14 @@
                     var newFilters = currentFilters.join(",");
                     window.location.href = "<c:url value='/shop?page=1&limit=8&filter='/>" + newFilters; // Cập nhật URL với bộ lọc mới
                 });
-                 // Lấy phần tử chứa giá tiền
-                    const priceElement = document.getElementById("price");
-
-
-                    let price = parseInt(priceElement.innerText, 10);
-
-
-                    priceElement.innerText = price.toLocaleString("vi-VN") + " đ";
-
-
             </script>
+            <script>
+                            document.querySelectorAll('#price').forEach(element => {
+                                let price = parseInt(element.innerText.replace("đ", ""), 10);
+                                element.innerText = price.toLocaleString("vi-VN") + "đ";
+                            });
+
+                        </script>
         </body>
 
         </html>

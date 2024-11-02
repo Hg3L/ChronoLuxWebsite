@@ -271,73 +271,73 @@
                         </div>
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="tab-pane-1">
-                                <h4 class="mb-3">Product Description</h4>
-
-                                <div class="product-specs-container">
-                                    <div class="product-specs-title">Thông số sản phẩm - ${model.name}</div>
-                                    <div class="specs-table">
-                                        <div class="specs-column">
-                                            <div class="specs-row">
-                                                <div class="specs-label">Thương hiệu:</div>
-                                                <div class="specs-value"><a href="#">${model.brandName}</a></div>
+                                <h4 class="mb-3 text-center" style="font-family: Arial">Thông Tin Sản Phẩm</h4>
+                                <div class="info-container d-flex justify-content-center">
+                                    <div class="product-specs-container flex-grow-1">
+                                        <div class="product-specs-title text-center">Thông số sản phẩm - ${model.name}</div>
+                                        <div class="specs-table">
+                                            <div class="specs-column">
+                                                <div class="specs-row">
+                                                    <div class="specs-label">Thương hiệu:</div>
+                                                    <div class="specs-value"><a href="#">${model.brandName}</a></div>
+                                                </div>
+                                                <div class="specs-row">
+                                                    <div class="specs-label">Xuất xứ:</div>
+                                                    <div class="specs-value">${model.country}</div>
+                                                </div>
+                                                <div class="specs-row">
+                                                    <div class="specs-label">Đối tượng:</div>
+                                                    <div class="specs-value"><a href="#">${model.gender}</a></div>
+                                                </div>
+                                                <div class="specs-row">
+                                                    <div class="specs-label">Dòng sản phẩm:</div>
+                                                    <div class="specs-value">${model.productLineName}</div>
+                                                </div>
+                                                <div class="specs-row">
+                                                    <div class="specs-label">Kháng nước:</div>
+                                                    <div class="specs-value">${model.waterResistant}</div>
+                                                </div>
+                                                <div class="specs-row">
+                                                    <div class="specs-label">Loại máy:</div>
+                                                    <div class="specs-value">${model.watchType}</div>
+                                                </div>
                                             </div>
-                                            <div class="specs-row">
-                                                <div class="specs-label">Xuất xứ:</div>
-                                                <div class="specs-value">${model.country}</div>
-                                            </div>
-                                            <div class="specs-row">
-                                                <div class="specs-label">Đối tượng:</div>
-                                                <div class="specs-value"><a href="#">${model.gender}</a></div>
-                                            </div>
-                                            <div class="specs-row">
-                                                <div class="specs-label">Dòng sản phẩm:</div>
-                                                <div class="specs-value">${model.productLineName}</div>
-                                            </div>
-                                            <div class="specs-row">
-                                                <div class="specs-label">Kháng nước:</div>
-                                                <div class="specs-value">${model.waterResistant}</div>
-                                            </div>
-                                            <div class="specs-row">
-                                                <div class="specs-label">Loại máy:</div>
-                                                <div class="specs-value">${model.watchType}</div>
-                                            </div>
-                                        </div>
-                                        <div class="specs-column">
-                                            <div class="specs-row">
-                                                <div class="specs-label">Chất liệu kính:</div>
-                                                <div class="specs-value">${model.glassMaterial}</div>
-                                            </div>
-                                            <div class="specs-row">
-                                                <div class="specs-label">Chất liệu dây:</div>
-                                                <div class="specs-value">${model.strapMaterial}</div>
-                                            </div>
-                                            <div class="specs-row">
-                                                <div class="specs-label">Size mặt:</div>
-                                                <div class="specs-value">${model.faceSize}</div>
-                                            </div>
-                                            <div class="specs-row">
-                                                <div class="specs-label">Độ dày:</div>
-                                                <div class="specs-value">${model.thickness}</div>
-                                            </div>
-                                            <div class="specs-row">
-                                                <div class="specs-label">Khoảng trữ cót:</div>
-                                                <div class="specs-value">80 tiếng</div>
-                                            </div>
-                                            <div class="specs-row">
-                                                <div class="specs-label">Tiện ích:</div>
-                                                <div class="specs-value">Dạ quang, Lịch ngày, Giờ, phút, giây</div>
+                                            <div class="specs-column">
+                                                <div class="specs-row">
+                                                    <div class="specs-label">Chất liệu kính:</div>
+                                                    <div class="specs-value">${model.glassMaterial}</div>
+                                                </div>
+                                                <div class="specs-row">
+                                                    <div class="specs-label">Chất liệu dây:</div>
+                                                    <div class="specs-value">${model.strapMaterial}</div>
+                                                </div>
+                                                <div class="specs-row">
+                                                    <div class="specs-label">Size mặt:</div>
+                                                    <div class="specs-value">${model.faceSize}</div>
+                                                </div>
+                                                <div class="specs-row">
+                                                    <div class="specs-label">Độ dày:</div>
+                                                    <div class="specs-value">${model.thickness}</div>
+                                                </div>
+                                                <div class="specs-row">
+                                                    <div class="specs-label">Khoảng trữ cót:</div>
+                                                    <div class="specs-value">80 tiếng</div>
+                                                </div>
+                                                <div class="specs-row">
+                                                    <div class="specs-label">Tiện ích:</div>
+                                                    <div class="specs-value">Dạ quang, Lịch ngày, Giờ, phút, giây</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                   </div>
-                                  </div>
+                                </div>
+                                </div>
                             <div class="tab-pane fade" id="tab-pane-2">
-                           ${model.warrantyContent}
-                            </div>
-                            <div class="tab-pane fade" id="tab-pane-2">
-                                ${model.warrantyContent}
+                                <h4 class="mb-3 text-center" style="font-family: Arial">Thông Tin Bảo Hành</h4>
+                                <div class="warranty" style="font-family: Arial">${model.warrantyContent}</div>
                             </div>
                             <div class="tab-pane fade" id="tab-pane-3">
+                                <h4 class="mb-3 text-center" style="font-family: Arial">Hướng Dẫn Tìm Size Đồng Hồ</h4>
                               <p>Sở th&iacute;ch của mỗi người l&agrave; kh&aacute;c nhau, c&oacute; người tay nhỏ nhưng lại th&iacute;ch đeo đồng hồ size to, c&oacute; người tay to nhưng lại th&iacute;ch đeo đồng hồ size nhỏ, nhưng để đeo 1 chiếc đồng hồ mang t&iacute;nh thẩm mỹ nhất th&igrave; bạn cũng n&ecirc;n tham khảo c&aacute;ch lựa size đồng hồ dưới đ&acirc;y nh&eacute;:<br />
                                <br />
                                <strong>Bước 1:</strong>&nbsp;Đo size cổ tay (chu vi cổ tay)<br />

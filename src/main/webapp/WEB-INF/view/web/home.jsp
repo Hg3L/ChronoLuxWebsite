@@ -199,7 +199,6 @@
                         <c:when test="${status.first}">
                             <div class="carousel-item active" style="height: 410px;">
                                 <img class="img-fluid" src="${pageContext.request.contextPath}/template/web/img/posts/${item.img}" alt="Image">
-
                             </div>
                         </c:when>
                         <c:otherwise>
@@ -211,43 +210,10 @@
                     </c:choose>
                 </c:forEach>
             </div>
-
         </div>
     </div>
 </div>
 <!-- Banner End -->
-
-
-<%--<!-- Featured Start -->--%>
-<%--<div class="container-fluid pt-5">--%>
-<%--    <div class="row px-xl-5 pb-3">--%>
-<%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
-<%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
-<%--                <h1 class="fa fa-check text-primary m-0 mr-3"></h1>--%>
-<%--                <h5 class="font-weight-semi-bold m-0">Quality Product</h5>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
-<%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
-<%--                <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>--%>
-<%--                <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
-<%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
-<%--                <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>--%>
-<%--                <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
-<%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
-<%--                <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>--%>
-<%--                <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</div>--%>
-<%--<!-- Featured End -->--%>
 
 
 <!-- Brand Start -->
@@ -257,12 +223,11 @@
     </div>
     <div class="row px-xl-5 pb-3">
         <c:forEach var="item" items="${brand.listResult}">
-            <div class="col-lg-2 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 20px;">
-
+            <div class="col-lg-2 col-md-6">
+                <div class="item d-flex flex-column p-0 pt-2 my-3" style="border: 3px solid;border-radius: 1rem;max-width: 293px; max-height: 113px;">
                     <a href="<c:url value='/shop/brand?id=${item.id}&page=1&limit=8'/>"
-                       class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid"
+                       class="cat-img position-relative overflow-hidden mb-3 ">
+                        <img class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;"
                              src="<c:url value='/template/web/img/brands/${item.iconUrl}'/>" alt="">
                     </a>
                 </div>
@@ -274,47 +239,11 @@
 
 
 
-  
-<!-- Offer Start -->
-<div class="container-fluid offer pt-5">
-   <div class="row px-xl-5">
-       <div class="col-md-12 pb-4">
-           <div id="carousel" class="d-flex position-relative justify-content-center">
-               <div class="slide-item">
-                   <a href="link_to_spring_collection" class="slide-link">
-                       <div class="spring-collection"></div>
-                   </a>
-                   <a href="link_to_another_spring_collection" class="slide-link">
-                       <div class="spring-collection"></div>
-                   </a>
-               </div>
-               <div class="slide-item">
-                   <a href="link_to_winter_collection" class="slide-link">
-                       <div class="winter-collection"></div>
-                   </a>
-                   <a href="link_to_another_winter_collection" class="slide-link">
-                       <div class="winter-collection"></div>
-                   </a>
-               </div>
-               <button class="slide-btn prev" onclick="prevSlide()">&#10094;</button>
-               <button class="slide-btn next" onclick="nextSlide()">&#10095;</button>
-           </div>
-       </div>
-
-   </div>
-
-
-</div>
-<!-- Offer End -->
-
-
 
 <!-- Products Start -->
 <div class="container-fluid pt-5 px-5">
     <div class="text-center mb-4">
-
-        <h2 class="section-title px-5"><span class="px-2">Sản Phẩm Bán Nhiều</span></h2>
-
+        <h2 class="section-title px-5" style="font-family: Arial"><span class="px-2">Bán Chạy</span></h2>
     </div>
     <div class="product_list d-flex justify-content-center align-items-center flex-wrap">
         <c:forEach var="item" items="${productTrendy}">
@@ -329,21 +258,20 @@
                 </a>
                 <div class="product-info">
 
-                    <div class="product-name">${item.name}</div>
+                    <div class="product-name " style="color: black">${item.name}</div>
                     <div class="product-description">Loại máy: ${item.watchType}</div>
 
                     <div class="product-price">
-                       <span>Giá: </span>  <span id="price" >${item.price}đ</span>
+                       <span id="price" >${item.price}đ</span>
                     </div>
-
-                     <c:if test="${item.stock <= 0}">
-                       <a href="#" class="add-to-bag-btn bg-warning disabled">Thêm Vào Giỏ(đang tạm hết)</a>
-                     </c:if>
-                      <c:if test="${item.stock > 0}">
-                           <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-warning" >Thêm Vào Giỏ</a>
-                      </c:if>
-
-
+                    <div class="button-container p-0 mt-3 mx-auto">
+                        <c:if test="${item.stock <= 0}">
+                            <a href="#" class="add-to-bag-btn disabled" style="text-decoration: none;background: gray" >Tạm Hết Hàng</a>
+                        </c:if>
+                        <c:if test="${item.stock > 0}">
+                            <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-dark" style="text-decoration: none">Thêm Vào Giỏ</a>
+                        </c:if>
+                    </div>
                 </div>
             </div>
         </c:forEach>
@@ -367,39 +295,38 @@
     }
 </style>
 
-
-<!-- Products End -->
-
-
-<%--<!-- Subscribe Start -->--%>
-<%--<div class="container-fluid bg-secondary my-5">--%>
-<%--    <div class="row justify-content-md-center py-5 px-xl-5">--%>
-<%--        <div class="col-md-6 col-12 py-5">--%>
-<%--            <div class="text-center mb-2 pb-2">--%>
-<%--                <h2 class="section-title px-5 mb-3"><span class="bg-secondary px-2">Stay Updated</span></h2>--%>
-<%--                <p>Amet lorem at rebum amet dolores. Elitr lorem dolor sed amet diam labore at justo ipsum--%>
-<%--                    eirmod duo labore labore.</p>--%>
-<%--            </div>--%>
-<%--            <form action="">--%>
-<%--                <div class="input-group">--%>
-<%--                    <input type="text" class="form-control border-white p-4" placeholder="Email Goes Here">--%>
-<%--                    <div class="input-group-append">--%>
-<%--                        <button class="btn btn-primary px-4">Subscribe</button>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </form>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</div>--%>
-<%--<!-- Subscribe End -->--%>
-
-
+<!-- Offer Start -->
+<div class="container-fluid offer pt-5">
+    <div class="row px-xl-5">
+        <div class="col-md-12 pb-4">
+            <div id="carousel" class="d-flex position-relative justify-content-center">
+                <div class="slide-item">
+                    <a href="link_to_spring_collection" class="slide-link">
+                        <div class="spring-collection"></div>
+                    </a>
+                    <a href="link_to_another_spring_collection" class="slide-link">
+                        <div class="spring-collection"></div>
+                    </a>
+                </div>
+                <div class="slide-item">
+                    <a href="link_to_winter_collection" class="slide-link">
+                        <div class="winter-collection"></div>
+                    </a>
+                    <a href="link_to_another_winter_collection" class="slide-link">
+                        <div class="winter-collection"></div>
+                    </a>
+                </div>
+                <button class="slide-btn prev" onclick="prevSlide()">&#10094;</button>
+                <button class="slide-btn next" onclick="nextSlide()">&#10095;</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Offer End -->
 <!-- Products Start -->
 <div class="container-fluid pt-5">
     <div class="text-center mb-4">
-
-        <h2 class="section-title px-5"><span class="px-2">Hàng Mới Về</span></h2>
-
+        <h2 class="section-title px-5" style="font-family: Arial"><span class="px-2">Sản Phẩm Mới</span></h2>
     </div>
     <div class="product_list d-flex justify-content-center align-items-center flex-wrap">
         <c:forEach var="item" items="${product.listResult}">
@@ -418,18 +345,50 @@
                     <div class="product-price">
                         <span id="price" >${item.price}đ</span>
                     </div>
-
-                    <c:if test="${item.stock <= 0}">
-                       <a href="#" class="add-to-bag-btn bg-warning disabled">Thêm Vào Giỏ(đang tạm hết)</a>
-                     </c:if>
-                      <c:if test="${item.stock > 0}">
-                           <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-warning" >Thêm Vào Giỏ</a>
-                      </c:if>
-
+                    <div class="button-container p-0 mt-3 mx-auto">
+                        <c:if test="${item.stock <= 0}">
+                            <a href="#" class="add-to-bag-btn disabled" style="text-decoration: none;background: gray" >Tạm Hết Hàng</a>
+                        </c:if>
+                        <c:if test="${item.stock > 0}">
+                            <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-dark" style="text-decoration: none">Thêm Vào Giỏ</a>
+                        </c:if>
+                    </div>
                 </div>
             </div>
         </c:forEach>
     </div>
+
+
+    <%--<!-- Featured Start -->--%>
+    <%--<div class="container-fluid pt-5">--%>
+    <%--    <div class="row px-xl-5 pb-3">--%>
+    <%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+    <%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+    <%--                <h1 class="fa fa-check text-primary m-0 mr-3"></h1>--%>
+    <%--                <h5 class="font-weight-semi-bold m-0">Quality Product</h5>--%>
+    <%--            </div>--%>
+    <%--        </div>--%>
+    <%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+    <%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+    <%--                <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>--%>
+    <%--                <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>--%>
+    <%--            </div>--%>
+    <%--        </div>--%>
+    <%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+    <%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+    <%--                <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>--%>
+    <%--                <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>--%>
+    <%--            </div>--%>
+    <%--        </div>--%>
+    <%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+    <%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+    <%--                <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>--%>
+    <%--                <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>--%>
+    <%--            </div>--%>
+    <%--        </div>--%>
+    <%--    </div>--%>
+    <%--</div>--%>
+    <%--<!-- Featured End -->--%>
 </div>
 
 <script>
@@ -482,8 +441,8 @@ function autoSlide() {
 // Khởi tạo hình ảnh ban đầu
 showSlides(currentIndex);
 
-// Thiết lập tự động lướt slide mỗi 3 giây (3000ms)
-setInterval(autoSlide, 3000);
+// Thiết lập tự động lướt slide mỗi 5 giây (5000ms)
+setInterval(autoSlide, 5000);
 
 </script>
 

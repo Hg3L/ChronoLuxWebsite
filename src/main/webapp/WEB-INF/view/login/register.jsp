@@ -91,14 +91,13 @@
 						<span id="usernameFeedback" style="color: red; display: none;"></span>
 						<input class="text email mt-2 mb-2 w-100" type="email" name="email" placeholder="Email" required="">
 						<input class="text mt-2 mb-2 w-100" type="text" name="fullName" placeholder="Họ Và Tên" required="">
-						<input class="text mb-2 w-100" type="password" name="password" id="password" placeholder="Mật Khẩu" required minlength="6">
+						<input class="text mt-2 mb-2 w-100" type="password" name="password" id="password" placeholder="Mật Khẩu" required minlength="6">
 						<input class="text mt-2 mb-2 w-100" type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="Xác Nhận Mật Khẩu" oninput="checkPasswordMatch(this);" required="">
-						<input class="text mb-3" type="file" name="img" id="img" accept="image/*" onchange="showImage(fileInput)">
+						<input class="text mb-2 mt-2 w-100" type="file" name="img" id="img" accept="image/*" onchange="showImage(fileInput)">
 						<img id="imgPreview" alt="Avt Preview" class="mb-3" style="display: none; max-width: 100px; max-height: 100px;" />
-						<div class="g-recaptcha mb-2" data-sitekey="6LcvolUqAAAAAHsPdMaMhrNDeg_HE-FuNR4XO95n"></div>
+						<div class="g-recaptcha mb-2 mt-2 w-100" data-sitekey="6LcvolUqAAAAAHsPdMaMhrNDeg_HE-FuNR4XO95n"></div>
 						<div id="error" class="mb-2"></div>
-						<button type="submit" class="btn btn-success mb-2 w-75">Đăng Ký</button>
-
+						<button type="submit" class="btn btn-dark mb-2 w-100">Đăng Ký</button>
 						<div class="text-center mt-3">
 							<p>Đã là ChronoMember?</p>
 							<a href="<c:url value='/login'/>">Đăng Nhập</a>

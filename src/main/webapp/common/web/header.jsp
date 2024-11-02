@@ -9,7 +9,7 @@
 
 <!-- Topbar Start -->
 <div class="container-fluid">
-    <div class="row align-items-center py-3 px-xl-5">
+    <div class="row align-items-center py-0 px-xl-5">
         <div class="col-lg-3 d-none d-lg-block">
             <a href="" class="text-decoration-none">
                 <img src="${pageContext.request.contextPath}/template/web/img/Logo.svg" alt="ChronoLux Logo">
@@ -40,7 +40,7 @@
     }
 </style>
 
-<div class="container-fluid mx-0">
+<div class="container-fluid mx-0" style="border-bottom: 2px solid; border-bottom-color: rgb(234,189,43)">
     <div class="col-lg-12">
         <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,14 +57,13 @@
                     <a href="<c:url value='/shop?page=1&limit=8'/>" class="nav-item nav-link">Cửa Hàng</a>
                     <a href="<c:url value='/shop?page=1&limit=8&filter=nam'/>" class="nav-item nav-link">Cho Nam</a>
                     <a href="<c:url value='/shop?page=1&limit=8&filter=nu'/>" class="nav-item nav-link">Cho Nữ</a>
-                    <a href="contact.html" class="nav-item nav-link">Liên Hệ</a>
                 </div>
 
                 <!-- Right-aligned Navbar Links (Login/Register) with equal flex -->
                 <div class="navbar-nav d-flex align-items-center flex-grow-1 justify-content-end">
                     <security:authorize access="isAnonymous()">
-                        <a href="<c:url value='/login'/>" class="nav-item nav-link">Login</a>
-                        <a href="<c:url value='/login/register'/>" class="nav-item nav-link">Register</a>
+                        <a href="<c:url value='/login'/>" class="nav-item nav-link">Đăng Nhập</a>
+                        <a href="<c:url value='/login/register'/>" class="nav-item nav-link">Đăng Ký</a>
                     </security:authorize>
 
                     <security:authorize access="isAuthenticated()">

@@ -78,6 +78,21 @@
          margin-top: 10px;
          color: #007BFF;
      }
+     .try-on-label {
+                                      position: absolute;
+                                      top: 10px;
+                                      left: 10px;
+                                      background-color: white;
+                                      font-size: 12px;
+                                      padding: 3px 7px;
+                                      border-radius: 5px;
+                                      border: 1px solid #ddd;
+                                  }
+      .disabled-link {
+                             pointer-events: none;
+                             opacity: 0.5;
+                             cursor: default;
+                         }
 </style>
 
         </head>
@@ -245,22 +260,31 @@
                                         <div class="card product-item border-0 mb-4">
                                             <div
                                                 class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                                <c:if test="${product.stock <= 0}">
+                                                     <span class="try-on-label">Bán Hết</span>
+                                                </c:if>
                                                 <img class="img-fluid w-100"
                                                     src="<c:url value='/template/web/img/products/${product.imgUrl}'/>" alt="">
                                             </div>
                                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                                 <h6 class="text-truncate mb-3">${product.name}</h6>
                                                 <div class="d-flex justify-content-center">
-                                                    <h6>$123.00</h6>
-                                                    <h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                                                    <h6 id="price">${product.price}</h6>
+
                                                 </div>
                                             </div>
-                                            <div class="card-footer d-flex justify-content-between bg-light border">
-                                                <a href="<c:url value='/product-detail?id=${product.id}'/>" class="btn btn-sm text-dark p-0"><i
-                                                        class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                                               <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>" class="btn btn-sm text-dark p-0"><i
-                                                    class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
-                                            </div>
+                                                <div class="button-container p-0 my-1 mx-2 d-flex ">
+                                                                                            <c:if test="${product.stock <= 0}">
+                                                                                                <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>"
+                                                                                                   class="btn btn-sm text-dark p-2 flex-grow-1 disabled-link" style="border-radius: 1rem">
+                                                                                                    Đang tạm hết
+                                                                                                </a>
+                                                                                            </c:if>
+                                                                                            <c:if test="${product.stock > 0}">
+                                                                                                <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>"
+                                                                                                   class="btn bg-dark text-light p-2 flex-grow-1" style="border-radius: 1rem">Thêm vào giỏ</a>
+                                                                                            </c:if>
+                                                                                        </div>
                                         </div>
 
                                     </div>
@@ -369,6 +393,13 @@
 
 
             </script>
+            <script>
+                            document.querySelectorAll('#price').forEach(element => {
+                                let price = parseInt(element.innerText.replace("đ", ""), 10);
+                                element.innerText = price.toLocaleString("vi-VN") + "đ";
+                            });
+
+                        </script>
         </body>
 
         </html>
