@@ -70,7 +70,7 @@ public class LoginController {
 
     }
     @RequestMapping(value = "/login-facebook", method = RequestMethod.GET)
-    public ModelAndView LoginFacebook(@RequestParam String code) {
+    public ModelAndView LoginFacebook(@RequestParam (value = "code",required = false) String code) {
         ModelAndView mav = new ModelAndView("redirect:/home");
         try {
             String token = UserFaceBookUtil.getToken(code);
