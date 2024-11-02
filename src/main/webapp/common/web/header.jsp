@@ -11,7 +11,7 @@
 <div class="container-fluid">
     <div class="row align-items-center py-0 px-xl-5">
         <div class="col-lg-3 d-none d-lg-block">
-            <a href="" class="text-decoration-none">
+            <a href="<c:url value='/home'/>" class="text-decoration-none">
                 <img src="${pageContext.request.contextPath}/template/web/img/Logo.svg" alt="ChronoLux Logo">
             </a>
         </div>
@@ -80,13 +80,13 @@
                             %>
                             <a href="#" class="nav-link dropdown-toggle" id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Chào mừng, <%=fullName%>
+                                Chào Mừng, <%=fullName%>
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right"
                                  aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="<c:url value='/user-profile'/>">Profile</a>
-                                <a class="dropdown-item" href="<c:url value='/logout'/>">Logout</a>
+                                <a class="dropdown-item" href="<c:url value='/user-profile'/>">Thông Tin Tài Khoản</a>
+                                <a class="dropdown-item" href="<c:url value='/logout'/>">Đăng Xuất</a>
                             </div>
                         </div>
                     </security:authorize>

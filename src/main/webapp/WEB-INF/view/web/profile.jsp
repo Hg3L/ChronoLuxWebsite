@@ -30,7 +30,7 @@
                     <div class="col-md-3 border-right">
                         <c:if test="${user.password != null}">
                             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img
-                                    class="rounded-circle mt-5" width="150px"
+                                    class="rounded-circle mt-5" style="max-width: 150px; max-height: 150px; width: fit-content; height: fit-content;"
                                     src="<c:url value='/template/web/img/user-logos/${user.imgUrl}'/>"><span
                                     class="font-weight-bold">${user.getFullName()}</span><span
                                     class="text-black-50">${user.getEmail()}</span><span> </span></div>
@@ -46,7 +46,7 @@
                     <div class="col-md-9 border-right">
                         <div class="p-3 py-5">
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h4 class="text-right">Your Profile</h4>
+                                <h4 class="text-right">Thông Tin Tài Khoản</h4>
                             </div>
                             <form method="post" action="<c:url value='/user-profile'/>">
                                 <div class="row mt-2">
@@ -54,16 +54,13 @@
                                         <input type="hidden" name="id" class="form-control" value="${user.id}">
                                     </c:if>
 
-                                    <div class="col-md-6"><label class="labels">Name</label><input type="text"
+                                    <div class="col-md-6"><label class="labels">Họ Và Tên</label><input type="text"
                                             name="firstName" class="form-control" placeholder="first name"
                                             value="${user.getFirstName()}" required></div>
-                                    <div class="col-md-6"><label class="labels">Surname</label><input type="text"
-                                            name="surName" class="form-control" value="${user.getSurName()}"
-                                            placeholder="surname" required></div>
                                 </div>
-                                <div class="row mt-3">
+                                <div class="row mt-2">
                                 <security:authorize access="hasRole('ROLE_USER')">
-                                        <div class="col-md-12"><label class="labels">UserName</label><input type="text"
+                                        <div class="col-md-12"><label class="labels">Tên Đăng Nhập</label><input type="text"
                                             name="userName" class="form-control" placeholder="enter your phone number"
                                             value="${user.getUserName()}" required readonly></div>
                                 </security:authorize>
@@ -74,17 +71,17 @@
                                 </div>
                                 <c:if test="${param.success != null}">
                                     <div class="alert alert-success " role="alert" style="text-align: center;">
-                                        Update Successful!
+                                        Cập Nhập Thành Công!
                                     </div>
                                 </c:if>
                                 <c:if test="${param.error != null}">
                                     <div class="alert alert-danger " role="alert" style="text-align: center;">
-                                        Update failed!
+                                        Cập Nhập Không Thành Công!
                                     </div>
                                 </c:if>
                                 <c:if test="${user.password != null}">
                                     <div class="mt-5 text-center"><button class="btn btn-primary profile-button"
-                                            type="submit">Save Profile</button></div>
+                                            type="submit">Lưu Thông Tin</button></div>
                                 </c:if>
                                  <input type="hidden" name="imgUrl" class="form-control" value="${user.imgUrl}">
                             </form>
