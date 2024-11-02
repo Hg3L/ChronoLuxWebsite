@@ -8,12 +8,14 @@
            <a href="#" class="text-decoration-none">
                <img id="corporation-img" src="" style="margin-bottom: 10px;" alt="ChronoLux Logo">
            </a>
-           <p id="corporation-about"></p>
+           <p class="info-comp text-truncate" id="corporation-about"></p>
            <p class="mb-2"><i class="fa fa-map-marker-alt mr-4" style="font-size: 30px;color: rgb(234,189,43)"></i><span id="corporation-address"></span></p>
            <p class="mb-2"><i class="fa fa-envelope mr-3" style="font-size: 30px;color: rgb(234,189,43)"></i><span id="corporation-email"></span></p>
            <p class="mb-0"><i class="fa fa-phone-alt mr-3" style="font-size: 30px;color: rgb(234,189,43)"></i><span id="corporation-phone"></span></p>
        </div>
-        <div class="col-lg-8 col-md-12">
+        <div class="col-lg-8 col-md-12 py-1 ">
+<%--            <div class="col-lg-8 col-md-12 py-1 d-flex justify-content-center align-items-center">--%>
+<%--            <img class="image-footer flex-grow-1" src="<c:url value='/template/web/img/footer2.png'/>"style="height: 80%; max-width: 0%  ;width: fit-content">--%>
             <div class="row">
                 <div class="col-md-4 mb-5">
                     <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
@@ -33,7 +35,6 @@
                         <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

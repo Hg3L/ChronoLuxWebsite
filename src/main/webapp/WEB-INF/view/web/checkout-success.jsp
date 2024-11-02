@@ -35,7 +35,7 @@
         </head>
 
         <body>
-<div class="container text-center mt-5">
+<div class="container text-center my-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <!-- Dấu tích lớn màu xanh lá cây -->

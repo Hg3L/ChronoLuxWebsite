@@ -195,11 +195,10 @@
 
                         </div>
                         <h3 id="price" class="font-weight-semi-bold mb-4">${model.price}</h3>
-                        <p class="mb-4">Brand: ${model.brandName} - Country: ${model.country}</p>
-                        <c:if test="${model.stock < 10}">
+                        <p class="mb-4">Thương Hiệu: ${model.brandName} - Quóc Gia: ${model.country}</p>
+                        <c:if test="${model.stock < 10 && model.stock != 0}">
                                 <p class="mb-4">
-                                    <span class="badge badge-danger">InStock:</span>
-                                    <span class="ml-2 font-weight-bold text-danger">${model.stock}</span>
+                                    <span class="badge p-0" style="color: red; font-family: Arial; font-size: 18px">Chỉ Còn ${model.stock} Sản Phẩm!</span>
                                 </p>
                          </c:if>
                         <div class="d-flex align-items-center mb-4 pt-2">
@@ -225,8 +224,7 @@
                             <form action="<c:url value='/cart/add'/>" method="get" id ="AddToCartForm">
                                 <input type="hidden" name = "quantity" id="quantity-hidden" value="1">
                                   <input type="hidden" name = "productId"  value="${model.id}">
-                            <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
-                                Cart</button>
+                            <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Thêm Vào Giỏ</button>
                             </form>
                              </c:if>
                            <c:if test="${model.stock <= 0}">
@@ -263,9 +261,9 @@
                 <div class="row px-xl-5">
                     <div class="col">
                         <div class="nav nav-tabs justify-content-center border-secondary mb-4">
-                            <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Description</a>
-                            <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">Warranty Policy</a>
-                            <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Size Selection Guide</a>
+                            <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Thông Số</a>
+                            <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">Chính Sách Bảo Hành</a>
+                            <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Hướng Dẫn Chọn Kích Cỡ</a>
                      
 
                         </div>
@@ -359,25 +357,36 @@
             <!-- Products Start -->
             <div class="container-fluid py-5">
                 <div class="text-center mb-4">
-                    <h2 class="section-title px-5"><span class="px-2"> Có Thể Bạn Cũng Thích</span></h2>
+                    <h2 class="section-title px-5"><span class="px-2" style="font-family: Arial"> Sản Phẩm Tương Tự</span></h2>
                 </div>
                 <div class="row px-xl-5">
                     <div class="col">
                         <div class="owl-carousel related-carousel">
                             <c:forEach var="item" items="${productByBrands}">
-                                <div class="card product-item border-0">
-                                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                        <img class="img-fluid w-100" src="<c:url value='/template/web/img/products/${item.imgUrl}'/>" alt="">
-                                    </div>
-                                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                                <div class="product-card p-2 bg-white shadow mx-3 my-3 " style="border-radius: 1rem; max-width: 300px">
+                                    <img class="img-fluid p-5" style="width: fit-content;" src="<c:url value='/template/web/img/products/${item.imgUrl}'/>" alt="">
+                                    <div class="card-body text-center p-0 pt-4 pb-3">
                                         <h6 class="text-truncate mb-3">${item.name}</h6>
                                         <div class="d-flex justify-content-center">
-                                            <h6 id="price"><del>${item.price}</del></h6>
+                                            <h6 id="price" style="color: green"><del>${item.price}</del></h6>
                                         </div>
                                     </div>
-                                    <div class="card-footer d-flex justify-content-between bg-light border">
-                                        <a href="<c:url value='/product-detail?id=${item.id}'/>" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                                        <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                                    <div class="button-container p-0 my-1 mx-2 d-flex ">
+                                        <a href="<c:url value='/product-detail?id=${item.id}'/>"
+                                           class="btn bg-dark text-light p-2 flex-grow-1" style="border-radius: 1rem">Chi Tiết</a>
+                                    </div>
+                                    <div class="button-container p-0 my-1 mx-2 d-flex">
+                                        <c:if test="${item.stock <= 0}">
+                                            <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>"
+                                               class="btn btn-sm text-light p-2 flex-grow-1 disabled-link"
+                                               style="border-radius: 1rem; background-color: gray;">
+                                                Tạm Hết Hàng
+                                            </a>
+                                        </c:if>
+                                        <c:if test="${item.stock > 0}">
+                                            <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>"
+                                               class="btn bg-dark text-light p-2 flex-grow-1" style="border-radius: 1rem">Thêm Vào Giỏ</a>
+                                        </c:if>
                                     </div>
                                 </div>
                             </c:forEach>
@@ -498,7 +507,156 @@
                 });
 
             </script>
-
+            <%--<!-- Featured Start -->--%>
+            <%--<div class="container-fluid pt-5">--%>
+            <%--    <div class="row px-xl-5 pb-3">--%>
+            <%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+            <%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+            <%--                <h1 class="fa fa-check text-primary m-0 mr-3"></h1>--%>
+            <%--                <h5 class="font-weight-semi-bold m-0">Quality Product</h5>--%>
+            <%--            </div>--%>
+            <%--        </div>--%>
+            <%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+            <%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+            <%--                <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>--%>
+            <%--                <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>--%>
+            <%--            </div>--%>
+            <%--        </div>--%>
+            <%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+            <%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+            <%--                <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>--%>
+            <%--                <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>--%>
+            <%--            </div>--%>
+            <%--        </div>--%>
+            <%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+            <%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+            <%--                <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>--%>
+            <%--                <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>--%>
+            <%--            </div>--%>
+            <%--        </div>--%>
+            <%--    </div>--%>
+            <%--</div>--%>
+            <%--<!-- Featured End -->--%>
+            <%--<!-- Featured Start -->--%>
+            <%--<div class="container-fluid pt-5">--%>
+            <%--    <div class="row px-xl-5 pb-3">--%>
+            <%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+            <%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+            <%--                <h1 class="fa fa-check text-primary m-0 mr-3"></h1>--%>
+            <%--                <h5 class="font-weight-semi-bold m-0">Quality Product</h5>--%>
+            <%--            </div>--%>
+            <%--        </div>--%>
+            <%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+            <%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+            <%--                <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>--%>
+            <%--                <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>--%>
+            <%--            </div>--%>
+            <%--        </div>--%>
+            <%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+            <%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+            <%--                <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>--%>
+            <%--                <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>--%>
+            <%--            </div>--%>
+            <%--        </div>--%>
+            <%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+            <%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+            <%--                <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>--%>
+            <%--                <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>--%>
+            <%--            </div>--%>
+            <%--        </div>--%>
+            <%--    </div>--%>
+            <%--</div>--%>
+            <%--<!-- Featured End -->--%>
+            <%--<!-- Featured Start -->--%>
+            <%--<div class="container-fluid pt-5">--%>
+            <%--    <div class="row px-xl-5 pb-3">--%>
+            <%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+            <%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+            <%--                <h1 class="fa fa-check text-primary m-0 mr-3"></h1>--%>
+            <%--                <h5 class="font-weight-semi-bold m-0">Quality Product</h5>--%>
+            <%--            </div>--%>
+            <%--        </div>--%>
+            <%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+            <%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+            <%--                <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>--%>
+            <%--                <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>--%>
+            <%--            </div>--%>
+            <%--        </div>--%>
+            <%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+            <%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+            <%--                <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>--%>
+            <%--                <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>--%>
+            <%--            </div>--%>
+            <%--        </div>--%>
+            <%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+            <%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+            <%--                <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>--%>
+            <%--                <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>--%>
+            <%--            </div>--%>
+            <%--        </div>--%>
+            <%--    </div>--%>
+            <%--</div>--%>
+            <%--<!-- Featured End -->--%>
+            <%--<!-- Featured Start -->--%>
+            <%--<div class="container-fluid pt-5">--%>
+            <%--    <div class="row px-xl-5 pb-3">--%>
+            <%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+            <%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+            <%--                <h1 class="fa fa-check text-primary m-0 mr-3"></h1>--%>
+            <%--                <h5 class="font-weight-semi-bold m-0">Quality Product</h5>--%>
+            <%--            </div>--%>
+            <%--        </div>--%>
+            <%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+            <%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+            <%--                <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>--%>
+            <%--                <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>--%>
+            <%--            </div>--%>
+            <%--        </div>--%>
+            <%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+            <%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+            <%--                <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>--%>
+            <%--                <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>--%>
+            <%--            </div>--%>
+            <%--        </div>--%>
+            <%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+            <%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+            <%--                <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>--%>
+            <%--                <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>--%>
+            <%--            </div>--%>
+            <%--        </div>--%>
+            <%--    </div>--%>
+            <%--</div>--%>
+            <%--<!-- Featured End -->--%>
+            <%--<!-- Featured Start -->--%>
+            <%--<div class="container-fluid pt-5">--%>
+            <%--    <div class="row px-xl-5 pb-3">--%>
+            <%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+            <%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+            <%--                <h1 class="fa fa-check text-primary m-0 mr-3"></h1>--%>
+            <%--                <h5 class="font-weight-semi-bold m-0">Quality Product</h5>--%>
+            <%--            </div>--%>
+            <%--        </div>--%>
+            <%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+            <%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+            <%--                <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>--%>
+            <%--                <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>--%>
+            <%--            </div>--%>
+            <%--        </div>--%>
+            <%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+            <%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+            <%--                <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>--%>
+            <%--                <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>--%>
+            <%--            </div>--%>
+            <%--        </div>--%>
+            <%--        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">--%>
+            <%--            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">--%>
+            <%--                <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>--%>
+            <%--                <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>--%>
+            <%--            </div>--%>
+            <%--        </div>--%>
+            <%--    </div>--%>
+            <%--</div>--%>
+            <%--<!-- Featured End -->--%>
         </body>
 
         </html>

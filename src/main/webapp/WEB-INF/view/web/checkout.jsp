@@ -241,14 +241,9 @@
 
         <body>
             <!-- Page Header Start -->
-            <div class="container-fluid bg-secondary mb-5">
-                <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-                    <h1 class="font-weight-semi-bold text-uppercase mb-3">Checkout</h1>
-                    <div class="d-inline-flex">
-                        <p class="m-0"><a href="">Home</a></p>
-                        <p class="m-0 px-2">-</p>
-                        <p class="m-0">Checkout</p>
-                    </div>
+            <div class="container-fluid bg-light ">
+                <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 150px">
+                    <h1 class="font-weight-semi-bold text-uppercase mb-3">Thanh Toán</h1>
                 </div>
             </div>
             <!-- Page Header End -->
@@ -257,12 +252,12 @@
             <!-- Checkout Start -->
             <div class="container-fluid pt-5">
                 <form action="<c:url value='/checkout'/>" method="post" id="paymentForm1">
-                    <div class="row px-xl-5">
+                    <div class="row px-xl-5 d-flex align-items-center justify-content-center border-dark">
                         <div class="col-lg-7">
                             <div class="mb-4">
-                                <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
+                                <h4 class="font-weight-semi-bold mb-4 text-center" style="font-family: Arial">Thông Tin Nhận Hàng</h4>
                                 <!-- HTML -->
-                                <form class="order-form p-4 border rounded">
+                                <form class="order-form p-4">
                                     <div class="mb-3">
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="gender" id="male"
@@ -360,20 +355,18 @@
                                     </div>
                                 </form>
                             </div>
-                        </div>
-                        <div class="col-lg-5">
-                            <div class="card border-secondary mb-5">
-                                <div class="card-header bg-secondary border-0">
-                                    <h4 class="font-weight-semi-bold m-0">Order Total</h4>
+                            <div class="card border-dark">
+                                <div class="card-header bg-dark border-0">
+                                    <h4 class="font-weight-semi-bold m-0 text-center" style="color: whitesmoke; font-family: Arial">Đơn Hàng</h4>
                                 </div>
                                 <div class="card-body">
-                                    <h5 class="font-weight-medium mb-3">Products</h5>
+                                    <h5 class="font-weight-medium mb-3 text-center" style="font-family: Arial">Sản Phẩm</h5>
                                     <c:forEach var="item" items="${cartItems}" varStatus="status">
                                         <div class="cart-item">
                                             <div class="cart-item-content">
 
                                                 <img src="https://www.watchstore.vn/images/products/2024/06/14/small/mtp-vt01l-1budf_1718332985.webp"
-                                                    alt="Product Image" class="product-image">
+                                                     alt="Product Image" class="product-image">
                                                 <div class="product-details">
                                                     <p class="product-name">${item.productName}</p>
                                                     <p class="product-price">
@@ -390,53 +383,53 @@
 
                                     <hr class="mt-0">
                                     <div class="d-flex justify-content-between mb-3 pt-1">
-                                        <h6 class="font-weight-medium">Subtotal</h6>
+                                        <h6 class="font-weight-medium" style="font-family: Arial">Tổng Giá Trị</h6>
                                         <h6 id ="price" class="font-weight-medium">${subtotal}</h6>
-                                    <input type="hidden" name="subtotal" value="${subtotal}">
+                                        <input type="hidden" name="subtotal" value="${subtotal}">
                                     </div>
                                     <c:if test="${not empty voucher}">
                                         <div class="d-flex justify-content-between">
-                                            <h6 class="font-weight-medium">Discount</h6>
-                                            <h6 id ="price" class="font-weight-medium">${voucher.discount}</h6>
-                                             <input type="hidden" name="voucherCode" value="${voucher.code}">
+                                            <h6 class="font-weight-medium" style="font-family: Arial">Giảm Giá</h6>
+                                            <h6 id ="price" class="font-weight-medium">-${voucher.discount}</h6>
+                                            <input type="hidden" name="voucherCode" value="${voucher.code}">
                                         </div>
                                     </c:if>
                                 </div>
                                 <div class="card-footer border-secondary bg-transparent">
                                     <div class="d-flex justify-content-between mt-2">
-                                        <h5 class="font-weight-bold">Total</h5>
-                                        <h5 id ="price" class="font-weight-bold">${totalPrice}</h5>
+                                        <h5 class="font-weight-bold" style="font-family: Arial">Thành Tiền</h5>
+                                        <h5 id ="price" class="font-weight-bold" style="color: green">${totalPrice}</h5>
                                         <input type="hidden" name="total" value="${totalPrice}">
                                     </div>
                                 </div>
                             </div>
-                            <div class="payment-methods">
-                                <div class="card-header bg-secondary border-0">
-                                    <h4 class="font-weight-semi-bold m-0">Payment</h4>
+                            <div class="payment-container my-4 mx-0 border-dark" style="width: 100%">
+                                <div class="card-header bg-dark border-0 mb-3">
+                                    <h4 class="font-weight-semi-bold m-0 text-center" style="color: whitesmoke">Hình Thức Thanh Toán</h4>
                                 </div>
                                 <div class="payment-option">
                                     <input type="radio" name="paymentMethod" id="cod" value="cod"
-                                        onchange="updateAction()" checked>
+                                           onchange="updateAction()" checked>
                                     <label for="cod">Thanh toán khi giao hàng (COD)</label>
                                 </div>
 
                                 <div class="payment-option">
                                     <input type="radio" name="paymentMethod" id="bank-transfer" value="bank-transfer"
-                                        onchange="updateAction()">
+                                           onchange="updateAction()">
                                     <label for="bank-transfer">Chuyển khoản qua ngân hàng</label>
                                 </div>
 
                                 <!-- Thông tin tài khoản ngân hàng -->
-                               <div id="bank-info" style="display: none;">
-                                   <h4>Thông tin tài khoản ngân hàng:</h4>
-                                   <p>Ngân hàng: ABC Bank</p>
-                                   <p>Số tài khoản: 123456789</p>
-                                   <p>Chủ tài khoản: Nguyễn Văn A</p>
+                                <div id="bank-info" style="display: none;">
+                                    <h4>Thông tin tài khoản ngân hàng:</h4>
+                                    <p>Ngân hàng: ABC Bank</p>
+                                    <p>Số tài khoản: 123456789</p>
+                                    <p>Chủ tài khoản: Nguyễn Văn A</p>
 
-                               </div>
-                                 <div class="payment-option">
+                                </div>
+                                <div class="payment-option">
                                     <input type="radio" name="paymentMethod" id="VNPAY" value="VNPAY"
-                                        onchange="updateAction()">
+                                           onchange="updateAction()">
                                     <label for="VNPAY">Thanh toán VNPAY</label>
                                 </div>
                                 <form action="<c:url value='/authorize_payment'/>" method="post" id="paymentForm">
@@ -444,24 +437,117 @@
                                     <input type="hidden" name="total" value="${subtotal}">
                                     <input type="hidden" id="voucher" value="${voucher.discount}">
                                     <!-- Trường này lưu trạng thái voucher -->
-
-                                    <div class="card border-secondary mb-5">
-                                        <div class="card-footer border-secondary bg-transparent">
-                                            <button class="paypal-button" type="button" onclick="validateForm()">
-                                                <span class="paypal-logo"></span>
-                                                <span class="paypal-text">Pay with PayPal</span>
-                                            </button>
-                                            <div id="errorMessage" style="color:red; display:none;">Phương thức thanh toán này không áp dụng voucher</div>
-                                        </div>
+                                    <div class="paypal-holder mb-4" style="width: 100%">
+                                        <button class="paypal-button" type="button" onclick="validateForm()" style="width: 100%;background-color: rgba(44,229,250,0.8)">
+                                            <span class="paypal-logo"></span>
+                                            <span class="paypal-text">Pay with PayPal</span>
+                                        </button>
+                                        <div id="errorMessage" style="color:red; display:none;">Phương thức thanh toán này không áp dụng voucher</div>
                                     </div>
                                 </form>
-
-                                <div class="complete-order">
-                                    <button type="submit" onclick="completeOrder()">Hoàn tất đơn hàng</button>
-                                </div>
-
+                            </div>
+                            <div class="complete-order my-5"style="width: 100%">
+                                <button type="submit" style="width: 100%; background-color: rgb(234,189,43);" onclick="completeOrder()"><i style="color: black; font-style: normal; font-size: 20px">Hoàn Tất Đơn Hàng</i></button>
                             </div>
                         </div>
+<%--                        <div class="col-lg-5">--%>
+<%--                            <div class="card border-dark">--%>
+<%--                                <div class="card-header bg-dark border-0">--%>
+<%--                                    <h4 class="font-weight-semi-bold m-0 text-center" style="color: whitesmoke; font-family: Arial">Đơn Hàng</h4>--%>
+<%--                                </div>--%>
+<%--                                <div class="card-body">--%>
+<%--                                    <h5 class="font-weight-medium mb-3 text-center" style="font-family: Arial">Sản Phẩm</h5>--%>
+<%--                                    <c:forEach var="item" items="${cartItems}" varStatus="status">--%>
+<%--                                        <div class="cart-item">--%>
+<%--                                            <div class="cart-item-content">--%>
+
+<%--                                                <img src="https://www.watchstore.vn/images/products/2024/06/14/small/mtp-vt01l-1budf_1718332985.webp"--%>
+<%--                                                    alt="Product Image" class="product-image">--%>
+<%--                                                <div class="product-details">--%>
+<%--                                                    <p class="product-name">${item.productName}</p>--%>
+<%--                                                    <p class="product-price">--%>
+<%--                                                        <span id="price" class="current-price">${item.productPrice}</span>--%>
+
+<%--                                                    </p>--%>
+<%--                                                </div>--%>
+<%--                                                <div class="quantity-control">--%>
+<%--                                                    <label class="quantity-label">x ${item.quantity}</label>--%>
+<%--                                                </div>--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
+<%--                                    </c:forEach>--%>
+
+<%--                                    <hr class="mt-0">--%>
+<%--                                    <div class="d-flex justify-content-between mb-3 pt-1">--%>
+<%--                                        <h6 class="font-weight-medium" style="font-family: Arial">Tổng Giá Trị</h6>--%>
+<%--                                        <h6 id ="price" class="font-weight-medium">${subtotal}</h6>--%>
+<%--                                    <input type="hidden" name="subtotal" value="${subtotal}">--%>
+<%--                                    </div>--%>
+<%--                                    <c:if test="${not empty voucher}">--%>
+<%--                                        <div class="d-flex justify-content-between">--%>
+<%--                                            <h6 class="font-weight-medium" style="font-family: Arial">Giảm Giá</h6>--%>
+<%--                                            <h6 id ="price" class="font-weight-medium">-${voucher.discount}</h6>--%>
+<%--                                             <input type="hidden" name="voucherCode" value="${voucher.code}">--%>
+<%--                                        </div>--%>
+<%--                                    </c:if>--%>
+<%--                                </div>--%>
+<%--                                <div class="card-footer border-secondary bg-transparent">--%>
+<%--                                    <div class="d-flex justify-content-between mt-2">--%>
+<%--                                        <h5 class="font-weight-bold" style="font-family: Arial">Thành Tiền</h5>--%>
+<%--                                        <h5 id ="price" class="font-weight-bold" style="color: green">${totalPrice}</h5>--%>
+<%--                                        <input type="hidden" name="total" value="${totalPrice}">--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                            <div class="payment-methods my-4 mx-auto border-dark">--%>
+<%--                                <div class="card-header bg-dark border-0 mb-3">--%>
+<%--                                    <h4 class="font-weight-semi-bold m-0 text-center" style="color: whitesmoke">Hình Thức Thanh Toán</h4>--%>
+<%--                                </div>--%>
+<%--                                <div class="payment-option">--%>
+<%--                                    <input type="radio" name="paymentMethod" id="cod" value="cod"--%>
+<%--                                        onchange="updateAction()" checked>--%>
+<%--                                    <label for="cod">Thanh toán khi giao hàng (COD)</label>--%>
+<%--                                </div>--%>
+
+<%--                                <div class="payment-option">--%>
+<%--                                    <input type="radio" name="paymentMethod" id="bank-transfer" value="bank-transfer"--%>
+<%--                                        onchange="updateAction()">--%>
+<%--                                    <label for="bank-transfer">Chuyển khoản qua ngân hàng</label>--%>
+<%--                                </div>--%>
+
+<%--                                <!-- Thông tin tài khoản ngân hàng -->--%>
+<%--                               <div id="bank-info" style="display: none;">--%>
+<%--                                   <h4>Thông tin tài khoản ngân hàng:</h4>--%>
+<%--                                   <p>Ngân hàng: ABC Bank</p>--%>
+<%--                                   <p>Số tài khoản: 123456789</p>--%>
+<%--                                   <p>Chủ tài khoản: Nguyễn Văn A</p>--%>
+
+<%--                               </div>--%>
+<%--                                 <div class="payment-option">--%>
+<%--                                    <input type="radio" name="paymentMethod" id="VNPAY" value="VNPAY"--%>
+<%--                                        onchange="updateAction()">--%>
+<%--                                    <label for="VNPAY">Thanh toán VNPAY</label>--%>
+<%--                                </div>--%>
+<%--                                <form action="<c:url value='/authorize_payment'/>" method="post" id="paymentForm">--%>
+<%--                                    <input type="hidden" name="subtotal" value="${subtotal}">--%>
+<%--                                    <input type="hidden" name="total" value="${subtotal}">--%>
+<%--                                    <input type="hidden" id="voucher" value="${voucher.discount}">--%>
+<%--                                    <!-- Trường này lưu trạng thái voucher -->--%>
+<%--                                    <div class="paypal-holder mb-4" style="width: 100%">--%>
+<%--                                        <button class="paypal-button" type="button" onclick="validateForm()" style="width: 100%;background-color: rgba(44,229,250,0.8)">--%>
+<%--                                            <span class="paypal-logo"></span>--%>
+<%--                                            <span class="paypal-text">Pay with PayPal</span>--%>
+<%--                                        </button>--%>
+<%--                                        <div id="errorMessage" style="color:red; display:none;">Phương thức thanh toán này không áp dụng voucher</div>--%>
+<%--                                    </div>--%>
+<%--                                </form>--%>
+
+<%--                                <div class="complete-order"style="width: 100%">--%>
+<%--                                    <button type="submit" style="width: 100%; background-color: rgb(234,189,43);" onclick="completeOrder()"><i style="color: black; font-style: normal">Hoàn tất đơn hàng</i></button>--%>
+<%--                                </div>--%>
+
+<%--                            </div>--%>
+<%--                        </div>--%>
                     </div>
                 </form>
             </div>
