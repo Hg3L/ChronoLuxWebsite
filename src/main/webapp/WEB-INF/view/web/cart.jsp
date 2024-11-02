@@ -32,14 +32,9 @@
         <body>
 
             <!-- Page Header Start -->
-            <div class="container-fluid bg-secondary mb-5">
-                <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-                    <h1 class="font-weight-semi-bold text-uppercase mb-3">Shopping Cart</h1>
-                    <div class="d-inline-flex">
-                        <p class="m-0"><a href="">Home</a></p>
-                        <p class="m-0 px-2">-</p>
-                        <p class="m-0">Shopping Cart</p>
-                    </div>
+            <div class="container-fluid">
+                <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 150px">
+                    <h1 class="font-weight-semi-bold text-uppercase mb-3">Giỏ Hàng Của Bạn</h1>
                 </div>
             </div>
             <!-- Page Header End -->
@@ -51,14 +46,14 @@
                     <div class="col-lg-8 table-responsive mb-5">
                         <c:if test="${not empty cartItems}">
                             <table class="table table-bordered text-center mb-0">
-                                <thead class="bg-secondary text-dark">
-                                    <tr>
-                                        <th>Img</th>
-                                        <th>Product </th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>Total</th>
-                                        <th>Remove</th>
+                                <thead class="bg-dark text-light">
+                                    <tr style="font-family: Arial">
+                                        <th>Hình Ảnh</th>
+                                        <th>Tên Sản Phẩm </th>
+                                        <th>Giá Trị</th>
+                                        <th>Số Lượng</th>
+                                        <th>Tổng</th>
+                                        <th>Loại Bỏ</th>
                                     </tr>
                                 </thead>
                                 <tbody class="align-middle">
@@ -78,7 +73,7 @@
                                                             <input type="hidden" name="productId" value=${item.productId}>
 
                                                             <button type="submit"
-                                                                class="btn btn-sm btn-primary btn-minus"
+                                                                class="btn btn-sm btn-dark btn-minus"
                                                                 onclick="decreaseQuantity(${status.index})"
                                                                 id="DecreaseQuantityBtn">
                                                                 <i class="fa fa-minus"></i>
@@ -88,10 +83,10 @@
 
                                                     <form action="<c:url value='/cart/update'/>" method="get">
                                                         <input type="text"
-                                                               class="form-control form-control-sm bg-secondary text-center"
+                                                               class="form-control form-control-sm bg-light text-center"
                                                                id="quantity-${status.index}" value="${item.quantity}"
                                                                onchange="updateHiddenQuantity(${status.index})"
-                                                               style="width: 40px;">
+                                                               style="width: 40px;border-bottom: black; border-top: black">
                                                         <input type = "hidden" id = "instock-${status.index}" value = "${item.productQuantity}" >
 
                                                         <input type="hidden" id="hiddenQuantity-${status.index}"
@@ -109,7 +104,7 @@
                                                         </c:if>
                                                         <input type="hidden" name="productId" value=${item.productId}>
 
-                                                        <button type="submit" class="btn btn-sm btn-primary btn-plus"
+                                                        <button type="submit" class="btn btn-sm btn-dark btn-plus"
                                                             onclick="increaseQuantity(${status.index})"
                                                             id="IncreaseQuantityBtn">
                                                             <i class="fa fa-plus"></i>
@@ -120,7 +115,7 @@
                                             <td id ="price" class="align-middle">${item.productPrice*item.quantity}</td>
                                             <td class="align-middle">
                                                 <form action="<c:url value='/cart/del'/>" method="get">
-                                                    <button class="btn btn-sm btn-primary"><i
+                                                    <button class="btn btn-sm btn-dark"><i
                                                             class="fa fa-times"></i></button>
                                                     <input type="hidden" name="productId" value=${item.productId}>
                                                 </form>
@@ -140,39 +135,38 @@
 
                             <form class="mb-5" action="<c:url value='/cart'/>" method="get">
                                 <div class="input-group">
-                                    <input type="text" name="code" class="form-control p-4" placeholder="Coupon Code">
+                                    <input type="text" name="code" class="form-control p-4" style="border-color: black" placeholder="Mã Giảm Giá">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary">Apply Coupon</button>
+                                        <button class="btn btn-dark">Kiểm Tra</button>
                                     </div>
                                     <div id="coupon-error" class="text-danger mt-2" >
                                             ${InvalidVoucher}
                                     </div>
-
                                 </div>
                             </form>
-                            <div class="card border-secondary mb-5">
-                                <div class="card-header bg-secondary border-0">
-                                    <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
+                            <div class="card border-dark mb-5">
+                                <div class="card-header bg-dark border-0">
+                                    <h4 class="font-weight-semi-bold m-0" style="color: whitesmoke">Thông Tin Giỏ Hàng</h4>
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body border-dark">
                                     <div class="d-flex justify-content-between mb-3 pt-1">
-                                        <h6 class="font-weight-medium">Subtotal</h6>
+                                        <h6 class="font-weight-medium" style="font-family: Arial"> Tổng Giá Trị</h6>
                                         <h6 id = "price" class="font-weight-medium">${totalPrice}</h6>
                                     </div>
                                     <c:if test="${not empty voucher}">
                                         <div class="d-flex justify-content-between mb-3 pt-1">
-                                            <h6 class="font-weight-medium">Discount</h6>
-                                            <h6 id = "price" class="font-weight-medium">${voucher.discount}</h6>
+                                            <h6 class="font-weight-medium" style="font-family: Arial">Giảm Giá</h6>
+                                            <h6 id = "price" class="font-weight-medium">-${voucher.discount}</h6>
                                         </div>
                                     </c:if>
                                 </div>
-                                <div class="card-footer border-secondary bg-transparent">
+                                <div class="card-footer border-dark bg-transparent">
                                     <div class="d-flex justify-content-between mt-2">
-                                        <h5 class="font-weight-bold">Total</h5>
-                                        <h5 id = "price" class="font-weight-bold">${(totalPrice - voucher.discount) > 0 ? (totalPrice - voucher.discount) : 0}</h5>
+                                        <h5 class="font-weight-bold" style="font-family: Arial">Thành Tiền</h5>
+                                        <h5 id = "price" class="font-weight-bold" style="color: green">${(totalPrice - voucher.discount) > 0 ? (totalPrice - voucher.discount) : 0}</h5>
                                     </div>
                                    <form action="<c:url value='/checkout'/>" method="get">
-                                    <button  class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button>
+                                    <button  class="btn btn-block btn-dark my-3 py-3">Tiến Hành Thanh Toán</button>
                                     <input  type="hidden" name = "subtotal" value = "${totalPrice}">
                                     <c:if test="${not empty voucher}">
                                     <input type="hidden" name = "voucherCode" value = "${voucher.code}">

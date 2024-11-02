@@ -1532,11 +1532,11 @@ pre code {
 }
 
 .table-bordered {
-  border: 1px solid #EFE9A5;
+  border: 1px solid #020101;
 }
 .table-bordered th,
 .table-bordered td {
-  border: 1px solid #EFE9A5;
+  border: 1px solid #000000;
 }
 .table-bordered thead th,
 .table-bordered thead td {
