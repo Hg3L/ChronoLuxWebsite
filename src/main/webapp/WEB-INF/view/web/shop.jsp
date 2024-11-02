@@ -259,6 +259,7 @@
                                                     src="<c:url value='/template/web/img/products/${product.imgUrl}'/>" alt="">
                                             <div class="card-body text-center p-0 pt-4 pb-3">
                                                 <h6 class="text-truncate mb-3">${product.name}</h6>
+
                                                 <div class="d-flex justify-content-center">
                                                     <h6 id="price" style="color:green;">${product.price}đ</h6>
                                                 </div>

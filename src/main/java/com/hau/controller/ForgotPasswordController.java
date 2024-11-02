@@ -39,12 +39,12 @@ public class ForgotPasswordController {
             userService.updateResetPasswordToken(token,email);
             String resetPasswordLink = GetSiteURLUtil.getSiteURL(request)+ "/login/reset_password?token="+token;
             sendEmail(email,resetPasswordLink);
-            model.addAttribute("message","We have sent a reset password link to your email. Please Check");
+            model.addAttribute("message","Chúng tôi đã gửi link thiết lập lại mật khẩu cho bạn. Hãy kiểm tra");
         } catch (CustomerNotFoundException ex) {
             model.addAttribute("error", ex.getMessage());
         }
         catch (UnsupportedEncodingException | MessagingException e) {
-            model.addAttribute("error", "Error while sending email");
+            model.addAttribute("error", "Đã có lỗi khi gửi Email");
         }
 
         return mav;
@@ -56,7 +56,7 @@ public class ForgotPasswordController {
         UserDTO user =  userService.findOneByResetPasswordToken(token);
         model.addAttribute("token", token);
         if (user == null) {
-            model.addAttribute("message", "Invalid Token");
+            model.addAttribute("message", "Token không hợp lệ");
             view = "redirect:/login/forgot-password";
         }
         return new ModelAndView(view);
@@ -65,11 +65,11 @@ public class ForgotPasswordController {
     public String processResetPassword(@RequestParam(value = "token") String token, @RequestParam(value = "password") String password,Model model){
         UserDTO user = userService.findOneByResetPasswordToken(token);
         if (user == null) {
-            model.addAttribute("message", "Invalid Token");
+            model.addAttribute("message", "Token không hợp lệ");
         }
         else{
             userService.updatePassword(user,password);
-            model.addAttribute("message","You have successfully changed your password");
+            model.addAttribute("message","Bạn đã đổi mật khẩu thành công!");
         }
         return "/login/reset-password";
     }
@@ -80,14 +80,14 @@ public class ForgotPasswordController {
         MimeMessageHelper helper = new MimeMessageHelper(message);
         helper.setFrom("contact@chronolux.com","ChronoLux support");
         helper.setTo(email);
-        helper.setSubject("Here's the link to reset your password");
-        String content = "<p>Hello,</p>"
-                + "<p>You have requested to reset your password.</p>"
-                + "<p>Click the link below to change your password:</p>"
-                + "<p><a href=\"" + resetPasswordLink + "\">Change my password</a></p>"
+        helper.setSubject("Đây là link đổi mật khẩu của bạn");
+        String content = "<p>Xin chào,</p>"
+                + "<p>Bạn vừa gửi yêu cầu để đổi mật khẩu.</p>"
+                + "<p>Hãy click vào link dưới đây để cài đặt mật khẩu:</p>"
+                + "<p><a href=\"" + resetPasswordLink + "\">Đổi mật khẩu</a></p>"
                 + "<br>"
-                + "<p>Ignore this email if you do remember your password, "
-                + "or you have not made the request.</p>";
+                + "<p>bỏ qua email này nếu bạn đã nhớ mật khẩu, "
+                + "hoặc không phải là bạn yêu cầu.</p>";
         helper.setText(content,true);
         mailSender.send(message);
     }
