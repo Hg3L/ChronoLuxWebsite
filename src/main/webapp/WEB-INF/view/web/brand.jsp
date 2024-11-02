@@ -126,11 +126,11 @@
             <div class="row px-xl-5 pb-3 d-flex justify-content-center align-items-center flex-wrap" style="height: 100px">
                 <c:forEach var="item" items="${productLine.listResult}">
                     <div class="card1-container">
-                        <div class="card1" style="height: 100%" >
+                        <div class="card1" style="max-height: 100%" >
                             <a href="<c:url value='/shop/brand/product-line?idBrand=${model.id}&id=${item.id}&page=1&limit=8'/>"
                                class="img position-relative overflow-hidden mb-3">
-                                <img class="img" style="height: 60%; width: fit-content; max-width: 100%" src="<c:url value='/template/web/img/product-lines/${item.iconUrl}'/>" alt="">
-                                <div class="card1-title">${item.name}</div>
+                                <img class="img" style="max-height: 50%; width: fit-content; max-width: 100%" src="<c:url value='/template/web/img/product-lines/${item.iconUrl}'/>" alt="">
+                                <div class="card1-title ">${item.name}</div>
                             </a>
                         </div>
                     </div>
