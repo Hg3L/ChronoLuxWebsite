@@ -109,8 +109,8 @@ public class AuthorizePayment {
                 billDTO.setUsername(null);
             }
 
-            long subtotal =  Math.round (Double.parseDouble(amount.getDetails().getSubtotal())) * 24000;
-            long total = Math.round (Double.parseDouble(amount.getTotal())) * 24000;
+            double subtotal =  Double.parseDouble(amount.getDetails().getSubtotal()) * 24000;
+            double total = Double.parseDouble(amount.getTotal()) * 24000;
 
 
             billDTO.setSubtotal(subtotal);
