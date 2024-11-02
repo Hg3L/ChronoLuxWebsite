@@ -229,7 +229,7 @@
                              </c:if>
                            <c:if test="${model.stock <= 0}">
                                <button class="btn btn-primary px-3 sold-out-btn" disabled>
-                                   <i class="fa fa-shopping-cart mr-1"></i> SOLD OUT
+                                   <i class="fa fa-shopping-cart mr-1"></i> Hết Hàng
                                </button>
                            </c:if>
                         </div>
