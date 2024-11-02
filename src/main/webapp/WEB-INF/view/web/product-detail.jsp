@@ -173,12 +173,6 @@
                                 </div>
 
                             </div>
-                            <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
-                                <i class="fa fa-2x fa-angle-left text-dark"></i>
-                            </a>
-                            <a class="carousel-control-next" href="#product-carousel" data-slide="next">
-                                <i class="fa fa-2x fa-angle-right text-dark"></i>
-                            </a>
                         </div>
                     </div>
 
@@ -229,7 +223,7 @@
                              </c:if>
                            <c:if test="${model.stock <= 0}">
                                <button class="btn btn-primary px-3 sold-out-btn" disabled>
-                                   <i class="fa fa-shopping-cart mr-1"></i> SOLD OUT
+                                   <i class="fa fa-shopping-cart mr-1"></i> Hết Hàng
                                </button>
                            </c:if>
                         </div>

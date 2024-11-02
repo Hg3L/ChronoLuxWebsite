@@ -224,10 +224,10 @@
     <div class="row px-xl-5 pb-3 d-flex justify-content-center align-items-center flex-wrap">
         <c:forEach var="item" items="${brand.listResult}">
             <div class="col-lg-2 col-md-6">
-                <div class="item d-flex flex-column p-0 my-3" style="border: 3px solid;border-radius: 1rem;max-width: 293px; height: 120px;">
+                <div class="item d-flex flex-column justify-content-center align-items-center my-3" style="border: 3px solid;border-radius: 1rem;max-width: 100%; height: 115px;">
                     <a href="<c:url value='/shop/brand?id=${item.id}&page=1&limit=8'/>"
-                       class="cat-img overflow-hidden pb-2 pt-3 d-flex justify-content-center ">
-                        <img class="img-fluid" style="max-width: 90%; max-height: 100%; object-fit: cover;width: fit-content;"
+                       class="cat-img overflow-hidden d-flex justify-content-center ">
+                        <img class="img-fluid p-2" style="max-width: 100%; max-height: 100%; object-fit: cover;width: fit-content;"
                              src="<c:url value='/template/web/img/brands/${item.iconUrl}'/>" alt="">
                     </a>
                 </div>
@@ -253,8 +253,10 @@
                 </c:if>
 
                 <a href="<c:url value='/product-detail?id=${item.id}'/>">
-                    <img src="<c:url value='/template/web/img/products/${item.imgUrl}'/>"
-                         alt="Santos De Cartier Watch">
+                    <div class="image-container" style="height: 333px; width: 222px">
+                        <img src="<c:url value='/template/web/img/products/${item.imgUrl}'/>"
+                             alt="Santos De Cartier Watch">
+                    </div>
                 </a>
                 <div class="product-info">
 
@@ -336,8 +338,10 @@
                 </c:if>
 
                 <a href="<c:url value='/product-detail?id=${item.id}'/>">
-                    <img src="<c:url value='/template/web/img/products/${item.imgUrl}'/>"
-                         alt="Santos De Cartier Watch">
+                    <div class="image-container" style="height: 333px; width: 222px">
+                        <img src="<c:url value='/template/web/img/products/${item.imgUrl}'/>"
+                             alt="Santos De Cartier Watch">
+                    </div>
                 </a>
                 <div class="product-info">
                     <div class="product-name" style="color: black">${item.name}</div>

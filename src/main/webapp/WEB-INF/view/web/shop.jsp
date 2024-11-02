@@ -53,52 +53,66 @@
                         font-size: 1rem;
                         font-weight: normal;
                     }
+
                     .banner-image {
-                        border-radius: 10px; /* Bo góc ảnh */
+                        border-radius: 10px;
+                        /* Bo góc ảnh */
                         height: 100%;
                         width: 100%;
-                        object-fit: cover; /* Cắt ảnh để giữ tỉ lệ */
+                        object-fit: cover;
+                        /* Cắt ảnh để giữ tỉ lệ */
                     }
+
                     .carousel-inner {
                         max-width: 1200px;
                         margin: 0 auto;
                     }
+
                     .carousel-control-prev-icon,
                     .carousel-control-next-icon {
-                        background-color: #000; /* Đổi màu nền nút điều khiển */
+                        background-color: #000;
+                        /* Đổi màu nền nút điều khiển */
                         border-radius: 50%;
                     }
+
                     .carousel-item {
-                        transition: transform 0.15s ease-in-out; /* Thời gian chuyển slide là 0.5 giây */
+                        transition: transform 0.15s ease-in-out;
+                        /* Thời gian chuyển slide là 0.5 giây */
                     }
+
                     .disabled {
-                        pointer-events: none; /* Ngăn chặn sự tương tác */
-                        opacity: 0.5; /* Giảm độ mờ của nút */
-                        cursor: not-allowed; /* Hiển thị con trỏ như không cho phép */
+                        pointer-events: none;
+                        /* Ngăn chặn sự tương tác */
+                        opacity: 0.5;
+                        /* Giảm độ mờ của nút */
+                        cursor: not-allowed;
+                        /* Hiển thị con trỏ như không cho phép */
                     }
+
                     .disabled-link {
                         pointer-events: none;
                         opacity: 0.5;
                         cursor: default;
                     }
-                            .try-on-label {
-                                 position: absolute;
-                                 top: 10px;
-                                 left: 10px;
-                                 background-color: white;
-                                 font-size: 12px;
-                                 padding: 3px 7px;
-                                 border-radius: 5px;
-                                 border: 1px solid #ddd;
-                             }
 
+                    .try-on-label {
+                        position: absolute;
+                        top: 10px;
+                        left: 10px;
+                        background-color: white;
+                        font-size: 12px;
+                        padding: 3px 7px;
+                        border-radius: 5px;
+                        border: 1px solid #ddd;
+                    }
                 </style>
 
         </head>
 
         <body>
             <!-- Page Header Start -->
-            <div class="highlight p-4 ml-0" style="background-image: url('https://png.pngtree.com/png-vector/20240611/ourmid/pngtree-sleek-and-sophisticated-beautiful-grey-silk-or-satin-texture-ideal-for-png-image_12323800.png');background-position: center;background-size: cover;background-repeat: no-repeat;">
+            <div class="highlight p-4 ml-0"
+                style="background-image: url('https://png.pngtree.com/png-vector/20240611/ourmid/pngtree-sleek-and-sophisticated-beautiful-grey-silk-or-satin-texture-ideal-for-png-image_12323800.png');background-position: center;background-size: cover;background-repeat: no-repeat;">
                 <h1 style="font-family:Arial">Đồng Hồ Xu Hướng 2024</h1>
                 <i class="fas fa-check-circle" style="color: rgb(234,189,43)"></i>
                 <span class="small-text">100% Chính Hãng</span>
@@ -107,10 +121,12 @@
                 <div class="row px-xl-5 pb-3 d-flex justify-content-center align-items-center flex-wrap">
                     <c:forEach var="item" items="${brand.listResult}">
                         <div class="col-lg-2 col-md-6">
-                            <div class="item d-flex flex-column p-0 my-3" style="border: 3px solid;border-radius: 1rem;max-width: 293px; height: 120px;">
+                            <div class="item d-flex flex-column justify-content-center align-items-center my-3"
+                                style="border: 3px solid;border-radius: 1rem;max-width: 100%; height: 115px;">
                                 <a href="<c:url value='/shop/brand?id=${item.id}&page=1&limit=8'/>"
-                                   class="cat-img overflow-hidden pb-2 pt-3 d-flex justify-content-center ">
-                                    <img class="img-fluid" style="max-width: 90%; max-height: 100%; object-fit: cover;width: fit-content;"
+                                    class="cat-img overflow-hidden d-flex justify-content-center ">
+                                    <img class="img-fluid p-2"
+                                        style="max-width: 100%; max-height: 100%; object-fit: cover;width: fit-content;"
                                         src="<c:url value='/template/web/img/brands/${item.iconUrl}'/>" alt="">
                                 </a>
                             </div>
@@ -164,7 +180,8 @@
                                               and (filterKey == 'duoi-1-trieu' or filterKey == 'tu-1-3-trieu' or filterKey == 'tu-3-6-trieu' or filterKey == 'tu-6-9-trieu' or filterKey == 'tren-9-trieu')}">
                                     <!-- Nếu đã chọn giá, hiện thông báo khi người dùng cố gắng chọn thêm giá -->
                                     <a href="javascript:void(0);"
-                                        class="btn btn-outline-danger btn-sm rounded-pill mx-1" style="border: 2px solid"
+                                        class="btn btn-outline-danger btn-sm rounded-pill mx-1"
+                                        style="border: 2px solid"
                                         onclick="alert('Bạn đã chọn một mức giá. Không thể chọn thêm!');">
                                         ${filterValue}
                                     </a>
@@ -172,7 +189,8 @@
                                 <c:otherwise>
                                     <!-- Nếu chưa chọn giá hoặc là bộ lọc giới tính thì cho phép chọn -->
                                     <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=${model.filter},${filterKey}'/>"
-                                        class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">${filterValue}</a>
+                                        class="btn btn-outline-primary btn-sm rounded-pill mx-1"
+                                        style="border: 2px solid">${filterValue}</a>
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
@@ -186,15 +204,20 @@
                         <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=nu'/>"
                             class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">Nữ</a>
                         <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=duoi-1-trieu'/>"
-                            class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">Dưới 1 triệu</a>
+                            class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">Dưới 1
+                            triệu</a>
                         <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tu-1-3-trieu'/>"
-                            class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">Từ 1 - 3 triệu</a>
+                            class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">Từ 1 - 3
+                            triệu</a>
                         <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tu-3-6-trieu'/>"
-                            class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">Từ 3 - 6 triệu</a>
+                            class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">Từ 3 - 6
+                            triệu</a>
                         <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tu-6-9-trieu'/>"
-                            class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">Từ 6 - 9 triệu</a>
+                            class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">Từ 6 - 9
+                            triệu</a>
                         <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tren-9-trieu'/>"
-                            class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">Trên 9 triệu</a>
+                            class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">Trên 9
+                            triệu</a>
                     </c:otherwise>
                 </c:choose>
             </div>
@@ -207,9 +230,11 @@
                         <!-- Search and Filter aligned to the right -->
                         <div class="col-12 d-flex justify-content-end">
                             <!-- Search -->
-                            <form action="<c:url value='/shop'/>" method="get" class="d-flex w-auto" style="border: 2px solid; border-color: rgb(234,189,43)">
+                            <form action="<c:url value='/shop'/>" method="get" class="d-flex w-auto"
+                                style="border: 2px solid; border-color: rgb(234,189,43)">
                                 <div class="input-group" style="width: 250px;"> <!-- Set width of the search bar -->
-                                    <input type="text" class="form-control" placeholder="Tìm Kiếm" name="keyword"  style="border-right: 2px solid; border-right-color: rgb(234,189,43)">
+                                    <input type="text" class="form-control" placeholder="Tìm Kiếm" name="keyword"
+                                        style="border-right: 2px solid; border-right-color: rgb(234,189,43)">
                                     <input type="hidden" value="1" name="page">
                                     <input type="hidden" value="8" name="limit">
                                     <div class="input-group-append">
@@ -222,8 +247,9 @@
 
                             <!-- Filter -->
                             <div class="dropdown ml-3">
-                                <button class="btn dropdown-toggle" type="button" id="triggerId"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: 2px solid; border-color: rgb(234,189,43)" >
+                                <button class="btn dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false"
+                                    style="border: 2px solid; border-color: rgb(234,189,43)">
                                     Bộ Lọc
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
@@ -250,13 +276,17 @@
                         <div class="col-lg-12 col-md-12">
                             <div class="product-list d-flex justify-content-center align-items-center flex-wrap">
                                 <c:forEach var="product" items="${products}">
-                                    <div class="product-card p-2 bg-white shadow mx-3 my-3 " style="border-radius: 1rem; max-width: 300px">
+                                    <div class="product-card p-2 bg-white shadow mx-3 my-3 "
+                                        style="border-radius: 1rem; max-width: 300px">
                                         <div class="card product-item border-0 mb-4">
-                                         <c:if test="${product.stock <= 0}">
-                                             <span class="try-on-label">Bán Hết</span>
-                                         </c:if>
-                                                <img class="img-fluid p-5" style="width: fit-content;"
-                                                    src="<c:url value='/template/web/img/products/${product.imgUrl}'/>" alt="">
+                                            <c:if test="${product.stock <= 0}">
+                                                <span class="try-on-label">Bán Hết</span>
+                                            </c:if>
+                                            <div class="image-container m-5" style="height: 333px; width:200px">
+                                            <img class="img-fluid" style="width: fit-content;"
+                                                src="<c:url value='/template/web/img/products/${product.imgUrl}'/>"
+                                                alt="">
+                                            </div>
                                             <div class="card-body text-center p-0 pt-4 pb-3">
                                                 <h6 class="text-truncate mb-3">${product.name}</h6>
 
@@ -266,19 +296,21 @@
                                             </div>
                                             <div class="button-container p-0 my-1 mx-2 d-flex ">
                                                 <a href="<c:url value='/product-detail?id=${product.id}'/>"
-                                                   class="btn bg-dark text-light p-2 flex-grow-1" style="border-radius: 1rem">Chi Tiết</a>
+                                                    class="btn bg-dark text-light p-2 flex-grow-1"
+                                                    style="border-radius: 1rem">Chi Tiết</a>
                                             </div>
                                             <div class="button-container p-0 my-1 mx-2 d-flex">
                                                 <c:if test="${product.stock <= 0}">
-                                                  <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>"
-                                                     class="btn btn-sm text-light p-2 flex-grow-1 disabled-link"
-                                                     style="border-radius: 1rem; background-color: gray;">
-                                                      Tạm Hết Hàng
-                                                  </a>
+                                                    <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>"
+                                                        class="btn btn-sm text-light p-2 flex-grow-1 disabled-link"
+                                                        style="border-radius: 1rem; background-color: gray;">
+                                                        Tạm Hết Hàng
+                                                    </a>
                                                 </c:if>
                                                 <c:if test="${product.stock > 0}">
                                                     <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>"
-                                                       class="btn bg-dark text-light p-2 flex-grow-1" style="border-radius: 1rem">Thêm Vào Giỏ</a>
+                                                        class="btn bg-dark text-light p-2 flex-grow-1"
+                                                        style="border-radius: 1rem">Thêm Vào Giỏ</a>
                                                 </c:if>
                                             </div>
                                         </div>
@@ -312,7 +344,8 @@
                 </form>
                 <!-- Shop Product End -->
             </div>
-            <div id="bannerCarousel" class="carousel slide carousel-slide my-3 pb-4" data-bs-ride="carousel" data-bs-interval="3000">
+            <div id="bannerCarousel" class="carousel slide carousel-slide my-3 pb-4" data-bs-ride="carousel"
+                data-bs-interval="3000">
                 <div class="carousel-inner">
                     <!-- Slide 1 -->
                     <div class="carousel-item active">
@@ -320,15 +353,13 @@
                             <div class="col-md-6">
                                 <a href="#">
                                     <img src="https://www.watchstore.vn/images/products/collection/slideshow/2024/05/10/compress/banner-sale-off-orient_1715333758.webp"
-                                         class="d-block w-100 banner-image"
-                                         alt="Orient Sale 20%">
+                                        class="d-block w-100 banner-image" alt="Orient Sale 20%">
                                 </a>
                             </div>
                             <div class="col-md-6">
                                 <a href="#">
                                     <img src="https://www.watchstore.vn/images/products/collection/slideshow/2024/05/10/compress/banner-sale-off-tissot_1715333668.webp"
-                                         class="d-block w-100 banner-image"
-                                         alt="Bonest Gatti Sale 35%">
+                                        class="d-block w-100 banner-image" alt="Bonest Gatti Sale 35%">
                                 </a>
                             </div>
                         </div>
@@ -340,15 +371,13 @@
                             <div class="col-md-6">
                                 <a href="#">
                                     <img src="https://www.watchstore.vn/images/products/collection/slideshow/2024/05/10/compress/banner-sale-off-bonestgatti_1715333537.webp"
-                                         class="d-block w-100 banner-image"
-                                         alt="Orient Sale 20%">
+                                        class="d-block w-100 banner-image" alt="Orient Sale 20%">
                                 </a>
                             </div>
                             <div class="col-md-6">
                                 <a href="#">
                                     <img src="https://www.watchstore.vn/images/products/collection/slideshow/2024/05/10/compress/banner-sale-off-tissot_1715333668.webp"
-                                         class="d-block w-100 banner-image"
-                                         alt="Bonest Gatti Sale 35%">
+                                        class="d-block w-100 banner-image" alt="Bonest Gatti Sale 35%">
                                 </a>
                             </div>
                         </div>
@@ -361,10 +390,10 @@
 
             <script>
                 var carouselElement = document.getElementById('bannerCarousel');
-                    var carousel = new bootstrap.Carousel(carouselElement, {
-                        interval: 3000, // Thay đổi slide mỗi 3 giây
-                        ride: 'carousel'
-                    });
+                var carousel = new bootstrap.Carousel(carouselElement, {
+                    interval: 3000, // Thay đổi slide mỗi 3 giây
+                    ride: 'carousel'
+                });
                 var currentPage = ${ model.page };
                 var limit = ${ model.limit };
                 var sortBy = "${model.sortBy}";
@@ -430,12 +459,12 @@
                 });
             </script>
             <script>
-                            document.querySelectorAll('#price').forEach(element => {
-                                let price = parseInt(element.innerText.replace("đ", ""), 10);
-                                element.innerText = price.toLocaleString("vi-VN") + "đ";
-                            });
+                document.querySelectorAll('#price').forEach(element => {
+                    let price = parseInt(element.innerText.replace("đ", ""), 10);
+                    element.innerText = price.toLocaleString("vi-VN") + "đ";
+                });
 
-                        </script>
+            </script>
         </body>
 
         </html>
