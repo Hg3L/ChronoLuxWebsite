@@ -221,13 +221,13 @@
     <div class="text-center mb-4">
         <h2 class="section-title px-5" style="font-family: Arial"><span class="px-2">Thương Hiệu</span></h2>
     </div>
-    <div class="row px-xl-5 pb-3">
+    <div class="row px-xl-5 pb-3 d-flex justify-content-center align-items-center flex-wrap">
         <c:forEach var="item" items="${brand.listResult}">
             <div class="col-lg-2 col-md-6">
-                <div class="item d-flex flex-column p-0 pt-2 my-3" style="border: 3px solid;border-radius: 1rem;max-width: 293px; max-height: 113px;">
+                <div class="item d-flex flex-column p-0 my-3" style="border: 3px solid;border-radius: 1rem;max-width: 293px; height: 120px;">
                     <a href="<c:url value='/shop/brand?id=${item.id}&page=1&limit=8'/>"
-                       class="cat-img position-relative overflow-hidden mb-3 ">
-                        <img class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;"
+                       class="cat-img overflow-hidden pb-2 pt-3 d-flex justify-content-center ">
+                        <img class="img-fluid" style="max-width: 90%; max-height: 100%; object-fit: cover;width: fit-content;"
                              src="<c:url value='/template/web/img/brands/${item.iconUrl}'/>" alt="">
                     </a>
                 </div>

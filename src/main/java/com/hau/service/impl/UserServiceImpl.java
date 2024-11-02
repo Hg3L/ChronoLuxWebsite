@@ -128,7 +128,7 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
         }
         else{
-            throw new CustomerNotFoundException("Could not find any customer with email "+email);
+            throw new CustomerNotFoundException("Không thể tìm được tài khoản liên kết với email "+email);
         }
     }
 

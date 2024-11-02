@@ -119,18 +119,18 @@
             <!-- Page Header Start -->
             <div class="container-fluid bg-light mb-5 px-0">
                 <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-                    <img src="<c:url value='/template/web/img/brands/${brand.bannerUrl}'/>" alt="Our Shop" style="max-height: 300px; width: 100%; object-fit: cover;">
+                    <img src="<c:url value='/template/web/img/brands/${brand.bannerUrl}'/>" alt="Our Shop" style="max-height: 300px; max-width: 100%; object-fit: cover;">
                 </div>
             </div>
         <div class="container-fluid pt-1 pb-3 mb-4">
-            <div class="row px-xl-5 pb-3" style="height: 100px">
+            <div class="row px-xl-5 pb-3 d-flex justify-content-center align-items-center flex-wrap" style="height: 100px">
                 <c:forEach var="item" items="${productLine.listResult}">
                     <div class="card1-container">
-                        <div class="card1" style="height: 100%" >
+                        <div class="card1" style="max-height: 100%" >
                             <a href="<c:url value='/shop/brand/product-line?idBrand=${model.id}&id=${item.id}&page=1&limit=8'/>"
                                class="img position-relative overflow-hidden mb-3">
-                                <img class="img" style="height: 60%; width: fit-content; max-width: 100%" src="<c:url value='/template/web/img/product-lines/${item.iconUrl}'/>" alt="">
-                                <div class="card1-title">${item.name}</div>
+                                <img class="img" style="max-height: 50%; width: fit-content; max-width: 100%" src="<c:url value='/template/web/img/product-lines/${item.iconUrl}'/>" alt="">
+                                <div class="card1-title " style="color: black">${item.name}</div>
                             </a>
                         </div>
                     </div>
@@ -138,7 +138,7 @@
             </div>
         </div>
             <!-- Page Header End -->
-            <div class="col-12 pb-1">
+            <div class="col-12 pb-1 pt-3">
                 <c:if test="${not empty model.filter}">
                     <div class="row mb-4" style="margin-left: 20px;"> <!-- Dịch sang trái một chút -->
                         <div class="col-12">
@@ -268,7 +268,7 @@
                     <div class="row px-xl-5">
                         <!-- Shop Product Start -->
                         <div class="col-lg-12 col-md-12">
-                            <div class="row pb-3">
+                            <div class="row pb-3 d-flex justify-content-center align-items-center flex-wrap">
                                 <c:forEach var="product" items="${products}">
                                     <div class="product-card p-2 bg-white shadow mx-3 my-3 " style="border-radius: 1rem; max-width: 300px">
                                         <div class="card product-item border-0 mb-4">
@@ -298,8 +298,6 @@
                                                     <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>"
                                                        class="btn bg-dark text-light p-2 flex-grow-1" style="border-radius: 1rem">Thêm vào giỏ</a>
                                                 </c:if>
-<%--                                                test--%>
-
                                             </div>
                                         </div>
                                     </div>

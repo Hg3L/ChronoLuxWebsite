@@ -10,8 +10,12 @@
 
 </head>
 <body>
-
-<div class="bg-light py-3 py-md-5">
+<div class="col-lg-3 d-none d-lg-block">
+  <a href="<c:url value='/home'/>" class="text-decoration-none">
+    <img src="${pageContext.request.contextPath}/template/web/img/Logo.svg" alt="ChronoLux Logo">
+  </a>
+</div>
+<div class="mainpage py-3 py-md-5 d-flex justify-content-center align-items-center "style="background-image: url('${pageContext.request.contextPath}/template/login/img/bg-6.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 650px;">
   <div class="container">
     <div class="row justify-content-md-center">
       <div class="col-12 col-md-11 col-lg-8 col-xl-7 col-xxl-6">
@@ -22,7 +26,7 @@
               </div>
             </div>
             <div class="col-12">
-              <h2 class="fs-6 fw-normal text-center text-secondary m-0 px-md-5">Provide the email address associated with your account to recover your password.</h2>
+              <h2 class="fs-6 fw-normal text-center text-secondary m-0 px-md-5">Vui Lòng Nhập Email Đã Đăng Ký</h2>
             </div>
           </div>
           <form action="<c:url value='/login/forgot-password'/>" method="post">
@@ -46,7 +50,7 @@
               </div>
               <div class="col-12">
                 <div class="d-grid">
-                  <button class="btn btn-primary btn-lg" type="submit">Reset Password</button>
+                  <button class="btn btn-dark btn-lg" type="submit">Gửi Email</button>
                 </div>
               </div>
             </div>
@@ -55,8 +59,8 @@
             <div class="col-12">
               <hr class="mt-5 mb-4 border-secondary-subtle">
               <div class="d-flex gap-4 justify-content-center">
-                <a href="#!" class="link-secondary text-decoration-none">Log In</a>
-                <a href="#!" class="link-secondary text-decoration-none">Register</a>
+                <a href="<c:url value='/login'/>" class="link-secondary text-decoration-none"><i style="font-style: normal; color: #2e59d9">Đăng Nhập</i> </a>
+                <a href="<c:url value='/login/register'/>" class="link-secondary text-decoration-none"><i style="font-style: normal; color: #2e59d9">Đăng Ký</i> </a>
               </div>
             </div>
           </div>
