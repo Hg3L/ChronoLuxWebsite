@@ -12,8 +12,8 @@
        <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" rel="stylesheet">
 
 
-                 <!-- Thêm FontAwesome để hiện icon dấu tích -->
-                    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+                  <!-- Font Awesome -->
+                           <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
                     <!-- Thêm Bootstrap JS (tùy chọn) -->
                     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
                 <!-- Customized Bootstrap Stylesheet -->
