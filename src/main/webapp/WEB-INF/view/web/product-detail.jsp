@@ -195,7 +195,7 @@
 
                         </div>
                         <h3 id="price" class="font-weight-semi-bold mb-4">${model.price}</h3>
-                        <p class="mb-4">Brand: ${model.brandName} - Country: ${model.country}</p>
+                        <p class="mb-4">Thương Hiệu: ${model.brandName} - Quóc Gia: ${model.country}</p>
                         <c:if test="${model.stock < 10 && model.stock != 0}">
                                 <p class="mb-4">
                                     <span class="badge p-0" style="color: red; font-family: Arial; font-size: 18px">Chỉ Còn ${model.stock} Sản Phẩm!</span>
@@ -261,9 +261,9 @@
                 <div class="row px-xl-5">
                     <div class="col">
                         <div class="nav nav-tabs justify-content-center border-secondary mb-4">
-                            <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Description</a>
-                            <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">Warranty Policy</a>
-                            <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Size Selection Guide</a>
+                            <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Thông Số</a>
+                            <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">Chính Sách Bảo Hành</a>
+                            <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Hướng Dẫn Chọn Kích Cỡ</a>
                      
 
                         </div>
