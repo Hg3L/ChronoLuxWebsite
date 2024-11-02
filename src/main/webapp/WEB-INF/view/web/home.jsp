@@ -221,7 +221,7 @@
     <div class="text-center mb-4">
         <h2 class="section-title px-5" style="font-family: Arial"><span class="px-2">Thương Hiệu</span></h2>
     </div>
-    <div class="row px-xl-5 pb-3">
+    <div class="row px-xl-5 pb-3 d-flex justify-content-center align-items-center flex-wrap">
         <c:forEach var="item" items="${brand.listResult}">
             <div class="col-lg-2 col-md-6">
                 <div class="item d-flex flex-column p-0 pt-2 my-3" style="border: 3px solid;border-radius: 1rem;max-width: 293px; max-height: 113px;">

@@ -123,7 +123,7 @@
                 </div>
             </div>
         <div class="container-fluid pt-1 pb-3 mb-4">
-            <div class="row px-xl-5 pb-3" style="height: 100px">
+            <div class="row px-xl-5 pb-3 d-flex justify-content-center align-items-center flex-wrap" style="height: 100px">
                 <c:forEach var="item" items="${productLine.listResult}">
                     <div class="card1-container">
                         <div class="card1" style="height: 100%" >
@@ -268,7 +268,7 @@
                     <div class="row px-xl-5">
                         <!-- Shop Product Start -->
                         <div class="col-lg-12 col-md-12">
-                            <div class="row pb-3">
+                            <div class="row pb-3 d-flex justify-content-center align-items-center flex-wrap">
                                 <c:forEach var="product" items="${products}">
                                     <div class="product-card p-2 bg-white shadow mx-3 my-3 " style="border-radius: 1rem; max-width: 300px">
                                         <div class="card product-item border-0 mb-4">
