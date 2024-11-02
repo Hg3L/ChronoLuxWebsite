@@ -253,8 +253,10 @@
                 </c:if>
 
                 <a href="<c:url value='/product-detail?id=${item.id}'/>">
-                    <img src="<c:url value='/template/web/img/products/${item.imgUrl}'/>"
-                         alt="Santos De Cartier Watch">
+                    <div class="image-container" style="height: 333px; width: 222px">
+                        <img src="<c:url value='/template/web/img/products/${item.imgUrl}'/>"
+                             alt="Santos De Cartier Watch">
+                    </div>
                 </a>
                 <div class="product-info">
 
@@ -336,8 +338,10 @@
                 </c:if>
 
                 <a href="<c:url value='/product-detail?id=${item.id}'/>">
-                    <img src="<c:url value='/template/web/img/products/${item.imgUrl}'/>"
-                         alt="Santos De Cartier Watch">
+                    <div class="image-container" style="height: 333px; width: 222px">
+                        <img src="<c:url value='/template/web/img/products/${item.imgUrl}'/>"
+                             alt="Santos De Cartier Watch">
+                    </div>
                 </a>
                 <div class="product-info">
                     <div class="product-name" style="color: black">${item.name}</div>
