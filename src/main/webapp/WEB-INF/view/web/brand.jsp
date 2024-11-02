@@ -130,7 +130,7 @@
                             <a href="<c:url value='/shop/brand/product-line?idBrand=${model.id}&id=${item.id}&page=1&limit=8'/>"
                                class="img position-relative overflow-hidden mb-3">
                                 <img class="img" style="max-height: 50%; width: fit-content; max-width: 100%" src="<c:url value='/template/web/img/product-lines/${item.iconUrl}'/>" alt="">
-                                <div class="card1-title ">${item.name}</div>
+                                <div class="card1-title " style="color: black">${item.name}</div>
                             </a>
                         </div>
                     </div>
