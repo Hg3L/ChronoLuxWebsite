@@ -13,7 +13,7 @@ public class CorporationEntity extends  BaseEntity {
     private String phone;
     @Column(name ="email")
     private String email;
-    @Column(name ="about")
+    @Column(name ="about", columnDefinition = "LONGTEXT")
     private String about;
     @Column(name ="img_url")
     private String imgUrl;

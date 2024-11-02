@@ -11,7 +11,7 @@ public class PostEntity extends BaseEntity {
     private String img;
     @Column(name="caption")
     private String caption;
-    @Column(name="content")
+    @Column(name="content", columnDefinition = "LONGTEXT")
     private String content;
 
     public PostEntity() {
