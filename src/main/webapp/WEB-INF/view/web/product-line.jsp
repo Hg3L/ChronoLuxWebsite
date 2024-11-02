@@ -111,6 +111,11 @@
                    </a>
                </div>
             <!-- Page Header Start -->
+        <div class="container-fluid bg-light mb-5 px-0">
+            <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+                <img src="<c:url value='/template/web/img/product-lines/${productLine.bannerUrl}'/>" alt="Our Shop" style="max-height: 300px; max-width: 100%; object-fit: cover;">
+            </div>
+        </div>
 <!--banner here-->
         <div class="container-fluid pt-1 pb-3 mb-4">
             <div class="row px-xl-5 pb-3 d-flex justify-content-center align-items-center flex-wrap" style="height: 100px">
