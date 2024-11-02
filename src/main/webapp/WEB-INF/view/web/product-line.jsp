@@ -97,7 +97,7 @@
 
         </head>
         <body>
-         <div class="link-container">
+        <div class="link-container py-3 pl-lg-5 pl-5 mb-3" style=" border-bottom: 2px solid; border-color: rgb(234,189,43)">
                    <a href="<c:url value='/home'/>" class="home-link">
                        <i class="fas fa-home"></i> Trang chủ
                    </a>
@@ -111,30 +111,24 @@
                    </a>
                </div>
             <!-- Page Header Start -->
-             <div class="container-fluid bg-secondary mb-5">
-                            <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-                                <img src="<c:url value='/template/web/img/product-lines/${productLine.bannerUrl}'/>" alt="Our Shop" style="max-height: 300px; width: 100%; object-fit: cover;">
-                            </div>
+<!--banner here-->
+        <div class="container-fluid pt-1 pb-3 mb-4">
+            <div class="row px-xl-5 pb-3" style="height: 100px">
+                <c:forEach var="item" items="${productLine.listResult}">
+                    <div class="card1-container">
+                        <div class="card1" style="height: 100%" >
+                            <a href="<c:url value='/shop/brand/product-line?idBrand=${model.id}&id=${item.id}&page=1&limit=8'/>"
+                               class="img position-relative overflow-hidden mb-3">
+                                <img class="img" style="height: 60%; width: fit-content; max-width: 100%" src="<c:url value='/template/web/img/product-lines/${item.iconUrl}'/>" alt="">
+                                <div class="card1-title">${item.name}</div>
+                            </a>
                         </div>
-            <div class="highlight">
-                    Đồng hồ xu hướng 2024 <i class="fas fa-check-circle"></i>
-                    <span class="small-text">100% chính hãng</span>
-                </div>
-            <div class="container-fluid pt-5">
-                <div class="row px-xl-5 pb-3">
-                    <c:forEach var="item" items="${productLine.listResult}">
-                      <div class="card1-container">
-                              <div class="card1">
-                                  <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${item.id}&page=1&limit=8'/>" class="cat-img position-relative overflow-hidden mb-3">
-                                  <img class="img-fluid"  src="<c:url value='/template/web/img/product-lines/${item.iconUrl}'/>" alt="34"> </a>
-                                  <div class="card1-title">${item.name}</div>
-                              </div>
-                          </div>
-                    </c:forEach>
-                </div>
+                    </div>
+                </c:forEach>
             </div>
+        </div>
             <!-- Page Header End -->
-            <div class="col-12 pb-1">
+            <div class="col-12 pb-1 pt-3">
                <c:if test="${not empty model.filter}">
                   <div class="row mb-4" style="margin-left: 20px;"> <!-- Dịch sang trái một chút -->
                           <div class="col-12">
@@ -256,37 +250,36 @@
                         <div class="col-lg-12 col-md-12">
                             <div class="row pb-3">
                                 <c:forEach var="product" items="${products}">
-                                    <div class="col-lg-3 col-md-4 col-sm-6 col-12 pb-1">
+                                    <div class="product-card p-2 bg-white shadow mx-3 my-3 " style="border-radius: 1rem; max-width: 300px">
                                         <div class="card product-item border-0 mb-4">
-                                            <div
-                                                class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
                                                 <c:if test="${product.stock <= 0}">
                                                      <span class="try-on-label">Bán Hết</span>
                                                 </c:if>
-                                                <img class="img-fluid w-100"
+                                            <img class="img-fluid p-5" style="width: fit-content;"
                                                     src="<c:url value='/template/web/img/products/${product.imgUrl}'/>" alt="">
-                                            </div>
-                                            <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                                            <div class="card-body text-center p-0 pt-4 pb-3">
                                                 <h6 class="text-truncate mb-3">${product.name}</h6>
                                                 <div class="d-flex justify-content-center">
                                                     <h6 id="price">${product.price}</h6>
-
                                                 </div>
                                             </div>
-                                                <div class="button-container p-0 my-1 mx-2 d-flex ">
-                                                                                            <c:if test="${product.stock <= 0}">
-                                                                                                <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>"
-                                                                                                   class="btn btn-sm text-dark p-2 flex-grow-1 disabled-link" style="border-radius: 1rem">
-                                                                                                    Đang tạm hết
-                                                                                                </a>
-                                                                                            </c:if>
-                                                                                            <c:if test="${product.stock > 0}">
-                                                                                                <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>"
-                                                                                                   class="btn bg-dark text-light p-2 flex-grow-1" style="border-radius: 1rem">Thêm vào giỏ</a>
-                                                                                            </c:if>
-                                                                                        </div>
+                                            <div class="button-container p-0 my-1 mx-2 d-flex ">
+                                                <a href="<c:url value='/product-detail?id=${product.id}'/>"
+                                                   class="btn bg-dark text-light p-2 flex-grow-1" style="border-radius: 1rem">Chi Tiết</a>
+                                            </div>
+                                            <div class="button-container p-0 my-1 mx-2 d-flex ">
+                                                <c:if test="${product.stock <= 0}">
+                                                    <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>"
+                                                       class="btn btn-sm text-dark p-2 flex-grow-1 disabled-link" style="border-radius: 1rem">
+                                                        Đang tạm hết
+                                                    </a>
+                                                </c:if>
+                                                <c:if test="${product.stock > 0}">
+                                                    <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>"
+                                                       class="btn bg-dark text-light p-2 flex-grow-1" style="border-radius: 1rem">Thêm vào giỏ</a>
+                                                </c:if>
+                                            </div>
                                         </div>
-
                                     </div>
                                 </c:forEach>
                             </div>

@@ -138,7 +138,7 @@
             </div>
         </div>
             <!-- Page Header End -->
-            <div class="col-12 pb-1">
+            <div class="col-12 pb-1 pt-3">
                 <c:if test="${not empty model.filter}">
                     <div class="row mb-4" style="margin-left: 20px;"> <!-- Dịch sang trái một chút -->
                         <div class="col-12">
@@ -298,8 +298,6 @@
                                                     <a href="<c:url value='/cart/add?productId=${product.id}&quantity=1'/>"
                                                        class="btn bg-dark text-light p-2 flex-grow-1" style="border-radius: 1rem">Thêm vào giỏ</a>
                                                 </c:if>
-<%--                                                test--%>
-
                                             </div>
                                         </div>
                                     </div>

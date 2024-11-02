@@ -196,10 +196,9 @@
                         </div>
                         <h3 id="price" class="font-weight-semi-bold mb-4">${model.price}</h3>
                         <p class="mb-4">Brand: ${model.brandName} - Country: ${model.country}</p>
-                        <c:if test="${model.stock < 10}">
+                        <c:if test="${model.stock < 10 && model.stock != 0}">
                                 <p class="mb-4">
-                                    <span class="badge badge-danger">InStock:</span>
-                                    <span class="ml-2 font-weight-bold text-danger">${model.stock}</span>
+                                    <span class="badge" style="color: red; font-family: Arial; font-size: 20px">Chỉ Còn ${model.stock} Sản Phẩm!</span>
                                 </p>
                          </c:if>
                         <div class="d-flex align-items-center mb-4 pt-2">
@@ -225,8 +224,7 @@
                             <form action="<c:url value='/cart/add'/>" method="get" id ="AddToCartForm">
                                 <input type="hidden" name = "quantity" id="quantity-hidden" value="1">
                                   <input type="hidden" name = "productId"  value="${model.id}">
-                            <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
-                                Cart</button>
+                            <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Thêm Vào Giỏ</button>
                             </form>
                              </c:if>
                            <c:if test="${model.stock <= 0}">
