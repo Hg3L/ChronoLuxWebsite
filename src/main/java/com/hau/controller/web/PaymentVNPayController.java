@@ -123,7 +123,7 @@ public class PaymentVNPayController {
     @GetMapping("/payment/execute-payment")
     public String CheckoutSuccess(HttpServletRequest request,
                                   @AuthenticationPrincipal Authentication authentication,
-                                  HttpServletResponse response) throws UnsupportedEncodingException {
+                                  HttpServletResponse response) throws UnsupportedEncodingException, MessagingException {
         UserDTO userDTO = null;
         HttpSession session = request.getSession();
         Map<String, String> fields = new HashMap<>();
@@ -158,8 +158,10 @@ public class PaymentVNPayController {
                 else {
                     billDTO.setUsername(null);
                 }
-                CartUtils.DeleteCartItemByAuthentication(userDTO,cartDTO,txt,response);
+
                 billService.save(billDTO);
+                sendEmail(billDTO.getEmail(),cartDTO.getCartItemDTOS(),billDTO);
+                CartUtils.DeleteCartItemByAuthentication(userDTO,cartDTO,txt,response);
                 session.removeAttribute("bill");
                 return "redirect:/checkout/success";
             } else if("24".equals(request.getParameter("vnp_ResponseCode")) ) {
@@ -254,7 +256,7 @@ public class PaymentVNPayController {
                     .append("<img src='cid:productImage").append(productIndex1).append("' alt='Product Image' style='width: 80px; height: 100px; border: 1px solid #ccc; border-radius: 5px; margin-right: 10px;'/>")
                     .append("<div style='flex-grow: 1;'>")
                     .append("<h1 style='color: #007BFF; font-size: 18px; margin: 0;'>").append(productName).append("</h1>")
-                    .append("<p style='margin: 5px 0;'><strong>Mô tả:</strong> ").append(productDescription).append("</p>")
+                    .append("<p style='margin: 5px 0;'><strong>Loại máy:</strong> ").append(productDescription).append("</p>")
                     .append("<p style='margin: 5px 0;'><strong>Giá:</strong> ").append(currencyFormat.formatCurrency(productPrice) ).append("</p>")
                     .append("<p style='margin: 5px 0;'><strong>Số lượng:</strong> ").append(productQuantity).append("</p>")
                     .append("</div></div>");
