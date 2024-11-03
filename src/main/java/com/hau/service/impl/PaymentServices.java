@@ -64,11 +64,11 @@ public class PaymentServices {
         }
 
         Details details = new Details();
-        details.setSubtotal(String.format(subtotal.toString()));
+        details.setSubtotal(String.format("%.2f",subtotal));
 
         Amount amount = new Amount();
         amount.setCurrency("USD");
-        amount.setTotal(subtotal.toString());
+        amount.setTotal((String.format("%.2f",subtotal)));
         amount.setDetails(details);
 
         Transaction transaction = new Transaction();
