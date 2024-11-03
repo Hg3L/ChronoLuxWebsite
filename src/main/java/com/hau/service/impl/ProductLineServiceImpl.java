@@ -5,9 +5,11 @@ import com.hau.converter.ProductLineConverter;
 import com.hau.dto.ProductLineDTO;
 import com.hau.entity.BrandEntity;
 import com.hau.entity.ProductLineEntity;
+import com.hau.entity.WarrantyEntity;
 import com.hau.repository.BrandRepository;
 import com.hau.repository.ProductLineRepository;
 import com.hau.repository.ProductRepository;
+import com.hau.repository.WarrantyRepository;
 import com.hau.service.ProductLineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,6 +31,8 @@ public class ProductLineServiceImpl implements ProductLineService {
     private Converter<ProductLineDTO,ProductLineEntity> productLineConverter;
     @Autowired
     private BrandRepository brandRepository;
+    @Autowired
+    private WarrantyRepository warrantyRepository;
 
     @Override
     public List<ProductLineDTO> findAllByBrandId(Long brandId) {
@@ -122,7 +126,10 @@ public class ProductLineServiceImpl implements ProductLineService {
     public void save( ProductLineDTO productLineDTO) {
         ProductLineEntity productLineEntity = productLineConverter.convertToEntity(productLineDTO);
         BrandEntity brandEntity = brandRepository.findOneById(productLineDTO.getBrandId());
+        WarrantyEntity warrantyEntity = warrantyRepository.findByProductLineEntity_Id(productLineDTO.getId());
         productLineEntity.setBrand(brandEntity);
+        warrantyEntity.setProductLineEntity(productLineEntity);
+        productLineEntity.setWarranty(warrantyEntity);
         productLineRepository.save(productLineEntity);
     }
 

@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 public class BrandConverter {
     public BrandDTO toDTO(BrandEntity brandEntity){
         BrandDTO brandDTO = new BrandDTO();
+        if (brandEntity.getId() != 0){
+            brandDTO.setId(brandEntity.getId());
+        }
         brandDTO.setId(brandEntity.getId());
         brandDTO.setIconUrl(brandEntity.getIconUrl());
         brandDTO.setCountry(brandEntity.getCountry());

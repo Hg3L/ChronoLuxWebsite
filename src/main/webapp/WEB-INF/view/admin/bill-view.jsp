@@ -37,7 +37,7 @@
                                 <thead class="table-secondary">
                                 <tr>
                                     <th>Thời gian đặt</th>
-                                    <th>Họ & tên khách hàng</th>
+                                    <th>Tên khách hàng</th>
                                     <th>Số điện thoại</th>
                                     <th>Hình thức thanh toán</th>
                                     <th>Tổng đơn hàng</th>
@@ -82,7 +82,7 @@
                                                         <i class="fa-solid fa-reply mr-1"></i>
                                                         Trở lại
                                                     </button>
-                                                    <a href="${pageContext.request.contextPath}/admin/bill/update/?id=${ub.id}&currentUnpaidPage=${currentUnpaidPage}" class="btn btn-warning">
+                                                    <a href="${pageContext.request.contextPath}/admin/bill/update/?id=${ub.id}" class="btn btn-warning">
                                                         <i class="fa-solid fa-check mr-1"></i>
                                                         Xác nhận
                                                     </a>
@@ -94,7 +94,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                        <%--<nav aria-label="Page navigation example" class="d-flex justify-content-center">
                             <ul class="pagination">
                                 <c:if test="${currentUnpaidPage > 1}">
                                     <li class="page-item">
@@ -116,7 +116,7 @@
                                     </li>
                                 </c:if>
                             </ul>
-                        </nav>
+                        </nav>--%>
                     </div>
                 </div>
             </div>
@@ -131,7 +131,8 @@
                             <thead class="table-secondary">
                             <tr>
                                 <th>Thời gian đặt</th>
-                                <th>Họ & tên khách hàng</th>
+                                <th>Thời gian duyệt đơn</th>
+                                <th>Tên khách hàng</th>
                                 <th>Số điện thoại</th>
                                 <th>Hình thức thanh toán</th>
                                 <th>Tổng đơn hàng</th>
@@ -142,6 +143,7 @@
                             <c:forEach var="ub" items="${paidBillsPage.content}">
                                 <tr>
                                     <td>${ub.createdDate}</td>
+                                    <td>${ub.modifiedDate}</td>
                                     <td>${ub.displayName}</td>
                                     <td>${ub.phone}</td>
                                     <td>${ub.paymentMethod}</td>
@@ -157,7 +159,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                    <%--<nav aria-label="Page navigation example" class="d-flex justify-content-center">
                         <ul class="pagination">
                             <c:if test="${currentPaidPage > 1}">
                                 <li class="page-item">
@@ -179,7 +181,7 @@
                                 </li>
                             </c:if>
                         </ul>
-                    </nav>
+                    </nav>--%>
                 </div>
             </div>
         </div>

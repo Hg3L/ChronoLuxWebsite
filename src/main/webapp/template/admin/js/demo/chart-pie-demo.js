@@ -38,8 +38,8 @@ async function fetchTotalQuantityPerProduct() {
     const data = await response.json();
 
     // Chuyển đổi dữ liệu từ API sang labels và data cho biểu đồ
-    const labels = Object.keys(data); // lấy productName
-    const totalQuantity = Object.values(data); // lấy totalQuantity
+    const labels = Object.keys(data).slice(0, 5); // lấy 5 productName đầu tiên
+    const totalQuantity = Object.values(data).slice(0, 5); // lấy 5 totalQuantity đầu tiên
 
     // Cập nhật biểu đồ
     updateChart(labels, totalQuantity);
@@ -47,4 +47,6 @@ async function fetchTotalQuantityPerProduct() {
     console.error("Error fetching total quantity per product:", error);
   }
 }
+
 document.addEventListener("DOMContentLoaded", fetchTotalQuantityPerProduct);
+

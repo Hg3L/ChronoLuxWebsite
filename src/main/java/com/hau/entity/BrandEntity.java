@@ -1,9 +1,6 @@
 package com.hau.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +15,7 @@ public class BrandEntity extends BaseEntity{
     private String bannerUrl;
     @Column(name ="icon_url")
     private String iconUrl;
-    @OneToMany(mappedBy = "brand")
+    @OneToMany(mappedBy = "brand", cascade = CascadeType.REMOVE)
     private List<ProductLineEntity> productLines = new ArrayList<>();
 
     public String getName() {

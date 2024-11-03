@@ -11,6 +11,7 @@ public class BillConverter implements Converter<BillDTO, BillEntity> {
         BillDTO billDTO = new BillDTO();
         billDTO.setId(entity.getId());
         billDTO.setCreatedDate(entity.getCreateDate());
+        billDTO.setModifiedDate(entity.getModifiedDate());
         billDTO.setModifiedBy(entity.getModifiedBy());
         billDTO.setGender(entity.getGender());
         billDTO.setStreet(entity.getAddress().split("-")[0]);
