@@ -421,12 +421,19 @@
                                 </div>
 
                                 <!-- Thông tin tài khoản ngân hàng -->
-                                <div id="bank-info" style="display: none;">
-                                    <h4>Thông tin tài khoản ngân hàng:</h4>
-                                    <p>Ngân hàng: ABC Bank</p>
-                                    <p>Số tài khoản: 123456789</p>
-                                    <p>Chủ tài khoản: Nguyễn Văn A</p>
-
+                                <div id="bank-info" class="bank-detail" style="display: none;">
+                                    <div class="bank-details=container d-flex justify-content-center align-items-center mb-2">
+                                        <div class="bank-credential" style="width: 40%">
+                                            <h4>Thông tin tài khoản</h4>
+                                            <p>Ngân hàng: BIDV Bank</p>
+                                            <p>Số tài khoản: 5512969999</p>
+                                            <p>Chủ tài khoản: DANG HOANG LAM</p>
+                                            <p>Nội Dung: "SDT" "Họ và Tên"</p>
+                                        </div>
+                                        <div class="qr-code d-flex align-items-center">
+                                            <img src="<c:url value='/template/web/img/QRCODE.png'/>">
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="payment-option">
                                     <input type="radio" name="paymentMethod" id="VNPAY" value="VNPAY"
