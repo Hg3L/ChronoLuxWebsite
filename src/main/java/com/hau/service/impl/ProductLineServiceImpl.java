@@ -126,10 +126,12 @@ public class ProductLineServiceImpl implements ProductLineService {
     public void save( ProductLineDTO productLineDTO) {
         ProductLineEntity productLineEntity = productLineConverter.convertToEntity(productLineDTO);
         BrandEntity brandEntity = brandRepository.findOneById(productLineDTO.getBrandId());
-        WarrantyEntity warrantyEntity = warrantyRepository.findByProductLineEntity_Id(productLineDTO.getId());
         productLineEntity.setBrand(brandEntity);
-        warrantyEntity.setProductLineEntity(productLineEntity);
-        productLineEntity.setWarranty(warrantyEntity);
+        WarrantyEntity warrantyEntity = warrantyRepository.findByProductLineEntity_Id(productLineDTO.getId());
+        if(warrantyEntity != null){
+            warrantyEntity.setProductLineEntity(productLineEntity);
+            productLineEntity.setWarranty(warrantyEntity);
+        }
         productLineRepository.save(productLineEntity);
     }
 
