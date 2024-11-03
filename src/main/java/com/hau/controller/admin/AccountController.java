@@ -39,7 +39,7 @@ public class AccountController {
     public String showAccounts(Model model,
                                     @RequestParam(defaultValue = "1") int adminPage,
                                     @RequestParam(defaultValue = "1") int userPage,
-                                    @RequestParam(defaultValue = "6") int limit) {
+                                    @RequestParam(defaultValue = "100") int limit) {
         model.addAttribute("currentAdminPage", adminPage);
         model.addAttribute("adminAccountPage", userService.findAllAdminAccounts(adminPage, limit));
         model.addAttribute("currentUserPage", userPage);

@@ -18,7 +18,7 @@
 <div class="container">
     <form:form method="post" action="${pageContext.request.contextPath}/admin/product-line/save" enctype="multipart/form-data" modelAttribute="productLine" >
         <div class="d-flex justify-content-between align-items-center my-4">
-            <h1 class="h3 mb-1 mt-2 text-gray-800">Thêm dòng thương hiệu</h1>
+            <h1 class="h3 mb-1 mt-2 text-gray-800">Sửa dòng thương hiệu</h1>
             <div>
                 <a href="${pageContext.request.contextPath}/admin/product-lines" class="btn btn-warning">
                     <i class="fa fa-reply mr-1" aria-hidden="true"></i>

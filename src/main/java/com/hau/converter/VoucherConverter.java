@@ -18,6 +18,8 @@ public class VoucherConverter implements Converter<VoucherDTO, VoucherEntity>{
         voucherDTO.setDiscount(entity.getDiscount());
         voucherDTO.setBeginDay(entity.getBeginDay().toString());
         voucherDTO.setEndDay(entity.getEndDay().toString());
+        voucherDTO.setCreatedDate(entity.getCreateDate());
+        voucherDTO.setCreatedBy(entity.getCreateBy());
         return voucherDTO;
     }
 

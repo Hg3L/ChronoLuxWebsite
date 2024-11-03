@@ -60,7 +60,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                        <%--<nav aria-label="Page navigation example" class="d-flex justify-content-center">
                             <ul class="pagination">
                                 <c:if test="${currentAdminPage > 1}">
                                     <li class="page-item">
@@ -82,7 +82,7 @@
                                     </li>
                                 </c:if>
                             </ul>
-                        </nav>
+                        </nav>--%>
                     </div>
                 </div>
             </div>
@@ -131,7 +131,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                    <%--<nav aria-label="Page navigation example" class="d-flex justify-content-center">
                         <ul class="pagination">
                             <c:if test="${currentUserPage > 1}">
                                 <li class="page-item">
@@ -153,7 +153,7 @@
                                 </li>
                             </c:if>
                         </ul>
-                    </nav>
+                    </nav>--%>
                 </div>
             </div>
         </div>
