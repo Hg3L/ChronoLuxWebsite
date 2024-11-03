@@ -196,7 +196,7 @@
                                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                     <div class="p-3" style="max-width: 700px; backdrop-filter: blur(10px)">
                                         <h3 class="display-4 text-white font-weight-semi-bold mb-4">${item.caption}</h3>
-                                        <h4 class="text-light text-uppercase font-weight-medium mb-3">
+                                        <h4 class="text-light text-uppercase font-weight-medium mb-3 text-truncate">
                                             ${item.content}
                                         </h4>
                                     </div>
@@ -209,7 +209,7 @@
                                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                     <div class="p-3" style="max-width: 700px;backdrop-filter: blur(10px)">
                                         <h3 class="display-4 text-white font-weight-semi-bold mb-4">${item.caption}</h3>
-                                        <h4 class="text-light text-uppercase font-weight-medium mb-3">
+                                        <h4 class="text-light text-uppercase font-weight-medium mb-3 text-truncate">
                                               ${item.content}
                                         </h4>
                                     </div>
