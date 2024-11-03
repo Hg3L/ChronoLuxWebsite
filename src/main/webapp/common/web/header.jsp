@@ -54,9 +54,9 @@
                 <!-- Centered Navbar Links -->
                 <div class="navbar-nav mx-auto d-flex justify-content-center">
                     <a href="<c:url value='/home'/>" class="nav-item nav-link ">Trang Chủ</a>
-                    <a href="<c:url value='/shop?page=1&limit=8'/>" class="nav-item nav-link">Cửa Hàng</a>
-                    <a href="<c:url value='/shop?page=1&limit=8&filter=nam'/>" class="nav-item nav-link">Cho Nam</a>
-                    <a href="<c:url value='/shop?page=1&limit=8&filter=nu'/>" class="nav-item nav-link">Cho Nữ</a>
+                    <a href="<c:url value='/shop?page=1&limit=12'/>" class="nav-item nav-link">Cửa Hàng</a>
+                    <a href="<c:url value='/shop?page=1&limit=12&filter=nam'/>" class="nav-item nav-link">Cho Nam</a>
+                    <a href="<c:url value='/shop?page=1&limit=12&filter=nu'/>" class="nav-item nav-link">Cho Nữ</a>
                 </div>
 
                 <!-- Right-aligned Navbar Links (Login/Register) with equal flex -->

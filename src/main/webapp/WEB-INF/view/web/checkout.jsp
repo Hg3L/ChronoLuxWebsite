@@ -366,7 +366,7 @@
                                             <div class="cart-item-content">
 
                                                 <img src="<c:url value='/template/web/img/products/${item.productImgUrl}'/>"
-                                                     alt="Product Image" class="product-image">
+                                                     alt="Product Image" class="product-image" style="object-fit: cover">
                                                 <div class="product-details">
                                                     <p class="product-name">${item.productName}</p>
                                                     <p class="product-price">
