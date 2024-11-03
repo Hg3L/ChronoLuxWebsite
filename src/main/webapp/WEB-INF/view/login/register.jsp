@@ -202,7 +202,7 @@
     			$.ajax({
     				url:  "<c:url value='/check-email'/>" ,
     				method: 'POST',
-    				data: { email: email },
+    				data: { Email: email },
     				success: function(response) {
     					const feedback = $('#emailFeedback');
     					if (response.exists) {
