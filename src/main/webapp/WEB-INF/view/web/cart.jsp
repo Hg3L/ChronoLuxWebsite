@@ -231,10 +231,7 @@
                     let instock = document.getElementById("instock-" + index);
                     let hiddenQuantityInput = document.getElementById("hiddenQuantity-" + index);
 
-                    if(isNaN(parseInt(quantityInput.value))){
-                        event.preventDefault();
-                       alert("Vui lòng nhập số");
-                    }
+
                     if (quantityInput && hiddenQuantityInput) {
 
                         let instockValue = parseInt(instock.value, 10);

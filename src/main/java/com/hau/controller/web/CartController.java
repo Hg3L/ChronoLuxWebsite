@@ -201,7 +201,7 @@ public class CartController {
             userDTO = userService.getCurrentLoggedInCustomer(authentication);
         }
         List<ProductDTO> productDTOList = productService.findAll();
-        CartDTO cartDTO = CartUtils.getCartByCookie(request.getCookies(),productDTOList );
+        CartDTO cartDTO = CartUtils.getCartByCookie(request.getCookies(),productDTOList);
         return ResponseEntity.ok(CartUtils.GetTotalCartItemByAuthentication(userDTO,cartDTO)) ;
     }
 }
