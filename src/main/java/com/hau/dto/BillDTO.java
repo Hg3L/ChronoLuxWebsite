@@ -66,7 +66,7 @@ public class BillDTO extends AbstractDTO<BillDTO>{
         this.cartItemDTOS = cartItemDTOS;
     }
 
-    public Double getDiscount() {
+    public double getDiscount() {
         return discount;
     }
 

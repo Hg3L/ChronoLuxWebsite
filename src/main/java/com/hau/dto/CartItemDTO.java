@@ -13,7 +13,16 @@ public class CartItemDTO extends AbstractDTO<CartItemDTO>{
     private long subtotal;
     private long total;
     private long discount;
+    private String productType;
     private String username;
+
+    public String getProductType() {
+        return productType;
+    }
+
+    public void setProductType(String productType) {
+        this.productType = productType;
+    }
 
     public Integer getProductQuantity() {
         return productQuantity;
@@ -42,7 +51,7 @@ public class CartItemDTO extends AbstractDTO<CartItemDTO>{
     public CartItemDTO() {
     }
 
-    public CartItemDTO(Integer quantity, String productName, long productPrice, long productId, String productImgUrl,String username,Integer productQuantity) {
+    public CartItemDTO(Integer quantity, String productName, long productPrice, long productId, String productImgUrl,String username,Integer productQuantity,String watchType) {
         this.quantity = quantity;
         this.productName = productName;
         this.productPrice = productPrice;
@@ -50,6 +59,7 @@ public class CartItemDTO extends AbstractDTO<CartItemDTO>{
         this.productImgUrl = productImgUrl;
         this.username = username;
         this.productQuantity = productQuantity;
+        this.productType = watchType;
     }
 
     public CartItemDTO(String productName, String subtotal, String total, String quantity) {

@@ -81,7 +81,7 @@ public class CartDTO extends  AbstractDTO<CartDTO>{
                 int productId = Integer.parseInt(n[1]);
                 Integer quantity = Integer.parseInt(n[2]) ;
                 ProductDTO productDTO = getProductById(productId,list);
-                CartItemDTO cartItemDTO = new CartItemDTO(quantity,productDTO.getName(),productDTO.getPrice() ,productId,productDTO.getImgUrl(),userName,productDTO.getStock());
+                CartItemDTO cartItemDTO = new CartItemDTO(quantity,productDTO.getName(),productDTO.getPrice() ,productId,productDTO.getImgUrl(),userName,productDTO.getStock(),productDTO.getWatchType());
                 addItem(cartItemDTO);
             }
         }
