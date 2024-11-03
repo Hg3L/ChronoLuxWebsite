@@ -69,7 +69,7 @@ public class WarrantyController {
         request.setCharacterEncoding("UTF-8");
         warrantyDTO.setProductLineId(productLineId);
         warrantyService.saveWarranty(warrantyDTO);
-        redirectAttributes.addFlashAttribute("successMessage", "Thêm mã giảm giá thành công");
+        redirectAttributes.addFlashAttribute("successMessage", "Thêm chính sách bảo hành thành công");
         return "redirect:/admin/warranty";
     }
 

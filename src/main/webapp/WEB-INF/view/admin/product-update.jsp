@@ -158,15 +158,20 @@
                 type: 'GET',
                 data: { brandId: brandId },
                 success: function(response){
-                    // Làm trống thẻ select productline trước khi cập nhật
                     $('#productLineSelect').empty();
-                    // Kiểm tra nếu không có dữ liệu trả về
+
                     if (response.length === 0) {
                         $('#productLineSelect').append('<option value="" disabled>Chưa có dữ liệu</option>');
                         $('#product-line-error').show();
                     } else {
+                        let selectedProductLineId = "${product.productLineId}"; // Get the current product line ID
+
                         $.each(response, function(key, value){
-                            $('#productLineSelect').append('<option value="'+ value.id +'">'+ value.name +'</option>');
+                            if(value.id == selectedProductLineId){
+                                $('#productLineSelect').append('<option value="'+ value.id +'" selected>'+ value.name +'</option>');
+                            } else {
+                                $('#productLineSelect').append('<option value="'+ value.id +'">'+ value.name +'</option>');
+                            }
                         });
                         $('#product-line-error').hide();
                     }
