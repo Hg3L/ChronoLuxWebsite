@@ -89,7 +89,7 @@ public class PaymentServices {
         String subtotal =  request.getParameter("subtotal");
         redirectUrls.setCancelUrl( GetSiteURLUtil.getSiteURL(request)+"/checkout?subtotal="+subtotal+"&total="+total);
 
-        redirectUrls.setReturnUrl(GetSiteURLUtil.getSiteURL(request)+"/checkout/review?voucher=10");
+        redirectUrls.setReturnUrl(GetSiteURLUtil.getSiteURL(request)+"/checkout/review");
 
 
         return  redirectUrls;
