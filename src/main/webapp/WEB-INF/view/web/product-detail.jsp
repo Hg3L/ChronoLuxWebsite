@@ -233,19 +233,19 @@
                             <div class="commitment-title">CAM KẾT CỦA CHRONOLUX.COM</div>
                             <div class="commitment-list">
                                 <div class="commitment-item">
-                                    <i>🔒</i>
+                                    <i style="font-style: normal">🔒</i>
                                     <div class="commitment-text">Bảo hành máy 5 năm toàn quốc, thủ tục nhanh gọn</div>
                                 </div>
                                 <div class="commitment-item">
-                                    <i>🔄</i>
+                                    <i style="font-style: normal">🔄</i>
                                     <div class="commitment-text">Không bán hàng fake, chỉ bán hàng chính hãng</div>
                                 </div>
                                 <div class="commitment-item">
-                                    <i>📦</i>
+                                    <i style="font-style: normal">📦</i>
                                     <div class="commitment-text">Sẵn hàng - quay chụp hình thực tế gửi khách xem</div>
                                 </div>
                                 <div class="commitment-item">
-                                    <i>🚚</i>
+                                    <i style="font-style: normal">🚚</i>
                                     <div class="commitment-text">Freeship toàn quốc, thanh toán khi nhận hàng</div>
                                 </div>
                             </div>
