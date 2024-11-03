@@ -623,14 +623,19 @@
                         // Hiển thị hoặc ẩn thông tin tài khoản ngân hàng
                         if (paymentMethod === 'bank-transfer') {
                             bankInfo.style.display = 'block'; // Hiển thị thông tin tài khoản
+                            form.action = "<c:url value='/checkout'/>";
+                            form.method = "post";
                         } else {
                             bankInfo.style.display = 'none'; // Ẩn thông tin tài khoản
+                            form.action = "<c:url value='/checkout'/>";
+                            form.method = "post";
                         }
                         console.log(paymentMethod);
                         if(paymentMethod === 'VNPAY'){
                              form.action = "<c:url value='/payment/create-payment'/>";
                              form.method = "get";
                         }
+
                     }
             </script>
             <script>

@@ -89,7 +89,8 @@
 					<div class="row mx-2 mx-sm-4 d-flex justify-content-center align-items-center flex-column">
 						<input class="text mb-2 mt-2 w-100" type="text" name="userName" id="userName" placeholder="Tên Tài Khoản" required minlength="6" maxlength="20">
 						<span id="usernameFeedback" style="color: red; display: none;"></span>
-						<input class="text email mt-2 mb-2 w-100" type="email" name="email" placeholder="Email" required="">
+						<input class="text email mt-2 mb-2 w-100" type="email" name="email" id ="email" placeholder="Email" required="">
+						<span id="emailFeedback" style="color: red; display: none;"></span>
 						<input class="text mt-2 mb-2 w-100" type="text" name="fullName" placeholder="Họ Và Tên" required="">
 						<input class="text mt-2 mb-2 w-100" type="password" name="password" id="password" placeholder="Mật Khẩu" required minlength="6">
 						<input class="text mt-2 mb-2 w-100" type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="Xác Nhận Mật Khẩu" oninput="checkPasswordMatch(this);" required="">
@@ -193,6 +194,31 @@
 			});
 		});
 	});
+	$(document).ready(function() {
+    		$('#email').on('blur', function() {
+    			const email = $(this).val();
+    			const emailInput = $(this)[0]; // Lấy phần tử DOM của input
+    			// Gửi yêu cầu tới server
+    			$.ajax({
+    				url:  "<c:url value='/check-email'/>" ,
+    				method: 'POST',
+    				data: { email: email },
+    				success: function(response) {
+    					const feedback = $('#emailFeedback');
+    					if (response.exists) {
+    						feedback.text('Email đã tồn tại. Vui lòng chọn tên khác.').show();
+    						emailInput.setCustomValidity('Email đã tồn tại.');
+    					} else {
+    						feedback.hide();
+    						emailInput.setCustomValidity("");
+    					}
+    				},
+    				error: function() {
+    					console.error('Lỗi khi kiểm tra email người dùng.');
+    				}
+    			});
+    		});
+    	});
 </script>
 </body>
 </html>

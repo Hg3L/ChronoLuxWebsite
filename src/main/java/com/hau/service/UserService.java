@@ -21,4 +21,5 @@ public interface UserService {
     Page<UserDTO> findAllAdminAccounts(int page, int limit);
     Page<UserDTO> findAllUserAccounts(int page, int limit);
     boolean usernameExists(String username);
+    boolean emailExits(String email);
 }

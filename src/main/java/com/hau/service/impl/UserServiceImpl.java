@@ -198,4 +198,10 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = userRepository.findOneByUserName(username);
         return userEntity != null;
     }
+
+    @Override
+    public boolean emailExits(String email) {
+        List<UserEntity> userEntity = userRepository.findByEmail(email);
+        return userEntity != null;
+    }
 }
