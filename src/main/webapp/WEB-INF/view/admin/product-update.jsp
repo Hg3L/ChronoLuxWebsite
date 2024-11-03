@@ -44,7 +44,7 @@
                         </c:when>
                         <c:otherwise>
                             <c:forEach var="brand" items="${brands}">
-                                <option value="${brand.id}" <c:if test="${brand.id == productLine.brandId}">selected</c:if>>
+                                <option value="${brand.id}" <c:if test="${brand.id == product.brandId}">selected</c:if>>
                                         ${brand.name}
                                 </option>
                             </c:forEach>

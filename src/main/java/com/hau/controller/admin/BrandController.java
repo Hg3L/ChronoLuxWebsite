@@ -115,8 +115,6 @@ public class BrandController {
 
     @GetMapping("/admin/brand/delete")
     public String deleteBrand(@RequestParam("id") Long id) throws Exception {
-        fileService.deleteFile(brandService.getBrandById(id).getIconUrl(), "brands");
-        fileService.deleteFile(brandService.getBrandById(id).getBannerUrl(), "brands");
         brandService.deleteBrandById(id);
         return "redirect:/admin/brands";
     }

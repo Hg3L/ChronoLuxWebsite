@@ -67,10 +67,6 @@ public class PostController {
 
     @GetMapping("/admin/post/delete")
     public String deletePost(@RequestParam("id") Long id) throws IOException {
-        PostDTO post = postService.getPostById(id);
-        if (post != null && post.getImg() != null) {
-            fileService.deleteFile(post.getImg(), "posts");
-        }
         postService.deletePostById(id);
         return "redirect:/admin/posts";
     }

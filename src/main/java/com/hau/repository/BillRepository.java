@@ -20,7 +20,7 @@ public interface BillRepository extends JpaRepository<BillEntity,Long> {
     @Query("SELECT b FROM BillEntity b WHERE b.status = 'Chờ thanh toán' ORDER BY b.createDate DESC")
     Page<BillEntity> findUnpaidBills(Pageable pageable);
 
-    @Query("SELECT b FROM BillEntity b WHERE b.status = 'Thanh toán thành công' ORDER BY b.createDate DESC")
+    @Query("SELECT b FROM BillEntity b WHERE b.status = 'Thanh toán thành công' ORDER BY b.modifiedDate DESC")
     Page<BillEntity> findPaidBills(Pageable pageable);
 
 

@@ -34,12 +34,15 @@
                     <h5 class="card-title">${a.caption}</h5>
                     <div>
                         <!-- Edit button (pencil icon) -->
-                        <a href="${pageContext.request.contextPath}/admin/post/update/?id=${a.id}" class="btn btn-primary btn-sm mr-2">
-                            <i class="fas fa-pen"></i>
+                        <a href="${pageContext.request.contextPath}/admin/post/update/?id=${a.id}" class="btn btn-info mr-2">
+                            <i class="fa-solid fa-pencil"></i>
                         </a>
-                        <a href="${pageContext.request.contextPath}/admin/post/delete?id=${a.id}" class="btn btn-danger btn-sm" onclick="return confirmDelete(${a.id});">
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmModal${a.id}">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                        <%--<a href="${pageContext.request.contextPath}/admin/post/delete?id=${a.id}" class="btn btn-danger btn-sm" onclick="return confirmDelete(${a.id});">
                             <i class="fas fa-times"></i>
-                        </a>
+                        </a>--%>
                     </div>
                 </div>
                 <!-- Content -->
@@ -50,11 +53,31 @@
                      style="border-radius: 10px; max-width: 150px; height: auto;" />
             </div>
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="confirmModal${a.id}" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel${a.id}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmModalLabel${a.id}">XÁC NHẬN XÓA</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Bạn có chắc muốn xóa bài viết <strong>${a.caption}</strong> không?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <i class="fa-solid fa-reply mr-1"></i>
+                            Trở lại
+                        </button>
+                        <a href="${pageContext.request.contextPath}/admin/post/delete?id=${a.id}" class="btn btn-danger">
+                            <i class="fa-solid fa-check mr-1"></i> Xác nhận xóa
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </c:forEach>
 </div>
-<script>
-    function confirmDelete(id) {
-        return confirm("Are you sure you want to delete this post ?");
-    }
-</script>
 </body>

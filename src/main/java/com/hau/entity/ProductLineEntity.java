@@ -18,11 +18,11 @@ public class ProductLineEntity extends BaseEntity{
     @Column(name = "banner_url")
     private String banner;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name="warranty_id")
     private WarrantyEntity warranty;
 
-    @OneToMany(mappedBy = "productLine")
+    @OneToMany(mappedBy = "productLine", cascade = CascadeType.REMOVE)
     private List<ProductEntity> products;
 
     public String getName() {

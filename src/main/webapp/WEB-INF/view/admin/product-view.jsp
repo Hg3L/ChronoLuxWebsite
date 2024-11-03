@@ -84,11 +84,40 @@
                                 <a href="${pageContext.request.contextPath}/admin/product/update/?id=${product.id}&currentPage=${currentPage}" class="btn btn-info btn-sm mr-2">
                                     <i class="fas fa-pencil-alt mr-1"></i> Sửa
                                 </a>
-                                <a href="${pageContext.request.contextPath}/admin/product/delete?id=${product.id}" class="btn btn-danger btn-sm" onclick="return confirmDelete(${productLine.id})">
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmModal${product.id}">
                                     <i class="fas fa-trash-alt mr-1"></i> Xóa
-                                </a>
+                                </button>
+                                <%--<a href="${pageContext.request.contextPath}/admin/product/delete?id=${product.id}" class="btn btn-danger btn-sm" &lt;%&ndash;onclick="return confirmDelete(${productLine.id})"&ndash;%&gt;>
+                                    <i class="fas fa-trash-alt mr-1"></i> Xóa
+                                </a>--%>
                             </td>
                         </tr>
+                        <!-- Modal -->
+                        <div class="modal fade" id="confirmModal${product.id}" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel${product.id}" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="confirmModalLabel${product.id}">XÁC NHẬN XÓA</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Bạn có chắc muốn xóa sản phẩm <strong>${product.name}</strong> không?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            <i class="fa-solid fa-reply mr-1"></i>
+                                            Trở lại
+                                        </button>
+                                        <a href="${pageContext.request.contextPath}/admin/product/delete?id=${product.id}" class="btn btn-danger">
+                                            <i class="fa-solid fa-check mr-1"></i>
+                                            Xác nhận xóa
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </c:forEach>
                     </tbody>
                 </table>

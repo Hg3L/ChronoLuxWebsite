@@ -98,12 +98,12 @@ public class ProductLineController {
         else if(!logo.isEmpty() && banner.isEmpty()) {
             String logoName = fileService.saveFile(logo, UPLOAD_DIR);
             productLine.setIconUrl(logoName);
-            productLine.setBannerUrl(brandService.getBrandById(productLine.getId()).getBannerUrl());
+            productLine.setBannerUrl(productLineService.findOneById(productLine.getId()).getBannerUrl());
         }
         else if(logo.isEmpty() && !banner.isEmpty()) {
             String bannerName = fileService.saveFile(banner, UPLOAD_DIR);
             productLine.setBannerUrl(bannerName);
-            productLine.setIconUrl(brandService.getBrandById(productLine.getId()).getIconUrl());
+            productLine.setIconUrl(productLineService.findOneById(productLine.getId()).getIconUrl());
         }
         else{
             ProductLineDTO productLineDTO = productLineService.findOneById(productLine.getId());
