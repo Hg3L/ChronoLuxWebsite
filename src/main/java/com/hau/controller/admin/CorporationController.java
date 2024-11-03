@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -35,7 +36,8 @@ public class CorporationController {
     @PostMapping("/admin/corporation/save")
     public String saveCorporation(@ModelAttribute("corporation") CorporationDTO corporationDTO,
                                   @RequestParam("img_file") MultipartFile file,
-                                  HttpServletRequest request) throws Exception{
+                                  HttpServletRequest request,
+                                  RedirectAttributes redirectAttributes) throws Exception{
         request.setCharacterEncoding("UTF-8");
         if (!file.isEmpty()) {
             fileService.deleteFile(corporationDTO.getImg(), "corporation");
@@ -45,6 +47,8 @@ public class CorporationController {
             corporationDTO.setImg(corporationService.getAllCorporationInformation().getImg());
         }
         corporationService.saveCorporation(corporationDTO);
+        String message = (corporationDTO.getId() == null || corporationDTO.getId() == 0) ? "Thêm thông tin giới thiệu thành công" : "Cập nhật thông tin giới thiệu thành công";
+        redirectAttributes.addFlashAttribute("successMessage", message);
         return "redirect:/admin/corporation";
     }
 

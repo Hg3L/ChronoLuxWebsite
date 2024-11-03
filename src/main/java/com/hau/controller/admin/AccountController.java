@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -57,7 +58,8 @@ public class AccountController {
     public String saveAdminAccounts(@ModelAttribute("account") UserDTO account,
                                     @RequestParam("img")MultipartFile img,
                                     @RequestParam("page") int currentPage,
-                                    HttpServletRequest request) throws Exception {
+                                    HttpServletRequest request,
+                                    RedirectAttributes redirectAttributes) throws Exception {
         request.setCharacterEncoding("UTF-8");
         if(!img.isEmpty() && account.getId() == null){ // create new account, avatar != null
             String avatar = fileService.saveFile(img, UPLOAD_DIR);
@@ -77,14 +79,16 @@ public class AccountController {
             account.setImgUrl(avatar);
         }
         userService.save(account, "admin");
+        redirectAttributes.addFlashAttribute("successMessage", "Cấp tài khoản Admin thành công");
         return "redirect:/admin/accounts?adminPage=" + currentPage;
     }
 
     @PostMapping("/admin/account/update")
     public String updateAdminAccounts(@ModelAttribute("account") UserDTO account,
-                                    @RequestParam("img")MultipartFile img,
-                                    @RequestParam Long id,
-                                    HttpServletRequest request) throws Exception {
+                                        @RequestParam("img")MultipartFile img,
+                                        @RequestParam Long id,
+                                        HttpServletRequest request, RedirectAttributes redirectAttributes,
+                                      @AuthenticationPrincipal Authentication authentication) throws Exception {
         request.setCharacterEncoding("UTF-8");
         if(!img.isEmpty() && account.getId() == null){ // create new account, avatar != null
             String avatar = fileService.saveFile(img, UPLOAD_DIR);
@@ -104,7 +108,9 @@ public class AccountController {
             account.setImgUrl(avatar);
         }
         userService.update(account);
-        return "redirect:/admin/accounts";
+        /*userService.updateSecurityContext(account, authentication);*/
+        redirectAttributes.addFlashAttribute("successMessage", "Cập nhật thông tin tài khoản Admin thành công");
+        return "redirect:/admin/admin-profile";
     }
 
     @GetMapping("/admin/account/view")

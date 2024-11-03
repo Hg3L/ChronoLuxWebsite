@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.User;
 
 
 public interface UserService {
+    void updateSecurityContext(UserDTO userDTO, Authentication authentication);
     public UserDTO findOneByUserNameAndStatus(String userName, int status);
     UserDTO findOneById(Long id);
     public UserDTO save(UserDTO userDTO, String typeAccount);

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -46,7 +47,8 @@ public class PostController {
     @PostMapping("/admin/post/save")
     public String savePost(@ModelAttribute("post") PostDTO postDTO,
                            @RequestParam("img_file") MultipartFile img,
-                           HttpServletRequest request) throws IOException {
+                           HttpServletRequest request,
+                           RedirectAttributes redirectAttributes) throws IOException {
         request.setCharacterEncoding("UTF-8");
 
         if (!img.isEmpty()) {
@@ -56,6 +58,8 @@ public class PostController {
             postDTO.setImg(postService.getPostById(postDTO.getId()).getImg());
         }
         postService.savePost(postDTO);
+        String message = (postDTO.getId() == null || postDTO.getId() == 0) ? "Thêm bài viết thành công" : "Cập nhật bài viết thành công";
+        redirectAttributes.addFlashAttribute("successMessage", message);
         return "redirect:/admin/posts";
     }
 

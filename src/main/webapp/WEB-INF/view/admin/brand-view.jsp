@@ -5,6 +5,7 @@
     <title>ChronoLux - Brands Information</title>
     <!-- Custom fonts for this template-->
     <link href="<c:url value='/template/admin/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/template/admin/css/styles.css">
     <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
@@ -122,9 +123,28 @@
                 </div>
         </div>
     </div>
+    <div aria-live="polite" aria-atomic="true" style="position: fixed; bottom: 1rem; right: 1rem; z-index: 1050;">
+        <div class="toast" id="successToast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3500">
+            <div class="toast-header bg-success text-white">
+                <strong class="mr-auto custom-font-20">Thông báo</strong>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                <span id="toastMessage" class="custom-font-20">Thêm thành công</span>
+            </div>
+        </div>
+    </div>
     <script>
-        function confirmDelete(id) {
-            return confirm("Bạn sẽ mất tất cả các sản phẩm của thương hiệu. Bạn có chắc muốn xóa thương hiệu này ?");
-        }
+        document.addEventListener("DOMContentLoaded", function () {
+            const successMessage = "${successMessage}";
+            if (successMessage) {
+                const toastElement = document.getElementById("successToast");
+                const toast = new bootstrap.Toast(toastElement);
+                document.getElementById("toastMessage").innerText = successMessage;
+                toast.show();
+            }
+        });
     </script>
 </body>

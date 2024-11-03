@@ -145,9 +145,28 @@
         </div>
     </div>
 </div>
+<div aria-live="polite" aria-atomic="true" style="position: fixed; bottom: 1rem; right: 1rem; z-index: 1050;">
+    <div class="toast" id="successToast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3500">
+        <div class="toast-header bg-success text-white">
+            <strong class="mr-auto custom-font-20">Thông báo</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            <span id="toastMessage" class="custom-font-20">Thêm thành công</span>
+        </div>
+    </div>
+</div>
 <script>
-    function confirmDelete(id) {
-        return confirm("Bạn sẽ mất tất cả các sản phẩm của thương hiệu. Bạn có chắc muốn xóa thương hiệu này ?");
-    }
+    document.addEventListener("DOMContentLoaded", function () {
+        const successMessage = "${successMessage}";
+        if (successMessage) {
+            const toastElement = document.getElementById("successToast");
+            const toast = new bootstrap.Toast(toastElement);
+            document.getElementById("toastMessage").innerText = successMessage;
+            toast.show();
+        }
+    });
 </script>
 </body>

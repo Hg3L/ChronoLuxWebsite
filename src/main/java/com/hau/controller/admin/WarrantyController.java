@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -63,10 +64,12 @@ public class WarrantyController {
     @PostMapping("/admin/warranty/save")
     public String saveWarranty(@ModelAttribute WarrantyDTO warrantyDTO,
                                @RequestParam long productLineId,
-                               HttpServletRequest request) throws Exception {
+                               HttpServletRequest request,
+                               RedirectAttributes redirectAttributes) throws Exception {
         request.setCharacterEncoding("UTF-8");
         warrantyDTO.setProductLineId(productLineId);
         warrantyService.saveWarranty(warrantyDTO);
+        redirectAttributes.addFlashAttribute("successMessage", "Thêm mã giảm giá thành công");
         return "redirect:/admin/warranty";
     }
 

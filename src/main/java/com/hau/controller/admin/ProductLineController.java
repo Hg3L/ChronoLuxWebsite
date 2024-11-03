@@ -15,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import com.hau.service.FileService;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -87,7 +89,8 @@ public class ProductLineController {
     public String saveProductLine(@ModelAttribute("productLine") ProductLineDTO productLine,
                                   @RequestParam MultipartFile logo,
                                   @RequestParam MultipartFile banner,
-                                  HttpServletRequest request) throws Exception{
+                                  HttpServletRequest request,
+                                  RedirectAttributes redirectAttributes) throws Exception{
         request.setCharacterEncoding("UTF-8");
         if(!logo.isEmpty() && !banner.isEmpty()) {
             String logoName = fileService.saveFile(logo, UPLOAD_DIR);
@@ -110,6 +113,8 @@ public class ProductLineController {
             productLine.setIconUrl(productLineDTO.getIconUrl());
             productLine.setBannerUrl(productLineDTO.getBannerUrl());
         }
+        String message = (productLine.getId() == null || productLine.getId() == 0) ? "Thêm dòng sản phẩm thành công" : "Cập nhật dòng sản phẩm thành công";
+        redirectAttributes.addFlashAttribute("successMessage", message);
         productLineService.save(productLine);
         return "redirect:/admin/product-lines";
     }

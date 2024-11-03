@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -79,7 +80,8 @@ public class BrandController {
     public String saveBrand(@ModelAttribute("brand") BrandDTO brand,
                             @RequestParam("logo") MultipartFile logo,
                             @RequestParam("banner") MultipartFile banner,
-                            HttpServletRequest request) throws Exception {
+                            HttpServletRequest request,
+                            RedirectAttributes redirectAttributes) throws Exception {
         request.setCharacterEncoding("UTF-8");
         if(!logo.isEmpty() && !banner.isEmpty()) {
             String logoName = fileService.saveFile(logo, "brands");
@@ -103,6 +105,8 @@ public class BrandController {
             brand.setBannerUrl(brandDTO.getBannerUrl());
         }
         brandService.saveBrand(brand);
+        String message = (brand.getId() == null || brand.getId() == 0) ? "Thêm thương hiệu thành công" : "Cập nhật thương hiệu thành công";
+        redirectAttributes.addFlashAttribute("successMessage", message);
         return "redirect:/admin/brands";
     }
 

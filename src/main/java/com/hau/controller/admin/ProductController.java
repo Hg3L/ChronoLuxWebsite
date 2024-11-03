@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -83,7 +84,8 @@ public class ProductController {
     public String saveProduct(@ModelAttribute("product") ProductDTO productDTO,
                               @RequestParam("img") MultipartFile img,
                               @RequestParam("page") int currentPage,
-                              HttpServletRequest request) throws Exception {
+                              HttpServletRequest request,
+                              RedirectAttributes redirectAttributes) throws Exception {
         request.setCharacterEncoding("UTF-8");
         if(!img.isEmpty()) {
             String imgName = fileService.saveFile(img, UPLOAD_DIR);
@@ -94,6 +96,8 @@ public class ProductController {
             productDTO.setImgUrl(product.getImgUrl());
         }
         productService.save(productDTO);
+        String message = (productDTO.getId() == null || productDTO.getId() == 0) ? "Thêm sản phẩm thành công" : "Cập nhật sản phẩm thành công";
+        redirectAttributes.addFlashAttribute("successMessage", message);
         return "redirect:/admin/products?page=" + currentPage;
     }
 

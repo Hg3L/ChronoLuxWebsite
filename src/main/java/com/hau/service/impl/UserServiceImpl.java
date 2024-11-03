@@ -17,7 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +34,28 @@ public class UserServiceImpl implements UserService {
     private UserConverter userConverter;
     @Autowired
     private UserRepository userRepository;
+
+    @Override
+    public void updateSecurityContext(UserDTO userDTO, Authentication authentication) {
+        if (authentication != null) {
+            Object principal = authentication.getPrincipal();
+
+            if (principal instanceof MyUser) {
+                UserDTO myUser = userConverter.toDTO(userRepository.
+                        findOneByUserNameAndStatus(SecurityUtil.getPrincipal().getUsername(), SystemConstant.ACTIVE_STATUS));
+                myUser.setFullName(userDTO.getFullName());
+                myUser.setImgUrl(userDTO.getImgUrl());
+                myUser.setEmail(userDTO.getEmail());
+                Authentication newAuth = new UsernamePasswordAuthenticationToken(
+                        myUser,
+                        authentication.getCredentials(),
+                        authentication.getAuthorities()
+                );
+                SecurityContextHolder.getContext().setAuthentication(newAuth);
+            }
+        }
+    }
+
     @Override
     public UserDTO findOneByUserNameAndStatus(String userName, int status) {
         UserEntity userEntity = userRepository.findOneByUserNameAndStatus(userName,status);

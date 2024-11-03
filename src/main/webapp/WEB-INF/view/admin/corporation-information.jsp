@@ -17,7 +17,10 @@
         <div class="d-flex justify-content-between align-items-center my-1">
             <h1 class="h3 mb-1 text-gray-800">Doanh nghiệp của bạn</h1>
             <div>
-                <button type="submit" class="btn btn-primary mr-2">Lưu</button>
+                <button type="submit" class="btn btn-success mr-2">
+                    <i class="fa-solid fa-check mr-1"></i>
+                    Lưu thông tin
+                </button>
             </div>
         </div>
         <hr/>
@@ -62,7 +65,30 @@
         </div>
     </form:form>
 </div>
-
+<div aria-live="polite" aria-atomic="true" style="position: fixed; bottom: 1rem; right: 1rem; z-index: 1050;">
+    <div class="toast" id="successToast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3500">
+        <div class="toast-header bg-success text-white">
+            <strong class="mr-auto custom-font-20">Thông báo</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            <span id="toastMessage" class="custom-font-20">Thêm thành công</span>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const successMessage = "${successMessage}";
+        if (successMessage) {
+            const toastElement = document.getElementById("successToast");
+            const toast = new bootstrap.Toast(toastElement);
+            document.getElementById("toastMessage").innerText = successMessage;
+            toast.show();
+        }
+    });
+</script>
 <script>
     document.getElementById("phone").addEventListener("input", function() {
         var phoneInput = document.getElementById("phone");
@@ -121,4 +147,5 @@
         reader.readAsDataURL(input.files[0]);
     }
 </script>
+
 </body>
