@@ -365,7 +365,7 @@
                                         <div class="cart-item">
                                             <div class="cart-item-content">
 
-                                                <img src="https://www.watchstore.vn/images/products/2024/06/14/small/mtp-vt01l-1budf_1718332985.webp"
+                                                <img src="<c:url value='/template/web/img/products/${item.productImgUrl}'/>"
                                                      alt="Product Image" class="product-image">
                                                 <div class="product-details">
                                                     <p class="product-name">${item.productName}</p>
