@@ -22,8 +22,8 @@ public interface UserRepository extends JpaRepository<UserEntity,Long> {
     @Query("SELECT u FROM UserEntity u WHERE u.email = :email AND u.password IS NOT NULL ")
     UserEntity findOneByEmailAndPasswordNotNull(@Param("email") String email);
 
-
-    List<UserEntity> findByEmail(String email);
+    @Query("SELECT u FROM UserEntity u WHERE u.email = :email")
+    List<UserEntity> findByEmail(@Param("email") String email);
 
     @Query("SELECT u FROM UserEntity u JOIN u.roles r WHERE r.code = 'ROLE_ADMIN' AND u.status = 1")
     Page<UserEntity> findAllNotBannedUserAccounts(Pageable pageable);

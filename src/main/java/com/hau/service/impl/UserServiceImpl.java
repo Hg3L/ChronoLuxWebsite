@@ -225,7 +225,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean emailExits(String email) {
-        List<UserEntity> userEntity = userRepository.findByEmail(email);
-        return userEntity != null;
+        if(userRepository.findByEmail(email).isEmpty()){
+            return  false;
+        }else  return  true;
     }
 }
