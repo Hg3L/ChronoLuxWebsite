@@ -199,12 +199,27 @@
                         <c:when test="${status.first}">
                             <div class="carousel-item active" style="height: 410px;">
                                 <img class="img-fluid" src="${pageContext.request.contextPath}/template/web/img/posts/${item.img}" alt="Image">
+                                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                    <div class="p-3" style="max-width: 700px; backdrop-filter: blur(10px)">
+                                        <h3 class="display-4 text-white font-weight-semi-bold mb-4">Elite Style</h3>
+                                        <h4 class="text-light text-uppercase font-weight-medium mb-3">
+                                            Elevate your wrist with watches that define <br> timeless prestige and contemporary flair
+                                        </h4>
+                                    </div>
+                                </div>
                             </div>
                         </c:when>
                         <c:otherwise>
                             <div class="carousel-item" style="height: 410px;">
                                 <img class="img-fluid" src="${pageContext.request.contextPath}/template/web/img/posts/${item.img}" alt="Image">
-
+                                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                    <div class="p-3" style="max-width: 700px;backdrop-filter: blur(10px)">
+                                        <h3 class="display-4 text-white font-weight-semi-bold mb-4">Elite Style</h3>
+                                        <h4 class="text-light text-uppercase font-weight-medium mb-3">
+                                            Elevate your wrist with watches that define <br> timeless prestige and contemporary flair
+                                        </h4>
+                                    </div>
+                                </div>
                             </div>
                         </c:otherwise>
                     </c:choose>
