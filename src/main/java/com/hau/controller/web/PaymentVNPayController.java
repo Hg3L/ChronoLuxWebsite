@@ -148,7 +148,7 @@ public class PaymentVNPayController {
                 BillDTO billDTO = (BillDTO) session.getAttribute("bill");
                 List<ProductDTO> productDTOList = productService.findAll();
                 String txt = "";
-                CartDTO cartDTO = CartUtils.getCartByCookie(request.getCookies(), productDTOList);
+                CartDTO cartDTO = CartUtils.getCartByCookieAndDeleteCookie(request.getCookies(), productDTOList,txt,response);
                 billDTO.setCartItemDTOS(CartUtils.getCartItemByAuthentication(cartDTO,userDTO));
                 billDTO.setStatus(SystemConstant.PAYMENT_SUCCESS);
                 if(authentication != null){
@@ -160,7 +160,7 @@ public class PaymentVNPayController {
                 }
 
                 billService.save(billDTO);
-                sendEmail(billDTO.getEmail(),cartDTO.getCartItemDTOS(),billDTO);
+                sendEmail(billDTO.getEmail(),billDTO.getCartItemDTOS(),billDTO);
                 CartUtils.DeleteCartItemByAuthentication(userDTO,cartDTO,txt,response);
                 session.removeAttribute("bill");
                 return "redirect:/checkout/success";
