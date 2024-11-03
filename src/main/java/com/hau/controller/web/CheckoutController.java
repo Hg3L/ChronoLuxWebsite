@@ -90,13 +90,13 @@ public class CheckoutController {
         else {
             billDTO.setUsername(null);
         }
-        CartDTO cartDTO = CartUtils.getCartByCookie(request.getCookies(), productDTOList);
+        CartDTO cartDTO = CartUtils.getCartByCookieAndDeleteCookie(request.getCookies(), productDTOList,txt,response);
         billDTO.setCartItemDTOS(CartUtils.getCartItemByAuthentication(cartDTO,userDTO));
         billDTO.setStatus(SystemConstant.PAYMENT_PENDING);
 
         billService.save(billDTO);
 
-        sendEmail(billDTO.getEmail(),cartDTO.getCartItemDTOS(),billDTO);
+        sendEmail(billDTO.getEmail(),billDTO.getCartItemDTOS(),billDTO);
         CartUtils.DeleteCartItemByAuthentication(userDTO,cartDTO,txt,response);
         return "redirect:/checkout/success";
     }

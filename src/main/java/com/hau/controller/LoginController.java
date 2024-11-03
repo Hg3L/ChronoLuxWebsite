@@ -113,9 +113,10 @@ public class LoginController {
     }
     @PostMapping("/check-email")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> checkEmail(@RequestParam String email) {
+    public ResponseEntity<Map<String, Object>> checkEmail(@RequestParam String Email) {
         Map<String, Object> response = new HashMap<>();
-        boolean exists = userService.emailExits(email); // Kiểm tra trong cơ sở dữ liệu
+        System.out.println(Email);
+        boolean exists = userService.emailExits(Email); // Kiểm tra trong cơ sở dữ liệu
         response.put("exists", exists);
         return ResponseEntity.ok(response);
     }

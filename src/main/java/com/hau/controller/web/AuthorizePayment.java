@@ -137,10 +137,11 @@ public class AuthorizePayment {
             }
             billDTO.setPaymentMethod(SystemConstant.PAYMENT_METHOD_PAYPAL);
             billDTO.setTotal(total);
+
             billDTO.setCartItemDTOS(cartItemDTOS);
 
             billService.save(billDTO);
-                sendEmail(billDTO.getEmail(),cartDTO.getCartItemDTOS(),billDTO);
+                sendEmail(billDTO.getEmail(),CartUtils.getCartItemByAuthentication(cartDTO,userDTO),billDTO);
             CartUtils.DeleteCartItemByAuthentication(userDTO,cartDTO,txt,response);
             mav = new ModelAndView("redirect:/checkout/success");
 
