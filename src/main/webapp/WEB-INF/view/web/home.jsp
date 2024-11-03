@@ -260,7 +260,7 @@
                 </a>
                 <div class="product-info">
 
-                    <div class="product-name " style="color: black">${item.name}</div>
+                    <div class="product-name text-truncate" style="color: black">${item.name}</div>
                     <div class="product-description">Loại máy: ${item.watchType}</div>
 
                     <div class="product-price">
@@ -344,7 +344,7 @@
                     </div>
                 </a>
                 <div class="product-info">
-                    <div class="product-name" style="color: black">${item.name}</div>
+                    <div class="product-name text-truncate" style="color: black">${item.name}</div>
                     <div class="product-description">Loại Đồng Hồ: ${item.watchType}</div>
                     <div class="product-price">
                         <span id="price" >${item.price}đ</span>
