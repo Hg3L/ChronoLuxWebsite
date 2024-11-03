@@ -392,6 +392,7 @@
                                             <h6 class="font-weight-medium" style="font-family: Arial">Giảm Giá</h6>
                                             <h6 id ="price" class="font-weight-medium">-${voucher.discount}</h6>
                                             <input type="hidden" name="voucherCode" value="${voucher.code}">
+                                             <input type="hidden" name="discount" value="${voucher.discount}">
                                         </div>
                                     </c:if>
                                 </div>
