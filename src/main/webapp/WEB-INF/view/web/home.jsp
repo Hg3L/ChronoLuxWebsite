@@ -118,7 +118,13 @@
          transition: transform 0.5s ease;
      }
 
+     .spring-collection {
+         background-image: url('https://www.watchstore.vn/images/banners/compress/fc-luxury-banner_1711707751.webp');
+     }
 
+     .winter-collection {
+         background-image: url('https://www.watchstore.vn/images/banners/compress/omega-luxury-banner_1711707171.webp');
+     }
 
      .slide-link {
          display: block; /* Làm cho thẻ a trở thành khối */
@@ -196,7 +202,7 @@
                                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                     <div class="p-3" style="max-width: 700px; backdrop-filter: blur(10px)">
                                         <h3 class="display-4 text-white font-weight-semi-bold mb-4">${item.caption}</h3>
-                                        <h4 class="text-light text-uppercase font-weight-medium mb-3 text-truncate">
+                                        <h4 class="text-light text-uppercase font-weight-medium mb-3">
                                             ${item.content}
                                         </h4>
                                     </div>
@@ -209,7 +215,7 @@
                                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                     <div class="p-3" style="max-width: 700px;backdrop-filter: blur(10px)">
                                         <h3 class="display-4 text-white font-weight-semi-bold mb-4">${item.caption}</h3>
-                                        <h4 class="text-light text-uppercase font-weight-medium mb-3 text-truncate">
+                                        <h4 class="text-light text-uppercase font-weight-medium mb-3">
                                               ${item.content}
                                         </h4>
                                     </div>
@@ -412,23 +418,12 @@
 
 </script>
 <script>
-let images = [];
-let currentIndex = 0;
+const images = [
+    ['https://www.watchstore.vn/images/banners/compress/fc-luxury-banner_1711707751.webp', 'https://www.watchstore.vn/images/banners/compress/omega-luxury-banner_1711707171.webp'],
+    ['https://www.watchstore.vn/images/banners/compress/omega-luxury-banner_1711707171.webp', 'https://www.watchstore.vn/images/banners/compress/lg-giam-34-banner_1711707950.webp'],
+];
 
-function loadImages() {
-    $.ajax({
-        url: "<c:url value='/api/images'/>",
-        method: 'GET',
-        dataType: 'json',
-        success: function(response) {
-            images = response;
-            showSlides(currentIndex);
-        },
-        error: function(xhr, status, error) {
-            console.error('Error fetching images:', error);
-        }
-    });
-}
+let currentIndex = 0;
 
 function showSlides(index) {
     const slideItems = document.querySelectorAll('.slide-item');
@@ -446,11 +441,6 @@ function showSlides(index) {
         console.error("Index nằm ngoài phạm vi của mảng images.");
     }
 }
-
-// Gọi hàm loadImages khi trang được tải
-$(document).ready(function() {
-    loadImages();
-});
 
 function nextSlide() {
     currentIndex = (currentIndex + 1) % images.length;

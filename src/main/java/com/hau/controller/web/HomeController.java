@@ -55,21 +55,4 @@ public class HomeController {
         return new ModelAndView("redirect:/home");
     }
 
-    @GetMapping("/api/images")
-    public ResponseEntity<List<List<String>>> getImages() {
-
-        List<List<String>> images = Arrays.asList(
-                Arrays.asList(
-                        "https://www.watchstore.vn/images/banners/compress/fc-luxury-banner_1711707751.webp",
-                        "https://www.watchstore.vn/images/banners/compress/omega-luxury-banner_1711707171.webp"
-                ),
-                Arrays.asList(
-                        "https://www.watchstore.vn/images/banners/compress/omega-luxury-banner_1711707171.webp",
-                        "https://www.watchstore.vn/images/banners/compress/lg-giam-34-banner_1711707950.webp"
-                )
-        );
-
-        // Trả về danh sách URL hình ảnh dưới dạng JSON
-        return ResponseEntity.ok(images);
-    }
 }

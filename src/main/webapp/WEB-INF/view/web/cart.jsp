@@ -186,13 +186,6 @@
             <!-- Cart End -->
             <script>
 
-                let errorInput = document.getElementById("error").value;
-                if (errorInput !== null && errorInput !== "") {
-                    alert(errorInput);
-                }
-
-
-
                 function increaseQuantity(index) {
 
                     let quantityInputs = document.querySelectorAll("[id^='quantity-']");
@@ -238,6 +231,10 @@
                     let instock = document.getElementById("instock-" + index);
                     let hiddenQuantityInput = document.getElementById("hiddenQuantity-" + index);
 
+                    if(isNaN(parseInt(quantityInput.value))){
+                        event.preventDefault();
+                       alert("Vui lòng nhập số");
+                    }
                     if (quantityInput && hiddenQuantityInput) {
 
                         let instockValue = parseInt(instock.value, 10);
