@@ -35,7 +35,7 @@ public class ProductEntity extends BaseEntity {
     @ManyToMany(mappedBy = "products")
     private List<BillEntity> bills;
     // Thêm thuộc tính cho mối quan hệ 1-nhiều với CartItemEntity
-    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE,CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private List<CartItemEntity> cartItems;
 
     public Integer getInstock() {

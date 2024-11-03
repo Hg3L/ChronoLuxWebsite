@@ -365,7 +365,7 @@
                                         <div class="cart-item">
                                             <div class="cart-item-content">
 
-                                                <img src="https://www.watchstore.vn/images/products/2024/06/14/small/mtp-vt01l-1budf_1718332985.webp"
+                                                <img src="<c:url value='/template/web/img/products/${item.productImgUrl}'/>"
                                                      alt="Product Image" class="product-image">
                                                 <div class="product-details">
                                                     <p class="product-name">${item.productName}</p>
@@ -392,6 +392,7 @@
                                             <h6 class="font-weight-medium" style="font-family: Arial">Giảm Giá</h6>
                                             <h6 id ="price" class="font-weight-medium">-${voucher.discount}</h6>
                                             <input type="hidden" name="voucherCode" value="${voucher.code}">
+                                             <input type="hidden" name="discount" value="${voucher.discount}">
                                         </div>
                                     </c:if>
                                 </div>
@@ -420,12 +421,19 @@
                                 </div>
 
                                 <!-- Thông tin tài khoản ngân hàng -->
-                                <div id="bank-info" style="display: none;">
-                                    <h4>Thông tin tài khoản ngân hàng:</h4>
-                                    <p>Ngân hàng: ABC Bank</p>
-                                    <p>Số tài khoản: 123456789</p>
-                                    <p>Chủ tài khoản: Nguyễn Văn A</p>
-
+                                <div id="bank-info" class="bank-detail" style="display: none;">
+                                    <div class="bank-details=container d-flex justify-content-center align-items-center mb-2">
+                                        <div class="bank-credential" style="width: 40%">
+                                            <h4>Thông tin tài khoản</h4>
+                                            <p>Ngân hàng: BIDV Bank</p>
+                                            <p>Số tài khoản: 5512969999</p>
+                                            <p>Chủ tài khoản: DANG HOANG LAM</p>
+                                            <p>Nội Dung: "SDT" "Họ và Tên"</p>
+                                        </div>
+                                        <div class="qr-code d-flex align-items-center">
+                                            <img src="<c:url value='/template/web/img/QRCODE.png'/>">
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="payment-option">
                                     <input type="radio" name="paymentMethod" id="VNPAY" value="VNPAY"
@@ -622,14 +630,19 @@
                         // Hiển thị hoặc ẩn thông tin tài khoản ngân hàng
                         if (paymentMethod === 'bank-transfer') {
                             bankInfo.style.display = 'block'; // Hiển thị thông tin tài khoản
+                            form.action = "<c:url value='/checkout'/>";
+                            form.method = "post";
                         } else {
                             bankInfo.style.display = 'none'; // Ẩn thông tin tài khoản
+                            form.action = "<c:url value='/checkout'/>";
+                            form.method = "post";
                         }
                         console.log(paymentMethod);
                         if(paymentMethod === 'VNPAY'){
                              form.action = "<c:url value='/payment/create-payment'/>";
                              form.method = "get";
                         }
+
                     }
             </script>
             <script>

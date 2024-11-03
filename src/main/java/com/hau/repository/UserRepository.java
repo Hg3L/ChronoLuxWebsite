@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface UserRepository extends JpaRepository<UserEntity,Long> {
     public UserEntity findOneByUserNameAndStatus(String username,Integer status);
     public UserEntity findOneByUserName(String username);
@@ -19,6 +21,9 @@ public interface UserRepository extends JpaRepository<UserEntity,Long> {
 
     @Query("SELECT u FROM UserEntity u WHERE u.email = :email AND u.password IS NOT NULL ")
     UserEntity findOneByEmailAndPasswordNotNull(@Param("email") String email);
+
+
+    List<UserEntity> findByEmail(String email);
 
     @Query("SELECT u FROM UserEntity u JOIN u.roles r WHERE r.code = 'ROLE_ADMIN' AND u.status = 1")
     Page<UserEntity> findAllNotBannedUserAccounts(Pageable pageable);

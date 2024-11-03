@@ -77,7 +77,7 @@ public class ForgotPasswordController {
 
     public void sendEmail(String email , String resetPasswordLink) throws MessagingException, UnsupportedEncodingException {
         MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
         helper.setFrom("contact@chronolux.com","ChronoLux support");
         helper.setTo(email);
         helper.setSubject("Đây là link đổi mật khẩu của bạn");
