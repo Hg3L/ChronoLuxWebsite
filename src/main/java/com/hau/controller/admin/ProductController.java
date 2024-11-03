@@ -1,10 +1,14 @@
 package com.hau.controller.admin;
 
+import com.hau.dto.CartDTO;
+import com.hau.dto.CartItemDTO;
 import com.hau.dto.ProductDTO;
+import com.hau.dto.UserDTO;
 import com.hau.service.FileService;
 import com.hau.service.IBrandService;
 import com.hau.service.ProductService;
 import com.hau.service.ProductLineService;
+import com.hau.util.CartUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,7 +21,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Controller
 public class ProductController {
@@ -109,8 +116,29 @@ public class ProductController {
     }
 
     @GetMapping("/admin/product/delete")
-    public String deleteProduct(@RequestParam("id") long id) {
+    public String deleteProduct(@RequestParam("id") long id, HttpServletRequest request, HttpServletResponse response) {
+        String txt = "";
+        CartDTO cartDTO = CartUtils.getCartByCookieAndDeleteCookie(request.getCookies(),productService.findAll(),txt,response);
+        cartDTO.getCartItemDTOS().removeIf(cartItem ->  cartItem.getProductId() == id);
+        List<CartItemDTO> items = cartDTO.getCartItemDTOS();
+        txt = "";
+        if(items.size()>0){
+            txt = items.get(0).getUsername()+":"+items.get(0).getProductId()+":"+ items.get(0).getQuantity();
+            for(int i = 1 ; i<items.size(); i++) {
+                txt += "|" +items.get(i).getUsername() +":"+items.get(i).getProductId() +":"+ items.get(i).getQuantity();
+            }
+        }
+        Cookie c  = new Cookie("cart",txt);
+        c.setMaxAge(2*24*60*60);
+        c.setPath("/ChronoLuxWeb");
+        response.addCookie(c);
+
         productService.delete(id);
+
+
         return "redirect:/admin/products";
+
+
+
     }
 }

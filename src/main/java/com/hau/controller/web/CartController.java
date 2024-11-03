@@ -168,6 +168,7 @@ public class CartController {
             txt = items.get(0).getUsername()+":"+items.get(0).getProductId()+":"+ items.get(0).getQuantity();
             for(int i = 1 ; i<items.size(); i++) {
                 txt += "|" +items.get(i).getUsername() +":"+items.get(i).getProductId() +":"+ items.get(i).getQuantity();
+
             }
         }
         Cookie c  = new Cookie("cart",txt);
