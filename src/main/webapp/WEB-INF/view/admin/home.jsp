@@ -148,20 +148,21 @@
                     </div>
                     <div class="mt-4 text-center small">
                         <c:forEach var="entry" items="${top5}" varStatus="status">
-                            <span class="mr-2">
-                                <i class="fas fa-circle
-                                    <c:choose>
-                                        <c:when test="${status.index == 0}">text-danger</c:when>
-                                        <c:when test="${status.index == 1}">text-warning</c:when>
-                                        <c:when test="${status.index == 2}">text-success</c:when>
-                                        <c:when test="${status.index == 3}">text-primary</c:when>
-                                        <c:when test="${status.index == 4}">text-info</c:when>
-                                    </c:choose>"></i>
-                                ${entry.key} (${entry.value})
-                            </span>
+                            <c:if test="${status.index < 5}">
+                                <span class="mr-2">
+                                    <i class="fas fa-circle
+                                        <c:choose>
+                                            <c:when test="${status.index == 0}">text-danger</c:when>
+                                            <c:when test="${status.index == 1}">text-warning</c:when>
+                                            <c:when test="${status.index == 2}">text-success</c:when>
+                                            <c:when test="${status.index == 3}">text-primary</c:when>
+                                            <c:when test="${status.index == 4}">text-info</c:when>
+                                        </c:choose>"></i>
+                                    ${entry.key} (${entry.value})
+                                </span>
+                            </c:if>
                         </c:forEach>
                     </div>
-
                 </div>
             </div>
         </div>
