@@ -219,7 +219,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean usernameExists(String username) {
-        UserEntity userEntity = userRepository.findOneByUserName(username);
+        UserEntity userEntity = userRepository.findOneByUserNameAndStatus(username,SystemConstant.ACTIVE_STATUS);
         return userEntity != null;
     }
 

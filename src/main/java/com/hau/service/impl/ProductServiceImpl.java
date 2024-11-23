@@ -1,5 +1,6 @@
 package com.hau.service.impl;
 
+import com.hau.constant.SystemConstant;
 import com.hau.converter.ProductConverter;
 import com.hau.dto.FilterCriteria;
 import com.hau.dto.ProductDTO;
@@ -31,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDTO> findTop8ByOrderByIdDesc() {
         List<ProductDTO> products = new ArrayList<>();
-        List<ProductEntity> productEntities = productRepository.findTop8ByOrderByIdDesc();
+        List<ProductEntity> productEntities = productRepository.findTop8ByActiveOrderByIdDesc(SystemConstant.ACTIVE_STATUS);
         for(ProductEntity productEntity : productEntities){
             ProductDTO product = productConverter.toDTO(productEntity);
             products.add(product);

@@ -79,7 +79,7 @@
 
                 <!-- Page level custom scripts -->
 
-                <script src="    <c:url value='/template/admin/js/demo/datatables-demo.js'/>"></script>
+                <script src=" <c:url value='/template/admin/js/demo/datatables-demo.js'/>"></script>
 </body>
 
 </html>

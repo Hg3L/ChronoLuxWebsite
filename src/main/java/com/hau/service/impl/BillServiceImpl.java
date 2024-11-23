@@ -49,7 +49,7 @@ public class BillServiceImpl implements BillService {
         List<CartItemEntity> cartItemEntities = new ArrayList<>();
         for(CartItemDTO cartItemDTO : billDTO.getCartItemDTOS()){
             CartItemEntity cartItemEntity = cartItemConverter.convertToEntity(cartItemDTO);
-            ProductEntity productEntity = productRepository.findOneByName(cartItemDTO.getProductName());
+            ProductEntity productEntity = productRepository.findOneByNameAndActive(cartItemDTO.getProductName(),SystemConstant.ACTIVE_STATUS);
             productEntity.setInstock(productEntity.getInstock() - Integer.parseInt(cartItemDTO.getQuantity()));
             if(cartItemDTO.getUsername() != null && cartItemDTO.getUsername() != "null"){
                 UserEntity userEntity = userRepository.findOneByUserNameAndStatus(cartItemDTO.getUsername(),SystemConstant.ACTIVE_STATUS);
