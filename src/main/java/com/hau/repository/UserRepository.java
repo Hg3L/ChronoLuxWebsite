@@ -12,9 +12,8 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<UserEntity,Long> {
     public UserEntity findOneByUserNameAndStatus(String username,Integer status);
-    public UserEntity findOneByUserName(String username);
-    public UserEntity findOneByResetPasswordToken(String token);
 
+    public UserEntity findOneByResetPasswordToken(String token);
     @Query("SELECT u FROM UserEntity u JOIN u.roles r WHERE u.email = :email AND r.code = :roleCode")
     UserEntity findByEmailAndRoleCode(@Param("email") String email, @Param("roleCode") String roleCode);
 

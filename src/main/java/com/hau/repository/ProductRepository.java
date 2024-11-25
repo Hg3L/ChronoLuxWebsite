@@ -13,20 +13,23 @@ import java.util.List;
 import java.util.TreeSet;
 
 public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
-    List<ProductEntity> findTop8ByOrderByIdDesc();
+    List<ProductEntity> findTop8ByActiveOrderByIdDesc(Integer active);
     @Query(value = "SELECT p FROM ProductEntity p " +
             "JOIN p.cartItems ci " +
+            "WHERE p.active = 1 " +  // Thêm điều kiện lọc active = 1
             "GROUP BY p.id " +
-            "ORDER BY SUM(ci.quantity) DESC ")
+            "ORDER BY SUM(ci.quantity) DESC")
     LinkedHashSet<ProductEntity> findTop8BestSellingProducts();
 
-    ProductEntity findOneByName(String name);
+
+    ProductEntity findOneByNameAndActive(String name,Integer active);
 
     @Query("SELECT COUNT(p) FROM ProductEntity p WHERE " +
             "(:gender IS NULL OR p.gender LIKE :gender) " +
             "AND (:keyword IS NULL OR CONCAT(p.name, ' ', p.price) LIKE :keyword) " +
             "AND (:minPrice IS NULL OR p.price >= :minPrice) " +
-            "AND (:maxPrice IS NULL OR p.price <= :maxPrice)")
+            "AND (:maxPrice IS NULL OR p.price <= :maxPrice) " +
+            "AND p.active = 1")
     long count(@Param("gender") String gender,
                @Param("keyword") String keyword,
                @Param("minPrice") Long minPrice,
@@ -38,7 +41,8 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
             "AND (:gender IS NULL OR p.gender LIKE :gender) " +
             "AND (:keyword IS NULL OR CONCAT(p.name, ' ', p.price) LIKE :keyword) " +
             "AND (:minPrice IS NULL OR p.price >= :minPrice) " +
-            "AND (:maxPrice IS NULL OR p.price <= :maxPrice)")
+            "AND (:maxPrice IS NULL OR p.price <= :maxPrice)" +
+            "AND p.active = 1")
     long countByIdBrand(@Param("brandId") Long brandId,
                         @Param("gender") String gender,
                         @Param("keyword") String keyword,
@@ -46,15 +50,18 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
                         @Param("maxPrice") Long maxPrice);
 
 
-    @Query("SELECT p FROM ProductEntity p WHERE (:gender IS NULL OR p.gender LIKE :gender) " +
+    @Query("SELECT p FROM ProductEntity p WHERE " +
+            "(:gender IS NULL OR p.gender LIKE :gender) " +
             "AND (:keyword IS NULL OR CONCAT(p.name, ' ', p.price) LIKE :keyword) " +
             "AND (:minPrice IS NULL OR p.price >= :minPrice) " +
-            "AND (:maxPrice IS NULL OR p.price <= :maxPrice)")
+            "AND (:maxPrice IS NULL OR p.price <= :maxPrice) " +
+            "AND p.active = 1")
     Page<ProductEntity> findAll(@Param("gender") String gender,
                                 @Param("keyword") String keyword,
                                 @Param("minPrice") Long minPrice,
                                 @Param("maxPrice") Long maxPrice,
                                 Pageable pageable);
+
 
 
     @Query("SELECT p FROM ProductEntity p " +
@@ -63,7 +70,10 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
             "AND (:gender IS NULL OR p.gender LIKE :gender) " +
             "AND (:keyword IS NULL OR CONCAT(p.name, ' ', p.price) LIKE :keyword) " +
             "AND (:minPrice IS NULL OR p.price >= :minPrice) " +
-            "AND (:maxPrice IS NULL OR p.price <= :maxPrice)")
+            "AND (:maxPrice IS NULL OR p.price <= :maxPrice)" +
+            "AND p.active = 1"
+
+    )
     Page<ProductEntity> findAllByIdBrand(@Param("brandId") Long brandId,
                                          @Param("gender") String gender,
                                          @Param("keyword") String keyword,
@@ -73,7 +83,9 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
     
     @Query("SELECT p FROM ProductEntity p " +
             "INNER JOIN p.productLine pl " +
-            "WHERE pl.brand.id = :brandId ")
+            "WHERE pl.brand.id = :brandId " +
+            "AND p.active = 1"
+    )
     List<ProductEntity> findAllByIdBrandNotPage(@Param("brandId") Long brandId);
 
     @Query("SELECT COUNT(p) FROM ProductEntity p " +
@@ -81,7 +93,9 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
             "AND (:gender IS NULL OR p.gender LIKE :gender) " +
             "AND (:keyword IS NULL OR CONCAT(p.name, ' ', p.price) LIKE :keyword) " +
             "AND (:minPrice IS NULL OR p.price >= :minPrice) " +
-            "AND (:maxPrice IS NULL OR p.price <= :maxPrice)")
+            "AND (:maxPrice IS NULL OR p.price <= :maxPrice)" +
+            "AND p.active = 1"
+    )
     long countByIdProductLine(@Param("productLineId") Long productLineId,
                         @Param("gender") String gender,
                         @Param("keyword") String keyword,
@@ -93,7 +107,9 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
             "AND (:gender IS NULL OR p.gender LIKE :gender) " +
             "AND (:keyword IS NULL OR CONCAT(p.name, ' ', p.price) LIKE :keyword) " +
             "AND (:minPrice IS NULL OR p.price >= :minPrice) " +
-            "AND (:maxPrice IS NULL OR p.price <= :maxPrice)")
+            "AND (:maxPrice IS NULL OR p.price <= :maxPrice)" +
+            "AND p.active = 1"
+    )
     Page<ProductEntity> findAllByIdProductLine(@Param("productLineId") Long productLineId,
                                          @Param("gender") String gender,
                                          @Param("keyword") String keyword,

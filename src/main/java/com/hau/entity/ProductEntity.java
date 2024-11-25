@@ -29,6 +29,8 @@ public class ProductEntity extends BaseEntity {
     private String name;
     @Column(name = "instock")
     private int instock;
+    @Column(name = "active")
+    private Integer active;
     @ManyToOne (fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "product_line_id")
     private ProductLineEntity productLine;
@@ -140,5 +142,25 @@ public class ProductEntity extends BaseEntity {
 
     public void setBills(List<BillEntity> bills) {
         this.bills = bills;
+    }
+
+    public void setInstock(int instock) {
+        this.instock = instock;
+    }
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
+
+    public List<CartItemEntity> getCartItems() {
+        return cartItems;
+    }
+
+    public void setCartItems(List<CartItemEntity> cartItems) {
+        this.cartItems = cartItems;
     }
 }
