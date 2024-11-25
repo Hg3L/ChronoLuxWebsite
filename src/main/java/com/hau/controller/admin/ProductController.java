@@ -3,16 +3,13 @@ package com.hau.controller.admin;
 import com.hau.dto.CartDTO;
 import com.hau.dto.CartItemDTO;
 import com.hau.dto.ProductDTO;
-import com.hau.dto.UserDTO;
 import com.hau.service.FileService;
-import com.hau.service.IBrandService;
+import com.hau.service.BrandService;
 import com.hau.service.ProductService;
 import com.hau.service.ProductLineService;
 import com.hau.util.CartUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +29,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
     @Autowired
-    private IBrandService brandService;
+    private BrandService brandService;
     @Autowired
     private FileService fileService;
     @Autowired

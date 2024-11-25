@@ -5,7 +5,7 @@ import com.hau.dto.ProductLineDTO;
 import com.hau.dto.BrandDTO;
 import com.hau.dto.ProductDTO;
 import com.hau.service.FileService;
-import com.hau.service.IBrandService;
+import com.hau.service.BrandService;
 import com.hau.service.ProductService;
 import com.hau.service.ProductLineService;
 import com.hau.util.PageableUtil;
@@ -31,7 +31,7 @@ public class BrandController {
     @Autowired
     private ProductLineService productLineService;
     @Autowired
-    private IBrandService brandService;
+    private BrandService brandService;
     @Autowired
     private FileService fileService;
 

@@ -29,8 +29,8 @@ public class ProductEntity extends BaseEntity {
     private String name;
     @Column(name = "instock")
     private int instock;
-    @Column(name = "active")
-    private Integer active;
+    @Column(name = "active", columnDefinition = "boolean default true")
+    private boolean active;
     @ManyToOne (fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "product_line_id")
     private ProductLineEntity productLine;
@@ -148,11 +148,11 @@ public class ProductEntity extends BaseEntity {
         this.instock = instock;
     }
 
-    public int getActive() {
+    public boolean getActive() {
         return active;
     }
 
-    public void setActive(int active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 

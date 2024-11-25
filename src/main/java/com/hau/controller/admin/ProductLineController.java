@@ -3,7 +3,7 @@ package com.hau.controller.admin;
 import com.hau.dto.FilterCriteria;
 import com.hau.dto.ProductDTO;
 import com.hau.dto.ProductLineDTO;
-import com.hau.service.IBrandService;
+import com.hau.service.BrandService;
 import com.hau.service.ProductService;
 import com.hau.service.ProductLineService;
 import com.hau.util.PageableUtil;
@@ -27,7 +27,7 @@ public class ProductLineController {
     @Autowired
     private ProductService productService;
     @Autowired
-    private IBrandService brandService;
+    private BrandService brandService;
     @Autowired
     private FileService fileService;
     private static final String UPLOAD_DIR = "product-lines";

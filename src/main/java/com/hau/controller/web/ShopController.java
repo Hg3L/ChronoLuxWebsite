@@ -3,7 +3,7 @@ package com.hau.controller.web;
 import com.hau.dto.BrandDTO;
 import com.hau.dto.FilterCriteria;
 import com.hau.dto.ProductDTO;
-import com.hau.service.IBrandService;
+import com.hau.service.BrandService;
 import com.hau.service.ProductService;
 import com.hau.util.PageableUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class ShopController {
     @Autowired
     private ProductService productService;
     @Autowired
-    private IBrandService brandService;
+    private BrandService brandService;
     @RequestMapping(value = "/shop", method = RequestMethod.GET)
         public String shopPage(@RequestParam("page") int page ,
                                      @RequestParam("limit") int limit,

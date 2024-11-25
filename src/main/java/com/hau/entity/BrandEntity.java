@@ -15,7 +15,9 @@ public class BrandEntity extends BaseEntity{
     private String bannerUrl;
     @Column(name ="icon_url")
     private String iconUrl;
-    @OneToMany(mappedBy = "brand", cascade = CascadeType.REMOVE)
+    @Column(name = "active", columnDefinition = "boolean default true")
+    private boolean active;
+    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
     private List<ProductLineEntity> productLines = new ArrayList<>();
 
     public String getName() {
@@ -56,5 +58,13 @@ public class BrandEntity extends BaseEntity{
 
     public void setProductLines(List<ProductLineEntity> productLines) {
         this.productLines = productLines;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

@@ -17,7 +17,8 @@ public class ProductLineEntity extends BaseEntity{
     private String iconUrl;
     @Column(name = "banner_url")
     private String banner;
-
+    @Column(name = "active", columnDefinition = "boolean default true")
+    private boolean active;
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name="warranty_id")
     private WarrantyEntity warranty;
@@ -71,5 +72,13 @@ public class ProductLineEntity extends BaseEntity{
 
     public void setBanner(String banner) {
         this.banner = banner;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

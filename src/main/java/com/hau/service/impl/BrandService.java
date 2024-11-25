@@ -4,7 +4,7 @@ import com.hau.converter.BrandConverter;
 import com.hau.dto.BrandDTO;
 import com.hau.entity.BrandEntity;
 import com.hau.repository.BrandRepository;
-import com.hau.service.IBrandService;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class BrandService implements IBrandService {
+public class BrandService implements com.hau.service.BrandService {
     @Autowired
     private BrandConverter brandConverter;
     @Autowired
@@ -26,13 +26,13 @@ public class BrandService implements IBrandService {
     public List<BrandDTO> findAll() {
         List<BrandDTO> brands = new ArrayList<>();
         List<BrandEntity> brandEntities = brandRepository.findAllBrand();
-        for(BrandEntity brandEntity : brandEntities){
+        for (BrandEntity brandEntity : brandEntities) {
             BrandDTO brand = brandConverter.toDTO(brandEntity);
             brands.add(brand);
         }
         return brands;
     }
-  
+
     public Page<BrandDTO> findAll(int page, int limit) {
         Pageable pageable = new PageRequest(page - 1, limit);
         Page<BrandEntity> brandEntities = brandRepository.findAll(pageable);
@@ -55,6 +55,19 @@ public class BrandService implements IBrandService {
     @Transactional
     @Override
     public void deleteBrandById(Long id) {
-        brandRepository.delete(id);
+        BrandEntity brandEntity = brandRepository.findOne(id);
+        if (brandEntity != null) {
+            Hibernate.initialize(brandEntity.getProductLines());
+            brandEntity.setActive(false);
+
+            brandEntity.getProductLines().forEach(productLine -> {
+                productLine.setActive(false);
+                Hibernate.initialize(productLine.getProducts());
+                productLine.getProducts().forEach(product -> product.setActive(false));
+            });
+
+            brandRepository.save(brandEntity);
+        }
     }
 }
+

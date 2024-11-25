@@ -2,7 +2,7 @@ package com.hau.controller.admin;
 
 import com.hau.dto.ProductLineDTO;
 import com.hau.dto.WarrantyDTO;
-import com.hau.service.IBrandService;
+import com.hau.service.BrandService;
 import com.hau.service.ProductLineService;
 import com.hau.service.WarrantyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class WarrantyController {
     @Autowired
     private WarrantyService warrantyService;
     @Autowired
-    private IBrandService brandService;
+    private BrandService brandService;
 
     @GetMapping("/admin/warranty")
     public String getWarrantyPage(@RequestParam(defaultValue = "1") int page,
