@@ -54,7 +54,7 @@ public class AuthorizePayment {
 
         UserDTO userDTO = null;
         List<CartItemDTO> cartItemDTOS = new ArrayList<>();
-        List<ProductDTO> productDTOList = productService.findAll();
+        List<ProductDTO> productDTOList = productService.findAllByActive(true);
         CartDTO cartDTO = CartUtils.getCartByCookie(request.getCookies(), productDTOList);
 
         //
@@ -87,7 +87,7 @@ public class AuthorizePayment {
 
         try{
             UserDTO userDTO = null;
-            List<ProductDTO> productDTOList = productService.findAll();
+            List<ProductDTO> productDTOList = productService.findAllByActive(true);
             String txt = "";
             CartDTO cartDTO = CartUtils.getCartByCookieAndDeleteCookie(request.getCookies(), productDTOList,txt,response);
 

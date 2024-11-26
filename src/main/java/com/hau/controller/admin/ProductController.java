@@ -40,7 +40,7 @@ public class ProductController {
     @GetMapping(value = "/product-detail")
     public String productDetailPage(Model model,@RequestParam("id") long id) {
 
-        ProductDTO product = productService.findOneById(id);
+        ProductDTO product = productService.findByIdAndActive(id,true);
 
         model.addAttribute("model",product);
 
@@ -67,7 +67,7 @@ public class ProductController {
         else{
             productDTOPage = productService.findByProductLine_Id(productLineId, page, limit);
         }
-        model.addAttribute("brands", brandService.findAll());
+        model.addAttribute("brands", brandService.findAllByActive(true));
         model.addAttribute("productPage", productDTOPage);
         model.addAttribute("productLineId", productLineId);
         model.addAttribute("brandId", brandId);
@@ -79,7 +79,7 @@ public class ProductController {
     public String createProduct(Model model,
                                 @RequestParam("currentPage") int page) {
         model.addAttribute("product", new ProductDTO());
-        model.addAttribute("brands", brandService.findAll());
+        model.addAttribute("brands", brandService.findAllByActive(true));
         model.addAttribute("currentPage", page);
         return "admin/product-add";
     }
@@ -96,7 +96,7 @@ public class ProductController {
             productDTO.setImgUrl(imgName);
         }
         else{
-            ProductDTO product = productService.findOneById(productDTO.getId());
+            ProductDTO product = productService.findByIdAndActive(productDTO.getId(),true);
             productDTO.setImgUrl(product.getImgUrl());
         }
         productService.save(productDTO);
@@ -109,9 +109,9 @@ public class ProductController {
     public String updateProduct(Model model,
                                 @RequestParam("id") long id,
                                 @RequestParam("currentPage") int page) {
-        ProductDTO product = productService.findOneById(id);
+        ProductDTO product = productService.findByIdAndActive(id,true);
         model.addAttribute("product", product);
-        model.addAttribute("brands", brandService.findAll());
+        model.addAttribute("brands", brandService.findAllByActive(true));
         model.addAttribute("currentPage", page);
         return "admin/product-update";
     }
@@ -119,7 +119,7 @@ public class ProductController {
     @GetMapping("/admin/product/delete")
     public String deleteProduct(@RequestParam("id") long id, HttpServletRequest request, HttpServletResponse response) {
         String txt = "";
-        CartDTO cartDTO = CartUtils.getCartByCookieAndDeleteCookie(request.getCookies(),productService.findAll(),txt,response);
+        CartDTO cartDTO = CartUtils.getCartByCookieAndDeleteCookie(request.getCookies(),productService.findAllByActive(true),txt,response);
         cartDTO.getCartItemDTOS().removeIf(cartItem ->  cartItem.getProductId() == id);
         List<CartItemDTO> items = cartDTO.getCartItemDTOS();
         txt = "";

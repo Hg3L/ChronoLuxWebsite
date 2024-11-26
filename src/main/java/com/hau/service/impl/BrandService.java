@@ -23,9 +23,9 @@ public class BrandService implements com.hau.service.BrandService {
     private BrandRepository brandRepository;
 
     @Override
-    public List<BrandDTO> findAll() {
+    public List<BrandDTO> findAllByActive(boolean active) {
         List<BrandDTO> brands = new ArrayList<>();
-        List<BrandEntity> brandEntities = brandRepository.findAllBrand();
+        List<BrandEntity> brandEntities = brandRepository.findAllByActive(active);
         for (BrandEntity brandEntity : brandEntities) {
             BrandDTO brand = brandConverter.toDTO(brandEntity);
             brands.add(brand);
@@ -40,8 +40,8 @@ public class BrandService implements com.hau.service.BrandService {
     }
 
     @Override
-    public BrandDTO getBrandById(Long id) {
-        BrandEntity brandEntity = brandRepository.findOne(id);
+    public BrandDTO getBrandById(Long id,boolean active) {
+        BrandEntity brandEntity = brandRepository.findOneByIdAndActive(id,active);
         return brandConverter.toDTO(brandEntity);
     }
 

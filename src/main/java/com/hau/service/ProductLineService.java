@@ -6,8 +6,8 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface ProductLineService {
-    public List<ProductLineDTO> findAllByBrandId(Long brandId);
-    public ProductLineDTO findOneById(long id);
+    List<ProductLineDTO> findAllByBrandIdAndActive(Long brandId,boolean active);
+    ProductLineDTO findByIdAndActive(long id,boolean active);
     Page<ProductLineDTO> findAllByBrandId(Long brandId, int page, int limit);
     Page<ProductLineDTO> findAll(int page, int limit);
     Page<ProductLineDTO> findAllWithWarranty(int page, int limit, boolean isHasWarranty);

@@ -48,7 +48,7 @@ public class WarrantyController {
         }
         model.addAttribute("productLines", productLines);
         model.addAttribute("currentPage", page);
-        model.addAttribute("brands", brandService.findAll());
+        model.addAttribute("brands", brandService.findAllByActive(true));
         model.addAttribute("brandId", brandId);
         model.addAttribute("isHasWarranty", isHasWarranty);
         return "admin/warranty-view";

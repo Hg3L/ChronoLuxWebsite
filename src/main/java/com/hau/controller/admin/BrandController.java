@@ -52,8 +52,8 @@ public class BrandController {
         product.setId(id);
 
         Pageable pageable = PageableUtil.getInstance(page,limit,sortName,sortBy);
-        productLine.setListResult(productLineService.findAllByBrandId(id));
-        model.addAttribute("brand",brandService.getBrandById(id));
+        productLine.setListResult(productLineService.findAllByBrandIdAndActive(id,true));
+        model.addAttribute("brand",brandService.getBrandById(id,true));
         model.addAttribute("products",productService.findAllByIdBrand(pageable,id,keyword,filter));
         model.addAttribute("model",product);
         model.addAttribute("productLine",productLine);
@@ -92,15 +92,15 @@ public class BrandController {
         else if(!logo.isEmpty() && banner.isEmpty()) {
             String logoName = fileService.saveFile(logo, "brands");
             brand.setIconUrl(logoName);
-            brand.setBannerUrl(brandService.getBrandById(brand.getId()).getBannerUrl());
+            brand.setBannerUrl(brandService.getBrandById(brand.getId(),true).getBannerUrl());
         }
         else if(logo.isEmpty() && !banner.isEmpty()) {
             String bannerName = fileService.saveFile(banner, "brands");
             brand.setBannerUrl(bannerName);
-            brand.setIconUrl(brandService.getBrandById(brand.getId()).getIconUrl());
+            brand.setIconUrl(brandService.getBrandById(brand.getId(),true).getIconUrl());
         }
         else{
-            BrandDTO brandDTO = brandService.getBrandById(brand.getId());
+            BrandDTO brandDTO = brandService.getBrandById(brand.getId(),true);
             brand.setIconUrl(brandDTO.getIconUrl());
             brand.setBannerUrl(brandDTO.getBannerUrl());
         }
@@ -113,7 +113,7 @@ public class BrandController {
     @GetMapping("/admin/brand/update")
     public String showUpdateForm(@RequestParam("id") Long id,
                                  Model model) {
-        model.addAttribute("brand", brandService.getBrandById(id));
+        model.addAttribute("brand", brandService.getBrandById(id,true));
         return "admin/brand-update";
     }
 
