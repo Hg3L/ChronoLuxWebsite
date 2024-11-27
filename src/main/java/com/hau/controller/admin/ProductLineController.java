@@ -43,15 +43,15 @@ public class ProductLineController {
                                   @RequestParam(value = "keyword",required = false) String keyword,
                                   @RequestParam(value = "filter",required = false) String filter){
         ProductDTO product = new ProductDTO();
-        ProductLineDTO productLine = productLineService.findOneById(id);
+        ProductLineDTO productLine = productLineService.findByIdAndActive(id,true);
         FilterCriteria.applyFiltersAndSorting(product,page,limit,sortName,sortBy,keyword,filter,model);
         product.setTotalItem((int)productService.getTotalItemByIdProductLine(id,keyword,filter));
         product.setTotalPage((int) Math.ceil((double) product.getTotalItem() / product.getLimit()));
         product.setId(id);
         Pageable pageable = PageableUtil.getInstance(page,limit,sortName,sortBy);
-        productLine.setListResult(productLineService.findAllByBrandId(idBrand));
+        productLine.setListResult(productLineService.findAllByBrandIdAndActive(idBrand,true));
 
-        model.addAttribute("brand",brandService.getBrandById(idBrand));
+        model.addAttribute("brand",brandService.getBrandById(idBrand,true));
         model.addAttribute("products",productService.findAllByIdProductLine(pageable,id,keyword,filter));
         model.addAttribute("model",product);
         model.addAttribute("productLine",productLine);
@@ -73,7 +73,7 @@ public class ProductLineController {
         }
         model.addAttribute("productLines", productLines);
         model.addAttribute("currentPage", page);
-        model.addAttribute("brands", brandService.findAll());
+        model.addAttribute("brands", brandService.findAllByActive(true));
         model.addAttribute("brandId", brandId);
         return "admin/product-line-view";
     }
@@ -81,7 +81,7 @@ public class ProductLineController {
     @GetMapping("/admin/product-line/create")
     public String showCreateForm(Model model) {
         model.addAttribute("productLine", new ProductLineDTO());
-        model.addAttribute("brands", brandService.findAll());
+        model.addAttribute("brands", brandService.findAllByActive(true));
         return "admin/product-line-add";
     }
 
@@ -101,15 +101,15 @@ public class ProductLineController {
         else if(!logo.isEmpty() && banner.isEmpty()) {
             String logoName = fileService.saveFile(logo, UPLOAD_DIR);
             productLine.setIconUrl(logoName);
-            productLine.setBannerUrl(productLineService.findOneById(productLine.getId()).getBannerUrl());
+            productLine.setBannerUrl(productLineService.findByIdAndActive(productLine.getId(),true).getBannerUrl());
         }
         else if(logo.isEmpty() && !banner.isEmpty()) {
             String bannerName = fileService.saveFile(banner, UPLOAD_DIR);
             productLine.setBannerUrl(bannerName);
-            productLine.setIconUrl(productLineService.findOneById(productLine.getId()).getIconUrl());
+            productLine.setIconUrl(productLineService.findByIdAndActive(productLine.getId(),true).getIconUrl());
         }
         else{
-            ProductLineDTO productLineDTO = productLineService.findOneById(productLine.getId());
+            ProductLineDTO productLineDTO = productLineService.findByIdAndActive(productLine.getId(),true);
             productLine.setIconUrl(productLineDTO.getIconUrl());
             productLine.setBannerUrl(productLineDTO.getBannerUrl());
         }
@@ -121,9 +121,9 @@ public class ProductLineController {
 
     @GetMapping("/admin/product-line/update")
     public String showUpdateForm(@RequestParam("id") long id, Model model) {
-        ProductLineDTO productLine = productLineService.findOneById(id);
+        ProductLineDTO productLine = productLineService.findByIdAndActive(id,true);
         model.addAttribute("productLine", productLine);
-        model.addAttribute("brands", brandService.findAll());
+        model.addAttribute("brands", brandService.findAllByActive(true));
         return "admin/product-line-update";
     }
 
@@ -137,6 +137,6 @@ public class ProductLineController {
     @GetMapping("/admin/product-line/getProductLines")
     @ResponseBody
     public List<ProductLineDTO> getProductLines(@RequestParam("brandId") long brandId) {
-        return productLineService.findAllByBrandId(brandId);
+        return productLineService.findAllByBrandIdAndActive(brandId,true);
     }
 }

@@ -42,7 +42,7 @@ public class CartController {
         ModelAndView mav = new ModelAndView("web/cart");
         UserDTO userDTO = null;
         List<CartItemDTO> cartItemDTOS = new ArrayList<>();
-        List<ProductDTO> productDTOList = productService.findAll();
+        List<ProductDTO> productDTOList = productService.findAllByActive(true);
         CartDTO cartDTO = CartUtils.getCartByCookieAndDeleteCookie(request.getCookies(), productDTOList,txt,response);
 
         //
@@ -134,7 +134,7 @@ public class CartController {
                                      HttpServletResponse response,
                                      HttpServletRequest request){
         UserDTO userDTO;
-        List<ProductDTO> productDTOList = productService.findAll();
+        List<ProductDTO> productDTOList = productService.findAllByActive(true);
         String txt = "";
         CartDTO cartDTO = CartUtils.getCartByCookieAndDeleteCookie(request.getCookies(), productDTOList,txt,response);
         if(authentication != null){
@@ -183,7 +183,7 @@ public class CartController {
                              HttpServletRequest request,
                              HttpServletResponse response){
         UserDTO userDTO = null;
-        List<ProductDTO> productDTOList = productService.findAll();
+        List<ProductDTO> productDTOList = productService.findAllByActive(true);
         String txt = "";
 
         CartDTO cartDTO = CartUtils.getCartByCookieAndDeleteCookie(request.getCookies(), productDTOList,txt,response);
@@ -200,7 +200,7 @@ public class CartController {
         if(authentication != null){
             userDTO = userService.getCurrentLoggedInCustomer(authentication);
         }
-        List<ProductDTO> productDTOList = productService.findAll();
+        List<ProductDTO> productDTOList = productService.findAllByActive(true);
         CartDTO cartDTO = CartUtils.getCartByCookie(request.getCookies(),productDTOList);
         return ResponseEntity.ok(CartUtils.GetTotalCartItemByAuthentication(userDTO,cartDTO)) ;
     }

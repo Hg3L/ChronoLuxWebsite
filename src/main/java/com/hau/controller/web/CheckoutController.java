@@ -55,7 +55,7 @@ public class CheckoutController {
         ModelAndView mav = new ModelAndView("web/checkout");
         UserDTO userDTO = null;
         List<CartItemDTO> cartItemDTOS = new ArrayList<>();
-        List<ProductDTO> productDTOList = productService.findAll();
+        List<ProductDTO> productDTOList = productService.findAllByActive(true);
         CartDTO cartDTO = CartUtils.getCartByCookie(request.getCookies(), productDTOList);
         //
         if(authentication != null){
@@ -80,7 +80,7 @@ public class CheckoutController {
                           HttpServletRequest request,
                           HttpServletResponse response) throws MessagingException, IOException {
         UserDTO userDTO = null;
-        List<ProductDTO> productDTOList = productService.findAll();
+        List<ProductDTO> productDTOList = productService.findAllByActive(true);
         String txt = "";
 
         if(authentication != null){

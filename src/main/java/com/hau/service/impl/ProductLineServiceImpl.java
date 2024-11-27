@@ -35,14 +35,14 @@ public class ProductLineServiceImpl implements ProductLineService {
     private WarrantyRepository warrantyRepository;
 
     @Override
-    public List<ProductLineDTO> findAllByBrandId(Long brandId) {
+    public List<ProductLineDTO> findAllByBrandIdAndActive(Long brandId,boolean active) {
         List<ProductLineDTO> productLines = new ArrayList<>();
         List<ProductLineEntity> productLineEntities;
         if (brandId == 0){
-            productLineEntities = productLineRepository.findAll();
+            productLineEntities = productLineRepository.findAllByActive(active);
         }
         else{
-            productLineEntities = productLineRepository.findAllByBrand_Id(brandId);
+            productLineEntities = productLineRepository.findAllByBrand_IdAndActive(brandId,active);
         }
         for(ProductLineEntity productLineEntity : productLineEntities){
             ProductLineDTO productLine = productLineConverter.convertToDTO(productLineEntity);
@@ -52,8 +52,8 @@ public class ProductLineServiceImpl implements ProductLineService {
     }
 
     @Override
-    public ProductLineDTO findOneById(long id) {
-        ProductLineEntity productLineEntity = productLineRepository.findOneById(id);
+    public ProductLineDTO findByIdAndActive(long id,boolean active) {
+        ProductLineEntity productLineEntity = productLineRepository.findByIdAndActive(id,active);
         return productLineConverter.convertToDTO(productLineEntity);
     }
 
@@ -125,7 +125,7 @@ public class ProductLineServiceImpl implements ProductLineService {
     @Override
     public void save( ProductLineDTO productLineDTO) {
         ProductLineEntity productLineEntity = productLineConverter.convertToEntity(productLineDTO);
-        BrandEntity brandEntity = brandRepository.findOneById(productLineDTO.getBrandId());
+        BrandEntity brandEntity = brandRepository.findOneByIdAndActive(productLineDTO.getBrandId(),true);
         productLineEntity.setBrand(brandEntity);
         WarrantyEntity warrantyEntity = warrantyRepository.findByProductLineEntity_Id(productLineDTO.getId());
         if(warrantyEntity != null){

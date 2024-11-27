@@ -146,7 +146,7 @@ public class PaymentVNPayController {
             if ("00".equals(request.getParameter("vnp_ResponseCode"))) {
 
                 BillDTO billDTO = (BillDTO) session.getAttribute("bill");
-                List<ProductDTO> productDTOList = productService.findAll();
+                List<ProductDTO> productDTOList = productService.findAllByActive(true);
                 String txt = "";
                 CartDTO cartDTO = CartUtils.getCartByCookieAndDeleteCookie(request.getCookies(), productDTOList,txt,response);
                 billDTO.setCartItemDTOS(CartUtils.getCartItemByAuthentication(cartDTO,userDTO));

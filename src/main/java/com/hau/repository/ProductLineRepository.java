@@ -10,10 +10,10 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ProductLineRepository extends JpaRepository<ProductLineEntity,Long> {
-    List<ProductLineEntity> findAllByBrand_Id(Long brandId);
+    List<ProductLineEntity> findAllByBrand_IdAndActive(Long brandId,boolean active);
     Page<ProductLineEntity> findAllByBrand_Id(Long brandId, Pageable page);
-    ProductLineEntity findOneById(long id);
-
+    ProductLineEntity findByIdAndActive(long id,boolean active);
+    List<ProductLineEntity> findAllByActive(boolean active);
     @Query("SELECT p FROM ProductLineEntity p LEFT JOIN FETCH p.warranty WHERE p.id = :id")
     ProductLineEntity findByIdWithWarranty(@Param("id") Long id);
 

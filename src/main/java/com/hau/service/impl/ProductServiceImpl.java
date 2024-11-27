@@ -32,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDTO> findTop8ByOrderByIdDesc() {
         List<ProductDTO> products = new ArrayList<>();
-        List<ProductEntity> productEntities = productRepository.findTop8ByActiveOrderByIdDesc(SystemConstant.ACTIVE_STATUS);
+        List<ProductEntity> productEntities = productRepository.findTop8ByActiveOrderByIdDesc(true);
         for(ProductEntity productEntity : productEntities){
             ProductDTO product = productConverter.toDTO(productEntity);
             products.add(product);
@@ -50,9 +50,9 @@ public class ProductServiceImpl implements ProductService {
         return products;
     }
     @Override
-    public List<ProductDTO> findAll() {
+    public List<ProductDTO> findAllByActive(boolean active) {
         List<ProductDTO> products = new ArrayList<>();
-        List<ProductEntity> productEntities = productRepository.findAll();
+        List<ProductEntity> productEntities = productRepository.findAllByActive(active);
         for(ProductEntity productEntity : productEntities){
             ProductDTO product = productConverter.toDTO(productEntity);
             products.add(product);
@@ -127,8 +127,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDTO findOneById(long id) {
-        ProductEntity productEntity = productRepository.findOne(id);
+    public ProductDTO findByIdAndActive(long id,boolean active) {
+        ProductEntity productEntity = productRepository.findByIdAndActive(id,active);
         return productConverter.toDTO(productEntity);
     }
 

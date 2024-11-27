@@ -31,7 +31,7 @@ public class HomeController {
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String homePage(Model model) {
         BrandDTO brand = new BrandDTO();
-        brand.setListResult(brandService.findAll());
+        brand.setListResult(brandService.findAllByActive(true));
         ProductDTO product = new ProductDTO();
         product.setListResult(productService.findTop8ByOrderByIdDesc());
         LinkedHashSet<ProductDTO> productTrendy = productService.findTop8BestSelling();

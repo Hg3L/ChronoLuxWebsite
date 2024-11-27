@@ -37,7 +37,7 @@ public class ShopController {
         product.setTotalItem((int)productService.getTotalItem(keyword,filter));
         product.setTotalPage((int) Math.ceil((double) product.getTotalItem() / product.getLimit()));
 
-        brand.setListResult(brandService.findAll());
+        brand.setListResult(brandService.findAllByActive(true));
 
         model.addAttribute("brand",brand);
         model.addAttribute("products",productService.findAll(pageable,keyword,filter));

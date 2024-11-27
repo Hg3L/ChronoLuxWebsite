@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface BrandRepository extends JpaRepository<BrandEntity, Long> {
-    @Query ("SELECT b FROM BrandEntity b WHERE b.active = true")
-    public List<BrandEntity>  findAllBrand();
-    public BrandEntity findOneById(long id);
+
+    List<BrandEntity>  findAllByActive(boolean active);
+    BrandEntity findOneByIdAndActive(long id,boolean active);
 }
