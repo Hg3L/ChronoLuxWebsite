@@ -102,11 +102,11 @@
                        <i class="fas fa-home"></i> Trang chủ
                    </a>
                    >
-                   <a href="<c:url value='/shop/brand?id=${idBrand}&page=1&limit=4'/>" class="about-link">
+                   <a href="<c:url value='/shop/brand?id=${idBrand}&page=1&limit=8'/>" class="about-link">
                          ${brand.name}
                    </a>
                    >
-                   <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${productLine.id}&page=1&limit=4'/>" class="about-link">
+                   <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${productLine.id}&page=1&limit=8'/>" class="about-link">
                          ${productLine.name}
                    </a>
                </div>
