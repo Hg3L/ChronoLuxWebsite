@@ -50,7 +50,7 @@ public class ProductController {
 
     @GetMapping("/admin/products")
     public String showProducts(@RequestParam(defaultValue = "1") int page,
-                               @RequestParam(defaultValue = "1") int limit,
+                               @RequestParam(defaultValue = "6") int limit,
                                @RequestParam(defaultValue = "0") Long brandId,
                                @RequestParam(defaultValue = "0") Long productLineId,
                                Model model) {

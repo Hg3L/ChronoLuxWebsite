@@ -61,7 +61,7 @@ public class ProductLineController {
 
     @GetMapping("/admin/product-lines")
     public String getProductLinesPage(@RequestParam(defaultValue = "1") int page,
-                                      @RequestParam(defaultValue = "1") int limit,
+                                      @RequestParam(defaultValue = "6") int limit,
                                       @RequestParam(defaultValue = "0") long brandId,
                                       Model model) {
         Page<ProductLineDTO> productLines;
