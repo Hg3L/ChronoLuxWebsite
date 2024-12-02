@@ -18,10 +18,11 @@
 <body>
 <div class="container">
     <form:form method="post" action="${pageContext.request.contextPath}/admin/product/save" enctype="multipart/form-data" modelAttribute="product" >
+        <input type="hidden" name="page" value="${currentPage}">
         <div class="d-flex justify-content-between align-items-center my-4">
             <h1 class="h3 mb-1 mt-2 text-gray-800">Thêm sản phẩm</h1>
             <div>
-                <a href="${pageContext.request.contextPath}/admin/products" class="btn btn-warning">
+                <a href="${pageContext.request.contextPath}/admin/products?page=${currentPage}" class="btn btn-warning">
                     <i class="fa fa-reply mr-1" aria-hidden="true"></i>
                     Quay lại
                 </a>
@@ -32,7 +33,6 @@
             </div>
         </div>
         <hr/>
-        <input type="hidden" name="page" value="${currentPage}">
         <div class="form-row">
             <!-- Thương hiệu -->
             <div class="form-group col-md-6">

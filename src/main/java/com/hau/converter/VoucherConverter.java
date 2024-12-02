@@ -5,8 +5,10 @@ import com.hau.entity.VoucherEntity;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 @Component
@@ -32,10 +34,13 @@ public class VoucherConverter implements Converter<VoucherDTO, VoucherEntity>{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate beginDate = LocalDate.parse(dto.getBeginDay(), formatter);
         LocalDate endDate = LocalDate.parse(dto.getEndDay(), formatter);
-        LocalDateTime beginDateTime = beginDate.atStartOfDay();
+
+        LocalTime cur = LocalTime.now();
+        LocalDateTime beginDateTime = beginDate.atTime(cur);
         LocalDateTime endDateTime = endDate.atTime(23, 59, 59);
-        voucherEntity.setBeginDay(Date.valueOf(beginDateTime.toLocalDate()));
-        voucherEntity.setEndDay(Date.valueOf(endDateTime.toLocalDate()));
+        voucherEntity.setBeginDay(Timestamp.valueOf(beginDateTime));
+        voucherEntity.setEndDay(Timestamp.valueOf(endDateTime));
+
         return voucherEntity;
     }
 }

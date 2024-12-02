@@ -56,21 +56,24 @@ public class WarrantyController {
 
     @GetMapping("/admin/warranty/createOrUpdate")
     public String getCreateWarrantyPage(Model model,
-                                        @RequestParam long id) {
+                                        @RequestParam long id,
+                                        @RequestParam("currentPage") int page) {
         model.addAttribute("warranty", warrantyService.findOneByProductLineId(id));
+        model.addAttribute("currentPage", page);
         return "admin/warranty-information";
     }
 
     @PostMapping("/admin/warranty/save")
     public String saveWarranty(@ModelAttribute WarrantyDTO warrantyDTO,
                                @RequestParam long productLineId,
+                               @RequestParam("page") int currentPage,
                                HttpServletRequest request,
                                RedirectAttributes redirectAttributes) throws Exception {
         request.setCharacterEncoding("UTF-8");
         warrantyDTO.setProductLineId(productLineId);
         warrantyService.saveWarranty(warrantyDTO);
         redirectAttributes.addFlashAttribute("successMessage", "Thêm chính sách bảo hành thành công");
-        return "redirect:/admin/warranty";
+        return "redirect:/admin/warranty?page=" + currentPage;
     }
 
     @GetMapping("/admin/warranty/delete")

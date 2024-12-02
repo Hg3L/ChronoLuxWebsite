@@ -71,8 +71,10 @@ public class BrandController {
     }
 
     @GetMapping("/admin/brand/create")
-    public String showCreateForm(Model model) {
+    public String showCreateForm(Model model,
+                                 @RequestParam("currentPage") int page) {
         model.addAttribute("brand", new BrandDTO());
+        model.addAttribute("currentPage", page);
         return "admin/brand-add";
     }
 
@@ -80,6 +82,7 @@ public class BrandController {
     public String saveBrand(@ModelAttribute("brand") BrandDTO brand,
                             @RequestParam("logo") MultipartFile logo,
                             @RequestParam("banner") MultipartFile banner,
+                            @RequestParam("page") int currentPage,
                             HttpServletRequest request,
                             RedirectAttributes redirectAttributes) throws Exception {
         request.setCharacterEncoding("UTF-8");
@@ -107,13 +110,15 @@ public class BrandController {
         brandService.saveBrand(brand);
         String message = (brand.getId() == null || brand.getId() == 0) ? "Thêm thương hiệu thành công" : "Cập nhật thương hiệu thành công";
         redirectAttributes.addFlashAttribute("successMessage", message);
-        return "redirect:/admin/brands";
+        return "redirect:/admin/brands?page=" + currentPage;
     }
 
     @GetMapping("/admin/brand/update")
     public String showUpdateForm(@RequestParam("id") Long id,
-                                 Model model) {
+                                 Model model,
+                                 @RequestParam("currentPage") int page) {
         model.addAttribute("brand", brandService.getBrandById(id,true));
+        model.addAttribute("currentPage", page);
         return "admin/brand-update";
     }
 

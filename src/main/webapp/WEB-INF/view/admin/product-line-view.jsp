@@ -21,13 +21,14 @@
     </div>
     <hr/>
     <div class="d-flex justify-content-end">
-        <a href="${pageContext.request.contextPath}/admin/product-line/create" class="btn btn-success mr-2 mt-1">
+        <a href="${pageContext.request.contextPath}/admin/product-line/create?currentPage=${currentPage}" class="btn btn-success mr-2 mt-1">
             <i class="fas fa-plus mr-1"></i> Thêm dòng đồng hồ
         </a>
     </div>
     <div class="card shadow mb-4 mt-4">
         <div class="card-body">
             <div class="d-flex justify-content-start mb-4 mt-3">
+                <input type="hidden" name="page" value="${currentPage}">
                 <label class="mr-3">Thương hiệu:</label>
                 <form class="form-group" action="${pageContext.request.contextPath}/admin/product-lines" method="get">
                     <select class="custom-select-box" id="brandSelect" name="brandId" aria-label="Select brand">
@@ -72,7 +73,7 @@
                             <td><img src="<c:url value='/template/web/img/product-lines/${productLine.iconUrl}'/>" alt="Logo" style="max-width:80px;"/></td>
                             <td><img src="<c:url value='/template/web/img/product-lines/${productLine.bannerUrl}'/>" alt="Banner" style="max-width:250px;"/></td>
                             <td>
-                                <a href="${pageContext.request.contextPath}/admin/product-line/update/?id=${productLine.id}" class="btn btn-info btn-sm mr-2">
+                                <a href="${pageContext.request.contextPath}/admin/product-line/update/?id=${productLine.id}&currentPage=${currentPage}" class="btn btn-info btn-sm mr-2">
                                     <i class="fas fa-pencil-alt mr-1"></i> Sửa
                                 </a>
                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmModal${productLine.id}">

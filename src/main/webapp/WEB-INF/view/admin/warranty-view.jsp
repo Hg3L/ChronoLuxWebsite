@@ -54,7 +54,6 @@
                     <input type="hidden" name="limit" value="6">
                 </form>
             </div>
-
             <div class="table-responsive">
                 <table class="table table-bordered" width="100%" cellspacing="0">
                     <thead>
@@ -85,7 +84,7 @@
                             <td>
                                 <c:choose>
                                     <c:when test="${productLine.warrantyId != 0}">
-                                        <a href="${pageContext.request.contextPath}/admin/warranty/createOrUpdate/?id=${productLine.id}"
+                                        <a href="${pageContext.request.contextPath}/admin/warranty/createOrUpdate/?id=${productLine.id}&currentPage=${currentPage}"
                                            class="btn btn-secondary btn-sm mr-2">
                                             <i class="fas fa-eye mr-1"></i> Xem bảo hành
                                         </a>
@@ -97,7 +96,7 @@
                                         </a>--%>
                                     </c:when>
                                     <c:otherwise>
-                                        <a href="${pageContext.request.contextPath}/admin/warranty/createOrUpdate/?id=${productLine.id}"
+                                        <a href="${pageContext.request.contextPath}/admin/warranty/createOrUpdate/?id=${productLine.id}&currentPage=${currentPage}"
                                            class="btn btn-success btn-sm mr-2">
                                             <i class="fas fa-plus mr-1"></i> Thêm bảo hành
                                         </a>

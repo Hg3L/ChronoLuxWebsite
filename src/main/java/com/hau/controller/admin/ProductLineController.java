@@ -61,7 +61,7 @@ public class ProductLineController {
 
     @GetMapping("/admin/product-lines")
     public String getProductLinesPage(@RequestParam(defaultValue = "1") int page,
-                                      @RequestParam(defaultValue = "6") int limit,
+                                      @RequestParam(defaultValue = "1") int limit,
                                       @RequestParam(defaultValue = "0") long brandId,
                                       Model model) {
         Page<ProductLineDTO> productLines;
@@ -79,9 +79,11 @@ public class ProductLineController {
     }
 
     @GetMapping("/admin/product-line/create")
-    public String showCreateForm(Model model) {
+    public String showCreateForm(Model model,
+                                @RequestParam("currentPage") int page) {
         model.addAttribute("productLine", new ProductLineDTO());
         model.addAttribute("brands", brandService.findAllByActive(true));
+        model.addAttribute("currentPage", page);
         return "admin/product-line-add";
     }
 
@@ -89,6 +91,7 @@ public class ProductLineController {
     public String saveProductLine(@ModelAttribute("productLine") ProductLineDTO productLine,
                                   @RequestParam MultipartFile logo,
                                   @RequestParam MultipartFile banner,
+                                  @RequestParam("page") int currentPage,
                                   HttpServletRequest request,
                                   RedirectAttributes redirectAttributes) throws Exception{
         request.setCharacterEncoding("UTF-8");
@@ -116,14 +119,15 @@ public class ProductLineController {
         String message = (productLine.getId() == null || productLine.getId() == 0) ? "Thêm dòng sản phẩm thành công" : "Cập nhật dòng sản phẩm thành công";
         redirectAttributes.addFlashAttribute("successMessage", message);
         productLineService.save(productLine);
-        return "redirect:/admin/product-lines";
+        return "redirect:/admin/product-lines?page=" + currentPage;
     }
 
     @GetMapping("/admin/product-line/update")
-    public String showUpdateForm(@RequestParam("id") long id, Model model) {
+    public String showUpdateForm(@RequestParam("id") long id, Model model, @RequestParam("currentPage") int page) {
         ProductLineDTO productLine = productLineService.findByIdAndActive(id,true);
         model.addAttribute("productLine", productLine);
         model.addAttribute("brands", brandService.findAllByActive(true));
+        model.addAttribute("currentPage", page);
         return "admin/product-line-update";
     }
 

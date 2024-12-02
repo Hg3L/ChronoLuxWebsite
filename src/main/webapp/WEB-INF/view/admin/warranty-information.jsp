@@ -13,10 +13,11 @@
 <body>
 <div class="container mt-4">
     <form:form method="post" action="${pageContext.request.contextPath}/admin/warranty/save" modelAttribute="warranty" enctype="multipart/form-data">
+        <input type="hidden" name="page" value="${currentPage}">
         <div class="d-flex justify-content-between align-items-center my-1">
             <h1 class="h3 mb-1 text-gray-800">Chính sách bảo hành</h1>
             <div>
-                <a href="${pageContext.request.contextPath}/admin/warranty" class="btn btn-warning">
+                <a href="${pageContext.request.contextPath}/admin/warranty?page=${currentPage}" class="btn btn-warning">
                     <i class="fa fa-reply mr-1" aria-hidden="true"></i>
                     Quay lại
                 </a>
