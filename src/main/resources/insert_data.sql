@@ -22,3 +22,8 @@ ADD COLUMN `reset_password_token` VARCHAR(45) NULL AFTER `username`;
 
 ALTER TABLE `chronoluxweb`.`product`
 ADD COLUMN `name` VARCHAR(255) NULL AFTER `product_line_id`;
+
+insert into user(username,password,fullname,status)
+values('ChronoLuxAdmin','$2a$12$6YhCULCfFAHUweBK0cfjMOqbjctFuJ1/nrlm2pTCFVpDXvQnYDRBy','Hoàng Lâm',1);
+insert into user(username,password,fullname,status)
+values('ChronoLuxUser','$2a$12$6YhCULCfFAHUweBK0cfjMOqbjctFuJ1/nrlm2pTCFVpDXvQnYDRBy','Tester',1);

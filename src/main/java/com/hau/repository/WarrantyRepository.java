@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface WarrantyRepository extends JpaRepository<WarrantyEntity, Long> {
-    WarrantyEntity findByProductLineEntity_Id(Long id);
+    WarrantyEntity findByProductLineEntity_IdAndProductLineEntity_Active(Long id, boolean active);
     @Query("SELECT COUNT(w) > 0 FROM WarrantyEntity w WHERE w.id = :id")
     boolean existsById(@Param("id") Long id);
 }

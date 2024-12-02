@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class BrandService implements com.hau.service.BrandService {
+public class BrandServiceImpl implements com.hau.service.BrandService {
     @Autowired
     private BrandConverter brandConverter;
     @Autowired
@@ -35,7 +35,7 @@ public class BrandService implements com.hau.service.BrandService {
 
     public Page<BrandDTO> findAll(int page, int limit) {
         Pageable pageable = new PageRequest(page - 1, limit);
-        Page<BrandEntity> brandEntities = brandRepository.findAll(pageable);
+        Page<BrandEntity> brandEntities = brandRepository.findAllByActive(true, pageable);
         return brandEntities.map(brandEntity -> brandConverter.toDTO(brandEntity));
     }
 
@@ -49,6 +49,7 @@ public class BrandService implements com.hau.service.BrandService {
     @Override
     public void saveBrand(BrandDTO brandDTO) {
         BrandEntity brandEntity = brandConverter.toEntity(brandDTO);
+        brandEntity.setActive(true);
         brandRepository.save(brandEntity);
     }
 

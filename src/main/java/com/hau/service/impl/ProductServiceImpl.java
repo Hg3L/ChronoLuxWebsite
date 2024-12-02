@@ -135,7 +135,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<ProductDTO> findByProductLine_Id(Long id, int page, int limit) {
         Pageable pageable = new PageRequest(page - 1, limit);
-        Page<ProductEntity> productEntities = productRepository.findAllByProductLine_Id(id, pageable);
+        Page<ProductEntity> productEntities = productRepository.findAllByProductLine_IdAndActive(id, true, pageable);
+        if(productEntities == null){
+            return null;
+        }
         List<ProductDTO> productDTOs = productEntities.getContent().stream().map(productEntity -> {
             ProductDTO productDTO = productConverter.toDTO(productEntity);
             productDTO.setBrandName(productEntity.getProductLine().getBrand().getName());
@@ -148,7 +151,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<ProductDTO> findByBrand_Id(Long id, int page, int limit) {
         Pageable pageable = new PageRequest(page - 1, limit);
-        Page<ProductEntity> productEntities = productRepository.findAllByBrandId(id, pageable);
+        Page<ProductEntity> productEntities = productRepository.findAllByBrandIdAndActive(id, true, pageable);
         List<ProductDTO> productDTOs = productEntities.getContent().stream().map(productEntity -> {
             ProductDTO productDTO = productConverter.toDTO(productEntity);
             productDTO.setBrandName(productEntity.getProductLine().getBrand().getName());
@@ -161,8 +164,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<ProductDTO> findAll(int page, int limit) {
         Pageable pageable = new PageRequest(page - 1, limit);
-        Page<ProductEntity> productEntities = productRepository.findAll(pageable);
-
+        Page<ProductEntity> productEntities = productRepository.findAllByActive(true, pageable);
         List<ProductDTO> productDTOs = productEntities.getContent().stream().map(productEntity -> {
             ProductDTO productDTO = productConverter.toDTO(productEntity);
             productDTO.setBrandName(productEntity.getProductLine().getBrand().getName());
@@ -177,6 +179,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void save(ProductDTO productDTO) {
         ProductEntity productEntity = productConverter.toEntity(productDTO);
+        productEntity.setActive(true);
         ProductLineEntity productLineEntity = productLineRepository.findOne(productDTO.getProductLineId());
         productEntity.setProductLine(productLineEntity);
         productLineEntity.getProducts().add(productEntity);
@@ -186,7 +189,9 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @Override
     public void delete(long id) {
-        productRepository.delete(id);
+        ProductEntity productEntity = productRepository.findOne(id);
+        productEntity.setActive(false);
+        productRepository.save(productEntity);
     }
 
     @Override

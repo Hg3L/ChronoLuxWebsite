@@ -44,7 +44,7 @@ public class WarrantyServiceImpl implements WarrantyService {
     @Override
     public WarrantyDTO findOneByProductLineId(long id) {
         ProductLineEntity productLineEntity = productLineRepository.findByIdAndActive(id,true);
-        WarrantyEntity warrantyEntity = warrantyRepository.findByProductLineEntity_Id(id);
+        WarrantyEntity warrantyEntity = warrantyRepository.findByProductLineEntity_IdAndProductLineEntity_Active(id, true);
         if(warrantyEntity == null) {
             warrantyEntity = new WarrantyEntity();
             warrantyEntity.setProductLineEntity(productLineEntity);

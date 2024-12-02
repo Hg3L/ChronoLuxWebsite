@@ -86,8 +86,9 @@
                 <div id="stock-error" class="text-danger" style="display:none;">Vui lòng nhập số lượng hàng hợp lệ!</div>
             </div>
             <div class="form-group col-md-6">
-                <label for="thickness">Độ dày *</label>
-                <form:input path="thickness" type="text" class="form-control" id="thickness" required="required" />
+                <label for="thickness">Độ dày (mm) *</label>
+                <form:input path="thickness" type="text" class="form-control" id="thickness" required="required" onkeyup="validateThickness(this)"/>
+                <div id="thickness-error" class="text-danger" style="display:none;">Vui lòng nhập chỉ số hợp lệ!</div>
             </div>
             <div class="form-group col-md-6">
                 <label for="faceSize">Size mặt *</label>
@@ -107,8 +108,9 @@
             </div>
 
             <div class="form-group col-md-6">
-                <label for="waterResistant">Kháng nước *</label>
-                <form:input path="waterResistant" type="text" class="form-control" id="waterResistant" required="required" />
+                <label for="waterResistant">Kháng nước (m) *</label>
+                <form:input path="waterResistant" type="text" class="form-control" id="waterResistant" required="required" onkeyup="validateRes(this)"/>
+                <div id="res-error" class="text-danger" style="display:none;">Vui lòng nhập chỉ số hợp lệ!</div>
             </div>
             <div class="form-group col-md-6">
                 <label for="img">Tải ảnh sản phẩm</label>
@@ -232,12 +234,42 @@
         }
     }
 
-    // Hàm kiểm tra hợp lệ trước khi gửi form
+    function validateRes(input) {
+        const res_val = input.value;
+        const errorElement = document.getElementById("res-error");
+        if (!/^\d+$/.test(res_val) || parseInt(res_val) < 0) {
+            errorElement.style.display = "block";
+            input.classList.add("is-invalid");
+        } else {
+            errorElement.style.display = "none";
+            input.classList.remove("is-invalid");
+        }
+    }
+
+    function validateThickness(input) {
+        const thick_val = input.value;
+        const errorElement = document.getElementById("thickness-error");
+        if (!/^\d+$/.test(thick_val) || parseInt(thick_val) < 0) {
+            errorElement.style.display = "block";
+            input.classList.add("is-invalid");
+        } else {
+            errorElement.style.display = "none";
+            input.classList.remove("is-invalid");
+        }
+    }
+
     function validateForm() {
         var stockInput = document.getElementById("stock");
+        var resInput = document.getElementById("waterResistant");
+        var thickInput = document.getElementById("thickness");
         // Kiểm tra số lượng tồn kho
         var stockValue = stockInput.value;
-        if (!/^\d+$/.test(stockValue) || parseInt(stockValue) < 0) {
+        var resValue = resInput.value;
+        var thickValue = thickInput.value;
+
+        if ((!/^\d+$/.test(stockValue) || parseInt(stockValue) < 0)
+        || (!/^\d+$/.test(resValue) || parseInt(resValue) < 0)
+            || (!/^\d+$/.test(stockValue) || parseInt(resValue) < 0)) {
             stockInput.classList.add("is-invalid");
             document.getElementById("stock-error").style.display = "block";
             return false;

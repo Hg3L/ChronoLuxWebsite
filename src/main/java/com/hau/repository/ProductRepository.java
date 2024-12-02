@@ -118,9 +118,10 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
                                          @Param("maxPrice") Long maxPrice,
                                          Pageable pageable);
 
-    // for admin:
-    Page<ProductEntity> findAllByProductLine_Id(Long productLineId, Pageable pageable);
+    Page<ProductEntity> findAllByProductLine_IdAndActive(Long productLineId, boolean active, Pageable pageable);
 
-    @Query("SELECT p FROM ProductEntity p WHERE p.productLine.brand.id = :brandId")
-    Page<ProductEntity> findAllByBrandId(Long brandId, Pageable pageable);
+    @Query("SELECT p FROM ProductEntity p WHERE p.productLine.brand.id = :brandId AND p.active = :active")
+    Page<ProductEntity> findAllByBrandIdAndActive(Long brandId, boolean active, Pageable pageable);
+
+    Page<ProductEntity> findAllByActive(boolean active, Pageable pageable);
 }

@@ -11,7 +11,8 @@ import java.util.List;
 
 public interface ProductLineRepository extends JpaRepository<ProductLineEntity,Long> {
     List<ProductLineEntity> findAllByBrand_IdAndActive(Long brandId,boolean active);
-    Page<ProductLineEntity> findAllByBrand_Id(Long brandId, Pageable page);
+    Page<ProductLineEntity> findAllByBrand_IdAndActive(Long brandId, boolean active, Pageable page);
+    Page<ProductLineEntity> findAllByActive(boolean active, Pageable page);
     ProductLineEntity findByIdAndActive(long id,boolean active);
     List<ProductLineEntity> findAllByActive(boolean active);
     @Query("SELECT p FROM ProductLineEntity p LEFT JOIN FETCH p.warranty WHERE p.id = :id")

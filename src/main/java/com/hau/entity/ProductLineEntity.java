@@ -19,7 +19,7 @@ public class ProductLineEntity extends BaseEntity{
     private String banner;
     @Column(name = "active", columnDefinition = "boolean default true")
     private boolean active;
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name="warranty_id")
     private WarrantyEntity warranty;
 

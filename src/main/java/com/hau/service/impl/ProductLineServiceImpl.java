@@ -11,6 +11,7 @@ import com.hau.repository.ProductLineRepository;
 import com.hau.repository.ProductRepository;
 import com.hau.repository.WarrantyRepository;
 import com.hau.service.ProductLineService;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -60,8 +61,10 @@ public class ProductLineServiceImpl implements ProductLineService {
     @Override
     public Page<ProductLineDTO> findAllByBrandId(Long brandId, int page, int limit) {
         Pageable pageable = new PageRequest(page - 1, limit);
-        Page<ProductLineEntity> productLineEntities = productLineRepository.findAllByBrand_Id(brandId, pageable);
-        List<ProductLineDTO> productLineDTOs = productLineEntities.getContent().stream().map(productLineEntity -> {
+        Page<ProductLineEntity> productLineEntities = productLineRepository.findAllByBrand_IdAndActive(brandId, true, pageable);
+        List<ProductLineEntity> filteredList = productLineEntities.getContent().stream().filter(ProductLineEntity::isActive).toList();
+
+        List<ProductLineDTO> productLineDTOs = filteredList.stream().map(productLineEntity -> {
             ProductLineDTO productLineDTO = productLineConverter.convertToDTO(productLineEntity);
             productLineDTO.setBrandName(productLineEntity.getBrand().getName());
             return productLineDTO;
@@ -72,8 +75,7 @@ public class ProductLineServiceImpl implements ProductLineService {
     @Override
     public Page<ProductLineDTO> findAll(int page, int limit) {
         Pageable pageable = new PageRequest(page - 1, limit);
-        Page<ProductLineEntity> productLineEntities = productLineRepository.findAll(pageable);
-
+        Page<ProductLineEntity> productLineEntities = productLineRepository.findAllByActive(true, pageable);
         List<ProductLineDTO> productLineDTOs = productLineEntities.getContent().stream().map(productLineEntity -> {
             ProductLineDTO productLineDTO = productLineConverter.convertToDTO(productLineEntity);
             productLineDTO.setBrandName(productLineEntity.getBrand().getName());
@@ -127,10 +129,13 @@ public class ProductLineServiceImpl implements ProductLineService {
         ProductLineEntity productLineEntity = productLineConverter.convertToEntity(productLineDTO);
         BrandEntity brandEntity = brandRepository.findOneByIdAndActive(productLineDTO.getBrandId(),true);
         productLineEntity.setBrand(brandEntity);
-        WarrantyEntity warrantyEntity = warrantyRepository.findByProductLineEntity_Id(productLineDTO.getId());
-        if(warrantyEntity != null){
-            warrantyEntity.setProductLineEntity(productLineEntity);
-            productLineEntity.setWarranty(warrantyEntity);
+        productLineEntity.setActive(true);
+        if(productLineDTO.getId() != null){
+            WarrantyEntity warrantyEntity = warrantyRepository.findByProductLineEntity_IdAndProductLineEntity_Active(productLineDTO.getId(), true);
+            if(warrantyEntity != null){
+                warrantyEntity.setProductLineEntity(productLineEntity);
+                productLineEntity.setWarranty(warrantyEntity);
+            }
         }
         productLineRepository.save(productLineEntity);
     }
@@ -138,6 +143,18 @@ public class ProductLineServiceImpl implements ProductLineService {
     @Transactional
     @Override
     public void deleteById(Long id) {
-        productLineRepository.delete(id);
+        ProductLineEntity productLineEntity = productLineRepository.findByIdAndActive(id,true);
+        if(productLineEntity != null){
+            productLineEntity.setActive(false);
+            productLineEntity.getProducts().forEach(productEntity -> {
+                productEntity.setActive(false);
+            });
+            WarrantyEntity warrantyEntity = productLineEntity.getWarranty();
+            if(warrantyEntity != null) {
+                productLineEntity.setWarranty(null);
+                warrantyRepository.delete(warrantyEntity);
+            }
+        }
+        productLineRepository.save(productLineEntity);
     }
 }
