@@ -86,6 +86,9 @@ public class UserDTO extends AbstractDTO{
         }
         String[] parts = this.fullName.split(" ");
         String firstName = parts[parts.length -1];
+        if(firstName == null){
+            firstName = "";
+        }
         return firstName;
     }
 
@@ -98,7 +101,7 @@ public class UserDTO extends AbstractDTO{
             return this.surName;
         }
         int lastSpaceIndex = this.fullName.lastIndexOf(" ");
-        String surName = null;
+        String surName = "";
         if(lastSpaceIndex == -1){
             surName = "";
         }
