@@ -62,11 +62,6 @@ public class BrandController {
         model.addAttribute("products",productService.findAllByIdBrand(pageable,id,keyword,filter));
         model.addAttribute("model",product);
         model.addAttribute("productLine",productLine);
-        List<Integer> nums = Arrays.asList(4,5,6);
-        nums.forEach(n -> {
-            System.out.println(n);
-            return ;
-        } );
         return "web/brand";
 
     }
