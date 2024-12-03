@@ -4,7 +4,9 @@ import com.hau.config.VNPayConfig;
 import com.hau.constant.SystemConstant;
 import com.hau.dto.*;
 import com.hau.service.*;
+import com.hau.service.impl.PaymentVnpayService;
 import com.hau.util.CartUtils;
+import com.paypal.api.payments.Payment;
 import org.apache.http.HttpRequest;
 import org.apache.http.client.fluent.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,74 +51,12 @@ public class PaymentVNPayController {
     private JavaMailSender mailSender;
     @Autowired
     private CurrencyFormat currencyFormat;
+    @Autowired
+    private PaymentVnpayService paymentVnpayService;
     @GetMapping("/payment/create-payment")
     public String createPayment(HttpServletRequest request,
                                 @ModelAttribute BillDTO billDTO) throws UnsupportedEncodingException {
-
-        HttpSession session = request.getSession();
-        session.setAttribute("bill", billDTO);
-        String approvalLink = null;
-
-       // long amount = Integer.parseInt(req.getParameter("amount"))*100;
-      //  String bankCode = req.getParameter("bankCode");
-        Double total = billDTO.getTotal() * 100;
-        long amount = total.longValue();
-        String vnp_TxnRef = VNPayConfig.getRandomNumber(8);
-       // String vnp_IpAddr = VNPayConfig.getIpAddress(req);
-        String vnp_IpAddr = VNPayConfig.getIpAddress(request);
-        String vnp_TmnCode = VNPayConfig.vnp_TmnCode;
-
-        Map<String, String> vnp_Params = new HashMap<>();
-        vnp_Params.put("vnp_Version", vnp_Version);
-        vnp_Params.put("vnp_Command", vnp_Command);
-        vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
-        vnp_Params.put("vnp_Amount", String.valueOf(amount));
-        vnp_Params.put("vnp_CurrCode", "VND");
-        vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
-        vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + vnp_TxnRef);
-        vnp_Params.put("vnp_OrderType", orderType);
-        vnp_Params.put("vnp_Locale", "vn");
-
-        vnp_Params.put("vnp_ReturnUrl", VNPayConfig.vnp_ReturnUrl); // set trang tra ve sau khi thanh toan
-        vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
-
-        Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
-        String vnp_CreateDate = formatter.format(cld.getTime());
-        vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
-
-        cld.add(Calendar.MINUTE, 15);
-        String vnp_ExpireDate = formatter.format(cld.getTime());
-        vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
-
-        List fieldNames = new ArrayList(vnp_Params.keySet());
-        Collections.sort(fieldNames);
-        StringBuilder hashData = new StringBuilder();
-        StringBuilder query = new StringBuilder();
-        Iterator itr = fieldNames.iterator();
-        while (itr.hasNext()) {
-            String fieldName = (String) itr.next();
-            String fieldValue = (String) vnp_Params.get(fieldName);
-            if ((fieldValue != null) && (fieldValue.length() > 0)) {
-                //Build hash data
-                hashData.append(fieldName);
-                hashData.append('=');
-                hashData.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
-                //Build query
-                query.append(URLEncoder.encode(fieldName, StandardCharsets.US_ASCII.toString()));
-                query.append('=');
-                query.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
-                if (itr.hasNext()) {
-                    query.append('&');
-                    hashData.append('&');
-                }
-            }
-        }
-        String queryUrl = query.toString();
-        String vnp_SecureHash = VNPayConfig.hmacSHA512(VNPayConfig.secretKey, hashData.toString());
-        queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
-        String paymentUrl = VNPayConfig.vnp_PayUrl + "?" + queryUrl;
-
+        String paymentUrl = paymentVnpayService.createPayMent(request,billDTO);
         return "redirect:"+paymentUrl;
     }
 
@@ -148,9 +88,7 @@ public class PaymentVNPayController {
                 BillDTO billDTO = (BillDTO) session.getAttribute("bill");
                 List<ProductDTO> productDTOList = productService.findAllByActive(true);
                 String txt = "";
-                CartDTO cartDTO = CartUtils.getCartByCookieAndDeleteCookie(request.getCookies(), productDTOList,txt,response);
-                billDTO.setCartItemDTOS(CartUtils.getCartItemByAuthentication(cartDTO,userDTO));
-                billDTO.setStatus(SystemConstant.PAYMENT_SUCCESS);
+
                 if(authentication != null){
                     userDTO = userService.getCurrentLoggedInCustomer(authentication);
                     billDTO.setUsername(userDTO.getUserName());
@@ -158,7 +96,11 @@ public class PaymentVNPayController {
                 else {
                     billDTO.setUsername(null);
                 }
-
+                // dat duoi username
+                CartDTO cartDTO = CartUtils.getCartByCookieAndDeleteCookie(request.getCookies(), productDTOList,txt,response);
+                billDTO.setCartItemDTOS(CartUtils.getCartItemByAuthentication(cartDTO,userDTO));
+                //
+                billDTO.setStatus(SystemConstant.PAYMENT_SUCCESS);
                 billService.save(billDTO);
                 sendEmail(billDTO.getEmail(),billDTO.getCartItemDTOS(),billDTO);
                 CartUtils.DeleteCartItemByAuthentication(userDTO,cartDTO,txt,response);
@@ -177,57 +119,7 @@ public class PaymentVNPayController {
         return "redirect:/cart";
     }
 
-    @PostMapping("/vnpay/ipn")
-    public String handleIpn(HttpServletRequest request) {
-        try {
-            Map<String, String> fields = new HashMap<>();
-            for (Enumeration<String> params = request.getParameterNames(); params.hasMoreElements();) {
-                String fieldName = URLEncoder.encode(params.nextElement(), StandardCharsets.US_ASCII.toString());
-                String fieldValue = URLEncoder.encode(request.getParameter(fieldName), StandardCharsets.US_ASCII.toString());
-                if (fieldValue != null && fieldValue.length() > 0) {
-                    fields.put(fieldName, fieldValue);
-                }
-            }
 
-            String vnp_SecureHash = request.getParameter("vnp_SecureHash");
-            fields.remove("vnp_SecureHashType");
-            fields.remove("vnp_SecureHash");
-
-            // Check checksum
-            String signValue = VNPayConfig.hashAllFields(fields);
-            if (signValue.equals(vnp_SecureHash)) {
-                boolean checkOrderId = true; // Kiểm tra mã giao dịch tồn tại trong cơ sở dữ liệu
-                boolean checkAmount = true; // Kiểm tra số tiền
-                boolean checkOrderStatus = true; // Kiểm tra trạng thái đơn hàng
-
-                if (checkOrderId) {
-                    if (checkAmount) {
-                        if (checkOrderStatus) {
-                            if ("00".equals(request.getParameter("vnp_ResponseCode"))) {
-                                // Cập nhật trạng thái thanh toán thành công vào cơ sở dữ liệu
-                                // yourDatabaseService.updatePaymentStatus(...);
-                                return "{\"RspCode\":\"00\",\"Message\":\"Confirm Success\"}";
-                            } else {
-                                // Cập nhật trạng thái thanh toán thất bại vào cơ sở dữ liệu
-                                // yourDatabaseService.updatePaymentStatus(...);
-                                return "{\"RspCode\":\"02\",\"Message\":\"Payment Failed\"}";
-                            }
-                        } else {
-                            return "{\"RspCode\":\"02\",\"Message\":\"Order already confirmed\"}";
-                        }
-                    } else {
-                        return "{\"RspCode\":\"04\",\"Message\":\"Invalid Amount\"}";
-                    }
-                } else {
-                    return "{\"RspCode\":\"01\",\"Message\":\"Order not Found\"}";
-                }
-            } else {
-                return "{\"RspCode\":\"97\",\"Message\":\"Invalid Checksum\"}";
-            }
-        } catch (Exception e) {
-            return "{\"RspCode\":\"99\",\"Message\":\"Unknown error\"}";
-        }
-    }
 
     public void sendEmail(String email , List<CartItemDTO> cartItemDTOS, BillDTO billDTO) throws MessagingException, UnsupportedEncodingException {
         // Tạo đối tượng MimeMessage

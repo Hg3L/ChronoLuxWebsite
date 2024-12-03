@@ -114,8 +114,6 @@ public class PaymentServices {
         payerInfo.setFirstName("DUC")
                 .setLastName("HUY")
                 .setEmail("damduc.huy@company.com");
-
-
         payer.setPayerInfo(payerInfo);
         return payer;
     }

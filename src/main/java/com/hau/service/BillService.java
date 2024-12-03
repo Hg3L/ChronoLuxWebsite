@@ -15,4 +15,5 @@ public interface BillService {
     Page<BillDTO> getPaidBills(int page, int limit);
     Double getTotalOfSuccessfulBillsInMonth(int month, int year);
     BillDTO findByIdWithDetail(Long id);
+
 }
