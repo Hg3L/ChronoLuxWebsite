@@ -399,8 +399,8 @@
                 var sortBy = "${model.sortBy}";
                 var sortName = "${model.sortName}";
                 var keyword = "${model.keyword}";
-                var filter = "${model.filter}"
-                var gender = "${model.gender}"
+                var filter = "${model.filter}";
+                var gender = "${model.gender}";
                 var totalPages = ${ model.totalPage } === 0 ? 1 : ${ model.totalPage };
 
                 $('#pagination').twbsPagination({
@@ -408,7 +408,7 @@
                     visiblePages: 10,
                     startPage: currentPage,
                     onPageClick: function (event, page) {
-                        if (currentPage != page) {
+                        if (currentPage !== page) {
                             $('#limit').val(limit);
                             $('#page').val(page);
                             if (sortBy && sortName) {
@@ -424,7 +424,6 @@
                             if (gender) {
                                 $('#gender').val(gender);
                             }
-
 
                             $('#formSubmit').submit();
                         }

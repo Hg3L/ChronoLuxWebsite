@@ -1,5 +1,6 @@
 package com.hau.controller.web;
 
+import com.hau.config.MailConfig;
 import com.hau.constant.SystemConstant;
 import com.hau.dto.*;
 import com.hau.service.*;
@@ -12,6 +13,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,19 +31,18 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class AuthorizePayment {
-    @Autowired
-    private CartItemService cartItemService;
+
     @Autowired
     private UserService userService;
     @Autowired
     private BillService billService;
     @Autowired
     private ProductService productService;
-    @Autowired
-    private VoucherService voucherService;
+
     @Autowired
     private JavaMailSender mailSender;
     @Autowired
@@ -87,60 +88,23 @@ public class AuthorizePayment {
 
         try{
             UserDTO userDTO = null;
+            userDTO = userService.getCurrentLoggedInCustomer(authentication);
             List<ProductDTO> productDTOList = productService.findAllByActive(true);
             String txt = "";
-            CartDTO cartDTO = CartUtils.getCartByCookieAndDeleteCookie(request.getCookies(), productDTOList,txt,response);
+            CartDTO cartDTO = CartUtils.getCartByCookie(request.getCookies(), productDTOList);
 
-            if(authentication != null){
-                userDTO = userService.getCurrentLoggedInCustomer(authentication);
-            }
 
-            ////
             PaymentServices paymentServices = new PaymentServices();
-            Payment payment =     paymentServices.executePayment(paymentId,payerId);;
+            Payment payment = paymentServices.executePayment(paymentId,payerId);;
             PayerInfo payerInfo = payment.getPayer().getPayerInfo();
             Transaction transaction = payment.getTransactions().getFirst();
             ShippingAddress shippingAddress = transaction.getItemList().getShippingAddress();
             Amount amount = transaction.getAmount();
 
-            BillDTO billDTO = new BillDTO();
-            billDTO.setStreet(shippingAddress.getLine1());
-            billDTO.setWard(shippingAddress.getCity());
-            billDTO.setDistrict(shippingAddress.getState());
-            billDTO.setCity(shippingAddress.getCountryCode());
-            billDTO.setEmail(payerInfo.getEmail());
-            billDTO.setStatus(SystemConstant.PAYMENT_SUCCESS);
-            billDTO.setPhone(payerInfo.getPhone());
-            billDTO.setDisplayName(payerInfo.getLastName() +" "+ payerInfo.getFirstName());
-            if(authentication != null){
-                userDTO = userService.getCurrentLoggedInCustomer(authentication);
-                billDTO.setUsername(userDTO.getUserName());
-            }
-            else {
-                billDTO.setUsername(null);
-            }
-
-            double subtotal =  Double.parseDouble(amount.getDetails().getSubtotal()) * 24000;
-            double total = Double.parseDouble(amount.getTotal()) * 24000;
-
-
-            billDTO.setSubtotal(subtotal);
-            List<CartItemDTO> cartItemDTOS = new ArrayList<>();
-            for(Item item : transaction.getItemList().getItems()){
-               CartItemDTO cartItemDTO = new CartItemDTO();
-               cartItemDTO.setQuantity ( Integer.parseInt(item.getQuantity()));
-               if(userDTO != null) {
-                   cartItemDTO.setUsername(userDTO.getUserName());
-               }
-               cartItemDTO.setProductName(item.getName());
-               cartItemDTOS.add(cartItemDTO);
-            }
-            billDTO.setPaymentMethod(SystemConstant.PAYMENT_METHOD_PAYPAL);
-            billDTO.setTotal(total);
-            billDTO.setCartItemDTOS(cartItemDTOS);
+            BillDTO billDTO = BillConverter(shippingAddress,payerInfo,amount,transaction,userDTO);
 
             billService.save(billDTO);
-            sendEmail(billDTO.getEmail(),CartUtils.getCartItemByAuthentication(cartDTO,userDTO),billDTO);
+            MailConfig.sendEmail(billDTO.getEmail(),CartUtils.getCartItemByAuthentication(cartDTO,userDTO),billDTO,mailSender,currencyFormat);
             CartUtils.DeleteCartItemByAuthentication(userDTO,cartDTO,txt,response);
             mav = new ModelAndView("redirect:/checkout/success");
 
@@ -152,68 +116,44 @@ public class AuthorizePayment {
 
         return mav;
     }
-    public void sendEmail(String email , List<CartItemDTO> cartItemDTOS,BillDTO billDTO) throws MessagingException, UnsupportedEncodingException {
-        // Tạo đối tượng MimeMessage
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
-// Thiết lập thông tin người gửi và người nhận
-        helper.setFrom("contact@chronolux.com", "ChronoLux Support");
-        helper.setTo(email);
-        helper.setSubject("Chúc mừng bạn đã đặt hàng thành công!");
+    private BillDTO BillConverter(ShippingAddress shippingAddress, PayerInfo payerInfo , Amount amount , Transaction transaction,  UserDTO userDTO){
+        ////
+
+        BillDTO billDTO = new BillDTO();
+        billDTO.setStreet(shippingAddress.getLine1());
+        billDTO.setWard(shippingAddress.getCity());
+        billDTO.setDistrict(shippingAddress.getState());
+        billDTO.setCity(shippingAddress.getCountryCode());
+        billDTO.setEmail(payerInfo.getEmail());
+        billDTO.setStatus(SystemConstant.PAYMENT_SUCCESS);
+        billDTO.setPhone(payerInfo.getPhone());
+        billDTO.setDisplayName(payerInfo.getLastName() +" "+ payerInfo.getFirstName());
 
 
-// Nội dung email với CSS để thiết kế các ô sản phẩm và tổng cộng
-        StringBuilder content = new StringBuilder("<p style='font-family: Arial, sans-serif; color: #333; margin: 20px; font-size: 28px;'><strong>Thông tin đơn hàng:</strong></p>");
+        billDTO.setUsername(Optional.ofNullable(userDTO)
+                .map(UserDTO::getUserName)
+                .orElse(null));
 
-// Sử dụng vòng lặp để thêm từng sản phẩm vào nội dung email
-        String productIndex1 = "1";
-        for (CartItemDTO product : cartItemDTOS) {
-            String productName = product.getProductName();
-            String productDescription = product.getProductType();
-            double productPrice =  Double.parseDouble(product.getProductPrice()) ;
-            int productQuantity = Integer.parseInt(product.getQuantity()) ;
-            String imageUrl = product.getProductImgUrl();
+        double subtotal =  Double.parseDouble(amount.getDetails().getSubtotal()) * 24000;
+        double total = Double.parseDouble(amount.getTotal()) * 24000;
 
-            content.append("<div style='border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin: 10px 0; display: flex; align-items: flex-start;'>")
-                    .append("<img src='cid:productImage").append(productIndex1).append("' alt='Product Image' style='width: 80px; height: 100px; border: 1px solid #ccc; border-radius: 5px; margin-right: 10px;'/>")
-                    .append("<div style='flex-grow: 1;'>")
-                    .append("<h1 style='color: #007BFF; font-size: 18px; margin: 0;'>").append(productName).append("</h1>")
-                    .append("<p style='margin: 5px 0;'><strong>Loại máy:</strong> ").append(productDescription).append("</p>")
-                    .append("<p style='margin: 5px 0;'><strong>Giá:</strong> ").append(currencyFormat.formatCurrency(productPrice) ).append("</p>")
-                    .append("<p style='margin: 5px 0;'><strong>Số lượng:</strong> ").append(productQuantity).append("</p>")
-                    .append("</div></div>");
-            productIndex1 = String.valueOf (Integer.parseInt(productIndex1) +1);
+
+        billDTO.setSubtotal(subtotal);
+        List<CartItemDTO> cartItemDTOS = new ArrayList<>();
+        for(Item item : transaction.getItemList().getItems()){
+            CartItemDTO cartItemDTO = new CartItemDTO();
+            cartItemDTO.setQuantity ( Integer.parseInt(item.getQuantity()));
+            if(userDTO != null) {
+                cartItemDTO.setUsername(userDTO.getUserName());
+            }
+            cartItemDTO.setProductName(item.getName());
+            cartItemDTOS.add(cartItemDTO);
         }
-
-// Phần tổng cộng
-        // Thông tin khách hàng
-        content.append("<div style='text-align: right; margin-top: 20px;'>")
-                .append("<p style='font-weight: bold; font-size: 16px;'>Tổng giá trị sản phẩm: ").append(currencyFormat.formatCurrency(billDTO.getSubtotal()) ).append("</p>")
-                .append("<p style='font-weight: bold; font-size: 16px;'>Khuyến mãi: ").append(currencyFormat.formatCurrency(billDTO.getDiscount()) ).append("</p>")
-                .append("<p style='font-weight: bold; font-size: 16px;'>Tổng cộng: ").append(currencyFormat.formatCurrency(billDTO.getTotal()) ).append("</p>")
-                .append("</div>")
-
-// Thông tin khách hàng
-                .append("<div style='border-top: 1px solid #ccc; padding-top: 10px; margin-top: 20px;'>")
-                .append("<h2 style='font-family: Arial, sans-serif; color: #333; font-size: 16px;'>Thông tin khách hàng</h2>")
-                .append("<p><strong>Họ và tên:</strong> ").append(billDTO.getDisplayName()).append("</p>")
-                .append("<p><strong>Email:</strong> ").append(billDTO.getEmail()).append("</p>")
-                .append("<p><strong>Số điện thoại:</strong> ").append(billDTO.getPhone()).append("</p>")
-                .append("<p><strong>Địa chỉ:</strong> ").append(billDTO.getStreet()).append("-").append(billDTO.getWard()).append("-").append(billDTO.getDistrict()).append("-").append(billDTO.getCity()).append("</p>")
-                .append("</div>");
-
-
-// Thiết lập nội dung email
-        helper.setText(content.toString(), true);
-        String productIndex2 = "1";
-        for(CartItemDTO product : cartItemDTOS){
-            FileSystemResource image = new FileSystemResource(new File("./template/web/img/products/" + product.getProductImgUrl()));
-            helper.addInline("productImage" + productIndex2, image, "image/webp");
-            productIndex2 = String.valueOf (Integer.parseInt(productIndex2) +1);
-        }
-
-// Gửi email
-        mailSender.send(message);
+        billDTO.setPaymentMethod(SystemConstant.PAYMENT_METHOD_PAYPAL);
+        billDTO.setTotal(total);
+        billDTO.setCartItemDTOS(cartItemDTOS);
+        return  billDTO;
     }
+
 }

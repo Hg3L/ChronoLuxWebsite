@@ -384,13 +384,13 @@
                                     <hr class="mt-0">
                                     <div class="d-flex justify-content-between mb-3 pt-1">
                                         <h6 class="font-weight-medium" style="font-family: Arial">Tổng Giá Trị</h6>
-                                        <h6 id ="price" class="font-weight-medium">${subtotal}</h6>
+                                        <h6  class="font-weight-medium">${subtotal}</h6>
                                         <input type="hidden" name="subtotal" value="${subtotal}">
                                     </div>
                                     <c:if test="${not empty voucher}">
                                         <div class="d-flex justify-content-between">
                                             <h6 class="font-weight-medium" style="font-family: Arial">Giảm Giá</h6>
-                                            <h6 id ="price" class="font-weight-medium">-${voucher.discount}</h6>
+                                            <h6  class="font-weight-medium">-${voucher.discount}</h6>
                                             <input type="hidden" name="voucherCode" value="${voucher.code}">
                                              <input type="hidden" name="discount" value="${voucher.discount}">
                                         </div>
@@ -399,7 +399,7 @@
                                 <div class="card-footer border-secondary bg-transparent">
                                     <div class="d-flex justify-content-between mt-2">
                                         <h5 class="font-weight-bold" style="font-family: Arial">Thành Tiền</h5>
-                                        <h5 id ="price" class="font-weight-bold" style="color: green">${totalPrice}</h5>
+                                        <h5  class="font-weight-bold" style="color: green">${totalPrice}</h5>
                                         <input type="hidden" name="total" value="${totalPrice}">
                                     </div>
                                 </div>

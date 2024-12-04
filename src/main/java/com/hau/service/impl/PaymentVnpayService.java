@@ -83,4 +83,19 @@ public class PaymentVnpayService {
         String paymentUrl = VNPayConfig.vnp_PayUrl + "?" + queryUrl;
         return paymentUrl;
     }
+    public String getSignValue(HttpServletRequest request) throws UnsupportedEncodingException {
+        Map<String, String> fields = new HashMap<>();
+        for (Enumeration<String> params = request.getParameterNames(); params.hasMoreElements();) {
+            String fieldName = URLEncoder.encode(params.nextElement(), StandardCharsets.US_ASCII.toString());
+            String fieldValue = URLEncoder.encode(request.getParameter(fieldName), StandardCharsets.US_ASCII.toString());
+            if (fieldValue != null && fieldValue.length() > 0) {
+                fields.put(fieldName, fieldValue);
+            }
+        }
+
+
+        fields.remove("vnp_SecureHashType");
+        fields.remove("vnp_SecureHash");
+        return VNPayConfig.hashAllFields(fields);
+    }
 }
