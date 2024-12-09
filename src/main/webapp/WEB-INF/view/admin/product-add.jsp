@@ -258,28 +258,52 @@
         }
     }
 
-    function validateForm() {
-        var stockInput = document.getElementById("stock");
-        var resInput = document.getElementById("waterResistant");
-        var thickInput = document.getElementById("thickness");
-        // Kiểm tra số lượng tồn kho
-        var stockValue = stockInput.value;
-        var resValue = resInput.value;
-        var thickValue = thickInput.value;
+function validateForm() {
+    var stockInput = document.getElementById("stock");
+    var resInput = document.getElementById("waterResistant");
+    var thickInput = document.getElementById("thickness");
 
-        if ((!/^\d+$/.test(stockValue) || parseInt(stockValue) < 0)
-        || (!/^\d+$/.test(resValue) || parseInt(resValue) < 0)
-            || (!/^\d+$/.test(stockValue) || parseInt(resValue) < 0)) {
-            stockInput.classList.add("is-invalid");
-            document.getElementById("stock-error").style.display = "block";
-            return false;
-        } else {
-            stockInput.classList.remove("is-invalid");
-            document.getElementById("stock-error").style.display = "none";
-        }
-        return true; // Form hợp lệ
+    var stockValue = stockInput.value;
+    var resValue = resInput.value;
+    var thickValue = thickInput.value;
+
+    var isValid = true;
+
+    // Kiểm tra số lượng tồn kho
+    if (!/^\d+$/.test(stockValue) || parseInt(stockValue) < 0) {
+        stockInput.classList.add("is-invalid");
+        document.getElementById("stock-error").style.display = "block";
+        isValid = false;
+    } else {
+        stockInput.classList.remove("is-invalid");
+        document.getElementById("stock-error").style.display = "none";
     }
-    document.querySelector("form").onsubmit = validateForm;
+
+    // Kiểm tra chỉ số chống nước
+    if (!/^\d+$/.test(resValue) || parseInt(resValue) < 0) {
+        resInput.classList.add("is-invalid");
+        document.getElementById("res-error").style.display = "block";
+        isValid = false;
+    } else {
+        resInput.classList.remove("is-invalid");
+        document.getElementById("res-error").style.display = "none";
+    }
+
+    // Kiểm tra độ dày
+    if (!/^\d+$/.test(thickValue) || parseInt(thickValue) < 0) {
+        thickInput.classList.add("is-invalid");
+        document.getElementById("thickness-error").style.display = "block";
+        isValid = false;
+    } else {
+        thickInput.classList.remove("is-invalid");
+        document.getElementById("thickness-error").style.display = "none";
+    }
+
+    return isValid;
+}
+
+// Đính kèm sự kiện onsubmit
+document.querySelector("form").onsubmit = validateForm;
 </script>
 
 <!-- Validate product line -->
