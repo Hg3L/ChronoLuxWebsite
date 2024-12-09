@@ -22,18 +22,67 @@
             <link href=" <c:url value='/template/web/cssviewprofile/style.css'/>" rel="stylesheet">
             <link href=" <c:url value='/template/web/css/style.css'/>" rel="stylesheet">
             <%----------------------------%>
+            <style>
+                /* Tùy chỉnh container */
+                .custom-file-container {
+                    position: relative;
+                    display: inline-block;
+                    font-family: Arial, sans-serif;
+                }
+
+                /* Ẩn input file gốc */
+                input[type="file"] {
+                    display: none;
+                }
+
+                /* Tùy chỉnh nhãn (label) cho input file */
+                .upload-label {
+                    display: inline-block;
+                    padding: 10px 90px;
+                    margin-left: 5px;
+                    background-color: #E5BE52;
+                    color: white;
+                    font-size: 14px;
+                    font-weight: bold;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    transition: background-color 0.3s ease;
+                }
+
+                /* Hiệu ứng hover */
+                .upload-label:hover {
+                    background-color: #C7972A;
+                }
+
+                /* Hiệu ứng focus (khi chọn bằng bàn phím) */
+                .upload-label:focus {
+                    outline: 2px solid #0056b3;
+                    outline-offset: 2px;
+                }
+
+            </style>
         </head>
 
         <body>
             <div class="container rounded bg-white mt-5 mb-5">
+                <form method="post" action="<c:url value='/user-profile'/>" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-3 border-right">
                         <c:if test="${user.password != null}">
-                            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img
-                                    class="rounded-circle mt-5" style="max-width: 150px; max-height: 150px; width: fit-content; height: fit-content;"
-                                    src="<c:url value='/template/web/img/user-logos/${user.imgUrl}'/>"><span
+                            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                                <img class="rounded-circle mt-5" style="max-width: 150px; max-height: 150px; width: fit-content; height: fit-content;"
+                                     id = "img_display"
+                                     src="<c:url value='/template/web/img/user-logos/${user.imgUrl}'/>"><span
                                     class="font-weight-bold">${user.getFullName()}</span><span
                                     class="text-black-50">${user.getEmail()}</span><span> </span></div>
+                            <div>
+                                <div class="custom-file-container">
+                                    <label for="img_chosen" class="upload-label">Chọn tệp</label>
+                                    <input type="file" name="img" id="img_chosen" accept="image/*" onchange="displayImg(this)">
+                                </div>
+
+                            </div>
                         </c:if>
                         <c:if test="${user.password == null}">
                             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img
@@ -48,15 +97,18 @@
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h4 class="text-right">Thông Tin Tài Khoản</h4>
                             </div>
-                            <form method="post" action="<c:url value='/user-profile'/>">
+
                                 <div class="row mt-2">
                                     <c:if test="${user.password != null}">
                                         <input type="hidden" name="id" class="form-control" value="${user.id}">
                                     </c:if>
 
                                     <div class="col-md-6"><label class="labels">Họ Và Tên</label><input type="text"
-                                            name="firstName" class="form-control" placeholder="first name"
-                                            value="${user.getFirstName()}" required></div>
+                                            name="surName" class="form-control" placeholder="Tên đệm"
+                                            value="${user.getSurName()}" required></div>
+                                    <div class="col-md-6"><label class="labels">Họ Và Tên</label><input type="text"
+                                                                                                        name="firstName" class="form-control" placeholder="Tên"
+                                                                                                        value="${user.getFirstName()}" required></div>
                                 </div>
                                 <div class="row mt-2">
                                 <security:authorize access="hasRole('ROLE_USER')">
@@ -69,6 +121,11 @@
                                             name="email" class="form-control" placeholder="enter your email"
                                             value="${user.getEmail()}" required></div>
                                 </div>
+
+                                    <input type="hidden" name="password" class="form-control"
+
+                                           value="${user.getPassword()}" required>
+
                                 <c:if test="${param.success != null}">
                                     <div class="alert alert-success " role="alert" style="text-align: center;">
                                         Cập Nhập Thành Công!
@@ -84,15 +141,34 @@
                                             type="submit">Lưu Thông Tin</button></div>
                                 </c:if>
                                  <input type="hidden" name="imgUrl" class="form-control" value="${user.imgUrl}">
-                            </form>
+
                         </div>
                     </div>
-
                 </div>
+                </form>
             </div>
             </div>
             </div>
+<script>
+    function displayImg(fileInput) {
+        const file = fileInput.files[0];
+        const imgPreview = $('#img_display');
+        const imgChosen = $('#img_chosen');
 
+        if(file){
+            const reader = new FileReader();
+            reader.onload = function (e){
+                imgPreview.attr('src',e.target.result);
+                imgPreview.css('display','block');
+            }
+            reader.readAsDataURL(file);
+        }
+        else{
+            imgPreview.css('display','none');
+        }
+
+    }
+</script>
         </body>
 
         </html>

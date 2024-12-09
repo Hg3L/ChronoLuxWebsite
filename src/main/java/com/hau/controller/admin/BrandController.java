@@ -21,7 +21,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
 
 
 @Controller(value = "ControllerOfBrandWeb")
@@ -58,6 +63,7 @@ public class BrandController {
         model.addAttribute("model",product);
         model.addAttribute("productLine",productLine);
         return "web/brand";
+
     }
 
     @GetMapping("/admin/brands")

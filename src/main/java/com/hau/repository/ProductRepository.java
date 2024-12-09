@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.TreeSet;
 
 public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
-    List<ProductEntity> findTop8ByActiveOrderByIdDesc(Boolean active);
+    List<ProductEntity> findTop8ByActiveOrderByIdDesc(boolean active);
     @Query(value = "SELECT p FROM ProductEntity p " +
             "JOIN p.cartItems ci " +
             "WHERE p.active = true " +
@@ -23,7 +23,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
     ProductEntity findByIdAndActive(long id,boolean active);
     List<ProductEntity> findAllByActive(boolean active);
 
-    ProductEntity findOneByNameAndActive(String name,Integer active);
+    ProductEntity findOneByNameAndActive(String name, boolean active);
 
     @Query("SELECT COUNT(p) FROM ProductEntity p WHERE " +
             "(:gender IS NULL OR p.gender LIKE :gender) " +
