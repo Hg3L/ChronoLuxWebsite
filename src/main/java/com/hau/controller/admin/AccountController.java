@@ -57,7 +57,6 @@ public class AccountController {
     @PostMapping("/admin/account/save")
     public String saveAdminAccounts(@ModelAttribute("account") UserDTO account,
                                     @RequestParam("img")MultipartFile img,
-                                    @RequestParam("page") int currentPage,
                                     HttpServletRequest request,
                                     RedirectAttributes redirectAttributes) throws Exception {
         request.setCharacterEncoding("UTF-8");
@@ -80,7 +79,7 @@ public class AccountController {
         }
         userService.save(account, "admin");
         redirectAttributes.addFlashAttribute("successMessage", "Cấp tài khoản Admin thành công");
-        return "redirect:/admin/accounts?adminPage=" + currentPage;
+        return "redirect:/admin/accounts";
     }
 
     @PostMapping("/admin/account/update")
