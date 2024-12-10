@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Map;
+
 @Controller
 public class ShopController {
     @Autowired
@@ -31,14 +33,19 @@ public class ShopController {
         ProductDTO product = new ProductDTO();
         BrandDTO brand = new BrandDTO();
 
-        FilterCriteria.applyFiltersAndSorting(product,page,limit,sortName,sortBy,keyword,filter,model);
-        Pageable pageable = PageableUtil.getInstance(page,limit,sortName,sortBy);
+        Map<String,String> priceFilter = FilterCriteria.applyFiltersAndSorting(product,page,limit,sortName,sortBy,keyword,filter);
+            Pageable pageable = PageableUtil.getInstance(page,limit,sortName,sortBy);
 
         product.setTotalItem((int)productService.getTotalItem(keyword,filter));
-        product.setTotalPage((int) Math.ceil((double) product.getTotalItem() / product.getLimit()));
+        int totalPage = (int) Math.ceil((double) product.getTotalItem() / product.getLimit());
+        product.setTotalPage((totalPage==0) ? 1 : totalPage);
 
         brand.setListResult(brandService.findAllByActive(true));
 
+        // Thêm filter vào model
+        model.addAttribute("filter", filter);
+        product.setFilter(filter);
+        model.addAttribute("priceFilters", priceFilter);
         model.addAttribute("brand",brand);
         model.addAttribute("products",productService.findAll(pageable,keyword,filter));
         model.addAttribute("model",product);

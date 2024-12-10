@@ -181,7 +181,7 @@
                               </c:when>
                               <c:otherwise>
                                   <!-- Nếu chưa chọn giá hoặc là bộ lọc giới tính thì cho phép chọn -->
-                                  <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=${model.page}&limit=${model.limit}&filter=${model.filter},${filterKey}'/>" style="border: 2px solid"
+                                  <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=1&limit=${model.limit}&filter=${model.filter},${filterKey}'/>" style="border: 2px solid"
                                      class="btn btn-outline-primary btn-sm rounded-pill mx-1">${filterValue}</a>
                               </c:otherwise>
                           </c:choose>
@@ -191,13 +191,13 @@
 
 
                    <c:otherwise>
-                       <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=${model.page}&limit=${model.limit}&filter=nam'/>" style="border: 2px solid" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Nam</a>
-                       <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=${model.page}&limit=${model.limit}&filter=nu'/>" style="border: 2px solid" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Nữ</a>
-                       <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=${model.page}&limit=${model.limit}&filter=duoi-1-trieu'/>" style="border: 2px solid" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Dưới 1 triệu</a>
-                       <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=${model.page}&limit=${model.limit}&filter=tu-1-3-trieu'/>" style="border: 2px solid" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 1 - 3 triệu</a>
-                       <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=${model.page}&limit=${model.limit}&filter=tu-3-6-trieu'/>" style="border: 2px solid" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 3 - 6 triệu</a>
-                       <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=${model.page}&limit=${model.limit}&filter=tu-6-9-trieu'/>" style="border: 2px solid" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 6 - 9 triệu</a>
-                       <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=${model.page}&limit=${model.limit}&filter=tren-9-trieu'/>" style="border: 2px solid" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Trên 9 triệu</a>
+                       <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=1&limit=${model.limit}&filter=nam'/>" style="border: 2px solid" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Nam</a>
+                       <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=1&limit=${model.limit}&filter=nu'/>" style="border: 2px solid" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Nữ</a>
+                       <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=1&limit=${model.limit}&filter=duoi-1-trieu'/>" style="border: 2px solid" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Dưới 1 triệu</a>
+                       <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=1&limit=${model.limit}&filter=tu-1-3-trieu'/>" style="border: 2px solid" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 1 - 3 triệu</a>
+                       <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=1&limit=${model.limit}&filter=tu-3-6-trieu'/>" style="border: 2px solid" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 3 - 6 triệu</a>
+                       <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=1&limit=${model.limit}&filter=tu-6-9-trieu'/>" style="border: 2px solid" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Từ 6 - 9 triệu</a>
+                       <a href="<c:url value='/shop/brand/product-line?idBrand=${idBrand}&id=${model.id}&page=1&limit=${model.limit}&filter=tren-9-trieu'/>" style="border: 2px solid" class="btn btn-outline-primary btn-sm rounded-pill mx-1">Trên 9 triệu</a>
                    </c:otherwise>
                </c:choose>
             </div>

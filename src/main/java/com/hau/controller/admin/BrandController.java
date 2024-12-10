@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 
@@ -51,13 +52,17 @@ public class BrandController {
                             @RequestParam(value = "filter",required = false) String filter){
         ProductDTO product = new ProductDTO();
         ProductLineDTO productLine = new ProductLineDTO();
-        FilterCriteria.applyFiltersAndSorting(product,page,limit,sortName,sortBy,keyword,filter,model);
+        Map<String,String> priceFilter = FilterCriteria.applyFiltersAndSorting(product,page,limit,sortName,sortBy,keyword,filter);
         product.setTotalItem((int)productService.getTotalItemByIdBrand(id,keyword,filter));
         product.setTotalPage((int) Math.ceil((double) product.getTotalItem() / product.getLimit()));
         product.setId(id);
 
         Pageable pageable = PageableUtil.getInstance(page,limit,sortName,sortBy);
         productLine.setListResult(productLineService.findAllByBrandIdAndActive(id,true));
+        // Thêm filter vào model
+        model.addAttribute("filter", filter);
+        product.setFilter(filter);
+        model.addAttribute("priceFilters", priceFilter);
         model.addAttribute("brand",brandService.getBrandById(id,true));
         model.addAttribute("products",productService.findAllByIdBrand(pageable,id,keyword,filter));
         model.addAttribute("model",product);

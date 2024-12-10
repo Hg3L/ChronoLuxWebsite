@@ -97,7 +97,7 @@ public class MailConfig {
         helper.setText(content.toString(), true);
         String productIndex2 = "1";
         for(CartItemDTO product : cartItemDTOS){
-            FileSystemResource image = new FileSystemResource(new File("/template/web/img/products/"+product.getProductImgUrl() ));
+            FileSystemResource image = new FileSystemResource(new File("./template/web/img/products/"+product.getProductImgUrl() ));
             helper.addInline("productImage" + productIndex2, image, "image/webp");
             productIndex2 = String.valueOf (Integer.parseInt(productIndex2) +1);
         }
