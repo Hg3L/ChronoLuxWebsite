@@ -113,7 +113,6 @@ public class CheckoutController {
             Transaction transaction = payment.getTransactions().getFirst();
             ShippingAddress shippingAddress = transaction.getItemList().getShippingAddress();
 
-
             mav = new ModelAndView("web/checkout-review");
             mav.addObject("paymentId",paymentId);
             mav.addObject("payerId",payerId);

@@ -41,6 +41,7 @@ public class LoginController {
         try {
             String token = UserGoogleUtil.getToken(code);
             UserGoogleDto userGoogleDto = UserGoogleUtil.toUser(token).getUserGoogleDto();
+            System.out.println(userGoogleDto);
             UserDTO user =  userService.findOneByEmailAndRoleCode(userGoogleDto.getEmail(),"ROLE_USER_GOOGLE");
 
             if(user == null){
