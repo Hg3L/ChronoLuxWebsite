@@ -188,7 +188,7 @@
                                 </c:when>
                                 <c:otherwise>
                                     <!-- Nếu chưa chọn giá hoặc là bộ lọc giới tính thì cho phép chọn -->
-                                    <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=${model.filter},${filterKey}'/>"
+                                    <a href="<c:url value='/shop?page=1&limit=${model.limit}&filter=${model.filter},${filterKey}'/>"
                                         class="btn btn-outline-primary btn-sm rounded-pill mx-1"
                                         style="border: 2px solid">${filterValue}</a>
                                 </c:otherwise>
@@ -199,23 +199,23 @@
 
 
                     <c:otherwise>
-                        <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=nam'/>"
+                        <a href="<c:url value='/shop?page=1&limit=${model.limit}&filter=nam'/>"
                             class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">Nam</a>
-                        <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=nu'/>"
+                        <a href="<c:url value='/shop?page=1&limit=${model.limit}&filter=nu'/>"
                             class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">Nữ</a>
-                        <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=duoi-1-trieu'/>"
+                        <a href="<c:url value='/shop?page=1&limit=${model.limit}&filter=duoi-1-trieu'/>"
                             class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">Dưới 1
                             triệu</a>
-                        <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tu-1-3-trieu'/>"
+                        <a href="<c:url value='/shop?page=1&limit=${model.limit}&filter=tu-1-3-trieu'/>"
                             class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">Từ 1 - 3
                             triệu</a>
-                        <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tu-3-6-trieu'/>"
+                        <a href="<c:url value='/shop?page=1&limit=${model.limit}&filter=tu-3-6-trieu'/>"
                             class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">Từ 3 - 6
                             triệu</a>
-                        <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tu-6-9-trieu'/>"
+                        <a href="<c:url value='/shop?page=1&limit=${model.limit}&filter=tu-6-9-trieu'/>"
                             class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">Từ 6 - 9
                             triệu</a>
-                        <a href="<c:url value='/shop?page=${model.page}&limit=${model.limit}&filter=tren-9-trieu'/>"
+                        <a href="<c:url value='/shop?page=1&limit=${model.limit}&filter=tren-9-trieu'/>"
                             class="btn btn-outline-primary btn-sm rounded-pill mx-1" style="border: 2px solid">Trên 9
                             triệu</a>
                     </c:otherwise>
@@ -401,7 +401,7 @@
                 var keyword = "${model.keyword}";
                 var filter = "${model.filter}";
                 var gender = "${model.gender}";
-                var totalPages = ${ model.totalPage } === 0 ? 1 : ${ model.totalPage };
+                let totalPages = ${model.totalPage};
 
                 $('#pagination').twbsPagination({
                     totalPages: totalPages,
@@ -431,7 +431,7 @@
                 });
 
 
-                $(document).ready(function () {
+
                     // Đoạn mã bạn muốn thực hiện khi tài liệu đã sẵn sàng
                     $("#clearAllFilter").click(function () {
                         // Xóa các giá trị bộ lọc
@@ -440,7 +440,7 @@
                         // Tải lại trang hoặc thực hiện hành động khác
                         window.location.href = "<c:url value='/shop?page=1&limit=8'/>"; // Hoặc bất kỳ URL nào
                     });
-                });
+
                 $("button[id^='btn-']").click(function () {
                     var filterToRemove = $(this).attr('id').replace('btn-', ''); // Lấy filter từ id
 
