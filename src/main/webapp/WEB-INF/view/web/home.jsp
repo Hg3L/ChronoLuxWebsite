@@ -461,7 +461,7 @@ function autoSlide() {
 showSlides(currentIndex);
 
 // Thiết lập tự động lướt slide mỗi 5 giây (5000ms)
-setInterval(autoSlide, 5000);
+setInterval(autoSlide, 3000);
 
 </script>
 

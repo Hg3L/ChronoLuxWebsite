@@ -7,6 +7,7 @@ public class SystemConstant {
     public static final String PAYMENT_PENDING = "Chờ thanh toán";
     public static final double EXCHANGE_RATE = 24000.0; // 1 USD = 24000 VND
     public static final String PAYMENT_METHOD_PAYPAL = "PayPal";
+    public static final String EMAIL_ADMIN = "doduc3161@gmail.com";
     public static String GOOGLE_CLIENT_ID = "236344479421-3djectr8kffvuu3ec4o7ceges5jv2jld.apps.googleusercontent.com";
 
     public static String GOOGLE_CLIENT_SECRET = "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";

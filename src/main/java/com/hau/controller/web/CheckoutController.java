@@ -95,9 +95,13 @@ public class CheckoutController {
         billDTO.setCartItemDTOS(CartUtils.getCartItemByAuthentication(cartDTO,userDTO));
         billDTO.setStatus(SystemConstant.PAYMENT_PENDING);
 
-        billService.save(billDTO);
+        BillDTO billDTO1 = billService.save(billDTO);
 
-        MailConfig.sendEmail(billDTO.getEmail(),billDTO.getCartItemDTOS(),billDTO,mailSender,currencyFormat);
+        var cartItemDTOS = CartUtils.getCartItemByAuthentication(cartDTO, userDTO);
+
+        MailConfig.sendEmailAsync(billDTO1.getEmail(),cartItemDTOS,billDTO1,mailSender,currencyFormat);
+        MailConfig.sendEmailToAdminAsync(SystemConstant.EMAIL_ADMIN,cartItemDTOS,billDTO1,mailSender,currencyFormat);
+
         CartUtils.DeleteCartItemByAuthentication(userDTO,cartDTO,txt,response);
         return "redirect:/checkout/success";
     }

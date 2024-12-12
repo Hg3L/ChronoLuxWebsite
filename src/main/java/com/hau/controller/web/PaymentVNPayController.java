@@ -77,8 +77,10 @@ public class PaymentVNPayController {
                 billDTO.setCartItemDTOS(CartUtils.getCartItemByAuthentication(cartDTO,userDTO));
                 //
                 billDTO.setStatus(SystemConstant.PAYMENT_SUCCESS);
-                billService.save(billDTO);
-                MailConfig.sendEmail(billDTO.getEmail(),billDTO.getCartItemDTOS(),billDTO,mailSender,currencyFormat);
+                BillDTO bill =  billService.save(billDTO);
+                List<CartItemDTO> cartItemDTOS = CartUtils.getCartItemByAuthentication(cartDTO, userDTO);
+                MailConfig.sendEmailAsync(bill.getEmail(),cartItemDTOS,bill,mailSender,currencyFormat);
+                MailConfig.sendEmailToAdminAsync(SystemConstant.EMAIL_ADMIN,cartItemDTOS,bill,mailSender,currencyFormat);
                 CartUtils.DeleteCartItemByAuthentication(userDTO,cartDTO,txt,response);
                 session.removeAttribute("bill");
                 return "redirect:/checkout/success";
