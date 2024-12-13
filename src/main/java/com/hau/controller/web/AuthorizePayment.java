@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -87,15 +88,17 @@ public class AuthorizePayment {
         ModelAndView mav = new ModelAndView();
 
         try{
-            UserDTO userDTO = null;
-            userDTO = userService.getCurrentLoggedInCustomer(authentication);
+            UserDTO userDTO =  userService.getCurrentLoggedInCustomer(authentication);
             List<ProductDTO> productDTOList = productService.findAllByActive(true);
             String txt = "";
             CartDTO cartDTO = CartUtils.getCartByCookie(request.getCookies(), productDTOList);
 
 
             PaymentServices paymentServices = new PaymentServices();
-            Payment payment = paymentServices.executePayment(paymentId,payerId);;
+
+            Payment payment = paymentServices.executePayment(paymentId,payerId);
+            if(Objects.isNull(payment)) throw new RuntimeException("Thanh toán không thành công");
+
             PayerInfo payerInfo = payment.getPayer().getPayerInfo();
             Transaction transaction = payment.getTransactions().getFirst();
             ShippingAddress shippingAddress = transaction.getItemList().getShippingAddress();
@@ -103,8 +106,11 @@ public class AuthorizePayment {
 
             BillDTO billDTO = BillConverter(shippingAddress,payerInfo,amount,transaction,userDTO);
 
-            billService.save(billDTO);
-            MailConfig.sendEmail(billDTO.getEmail(),CartUtils.getCartItemByAuthentication(cartDTO,userDTO),billDTO,mailSender,currencyFormat);
+            BillDTO bill =  billService.save(billDTO);
+            List<CartItemDTO> cartItemDTOS = CartUtils.getCartItemByAuthentication(cartDTO, userDTO);
+            MailConfig.sendEmailAsync(bill.getEmail(),cartItemDTOS,bill,mailSender,currencyFormat);
+            MailConfig.sendEmailToAdminAsync(SystemConstant.EMAIL_ADMIN,cartItemDTOS,bill,mailSender,currencyFormat);
+
             CartUtils.DeleteCartItemByAuthentication(userDTO,cartDTO,txt,response);
             mav = new ModelAndView("redirect:/checkout/success");
 

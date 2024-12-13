@@ -39,7 +39,7 @@ public class BillServiceImpl implements BillService {
     private CartItemConverter cartItemConverter;
     @Override
     @Transactional
-    public void save(BillDTO billDTO) {
+    public BillDTO save(BillDTO billDTO) {
         BillEntity billEntity = billConverter.convertToEntity(billDTO);
         if(billDTO.getUsername() != null){
             UserEntity user = userRepository.findOneByUserNameAndStatus(billDTO.getUsername(), SystemConstant.ACTIVE_STATUS);
@@ -71,6 +71,7 @@ public class BillServiceImpl implements BillService {
         for(CartItemEntity cartItemEntity : cartItemEntities){
             cartItemEntity.setBill(bill);
         }
+        return  billConverter.convertToDTO(billEntity);
     }
 
     @Override

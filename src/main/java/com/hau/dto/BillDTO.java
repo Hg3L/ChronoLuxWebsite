@@ -5,6 +5,7 @@ import com.hau.service.CurrencyFormat;
 import java.util.List;
 
 public class BillDTO extends AbstractDTO<BillDTO>{
+
     private String username;
     private String gender;
     private String email;
@@ -25,6 +26,7 @@ public class BillDTO extends AbstractDTO<BillDTO>{
     private String voucherCode;
     private String displayName;
     private String status;
+
 
     public String getPaymentMethod() {
         return paymentMethod;

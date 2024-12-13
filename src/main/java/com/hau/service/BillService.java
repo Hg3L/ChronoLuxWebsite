@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import java.math.BigDecimal;
 
 public interface BillService {
-    void save(BillDTO billDTO);
+    BillDTO save(BillDTO billDTO);
     void confirmPaidBill(Long id);
     int getTotalUnpaidBill();
     int getTotalPaidBill();

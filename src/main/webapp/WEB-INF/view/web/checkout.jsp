@@ -274,17 +274,17 @@
                                     <div class="row g-3 mb-3">
                                         <div class="col-md-6">
                                             <input type="text" name="displayName" value="${user.fullName}" class="form-control"
-                                                placeholder="Họ và Tên" required>
+                                                placeholder="Họ và Tên *" required>
                                         </div>
                                         <div class="col-md-6">
                                             <input type="text" name="phone" class="form-control"
-                                                placeholder="Số điện thoại" required>
+                                                placeholder="Số điện thoại *" required>
                                         </div>
                                     </div>
 
                                     <div class="mb-3">
                                         <input type="email" name="email" value="${user.email}" class="form-control"
-                                            placeholder="Email" required>
+                                            placeholder="Email *" required>
                                     </div>
 
                                     <p class="small text-muted mb-3">
@@ -296,23 +296,24 @@
                                     </p>
 
                                    <div class="form-group">
+
                                        <select class="form-control" id="city" name="city" required>
-                                           <option value="">Chọn Thành Phố</option>
+                                           <option value="">Chọn Thành Phố *</option>
                                            <!-- Các tùy chọn khác -->
                                        </select>
                                        <select class="form-control" id="district" name="district" required>
-                                           <option value="">Chọn Quận huyện</option>
+                                           <option value="">Chọn Quận huyện *</option>
                                            <!-- Các tùy chọn khác -->
                                        </select>
                                        <select class="form-control" id="ward" name="ward" required>
-                                           <option value="">Phường/Xã</option>
+                                           <option value="">Phường/Xã *</option>
                                            <!-- Các tùy chọn khác -->
                                        </select>
                                    </div>
 
                                     <div class="mb-3">
                                         <input type="text" class="form-control" name="street"
-                                            placeholder="Số nhà, tên đường..." required>
+                                            placeholder="Số nhà, tên đường...*" required>
                                     </div>
 
                                     <div class="mb-3">
@@ -345,11 +346,11 @@
                                         <div class="row g-3">
                                             <div class="col-md-6">
                                                 <input type="text" class="form-control" name="receiverName"
-                                                    placeholder="Họ và Tên người nhận">
+                                                    placeholder="Họ và Tên người nhận *">
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="text" name="receiverPhone" class="form-control"
-                                                    placeholder="Số điện thoại người nhận">
+                                                    placeholder="Số điện thoại người nhận * ">
                                             </div>
                                         </div>
                                     </div>
