@@ -149,7 +149,22 @@
                    .owl-next {
                        right: 10px; /* Vị trí nút tiếp theo */
                    }
+                 .rating {
+                            display: flex;
+                            flex-direction: row-reverse;
+                            font-size: 30px;
+                            cursor: pointer;
+                        }
 
+                        .rating i {
+                            color: #ccc;
+                            transition: color 0.2s;
+                        }
+
+                        .rating i.active,
+                        .rating i.hover {
+                            color: #FFD700; /* Màu vàng khi chọn */
+                        }
                 </style>
         </head>
 
@@ -258,6 +273,7 @@
                             <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Thông Số</a>
                             <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">Chính Sách Bảo Hành</a>
                             <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Hướng Dẫn Chọn Kích Cỡ</a>
+                            <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-4">Đánh giá</a>
                      
 
                         </div>
@@ -340,7 +356,53 @@
                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img alt="Chọn size mặt đồng hồ phù hợp nhất với tay - Ảnh 2" src="https://i.imgur.com/VAOlz7D.png" /></p>
 
                             </div>
+                            <div class="tab-pane fade" id="tab-pane-4">
+                              <div class="row">
+                                                        <div class="col-md-6">
+                                                            <h4 class="mb-4">${totalComment} review for "${model.name}"</h4>
+                                                            <div class="media mb-4">
+                                                                <div class="media-body">
+                                                               <c:forEach var="item" items="${commentList}">
+                                                                  <img src="<c:url value='/template/web/img/user-logos/${item.imgUrl}'/>" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                                                    <h6>${item.username}<small> - <i>01 Jan 2045</i></small></h6>
+                                                                    <div class="text-primary mb-2">
+                                                                     <c:forEach begin="1" end="${item.rating}">
+                                                                         <i class="fas fa-star"></i>
+                                                                     </c:forEach>
+                                                                    </div>
+                                                                    <p> ${item.review}</p>
+                                                                </c:forEach>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <h4 class="mb-4">Leave a review</h4>
+                                                            <small>Your email address will not be published. Required fields are marked *</small>
+                                                           <div class="d-flex my-3">
+                                                               <p class="mb-0 mr-2">Your Rating * :</p>
+                                                               <div class="rating">
+                                                                   <i class="far fa-star" data-value="5"></i>
+                                                                   <i class="far fa-star" data-value="4"></i>
+                                                                   <i class="far fa-star" data-value="3"></i>
+                                                                   <i class="far fa-star" data-value="2"></i>
+                                                                   <i class="far fa-star" data-value="1"></i>
+                                                               </div>
+                                                           </div>
+                                                            <form action="<c:url value='/comment'/>" method="post" >
+                                                                <div class="form-group">
+                                                                    <label for="message">Your Review *</label>
+                                                                    <textarea id="message" name = "review" cols="30" rows="5" class="form-control"></textarea>
+                                                                </div>
+                                                                <div class="form-group mb-0">
+                                                                    <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
+                                                                </div>
+                                                                  <input type="hidden" name = "productId"  value="${model.id}">
+                                                                  <input type="hidden" id = "ratingValue" name = "rating" value="">
+                                                            </form>
+                                                        </div>
+                                                    </div>
 
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -393,7 +455,40 @@
                 </div>
             </div>
             <!-- Products End -->
+<script>
+    const stars = document.querySelectorAll(".rating i");
+    const rating = document.getElementById('ratingValue')
+    let selectedRating = 0;
 
+    stars.forEach(star => {
+        star.addEventListener("mouseover", function () {
+            let value = this.getAttribute("data-value");
+            stars.forEach(s => {
+                s.classList.remove("hover");
+                if (s.getAttribute("data-value") <= value) {
+                    s.classList.add("hover");
+                }
+            });
+        });
+
+        star.addEventListener("click", function () {
+            selectedRating = this.getAttribute("data-value");
+            stars.forEach(s => {
+                s.classList.remove("active");
+                if (s.getAttribute("data-value") <= selectedRating) {
+                    s.classList.add("active");
+                }
+            });
+           rating.value =  selectedRating;
+
+            console.log("Bạn đã chọn:", rating.value);
+        });
+
+        star.addEventListener("mouseleave", function () {
+            stars.forEach(s => s.classList.remove("hover"));
+        });
+    });
+</script>
         <script>
                  const quantityInput = document.getElementById('quantity');
                     const quantityHiddenInput = document.getElementById('quantity-hidden');
