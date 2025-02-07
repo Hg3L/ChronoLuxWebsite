@@ -1,25 +1,46 @@
 package com.hau.entity;
 
 import javax.persistence.*;
+import java.sql.Blob;
 
 @Entity
 @Table(name = "comment")
 public class CommentEntity extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
     private ProductEntity product;
 
+    @Column(name = "img_review_url")
+    @Lob
+    private Blob imgReviewUrl;
     @Column(nullable = false)
     private int rating;
+    @Column
+    private String name;
 
     @Column(columnDefinition = "TEXT")
     private String review;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setImgReviewUrl(Blob imgReviewUrl) {
+        this.imgReviewUrl = imgReviewUrl;
+    }
+
+    public Blob getImgReviewUrl() {
+        return imgReviewUrl;
+    }
 
     public UserEntity getUser() {
         return user;

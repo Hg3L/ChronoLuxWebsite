@@ -7,4 +7,5 @@ import java.util.List;
 public interface CommentService {
     void save(CommentDTO commentDTO);
     List<CommentDTO> findByProductId(Long id);
+    CommentDTO findById(Long id);
 }

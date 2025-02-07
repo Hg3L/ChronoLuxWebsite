@@ -35,7 +35,8 @@ public class CommentServiceImpl implements CommentService {
         CommentEntity commentEntity = commentConverter.convertToEntity(commentDTO);
        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
        UserEntity user =  userRepository.findOneByUserNameAndStatus(userName, SystemConstant.ACTIVE_STATUS);
-       commentEntity.setUser(user);
+        commentEntity.setUser(user);
+
        commentEntity.setProduct(productRepository.findByIdAndActive(commentDTO.getProductId(),true));
        commentRepository.save(commentEntity);// qua controller xu ly them phan id product o view
     }
@@ -47,5 +48,11 @@ public class CommentServiceImpl implements CommentService {
                 .stream()
                 .map(commentEntity -> commentConverter.convertToDTO(commentEntity)
          ).toList();
+    }
+
+    @Override
+    public CommentDTO findById(Long id) {
+        CommentEntity commentEntity = commentRepository.findById(id).orElseThrow(() ->  new RuntimeException("không tìm thấy bình luận nào"));
+        return commentConverter.convertToDTO(commentEntity);
     }
 }

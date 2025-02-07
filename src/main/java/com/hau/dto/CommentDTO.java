@@ -3,6 +3,8 @@ package com.hau.dto;
 import com.hau.entity.ProductEntity;
 import com.hau.entity.UserEntity;
 
+import java.sql.Blob;
+
 
 public class CommentDTO  extends AbstractDTO<CommentDTO>{
     Long userId;
@@ -11,8 +13,26 @@ public class CommentDTO  extends AbstractDTO<CommentDTO>{
     private String username;
     private String imgUrl;
     private int rating;
+    private String name;
 
     private String review;
+    private Blob imgReviewUrl;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Blob getImgReviewUrl() {
+        return imgReviewUrl;
+    }
+
+    public void setImgReviewUrl(Blob imgReviewUrl) {
+        this.imgReviewUrl = imgReviewUrl;
+    }
 
     public Long getUserId() {
         return userId;

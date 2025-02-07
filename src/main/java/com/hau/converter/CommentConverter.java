@@ -9,12 +9,18 @@ public class CommentConverter implements Converter<CommentDTO, CommentEntity>{
     @Override
     public CommentDTO convertToDTO(CommentEntity entity) {
         CommentDTO commentDTO = new CommentDTO();
+        commentDTO.setId(entity.getId());
         commentDTO.setProductId(entity.getProduct().getId());
-        commentDTO.setUserId(entity.getUser().getId());
+        if(entity.getUser() != null){
+            commentDTO.setUserId(entity.getUser().getId());
+            commentDTO.setImgUrl(entity.getUser().getImgUrl());
+            commentDTO.setUsername(entity.getUser().getUserName());
+        }
+        commentDTO.setName(entity.getName());
         commentDTO.setRating(entity.getRating());
         commentDTO.setReview(entity.getReview());
-        commentDTO.setImgUrl(entity.getUser().getImgUrl());
-        commentDTO.setUsername(entity.getUser().getUserName());
+        commentDTO.setImgReviewUrl(entity.getImgReviewUrl());
+        commentDTO.setCreatedDate(entity.getCreateDate());
         return  commentDTO;
     }
 
@@ -23,6 +29,8 @@ public class CommentConverter implements Converter<CommentDTO, CommentEntity>{
         CommentEntity commentEntity = new CommentEntity();
         commentEntity.setRating(dto.getRating());
         commentEntity.setReview(dto.getReview());
+        commentEntity.setImgReviewUrl(dto.getImgReviewUrl());
+        commentEntity.setName(dto.getName());
         return commentEntity;
     }
 }
