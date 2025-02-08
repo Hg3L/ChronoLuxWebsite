@@ -61,14 +61,21 @@ public class ProductController {
             , @AuthenticationPrincipal Authentication authentication) {
 
         ProductDTO product = productService.findByIdAndActive(id,true);
-        List<CommentDTO> commentEntities = commentService.findByProductId(id);
+        try{
+            List<CommentDTO> commentEntities = commentService.findByProductId(id);
+            model.addAttribute("commentList",commentEntities);
+            model.addAttribute("totalComment",commentEntities.size());
+        }catch (RuntimeException ignored){
+
+        }
+
         if(authentication != null){
             UserDTO userDTO = userService.getCurrentLoggedInCustomer(authentication);
             model.addAttribute("user",userDTO);
         }
-        model.addAttribute("commentList",commentEntities);
+
         model.addAttribute("model",product);
-        model.addAttribute("totalComment",commentEntities.size());
+
 
         model.addAttribute("productByBrands",productService.findAllByIdBrandNotPage( product.getBrandId()));
         return "web/product-detail";
