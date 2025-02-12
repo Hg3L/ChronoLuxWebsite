@@ -149,8 +149,92 @@
                    .owl-next {
                        right: 10px; /* Vị trí nút tiếp theo */
                    }
+                 .rating {
+                            display: flex;
+                            flex-direction: row-reverse;
+                            font-size: 30px;
+                            cursor: pointer;
+                        }
 
+                        .rating i {
+                            color: #ccc;
+                            transition: color 0.2s;
+                        }
+
+                        .rating i.active,
+                        .rating i.hover {
+                            color: #FFD700; /* Màu vàng khi chọn */
+                        }
+                        /* Tùy chỉnh container */
+                                .custom-file-container {
+                                    position: relative;
+                                    display: inline-block;
+                                    font-family: Arial, sans-serif;
+
+                                }
+                /* Ẩn input file gốc */
+                input[type="file"] {
+                    display: none;
+                }
+
+                /* Tùy chỉnh nhãn (label) cho input file */
+                .upload-label {
+                    display: inline-block;
+                    padding: 10px 90px;
+                    background-color: #E5BE52;
+                    color: black;
+                    font-size: 16px;
+
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    transition: background-color 0.3s ease;
+                }
+
+                /* Hiệu ứng hover */
+                .upload-label:hover {
+                    background-color: #C7972A;
+                }
+
+                /* Hiệu ứng focus (khi chọn bằng bàn phím) */
+                .upload-label:focus {
+                    outline: 2px solid #0056b3;
+                    outline-offset: 2px;
+                }
+                /* Modal nền mờ */
+                .modal {
+                    display: none;
+                    position: fixed;
+                    z-index: 1000;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.8);
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                /* Nút đóng */
+                .close {
+                    position: absolute;
+                    top: 20px;
+                    right: 30px;
+                    color: white;
+                    font-size: 30px;
+                    cursor: pointer;
+                }
+
+               /* Ảnh lớn giữ nguyên độ nét */
+               .modal-content {
+                   max-width: 90%;
+                   max-height: 90%;
+                   border-radius: 10px;
+                   object-fit: contain; /* Giữ nguyên tỉ lệ ảnh */
+                   image-rendering: high-quality; /* Giúp trình duyệt ưu tiên hiển thị nét */
+               }
                 </style>
+
         </head>
 
         <body>
@@ -258,6 +342,7 @@
                             <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Thông Số</a>
                             <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">Chính Sách Bảo Hành</a>
                             <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Hướng Dẫn Chọn Kích Cỡ</a>
+                            <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-4">Đánh giá</a>
                      
 
                         </div>
@@ -340,7 +425,78 @@
                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img alt="Chọn size mặt đồng hồ phù hợp nhất với tay - Ảnh 2" src="https://i.imgur.com/VAOlz7D.png" /></p>
 
                             </div>
+                            <div class="tab-pane fade" id="tab-pane-4">
+                              <div class="row">
+                                                        <div class="col-md-6">
+                                                            <h4 class="mb-4">${totalComment} review for "${model.name}"</h4>
+                                                            <div class="media mb-4">
+                                                                <div class="media-body">
+                                                               <c:forEach var="item" items="${commentList}">
+                                                                  <img src="<c:url value='/template/web/img/user-logos/${item.imgUrl}'/>" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                                                    <h6>${item.name}<small> - <i>${item.createdDate}</i></small></h6>
+                                                                    <div class="text-primary mb-2">
+                                                                     <c:forEach begin="1" end="${item.rating}">
+                                                                         <i class="fas fa-star"></i>
+                                                                     </c:forEach>
+                                                                    </div>
+                                                                    <p> ${item.review}</p>
+                                                               <!-- Ảnh nhỏ -->
+                                                               <img style="max-width: 150px; max-height: 150px; width: fit-content; height: fit-content; cursor: pointer;"
+                                                                    src="<c:url value='/comment/image/${item.id}'/>" alt="Product Image" onclick="openImageModal(this.src)">
 
+                                                               <!-- Modal hiển thị ảnh lớn -->
+                                                               <div id="imageModal" class="modal" onclick="closeImageModal()">
+                                                                   <span class="close">&times;</span>
+                                                                   <img class="modal-content" id="modalImage">
+                                                               </div>
+                                                               <br>
+                                                                </c:forEach>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <h4 class="mb-4">Leave a review</h4>
+                                                            <small>Your email address will not be published. Required fields are marked *</small>
+                                                           <div class="d-flex my-3">
+                                                               <p class="mb-0 mr-2">Your Rating * :</p>
+                                                               <div class="rating">
+                                                                   <i class="far fa-star" data-value="5"></i>
+                                                                   <i class="far fa-star" data-value="4"></i>
+                                                                   <i class="far fa-star" data-value="3"></i>
+                                                                   <i class="far fa-star" data-value="2"></i>
+                                                                   <i class="far fa-star" data-value="1"></i>
+                                                               </div>
+                                                           </div>
+                                                            <form action="<c:url value='/comment'/>" method="post" onsubmit="return validateForm()" enctype="multipart/form-data">
+                                                                <div class="form-group">
+                                                                    <label for="message">Your Review *</label>
+                                                                    <textarea id="message" name = "review" cols="30" rows="5" class="form-control"></textarea>
+                                                                    <label for="message">Name *</label>
+                                                                    <textarea id="message" name = "name" value ="${user.fullName}"  cols="30" rows="1" class="form-control" required>${user.fullName}</textarea>
+                                                                </div>
+                                                                   <div class="form-group">
+                                                                <img  style="max-width: 550px; max-height: 350px; width: fit-content; height: fit-content;"
+                                                                                                     id = "img_display">
+                                                                 </div>
+
+
+
+                                                                <div class="custom-file-container">
+                                                                      <label for="img_chosen" class="upload-label">Hình chụp thực tế sản phẩm</label>
+                                                                      <input type="file" name="img" id="img_chosen" accept="image/*" onchange="displayImg(this)" >
+                                                                      <br>
+                                                                          <span id="error-msg" style="color: red; display: none;">Vui lòng chọn ảnh!</span>
+                                                                </div>
+                                                                <div class="form-group mb-0">
+                                                                    <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
+                                                                </div>
+                                                                  <input type="hidden" name = "productId"  value="${model.id}">
+                                                                  <input type="hidden" id = "ratingValue" name = "rating" value="">
+                                                            </form>
+                                                        </div>
+                                                    </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -393,7 +549,63 @@
                 </div>
             </div>
             <!-- Products End -->
+            <script>
+            function openImageModal(src) {
+                let modal = document.getElementById("imageModal");
+                let modalImg = document.getElementById("modalImage");
 
+                modal.style.display = "flex"; // Hiển thị modal
+                modalImg.src = src; // Gán ảnh vào modal
+            }
+
+            function closeImageModal() {
+                document.getElementById("imageModal").style.display = "none";
+            }
+            </script>
+<script>
+    const stars = document.querySelectorAll(".rating i");
+    const rating = document.getElementById('ratingValue')
+    let selectedRating = 5;
+    rating.value =  selectedRating;
+
+        // Thiết lập sao mặc định khi tải trang
+        function setDefaultRating(rating) {
+            stars.forEach(star => {
+                if (star.getAttribute("data-value") <= rating) {
+                    star.classList.add("active");
+                }
+            });
+        }
+         setDefaultRating(selectedRating); // Gọi hàm khi trang tải
+    stars.forEach(star => {
+        star.addEventListener("mouseover", function () {
+            let value = this.getAttribute("data-value");
+            stars.forEach(s => {
+                s.classList.remove("hover");
+                if (s.getAttribute("data-value") <= value) {
+                    s.classList.add("hover");
+                }
+            });
+        });
+
+        star.addEventListener("click", function () {
+            selectedRating = this.getAttribute("data-value");
+            stars.forEach(s => {
+                s.classList.remove("active");
+                if (s.getAttribute("data-value") <= selectedRating) {
+                    s.classList.add("active");
+                }
+            });
+           rating.value =  selectedRating;
+
+            console.log("Bạn đã chọn:", rating.value);
+        });
+
+        star.addEventListener("mouseleave", function () {
+            stars.forEach(s => s.classList.remove("hover"));
+        });
+    });
+</script>
         <script>
                  const quantityInput = document.getElementById('quantity');
                     const quantityHiddenInput = document.getElementById('quantity-hidden');
@@ -500,6 +712,39 @@
                     element.innerText = price.toLocaleString("vi-VN") + "đ";
                 });
 
+            </script>
+            <script>
+                let errorMsg = document.getElementById("error-msg");
+                function displayImg(fileInput) {
+                    const file = fileInput.files[0];
+                    const imgPreview = $('#img_display');
+                    const imgChosen = $('#img_chosen');
+
+                    if(file){
+                        const reader = new FileReader();
+                        reader.onload = function (e){
+                            imgPreview.attr('src',e.target.result);
+                            imgPreview.css('display','block');
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                    else{
+                        imgPreview.css('display','none');
+                        errorMsg.style.display = "inline"; // Hiện thông báo lỗi
+                    }
+                }
+                function validateForm() {
+                    let fileInput = document.getElementById("img_chosen");
+                    let errorMsg = document.getElementById("error-msg");
+
+                    if (!fileInput.files.length) {
+                        errorMsg.style.display = "inline"; // Hiện thông báo lỗi
+                        return false; // Ngăn form submit
+                    }
+
+                    errorMsg.style.display = "none"; // Ẩn thông báo lỗi nếu đã chọn ảnh
+                    return true;
+                }
             </script>
             <%--<!-- Featured Start -->--%>
             <%--<div class="container-fluid pt-5">--%>

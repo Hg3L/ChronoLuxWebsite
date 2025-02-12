@@ -3,6 +3,7 @@ package com.hau.entity;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "product")
@@ -36,6 +37,9 @@ public class ProductEntity extends BaseEntity {
     private ProductLineEntity productLine;
     @ManyToMany(mappedBy = "products")
     private List<BillEntity> bills;
+    @OneToMany(mappedBy = "product")
+    List<CommentEntity> ratings;
+
     // Thêm thuộc tính cho mối quan hệ 1-nhiều với CartItemEntity
     @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE,CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private List<CartItemEntity> cartItems;
@@ -163,4 +167,11 @@ public class ProductEntity extends BaseEntity {
     public void setCartItems(List<CartItemEntity> cartItems) {
         this.cartItems = cartItems;
     }
+
+    public boolean isActive() {
+        return active;
+    }
+
+
 }
+

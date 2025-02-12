@@ -21,6 +21,7 @@ public class AuthenticationProviderUtil {
             authorities.add(new SimpleGrantedAuthority("ROLE_USER_GOOGLE"));
             UserGoogleDto userGoogleDto = (UserGoogleDto) account;
             CustomerO2Auth user = new CustomerO2Auth(userGoogleDto.getUserName(), "", true, true, true, true, authorities);
+
             user.setFullName(userGoogleDto.getGiven_name());
             user.setFirstName(userGoogleDto.getGiven_name());
             user.setSurName(userGoogleDto.getFamily_name());

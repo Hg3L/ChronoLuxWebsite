@@ -3,6 +3,7 @@ package com.hau.entity;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -33,6 +34,9 @@ public class UserEntity extends BaseEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<RoleEntity> roles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    List<CommentEntity> ratings;
 
     @OneToMany(mappedBy = "user")
     private List<BillEntity> bills = new ArrayList<>();
@@ -108,4 +112,6 @@ public class UserEntity extends BaseEntity {
     public void setBills(List<BillEntity> bills) {
         this.bills = bills;
     }
+
+
 }

@@ -1,27 +1,26 @@
 package com.hau.controller.admin;
 
-import com.hau.dto.CartDTO;
-import com.hau.dto.CartItemDTO;
-import com.hau.dto.ProductDTO;
-import com.hau.service.FileService;
-import com.hau.service.BrandService;
-import com.hau.service.ProductService;
-import com.hau.service.ProductLineService;
+import com.hau.dto.*;
+import com.hau.entity.CommentEntity;
+import com.hau.service.*;
 import com.hau.util.CartUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.rowset.serial.SerialBlob;
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
 
 @Controller
@@ -34,15 +33,49 @@ public class ProductController {
     private FileService fileService;
     @Autowired
     private ProductLineService productLineService;
-
+    @Autowired
+    private CommentService commentService;
+    @Autowired
+    private UserService userService;
     private static final String UPLOAD_DIR = "products";
+    @PostMapping("/comment")
+    public String addComment(@ModelAttribute CommentDTO commentDTO , @RequestParam("img") MultipartFile multipartFile) throws IOException, SQLException {
+        commentDTO.setImgReviewUrl(new SerialBlob(multipartFile.getBytes()));
+        commentService.save(commentDTO);
+        return "redirect:/product-detail?id="+commentDTO.getProductId();
+    }
+    @GetMapping("/comment/image/{id}")
+    public void getProductImage(@PathVariable("id") Long id, HttpServletResponse response) throws IOException, SQLException {
+        Blob image = commentService.findById(id).getImgReviewUrl();
+        byte[] imageData = image.getBytes (1, (int) image.length());
 
+        if (imageData != null) {
+            response.setContentType("image/webp");
+            response.getOutputStream().write(imageData);
+        } else {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND); // Không có ảnh
+        }
+    }
     @GetMapping(value = "/product-detail")
-    public String productDetailPage(Model model,@RequestParam("id") long id) {
+    public String productDetailPage(Model model, @RequestParam("id") long id
+            , @AuthenticationPrincipal Authentication authentication) {
 
         ProductDTO product = productService.findByIdAndActive(id,true);
+        try{
+            List<CommentDTO> commentEntities = commentService.findByProductId(id);
+            model.addAttribute("commentList",commentEntities);
+            model.addAttribute("totalComment",commentEntities.size());
+        }catch (RuntimeException ignored){
+
+        }
+
+        if(authentication != null){
+            UserDTO userDTO = userService.getCurrentLoggedInCustomer(authentication);
+            model.addAttribute("user",userDTO);
+        }
 
         model.addAttribute("model",product);
+
 
         model.addAttribute("productByBrands",productService.findAllByIdBrandNotPage( product.getBrandId()));
         return "web/product-detail";
