@@ -13,9 +13,11 @@ import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.NestedServletException;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -88,26 +90,35 @@ public class ProductController {
             UserDTO userDTO = userService.getCurrentLoggedInCustomer(authentication);
             model.addAttribute("user",userDTO);
         }
-        String apiUrl = "http://localhost:5555/api?id=" + id;
-        String response =  restTemplate.getForObject(apiUrl, String.class);
-        // Tạo ObjectMapper để xử lý JSON
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        // Đọc JSON thành JsonNode
-        JsonNode jsonNode = objectMapper.readTree(response);
-
-        // Lấy danh sách sản phẩm từ JSON
-        List<String> productSuggestionsApi = Arrays.asList(objectMapper.convertValue(jsonNode.get("san pham goi y: "), String[].class));
         List<ProductDTO> productSuggestions = new ArrayList<>();
-        productSuggestionsApi.forEach(productSuggestion ->{
-            ProductDTO productDTO= productService.findByName(productSuggestion);
-            productSuggestions.add(productDTO);
-        } );
+        try{
+            String apiUrl = "http://localhost:5555/api?id=" + id;
+            String response =  restTemplate.getForObject(apiUrl, String.class);
+            // Tạo ObjectMapper để xử lý JSON
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            // Đọc JSON thành JsonNode
+            JsonNode jsonNode = objectMapper.readTree(response);
+
+            // Lấy danh sách sản phẩm từ JSON
+            List<String> productSuggestionsApi = Arrays.asList(objectMapper.convertValue(jsonNode.get("san pham goi y: "), String[].class));
+
+            productSuggestionsApi.forEach(productSuggestion ->{
+                ProductDTO productDTO= productService.findByName(productSuggestion);
+                productSuggestions.add(productDTO);
+            } );
+            model.addAttribute("productByBrands",productSuggestions);
+        }catch (ResourceAccessException e){
+            List<ProductDTO> products = new ArrayList<>();
+            products = productService.findAllByIdBrandNotPage(product.getBrandId());
+            model.addAttribute("productByBrands",products);
+        }
+
 
         model.addAttribute("model",product);
 
         model.addAttribute("rating",rating);
-        model.addAttribute("productByBrands",productSuggestions);
+
         return "web/product-detail";
     }
 
