@@ -1,5 +1,7 @@
 package com.hau.controller.admin;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hau.dto.*;
 import com.hau.entity.CommentEntity;
 import com.hau.service.*;
@@ -11,6 +13,7 @@ import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -21,6 +24,8 @@ import javax.sql.rowset.serial.SerialBlob;
 import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -37,12 +42,21 @@ public class ProductController {
     private CommentService commentService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private RestTemplate restTemplate;
     private static final String UPLOAD_DIR = "products";
     @PostMapping("/comment")
     public String addComment(@ModelAttribute CommentDTO commentDTO , @RequestParam("img") MultipartFile multipartFile) throws IOException, SQLException {
         commentDTO.setImgReviewUrl(new SerialBlob(multipartFile.getBytes()));
         commentService.save(commentDTO);
+
         return "redirect:/product-detail?id="+commentDTO.getProductId();
+    }
+    @GetMapping("/api/getProduct")
+    @ResponseBody
+    public String getProduct(@RequestParam("id") Long id) {
+        String apiUrl = "http://localhost:5555/api?id=" + id;
+        return restTemplate.getForObject(apiUrl, String.class); // Trả về JSON từ API
     }
     @GetMapping("/comment/image/{id}")
     public void getProductImage(@PathVariable("id") Long id, HttpServletResponse response) throws IOException, SQLException {
@@ -58,9 +72,10 @@ public class ProductController {
     }
     @GetMapping(value = "/product-detail")
     public String productDetailPage(Model model, @RequestParam("id") long id
-            , @AuthenticationPrincipal Authentication authentication) {
+            , @AuthenticationPrincipal Authentication authentication) throws IOException {
 
         ProductDTO product = productService.findByIdAndActive(id,true);
+        Double rating = commentService.calculateAverageRating(id);
         try{
             List<CommentDTO> commentEntities = commentService.findByProductId(id);
             model.addAttribute("commentList",commentEntities);
@@ -73,11 +88,26 @@ public class ProductController {
             UserDTO userDTO = userService.getCurrentLoggedInCustomer(authentication);
             model.addAttribute("user",userDTO);
         }
+        String apiUrl = "http://localhost:5555/api?id=" + id;
+        String response =  restTemplate.getForObject(apiUrl, String.class);
+        // Tạo ObjectMapper để xử lý JSON
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        // Đọc JSON thành JsonNode
+        JsonNode jsonNode = objectMapper.readTree(response);
+
+        // Lấy danh sách sản phẩm từ JSON
+        List<String> productSuggestionsApi = Arrays.asList(objectMapper.convertValue(jsonNode.get("san pham goi y: "), String[].class));
+        List<ProductDTO> productSuggestions = new ArrayList<>();
+        productSuggestionsApi.forEach(productSuggestion ->{
+            ProductDTO productDTO= productService.findByName(productSuggestion);
+            productSuggestions.add(productDTO);
+        } );
 
         model.addAttribute("model",product);
 
-
-        model.addAttribute("productByBrands",productService.findAllByIdBrandNotPage( product.getBrandId()));
+        model.addAttribute("rating",rating);
+        model.addAttribute("productByBrands",productSuggestions);
         return "web/product-detail";
     }
 

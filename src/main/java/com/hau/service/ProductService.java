@@ -10,6 +10,7 @@ import java.util.TreeSet;
 
 
 public interface ProductService {
+    ProductDTO findByName(String name);
     List<ProductDTO> findTop8ByOrderByIdDesc();
     LinkedHashSet<ProductDTO> findTop8BestSelling();
     List<ProductDTO> findAllByActive(boolean active);

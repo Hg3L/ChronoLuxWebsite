@@ -9,6 +9,8 @@ import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.List;
+import java.util.Optional;
 
 public interface BillRepository extends JpaRepository<BillEntity,Long> {
     @Query("SELECT COUNT(b) FROM BillEntity b WHERE b.status = 'Chờ thanh toán'")
@@ -33,6 +35,7 @@ public interface BillRepository extends JpaRepository<BillEntity,Long> {
             "AND YEAR(b.createDate) = :year")
     Double findTotalOfSuccessfulBillsInMonth(@Param("month") int month,@Param("year") int year);
 
+    Optional<List<BillEntity>> findByUserId(Long userId);
     /*@Query("SELECT b FROM BillEntity b " +
             "LEFT JOIN FETCH b.voucher " +
             "LEFT JOIN FETCH b.user " +

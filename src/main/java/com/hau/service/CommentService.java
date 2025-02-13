@@ -8,4 +8,6 @@ public interface CommentService {
     void save(CommentDTO commentDTO);
     List<CommentDTO> findByProductId(Long id);
     CommentDTO findById(Long id);
+    double calculateAverageRating(Long productId);
+
 }

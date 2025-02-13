@@ -18,7 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -144,6 +146,13 @@ public class BillServiceImpl implements BillService {
         BillDTO billDTO = billConverter.convertToDTO(billEntity);
         billDTO.setCartItemDTOS(cartItemDTOS);
         return billDTO;
+    }
+
+    @Override
+    public List<BillDTO> getBillByUser(Long userId) {
+        return billRepository.findByUserId(userId).orElse(Collections.emptyList()).stream()
+                .map(billEntity -> billConverter.convertToDTO(billEntity))
+                .toList();
     }
 
 

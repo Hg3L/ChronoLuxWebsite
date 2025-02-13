@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -54,5 +55,13 @@ public class CommentServiceImpl implements CommentService {
     public CommentDTO findById(Long id) {
         CommentEntity commentEntity = commentRepository.findById(id).orElseThrow(() ->  new RuntimeException("không tìm thấy bình luận nào"));
         return commentConverter.convertToDTO(commentEntity);
+    }
+
+    @Override
+    public double calculateAverageRating(Long productId) {
+       return  commentRepository.findByProductId(productId).orElse(Collections.emptyList()). stream()
+                .mapToInt(CommentEntity::getRating)
+                .average()
+                .orElse(0.0);
     }
 }
