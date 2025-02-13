@@ -29,6 +29,15 @@ public class ProductDTO extends AbstractDTO{
     private String name;
     private String country;
     private long productLineId;
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public long getBrandId() {
         return brandId;

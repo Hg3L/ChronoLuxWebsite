@@ -32,6 +32,8 @@ public class ProductEntity extends BaseEntity {
     private int instock;
     @Column(name = "active", columnDefinition = "boolean default true")
     private boolean active;
+    @Column(name = "description")
+    private String description;
     @ManyToOne (fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "product_line_id")
     private ProductLineEntity productLine;

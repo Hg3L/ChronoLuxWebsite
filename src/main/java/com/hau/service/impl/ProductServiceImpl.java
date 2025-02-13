@@ -30,6 +30,11 @@ public class ProductServiceImpl implements ProductService {
     private ProductLineRepository productLineRepository;
 
     @Override
+    public ProductDTO findByName(String name) {
+        return productConverter.toDTO( productRepository.findOneByNameAndActive(name,true));
+    }
+
+    @Override
     public List<ProductDTO> findTop8ByOrderByIdDesc() {
         List<ProductDTO> products = new ArrayList<>();
         List<ProductEntity> productEntities = productRepository.findTop8ByActiveOrderByIdDesc(true);

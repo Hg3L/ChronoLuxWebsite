@@ -263,12 +263,23 @@
                     <div class="col-lg-7 pb-5">
                         <h3 class="font-weight-semi-bold">${model.name}</h3>
                         <div class="d-flex mb-3">
+
                             <div class="text-primary mr-2">
-                                <small class="fas fa-star"></small>
-                                <small class="fas fa-star"></small>
-                                <small class="fas fa-star"></small>
-                                <small class="fas fa-star"></small>
-                                <small class="fas fa-star"></small>
+                                    <!-- Hiển thị số sao đầy -->
+                                 <fmt:formatNumber value="${rating}" type="number" minFractionDigits="1" maxFractionDigits="1" />
+                                    <c:forEach var="i" begin="1" end="${Math.floor(rating)}">
+                                        <small class="fas fa-star"></small>
+                                    </c:forEach>
+
+                                    <!-- Hiển thị sao nửa nếu có -->
+                                    <c:if test="${rating % 1 >= 0.5}">
+                                        <small class="fas fa-star-half-alt"></small>
+                                    </c:if>
+
+                                    <!-- Hiển thị sao rỗng -->
+                                    <c:forEach var="i" begin="1" end="${5 - Math.floor(rating) - (rating % 1 >= 0.5 ? 1 : 0)}">
+                                        <small class="far fa-star"></small>
+                                    </c:forEach>
                             </div>
 
                         </div>
@@ -427,32 +438,56 @@
                             </div>
                             <div class="tab-pane fade" id="tab-pane-4">
                               <div class="row">
-                                                        <div class="col-md-6">
-                                                            <h4 class="mb-4">${totalComment} review for "${model.name}"</h4>
-                                                            <div class="media mb-4">
-                                                                <div class="media-body">
-                                                               <c:forEach var="item" items="${commentList}">
-                                                                  <img src="<c:url value='/template/web/img/user-logos/${item.imgUrl}'/>" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
-                                                                    <h6>${item.name}<small> - <i>${item.createdDate}</i></small></h6>
-                                                                    <div class="text-primary mb-2">
-                                                                     <c:forEach begin="1" end="${item.rating}">
-                                                                         <i class="fas fa-star"></i>
-                                                                     </c:forEach>
-                                                                    </div>
-                                                                    <p> ${item.review}</p>
-                                                               <!-- Ảnh nhỏ -->
-                                                               <img style="max-width: 150px; max-height: 150px; width: fit-content; height: fit-content; cursor: pointer;"
-                                                                    src="<c:url value='/comment/image/${item.id}'/>" alt="Product Image" onclick="openImageModal(this.src)">
 
-                                                               <!-- Modal hiển thị ảnh lớn -->
-                                                               <div id="imageModal" class="modal" onclick="closeImageModal()">
+                                                        <div class="col-md-6">
+                                                          <c:choose>
+                                                              <c:when test="${commentList != null and fn:length(commentList) > 0}">
+                                                                  <h4 class="mb-4">${totalComment} review for "${model.name}"</h4>
+                                                                  <div class="media mb-4">
+                                                                      <div class="media-body">
+                                                                          <c:forEach var="item" items="${commentList}">
+                                                                              <!-- Ảnh đại diện người dùng -->
+                                                                              <c:choose>
+                                                                                  <c:when test="${not empty item.imgUrl}">
+                                                                                      <img src="<c:url value='/template/web/img/user-logos/${item.imgUrl}'/>"
+                                                                                           alt="User Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                                                                  </c:when>
+                                                                                  <c:otherwise>
+                                                                                      <img src="<c:url value='/template/web/img/user-logos/user.png'/>"
+                                                                                           alt="Default Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                                                                  </c:otherwise>
+                                                                              </c:choose>
+
+                                                                              <h6>${item.name} <small> - <i>${item.createdDate}</i></small></h6>
+
+                                                                              <!-- Hiển thị số sao đánh giá -->
+                                                                              <div class="text-primary mb-2">
+                                                                                  <c:forEach begin="1" end="${item.rating}">
+                                                                                      <i class="fas fa-star"></i>
+                                                                                  </c:forEach>
+                                                                              </div>
+
+                                                                              <p>${item.review}</p>
+
+                                                                              <!-- Ảnh nhỏ của review -->
+                                                                              <img style="max-width: 150px; max-height: 150px; width: fit-content; height: fit-content; cursor: pointer;"
+                                                                                   src="<c:url value='/comment/image/${item.id}'/>" alt="Product Image"
+                                                                                   onclick="openImageModal(this.src)">
+  <div id="imageModal" class="modal" onclick="closeImageModal()">
                                                                    <span class="close">&times;</span>
                                                                    <img class="modal-content" id="modalImage">
                                                                </div>
-                                                               <br>
-                                                                </c:forEach>
-                                                                </div>
-                                                            </div>
+                                                                              <br>
+                                                                          </c:forEach>
+                                                                      </div>
+                                                                  </div>
+                                                              </c:when>
+
+                                                              <c:otherwise>
+                                                                  <h4>Sản phẩm chưa có đánh giá nào.</h4>
+                                                              </c:otherwise>
+                                                          </c:choose>
+
                                                         </div>
                                                         <div class="col-md-6">
                                                             <h4 class="mb-4">Leave a review</h4>
@@ -460,11 +495,11 @@
                                                            <div class="d-flex my-3">
                                                                <p class="mb-0 mr-2">Your Rating * :</p>
                                                                <div class="rating">
-                                                                   <i class="far fa-star" data-value="5"></i>
-                                                                   <i class="far fa-star" data-value="4"></i>
-                                                                   <i class="far fa-star" data-value="3"></i>
-                                                                   <i class="far fa-star" data-value="2"></i>
-                                                                   <i class="far fa-star" data-value="1"></i>
+                                                                   <i class="fas fa-star" data-value="5"></i>
+                                                                   <i class="fas fa-star" data-value="4"></i>
+                                                                   <i class="fas fa-star" data-value="3"></i>
+                                                                   <i class="fas fa-star" data-value="2"></i>
+                                                                   <i class="fas fa-star" data-value="1"></i>
                                                                </div>
                                                            </div>
                                                             <form action="<c:url value='/comment'/>" method="post" onsubmit="return validateForm()" enctype="multipart/form-data">
@@ -502,7 +537,6 @@
                 </div>
             </div>
             <!-- Shop Detail End -->
-
 
             <!-- Products Start -->
             <div class="container-fluid py-5">
@@ -544,8 +578,6 @@
                         <button class="owl-prev">❮</button>
                         <button class="owl-next">❯</button>
                     </div>
-
-
                 </div>
             </div>
             <!-- Products End -->
