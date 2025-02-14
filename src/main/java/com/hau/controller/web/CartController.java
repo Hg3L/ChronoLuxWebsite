@@ -43,13 +43,21 @@ public class CartController {
         String txt = "";
         ModelAndView mav = new ModelAndView("web/cart");
         UserDTO userDTO = null;
+        List<VoucherDTO> voucherValids = new ArrayList<>(voucherService.findByType(VoucherType.PUBLIC));
+
         List<CartItemDTO> cartItemDTOS = new ArrayList<>();
+        VoucherDTO voucherDTO = null;
         List<ProductDTO> productDTOList = productService.findAllByActive(true);
         CartDTO cartDTO = CartUtils.getCartByCookieAndDeleteCookie(request.getCookies(), productDTOList,txt,response);
 
         //
         if(authentication != null){
             userDTO = userService.getCurrentLoggedInCustomer(authentication);
+            voucherDTO = voucherService.findOneById(userDTO.getVoucherId());
+            if(voucherDTO != null){
+                voucherValids.add(voucherDTO);
+            }
+
         }
         String error = null;
             for(CartItemDTO cartItem : cartDTO.getCartItemDTOS()){
@@ -78,11 +86,14 @@ public class CartController {
         Cookie[] updatedCookies = cookieList.toArray(new Cookie[cookieList.size()]);
         CartDTO cartDTO1 = CartUtils.getCartByCookie(updatedCookies , productDTOList);
         cartItemDTOS = CartUtils.getCartItemByAuthentication(cartDTO1,userDTO);
+
+        mav.addObject("validVouchers",voucherValids);
         mav.addObject("error",error);
         mav.addObject("cartItems",cartItemDTOS);
         mav.addObject("totalPrice",cartDTO.getTotalByUser(userDTO));
+
         if(code != null) {
-        VoucherDTO voucherDTO = voucherService.findOneByCode(code);
+        voucherDTO = voucherService.findOneByCode(code);
         // xu ly logic
             if (voucherDTO != null) {
                 if(voucherDTO.getVoucherType().equals(VoucherType.PUBLIC)){

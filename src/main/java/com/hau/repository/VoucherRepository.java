@@ -1,5 +1,6 @@
 package com.hau.repository;
 
+import com.hau.Enum.VoucherType;
 import com.hau.entity.VoucherEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
+import java.util.List;
 
 public interface VoucherRepository extends JpaRepository<VoucherEntity,Long> {
 
@@ -20,4 +22,6 @@ public interface VoucherRepository extends JpaRepository<VoucherEntity,Long> {
 
     @Query("SELECT v FROM VoucherEntity v WHERE v.endDay < ?1 ORDER BY v.beginDay DESC")
     Page<VoucherEntity> findExpiredVouchers(Pageable pageable, Date now);
+
+    List<VoucherEntity> findByType(VoucherType type);
 }

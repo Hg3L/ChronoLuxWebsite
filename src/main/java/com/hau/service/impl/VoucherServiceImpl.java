@@ -1,5 +1,6 @@
 package com.hau.service.impl;
 
+import com.hau.Enum.VoucherType;
 import com.hau.converter.VoucherConverter;
 import com.hau.dto.VoucherDTO;
 import com.hau.entity.VoucherEntity;
@@ -11,7 +12,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.chrono.ChronoLocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 
@@ -54,5 +59,29 @@ public class VoucherServiceImpl implements VoucherService {
     public void save(VoucherDTO voucherDTO) {
         VoucherEntity voucherEntity = voucherConverter.convertToEntity(voucherDTO);
         voucherRepository.save(voucherEntity);
+    }
+
+    @Override
+    public VoucherDTO findOneById(Long id) {
+        if(id !=null){
+            VoucherEntity voucherEntity = voucherRepository.findOne(id);
+            if (ChronoUnit.DAYS
+                    .between(convertToChronoLocalDate(voucherEntity.getBeginDay())
+                            ,convertToChronoLocalDate(voucherEntity.getEndDay())) >= 0) {
+                return voucherConverter.convertToDTO(voucherEntity);
+            }
+        }
+        return  null;
+    }
+
+    @Override
+    public List<VoucherDTO> findByType(VoucherType voucherType) {
+        return voucherRepository.findByType(voucherType).stream()
+                .map(voucherEntity -> voucherConverter.convertToDTO(voucherEntity))
+                .toList();
+    }
+
+    private static ChronoLocalDate convertToChronoLocalDate(Date date) {
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
 }

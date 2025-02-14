@@ -142,8 +142,36 @@
                                     <div id="coupon-error" class="text-danger mt-2" >
                                             ${InvalidVoucher}
                                     </div>
+                                     <security:authorize access="isAnonymous()">
+                                         <p class="text-success">
+                                             Ưu đãi đặc biệt! Khách hàng đăng ký lần đầu sẽ nhận ngay mã giảm giá.
+                                             <a href="<c:url value='/login/register'/>" class="text-primary">Đăng ký ngay</a> để nhận ưu đãi!
+                                         </p>
+                                     </security:authorize>
                                 </div>
+                                 <c:if test="${not empty validVouchers}">
+                                                                <div class="mt-4">
+                                                                    <h5 class="text-dark font-weight-bold">🔖 Mã Giảm Giá Hiện Có:</h5>
+                                                                    <ul class="list-group">
+                                                                        <c:forEach var="voucher" items="${validVouchers}">
+                                                                                       <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                                           <span class="font-weight-bold text-primary">${voucher.code}</span>
+                                                                                           <span class="text-muted">
+                                                                                               HSD:
+                                                                                               <fmt:parseDate var="endDate" value="${voucher.endDay}" pattern="yyyy-MM-dd HH:mm:ss" />
+                                                                                               <fmt:formatDate value="${endDate}" pattern="dd/MM/yyyy" />
+                                                                                               <br>Giảm: <span class="text-danger">${voucher.discount} VNĐ</span>
+                                                                                           </span>
+                                                                                       </li>
+
+                                                                                   </c:forEach>
+                                                                    </ul>
+                                                                </div>
+                                                            </c:if>
                             </form>
+                            <!-- Danh sách mã giảm giá hợp lệ -->
+
+
                             <div class="card border-dark mb-5">
                                 <div class="card-header bg-dark border-0">
                                     <h4 class="font-weight-semi-bold m-0" style="color: whitesmoke">Thông Tin Giỏ Hàng</h4>
