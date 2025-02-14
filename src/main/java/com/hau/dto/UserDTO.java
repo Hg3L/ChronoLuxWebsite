@@ -14,6 +14,15 @@ public class UserDTO extends AbstractDTO{
     private List<String> roleCode = new ArrayList<>();
     private String firstName;
     private String surName;
+    private Long voucherId;
+
+    public Long getVoucherId() {
+        return voucherId;
+    }
+
+    public void setVoucherId(Long voucherId) {
+        this.voucherId = voucherId;
+    }
 
     public String getImgUrl() {
         return imgUrl;

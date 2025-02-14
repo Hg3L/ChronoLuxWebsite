@@ -1,6 +1,7 @@
 package com.hau.controller.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hau.Enum.VoucherType;
 import com.hau.dto.*;
 import com.hau.service.CartItemService;
 import com.hau.service.ProductService;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class CartController {
@@ -81,10 +83,22 @@ public class CartController {
         mav.addObject("totalPrice",cartDTO.getTotalByUser(userDTO));
         if(code != null) {
         VoucherDTO voucherDTO = voucherService.findOneByCode(code);
+        // xu ly logic
             if (voucherDTO != null) {
-                mav.addObject("voucher", voucherDTO);
-            } else {
-                mav.addObject("InvalidVoucher", "Mã giảm giá không tồn tại. Vui lòng thử lại!");
+                if(voucherDTO.getVoucherType().equals(VoucherType.PUBLIC)){
+                    mav.addObject("voucher", voucherDTO);
+                }
+                else {
+                    if( authentication != null && Objects.equals(voucherDTO.getId(), userDTO.getVoucherId())){
+                        mav.addObject("voucher", voucherDTO);
+                    }
+                    else
+                        mav.addObject("InvalidVoucher"
+                                , "Mã giảm giá không tồn tại. Vui lòng thử lại!");
+                }
+            }else{
+                mav.addObject("InvalidVoucher"
+                        , "Mã giảm giá không tồn tại. Vui lòng thử lại!");
             }
         }
 

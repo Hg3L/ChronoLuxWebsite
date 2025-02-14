@@ -1,6 +1,7 @@
 package com.hau.constant;
 
 public class SystemConstant {
+    public static  final  int DISCOUNT_FIRST_LOGIN= 200000;
     public static final int ACTIVE_STATUS = 1;
     public static final int INACTIVE_STATUS = 0;
     public static final String PAYMENT_SUCCESS = "Thanh toán thành công";

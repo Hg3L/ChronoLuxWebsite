@@ -1,5 +1,6 @@
 package com.hau.service.impl;
 
+import com.hau.Enum.VoucherType;
 import com.hau.constant.SystemConstant;
 import com.hau.converter.UserConverter;
 import com.hau.dto.CustomerO2Auth;
@@ -7,9 +8,11 @@ import com.hau.dto.MyUser;
 import com.hau.dto.UserDTO;
 import com.hau.entity.RoleEntity;
 import com.hau.entity.UserEntity;
+import com.hau.entity.VoucherEntity;
 import com.hau.exception.CustomerNotFoundException;
 import com.hau.repository.RoleRepository;
 import com.hau.repository.UserRepository;
+import com.hau.repository.VoucherRepository;
 import com.hau.service.UserService;
 import com.hau.util.EncodePasswordUtil;
 import com.hau.util.SecurityUtil;
@@ -23,8 +26,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -34,6 +41,8 @@ public class UserServiceImpl implements UserService {
     private UserConverter userConverter;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private VoucherRepository voucherRepository;
 
     @Override
     public void updateSecurityContext(UserDTO userDTO, Authentication authentication) {
@@ -126,6 +135,14 @@ public class UserServiceImpl implements UserService {
         else{
             userEntity =  userConverter.toEntity(userDTO);
             userEntity.setRoles(roleEntities);
+            VoucherEntity voucherEntity = new VoucherEntity();
+            voucherEntity.setBeginDay(new Date());
+            voucherEntity.setEndDay(new Date(Instant.now().plus(15, ChronoUnit.DAYS).toEpochMilli()));
+            voucherEntity.setCode("NGMOI_"+userEntity.getUserName().toUpperCase(Locale.ROOT));
+            voucherEntity.setType(VoucherType.PRIVATE);
+            voucherEntity.setDiscount(SystemConstant.DISCOUNT_FIRST_LOGIN);
+            voucherRepository.save(voucherEntity);
+            userEntity.setVoucher(voucherEntity);
         }
 
         return userConverter.toDTO(userRepository.save(userEntity));

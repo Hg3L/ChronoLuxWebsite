@@ -1,11 +1,13 @@
 package com.hau.dto;
 
+import com.hau.Enum.VoucherType;
+
 public class VoucherDTO extends AbstractDTO<VoucherDTO>{
     private String code;
     private long discount;
     private String beginDay;
     private String endDay;
-
+    private VoucherType voucherType;
     public String getCode() {
         return code;
     }
@@ -36,5 +38,13 @@ public class VoucherDTO extends AbstractDTO<VoucherDTO>{
 
     public void setEndDay(String endDay) {
         this.endDay = endDay;
+    }
+
+    public VoucherType getVoucherType() {
+        return voucherType;
+    }
+
+    public void setVoucherType(VoucherType voucherType) {
+        this.voucherType = voucherType;
     }
 }
