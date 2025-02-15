@@ -12,11 +12,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.chrono.ChronoLocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 
@@ -65,9 +62,8 @@ public class VoucherServiceImpl implements VoucherService {
     public VoucherDTO findOneById(Long id) {
         if(id !=null){
             VoucherEntity voucherEntity = voucherRepository.findOne(id);
-            if (ChronoUnit.DAYS
-                    .between(convertToChronoLocalDate(voucherEntity.getBeginDay())
-                            ,convertToChronoLocalDate(voucherEntity.getEndDay())) >= 0) {
+            if (!convertToLocalDateTime(voucherEntity.getEndDay())
+                    .isBefore(LocalDateTime.now())  ) {
                 return voucherConverter.convertToDTO(voucherEntity);
             }
         }
@@ -77,11 +73,24 @@ public class VoucherServiceImpl implements VoucherService {
     @Override
     public List<VoucherDTO> findByType(VoucherType voucherType) {
         return voucherRepository.findByType(voucherType).stream()
-                .map(voucherEntity -> voucherConverter.convertToDTO(voucherEntity))
+                .filter(voucherEntity ->
+                        !convertToLocalDateTime(voucherEntity.getEndDay()).isBefore(LocalDateTime.now()))
+                .map(voucherEntity ->
+                         voucherConverter.convertToDTO(voucherEntity))
                 .toList();
     }
 
-    private static ChronoLocalDate convertToChronoLocalDate(Date date) {
-        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    @Override
+    public void setExpiredDate(String code, LocalDateTime date) {
+        VoucherEntity voucherEntity = voucherRepository.findOneByCode(code);
+        voucherEntity.setEndDay(convertToDate(date));
+        voucherRepository.save(voucherEntity);
+    }
+
+    private static LocalDateTime convertToLocalDateTime(Date date) {
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+    }
+    public static Date convertToDate(LocalDateTime localDateTime) {
+        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 }

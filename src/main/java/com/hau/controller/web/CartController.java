@@ -94,23 +94,8 @@ public class CartController {
 
         if(code != null) {
         voucherDTO = voucherService.findOneByCode(code);
-        // xu ly logic
-            if (voucherDTO != null) {
-                if(voucherDTO.getVoucherType().equals(VoucherType.PUBLIC)){
-                    mav.addObject("voucher", voucherDTO);
-                }
-                else {
-                    if( authentication != null && Objects.equals(voucherDTO.getId(), userDTO.getVoucherId())){
-                        mav.addObject("voucher", voucherDTO);
-                    }
-                    else
-                        mav.addObject("InvalidVoucher"
-                                , "Mã giảm giá không tồn tại. Vui lòng thử lại!");
-                }
-            }else{
-                mav.addObject("InvalidVoucher"
-                        , "Mã giảm giá không tồn tại. Vui lòng thử lại!");
-            }
+        // xu ly logic ap voucher
+         renderVoucher(voucherDTO,mav,authentication,userDTO);
         }
 
         return mav;
@@ -228,5 +213,24 @@ public class CartController {
         List<ProductDTO> productDTOList = productService.findAllByActive(true);
         CartDTO cartDTO = CartUtils.getCartByCookie(request.getCookies(),productDTOList);
         return ResponseEntity.ok(CartUtils.GetTotalCartItemByAuthentication(userDTO,cartDTO)) ;
+    }
+
+    private void renderVoucher(VoucherDTO voucherDTO, ModelAndView mav,Authentication authentication, UserDTO userDTO){
+        if (voucherDTO != null) {
+            if(voucherDTO.getVoucherType().equals(VoucherType.PUBLIC)){
+                mav.addObject("voucher", voucherDTO);
+            }
+            else {
+                if( authentication != null && Objects.equals(voucherDTO.getId(), userDTO.getVoucherId())){
+                      mav.addObject("voucher", voucherDTO);
+                }
+                else
+                   mav.addObject("InvalidVoucher"
+                            , "Mã giảm giá không tồn tại. Vui lòng thử lại!");
+            }
+        }else{
+            mav.addObject("InvalidVoucher"
+                    , "Mã giảm giá không tồn tại. Vui lòng thử lại!");
+        }
     }
 }
