@@ -1,5 +1,6 @@
 package com.hau.service.impl;
 
+import com.hau.Enum.VoucherType;
 import com.hau.converter.VoucherConverter;
 import com.hau.dto.VoucherDTO;
 import com.hau.entity.VoucherEntity;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -54,5 +56,41 @@ public class VoucherServiceImpl implements VoucherService {
     public void save(VoucherDTO voucherDTO) {
         VoucherEntity voucherEntity = voucherConverter.convertToEntity(voucherDTO);
         voucherRepository.save(voucherEntity);
+    }
+
+    @Override
+    public VoucherDTO findOneById(Long id) {
+        if(id !=null){
+            VoucherEntity voucherEntity = voucherRepository.findOne(id);
+            if (!convertToLocalDateTime(voucherEntity.getEndDay())
+                    .isBefore(LocalDateTime.now())  ) {
+                return voucherConverter.convertToDTO(voucherEntity);
+            }
+        }
+        return  null;
+    }
+
+    @Override
+    public List<VoucherDTO> findByType(VoucherType voucherType) {
+        return voucherRepository.findByType(voucherType).stream()
+                .filter(voucherEntity ->
+                        !convertToLocalDateTime(voucherEntity.getEndDay()).isBefore(LocalDateTime.now()))
+                .map(voucherEntity ->
+                         voucherConverter.convertToDTO(voucherEntity))
+                .toList();
+    }
+
+    @Override
+    public void setExpiredDate(String code, LocalDateTime date) {
+        VoucherEntity voucherEntity = voucherRepository.findOneByCode(code);
+        voucherEntity.setEndDay(convertToDate(date));
+        voucherRepository.save(voucherEntity);
+    }
+
+    private static LocalDateTime convertToLocalDateTime(Date date) {
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+    }
+    public static Date convertToDate(LocalDateTime localDateTime) {
+        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 }

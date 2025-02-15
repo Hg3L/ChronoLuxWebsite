@@ -1,5 +1,6 @@
 package com.hau.controller.web;
 
+import com.hau.Enum.VoucherType;
 import com.hau.config.MailConfig;
 import com.hau.constant.SystemConstant;
 import com.hau.dto.*;
@@ -28,6 +29,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,6 +99,10 @@ public class CheckoutController {
         billDTO.setStatus(SystemConstant.PAYMENT_PENDING);
 
         BillDTO billDTO1 = billService.save(billDTO);
+        VoucherDTO voucherDTO = voucherService.findOneByCode(billDTO1.getVoucherCode());
+        // kiem tra co phai voucher khach hang moi hay khong
+        if(voucherDTO.getVoucherType().equals(VoucherType.PRIVATE))
+            voucherService.setExpiredDate(billDTO1.getVoucherCode(), LocalDateTime.now()); // neu su dung thi het han voucher
 
         var cartItemDTOS = CartUtils.getCartItemByAuthentication(cartDTO, userDTO);
 

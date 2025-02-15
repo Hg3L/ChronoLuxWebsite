@@ -41,6 +41,26 @@ public class UserEntity extends BaseEntity {
     @OneToMany(mappedBy = "user")
     private List<BillEntity> bills = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "voucher_id")
+    private VoucherEntity voucher;
+
+    public List<CommentEntity> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<CommentEntity> ratings) {
+        this.ratings = ratings;
+    }
+
+    public VoucherEntity getVoucher() {
+        return voucher;
+    }
+
+    public void setVoucher(VoucherEntity voucher) {
+        this.voucher = voucher;
+    }
+
     public String getUserName() {
         return userName;
     }

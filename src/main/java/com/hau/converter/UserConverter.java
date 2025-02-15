@@ -23,6 +23,9 @@ public class UserConverter {
             userDTO.setImgUrl(userEntity.getImgUrl());
             userDTO.setCreatedDate(userEntity.getCreateDate());
             userDTO.setCreatedBy(userEntity.getCreateBy());
+            if(userEntity.getVoucher() != null){
+                userDTO.setVoucherId(userEntity.getVoucher().getId());
+            }
             List<String> rolesCode = new ArrayList<>();
             for(RoleEntity role : userEntity.getRoles()){
                 rolesCode.add(role.getCode());

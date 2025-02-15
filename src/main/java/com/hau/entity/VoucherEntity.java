@@ -1,9 +1,8 @@
 package com.hau.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import com.hau.Enum.VoucherType;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +20,36 @@ public class VoucherEntity extends BaseEntity {
     private Date endDay;
     @OneToMany(mappedBy = "voucher")
     private List<BillEntity> bills = new ArrayList<>();
+    @OneToMany(mappedBy = "voucher")
+    private List<UserEntity> users = new ArrayList<>();
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
+    private VoucherType type;
+
+    public VoucherType getType() {
+        return type;
+    }
+
+    public void setType(VoucherType type) {
+        this.type = type;
+    }
+
+    public List<BillEntity> getBills() {
+        return bills;
+    }
+
+    public void setBills(List<BillEntity> bills) {
+        this.bills = bills;
+    }
+
+    public List<UserEntity> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<UserEntity> users) {
+        this.users = users;
+    }
+
     public String getCode() {
         return code;
     }
