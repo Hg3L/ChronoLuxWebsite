@@ -4,6 +4,7 @@ import com.hau.converter.BrandConverter;
 import com.hau.dto.BrandDTO;
 import com.hau.entity.BrandEntity;
 import com.hau.repository.BrandRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -69,6 +70,16 @@ public class BrandServiceImpl implements com.hau.service.BrandService {
 
             brandRepository.save(brandEntity);
         }
+    }
+
+    @Override
+    public Page<BrandDTO> findByKeyword(String keyword, int page, int limit) {
+        if(StringUtils.isEmpty(keyword.trim())) {
+            return findAll(page, limit);
+        }
+        Pageable pageable = new PageRequest(page - 1, limit);
+        Page<BrandEntity> brandEntities = brandRepository.findAllByNameContainingIgnoreCaseAndActive(keyword, true, pageable);
+        return brandEntities.map(brandEntity -> brandConverter.toDTO(brandEntity));
     }
 }
 

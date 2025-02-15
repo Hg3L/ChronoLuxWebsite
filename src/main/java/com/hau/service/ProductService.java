@@ -28,5 +28,5 @@ public interface ProductService {
     void delete(long id);
     List<ProductDTO> findAllByIdBrandNotPage(Long id);
     // admin
-
+    Page<ProductDTO> findByKeyword(String keyword, int page, int limit);
 }

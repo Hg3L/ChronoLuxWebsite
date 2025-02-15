@@ -4,7 +4,8 @@
 <head>
     <title>ChronoLux - Product Information</title>
     <!-- Custom fonts for this template-->
-    <link href="<c:url value='/template/admin/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet" type="text/css">
+    <link href="<c:url value='/template/admin/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"
+          type="text/css">
     <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
@@ -22,11 +23,29 @@
         <h1 class="h3 mb-1 text-gray-800">Đồng hồ</h1>
     </div>
     <hr/>
-    <div class="d-flex justify-content-end">
-        <a href="${pageContext.request.contextPath}/admin/product/create?currentPage=${currentPage}" class="btn btn-success mr-2 mt-1">
-            <i class="fas fa-plus mr-1"></i> Thêm đồng hồ
-        </a>
-    </div>
+    <form id="searchForm" action="${pageContext.request.contextPath}/admin/product/search" method="get">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    </div>
+                    <input id="searchInput" type="text" class="form-control" name="keyword" placeholder="Tìm kiếm đồng hồ..." value="${keyword}">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-primary w-40" type="submit">
+                    <i class="fas fa-search mr-1"></i> Tìm kiếm
+                </button>
+            </div>
+            <div class="col-md-6 text-right">
+                <a href="${pageContext.request.contextPath}/admin/product/create?currentPage=${currentPage}"
+                   class="btn btn-success mr-2 mt-1">
+                    <i class="fas fa-plus mr-1"></i> Thêm đồng hồ
+                </a>
+            </div>
+        </div>
+    </form>
     <div class="card shadow mb-4 mt-4">
         <div class="card-body">
             <div class="d-flex justify-content-start mb-4 mt-3">
@@ -48,7 +67,8 @@
                         </c:choose>
                     </select>
                     <label class="mr-3 ml-5">Dòng đồng hồ:</label>
-                    <select class="custom-select-box" id="productLineSelect" name="productLineId" data-product-line-id="${productLineId}" aria-label="Select product line" required>
+                    <select class="custom-select-box" id="productLineSelect" name="productLineId"
+                            data-product-line-id="${productLineId}" aria-label="Select product line" required>
                     </select>
                     <button type="submit" class="btn btn-dark ml-3 d-inline-flex align-items-center">
                         <i class="fa fa-filter mr-1" aria-hidden="true"></i> Lọc
@@ -74,26 +94,30 @@
                     <tbody>
                     <c:forEach var="product" items="${productPage.content}">
                         <tr>
-                            <td><img src="<c:url value='/template/web/img/products/${product.imgUrl}'/>" alt="Logo" style="max-width:80px;"/></td>
+                            <td><img src="<c:url value='/template/web/img/products/${product.imgUrl}'/>" alt="Logo"
+                                     style="max-width:80px;"/></td>
                             <td>${product.name}</td>
                             <td>${product.brandName}</td>
                             <td>${product.productLineName}</td>
                             <td>${product.stock}</td>
                             <td class="currency">${product.price}</td>
                             <td>
-                                <a href="${pageContext.request.contextPath}/admin/product/update/?id=${product.id}&currentPage=${currentPage}" class="btn btn-info btn-sm mr-2">
+                                <a href="${pageContext.request.contextPath}/admin/product/update/?id=${product.id}&currentPage=${currentPage}"
+                                   class="btn btn-info btn-sm mr-2">
                                     <i class="fas fa-pencil-alt mr-1"></i> Sửa
                                 </a>
-                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmModal${product.id}">
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                        data-target="#confirmModal${product.id}">
                                     <i class="fas fa-trash-alt mr-1"></i> Xóa
                                 </button>
-                                <%--<a href="${pageContext.request.contextPath}/admin/product/delete?id=${product.id}" class="btn btn-danger btn-sm" &lt;%&ndash;onclick="return confirmDelete(${productLine.id})"&ndash;%&gt;>
-                                    <i class="fas fa-trash-alt mr-1"></i> Xóa
-                                </a>--%>
+                                    <%--<a href="${pageContext.request.contextPath}/admin/product/delete?id=${product.id}" class="btn btn-danger btn-sm" &lt;%&ndash;onclick="return confirmDelete(${productLine.id})"&ndash;%&gt;>
+                                        <i class="fas fa-trash-alt mr-1"></i> Xóa
+                                    </a>--%>
                             </td>
                         </tr>
                         <!-- Modal -->
-                        <div class="modal fade" id="confirmModal${product.id}" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel${product.id}" aria-hidden="true">
+                        <div class="modal fade" id="confirmModal${product.id}" tabindex="-1" role="dialog"
+                             aria-labelledby="confirmModalLabel${product.id}" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -110,7 +134,8 @@
                                             <i class="fa-solid fa-reply mr-1"></i>
                                             Trở lại
                                         </button>
-                                        <a href="${pageContext.request.contextPath}/admin/product/delete?id=${product.id}" class="btn btn-danger">
+                                        <a href="${pageContext.request.contextPath}/admin/product/delete?id=${product.id}"
+                                           class="btn btn-danger">
                                             <i class="fa-solid fa-check mr-1"></i>
                                             Xác nhận xóa
                                         </a>
@@ -127,7 +152,8 @@
                     <!-- Nút Previous -->
                     <c:if test="${currentPage > 1}">
                         <li class="page-item">
-                            <a class="page-link" href="?page=${currentPage - 1}&size=${productPage.size}" aria-label="Previous">
+                            <a class="page-link" href="?page=${currentPage - 1}&size=${productPage.size}"
+                               aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                                 <span class="sr-only">Previous</span>
                             </a>
@@ -142,7 +168,8 @@
                     <!-- Nút Next -->
                     <c:if test="${currentPage < productPage.totalPages}">
                         <li class="page-item">
-                            <a class="page-link" href="?page=${currentPage + 1}&size=${productPage.size}" aria-label="Next">
+                            <a class="page-link" href="?page=${currentPage + 1}&size=${productPage.size}"
+                               aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                                 <span class="sr-only">Next</span>
                             </a>
@@ -211,9 +238,9 @@
         $('#brandSelect').trigger('change');
     });*/
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Khi người dùng thay đổi lựa chọn brand
-        $('#brandSelect').change(function() {
+        $('#brandSelect').change(function () {
             var brandId = $(this).val(); // Lấy giá trị của brand được chọn
             var productLineId = $('#productLineSelect').data('product-line-id'); // Lấy productLineId từ thuộc tính data
 
@@ -221,8 +248,8 @@
             $.ajax({
                 url: '${pageContext.request.contextPath}/admin/product-line/getProductLines',
                 type: 'GET',
-                data: { brandId: brandId },
-                success: function(response) {
+                data: {brandId: brandId},
+                success: function (response) {
                     // Làm trống thẻ select productline trước khi cập nhật
                     $('#productLineSelect').empty();
 
@@ -237,8 +264,8 @@
                         }
 
                         // Thêm product lines vào thẻ select nếu có dữ liệu
-                        $.each(response, function(key, value) {
-                            $('#productLineSelect').append('<option value="'+ value.id +'">'+ value.name +'</option>');
+                        $.each(response, function (key, value) {
+                            $('#productLineSelect').append('<option value="' + value.id + '">' + value.name + '</option>');
                         });
                     }
 
@@ -252,8 +279,6 @@
         // Trigger event change để tải danh sách product lines ban đầu
         $('#brandSelect').trigger('change');
     });
-
-
 </script>
 <script>
     document.querySelectorAll('.currency').forEach(element => {

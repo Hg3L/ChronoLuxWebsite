@@ -86,6 +86,13 @@
             <span style="font-size: 15px">Quản lý tài khoản</span>
         </a>
     </li>
+    <hr class="sidebar-divider">
+    <li class="nav-item">
+        <a class="nav-link" href="<c:url value='/admin/chat'/>">
+            <i class="fa-solid fa-message" style="font-size: 16px"></i>
+            <span style="font-size: 15px">Tin nhắn</span>
+        </a>
+    </li>
 </ul>
 
 <!-- End of Sidebar -->

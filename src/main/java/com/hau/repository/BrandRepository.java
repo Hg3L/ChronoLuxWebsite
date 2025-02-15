@@ -14,4 +14,7 @@ public interface BrandRepository extends JpaRepository<BrandEntity, Long> {
     BrandEntity findOneByIdAndActive(long id,boolean active);
 
     Page<BrandEntity> findAllByActive(boolean active, Pageable pageable);
+
+    @Query("SELECT b FROM BrandEntity b WHERE b.name LIKE %?1% AND b.active = ?2")
+    Page<BrandEntity> findAllByNameContainingIgnoreCaseAndActive(String keyword, boolean active, Pageable pageable);
 }

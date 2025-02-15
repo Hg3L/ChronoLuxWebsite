@@ -124,4 +124,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
     Page<ProductEntity> findAllByBrandIdAndActive(Long brandId, boolean active, Pageable pageable);
 
     Page<ProductEntity> findAllByActive(boolean active, Pageable pageable);
+
+    @Query("SELECT p FROM ProductEntity p WHERE p.name LIKE %?1% AND p.active = ?2")
+    Page<ProductEntity> findAllByNameContainingIgnoreCaseAndActive(String keyword, boolean active, Pageable pageable);
 }

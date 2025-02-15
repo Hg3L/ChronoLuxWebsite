@@ -11,6 +11,7 @@ import com.hau.repository.ProductLineRepository;
 import com.hau.repository.ProductRepository;
 import com.hau.repository.WarrantyRepository;
 import com.hau.service.ProductLineService;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -156,5 +157,20 @@ public class ProductLineServiceImpl implements ProductLineService {
             }
         }
         productLineRepository.save(productLineEntity);
+    }
+
+    @Override
+    public Page<ProductLineDTO> findByKeyword(String keyword, int page, int limit) {
+        if(StringUtils.isEmpty(keyword.trim())) {
+            return findAll(page, limit);
+        }
+        Pageable pageable = new PageRequest(page - 1, limit);
+        Page<ProductLineEntity> productLineEntities = productLineRepository.findAllByNameContainingIgnoreCaseAndActive(keyword, true, pageable);
+        List<ProductLineDTO> productLineDTOs = productLineEntities.getContent().stream().map(productLineEntity -> {
+            ProductLineDTO productLineDTO = productLineConverter.convertToDTO(productLineEntity);
+            productLineDTO.setBrandName(productLineEntity.getBrand().getName());
+            return productLineDTO;
+        }).collect(Collectors.toList());
+        return new PageImpl<>(productLineDTOs, pageable, productLineEntities.getTotalElements());
     }
 }

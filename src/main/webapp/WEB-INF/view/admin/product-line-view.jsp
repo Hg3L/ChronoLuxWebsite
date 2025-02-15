@@ -20,11 +20,31 @@
         <h1 class="h3 mb-1 text-gray-800">Các dòng đồng hồ</h1>
     </div>
     <hr/>
-    <div class="d-flex justify-content-end">
-        <a href="${pageContext.request.contextPath}/admin/product-line/create?currentPage=${currentPage}" class="btn btn-success mr-2 mt-1">
-            <i class="fas fa-plus mr-1"></i> Thêm dòng đồng hồ
-        </a>
-    </div>
+    <form id="searchForm" action="${pageContext.request.contextPath}/admin/product-line/search" method="get">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    </div>
+                    <input id="searchInput" type="text" class="form-control" name="keyword" placeholder="Tìm kiếm dòng đồng hồ..." value="${keyword}">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-primary w-40" type="submit">
+                    <i class="fas fa-search mr-1"></i> Tìm kiếm
+                </button>
+            </div>
+            <div class="col-md-6 text-right">
+                <a href="${pageContext.request.contextPath}/admin/product-line/create?currentPage=${currentPage}" class="btn btn-success mr-2 mt-1">
+                    <i class="fas fa-plus mr-1"></i> Thêm dòng đồng hồ
+                </a>
+            </div>
+        </div>
+    </form>
+    <%--<div class="d-flex justify-content-end">
+
+    </div>--%>
     <div class="card shadow mb-4 mt-4">
         <div class="card-body">
             <div class="d-flex justify-content-start mb-4 mt-3">

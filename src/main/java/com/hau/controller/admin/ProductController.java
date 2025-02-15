@@ -216,4 +216,16 @@ public class ProductController {
 
 
     }
+
+    @GetMapping("/admin/product/search")
+    public String searchProduct(@RequestParam(defaultValue = "") String keyword,
+                                @RequestParam(defaultValue = "1") int page,
+                                @RequestParam(defaultValue = "6") int limit,
+                                Model model) {
+        Page<ProductDTO> productDTOPage = productService.findByKeyword(keyword, page, limit);
+        model.addAttribute("productPage", productDTOPage);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("currentPage", page);
+        return "admin/product-view";
+    }
 }

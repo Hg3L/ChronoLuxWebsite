@@ -11,4 +11,5 @@ public interface BrandService {
     BrandDTO getBrandById(Long id,boolean active);
     void saveBrand(BrandDTO brandDTO);
     void deleteBrandById(Long id);
+    Page<BrandDTO> findByKeyword(String keyword, int page, int limit);
 }

@@ -147,4 +147,16 @@ public class ProductLineController {
     public List<ProductLineDTO> getProductLines(@RequestParam("brandId") long brandId) {
         return productLineService.findAllByBrandIdAndActive(brandId,true);
     }
+
+    @GetMapping("/admin/product-line/search")
+    public String searchProductLine(@RequestParam("keyword") String keyword,
+                                   @RequestParam("page") int page,
+                                   @RequestParam("limit") int limit,
+                                   Model model) {
+        Page<ProductLineDTO> productLines = productLineService.findByKeyword(keyword, page, limit);
+        model.addAttribute("productLines", productLines);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("keyword", keyword);
+        return "admin/product-line-view";
+    }
 }
