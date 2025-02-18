@@ -226,6 +226,8 @@ public class ProductController {
         model.addAttribute("productPage", productDTOPage);
         model.addAttribute("keyword", keyword);
         model.addAttribute("currentPage", page);
+        model.addAttribute("brands", brandService.findAllByActive(true));
+        model.addAttribute("brandId", productDTOPage.getContent().getFirst().getBrandId());
         return "admin/product-view";
     }
 }

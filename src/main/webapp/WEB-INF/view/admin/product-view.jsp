@@ -205,39 +205,6 @@
     });
 </script>
 <script>
-    /*$(document).ready(function(){
-        var productLineId = $('#productLineSelect').val();
-        // Khi người dùng thay đổi lựa chọn brand
-        $('#brandSelect').change(function(){
-            var brandId = $(this).val();
-
-            // Gửi yêu cầu AJAX để lấy danh sách product lines dựa trên brandId
-            $.ajax({
-                url: '${pageContext.request.contextPath}/admin/product-line/getProductLines',  // URL xử lý yêu cầu
-                type: 'GET',
-                data: { brandId: brandId },
-                success: function(response){
-                    // Làm trống thẻ select productline trước khi cập nhật
-                    $('#productLineSelect').empty();
-                    // Kiểm tra nếu không có dữ liệu trả về
-                    if (response.length === 0) {
-                        $('#productLineSelect').append('<option value="" disabled>Chưa có dữ liệu</option>');
-                    } else {
-                        // Thêm product lines vào thẻ select nếu có dữ liệu
-                        $('#productLineSelect').append('<option value="0">Tất cả</option>');  // Thêm lựa chọn "Tất cả"
-                        $.each(response, function(key, value){
-                            $('#productLineSelect').append('<option value="'+ value.id +'">'+ value.name +'</option>');
-                        });
-                    }
-                    if (productLineId) {
-                        $('#productLineSelect').val(productLineId);
-                    }
-                }
-            });
-        });
-        $('#brandSelect').trigger('change');
-    });*/
-
     $(document).ready(function () {
         // Khi người dùng thay đổi lựa chọn brand
         $('#brandSelect').change(function () {
@@ -277,7 +244,9 @@
             });
         });
         // Trigger event change để tải danh sách product lines ban đầu
-        $('#brandSelect').trigger('change');
+        if ($('#brandSelect').val()) {
+            $('#brandSelect').trigger('change');
+        }
     });
 </script>
 <script>

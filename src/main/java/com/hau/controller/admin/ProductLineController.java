@@ -150,13 +150,15 @@ public class ProductLineController {
 
     @GetMapping("/admin/product-line/search")
     public String searchProductLine(@RequestParam("keyword") String keyword,
-                                   @RequestParam("page") int page,
-                                   @RequestParam("limit") int limit,
+                                   @RequestParam(defaultValue = "1") int page,
+                                   @RequestParam(defaultValue = "6") int limit,
                                    Model model) {
         Page<ProductLineDTO> productLines = productLineService.findByKeyword(keyword, page, limit);
         model.addAttribute("productLines", productLines);
         model.addAttribute("currentPage", page);
         model.addAttribute("keyword", keyword);
+        model.addAttribute("brands", brandService.findAllByActive(true));
+        model.addAttribute("brandId", productLines.getContent().getFirst().getBrandId());
         return "admin/product-line-view";
     }
 }
