@@ -26,7 +26,24 @@ public class BillDTO extends AbstractDTO<BillDTO>{
     private String voucherCode;
     private String displayName;
     private String status;
+    private Integer pointEarned;
+    private Integer pointsUsed;
 
+    public Integer getPointEarned() {
+        return pointEarned;
+    }
+
+    public void setPointEarned(Integer pointEarned) {
+        this.pointEarned = pointEarned;
+    }
+
+    public Integer getPointsUsed() {
+        return pointsUsed;
+    }
+
+    public void setPointsUsed(Integer pointsUsed) {
+        this.pointsUsed = pointsUsed;
+    }
 
     public String getPaymentMethod() {
         return paymentMethod;

@@ -136,7 +136,12 @@
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h4 class="text-right">Thông Tin Tài Khoản</h4>
                             </div>
-
+                             <hr>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">✨ Tổng điểm tích lũy:</h5>
+                                    <span class=" fs-5 px-3 py-2">${user.points} điểm</span>
+                                </div>
+                            <hr>
                                 <div class="row mt-2">
                                     <c:if test="${user.password != null}">
                                         <input type="hidden" name="id" class="form-control" value="${user.id}">
@@ -222,12 +227,12 @@
             </div>
             </div>
 <script>
-                document.querySelectorAll('#price').forEach(element => {
-                    let price = parseInt(element.innerText.replace("đ", ""), 10);
-                    element.innerText = price.toLocaleString("vi-VN") + "đ";
-                });
+    document.querySelectorAll('#price').forEach(element => {
+        let price = parseFloat(element.innerText.replace("đ", "").trim()); // Chuyển từ chuỗi sang số
+        element.innerText = price.toLocaleString("vi-VN", { style: "currency", currency: "VND" }); // Format tiền tệ VNĐ
+    });
+</script>
 
-            </script>
 <script>
     function displayImg(fileInput) {
         const file = fileInput.files[0];

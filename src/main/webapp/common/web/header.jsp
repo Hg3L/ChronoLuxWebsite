@@ -20,7 +20,7 @@
         </div>
         <div class="col-lg-3 col-6 text-right">
 
-            <a href="<c:url value='/cart'/>" class="btn border">
+            <a href="<c:url value='/cart?alert=true'/>" class="btn border">
                 <i class="fas fa-shopping-cart text-primary"></i>
                 <span class="badge" id = "cart">0</span>
             </a>

@@ -100,9 +100,11 @@ public class CheckoutController {
 
         BillDTO billDTO1 = billService.save(billDTO);
         VoucherDTO voucherDTO = voucherService.findOneByCode(billDTO1.getVoucherCode());
-        // kiem tra co phai voucher khach hang moi hay khong
-        if(voucherDTO.getVoucherType().equals(VoucherType.PRIVATE))
-            voucherService.setExpiredDate(billDTO1.getVoucherCode(), LocalDateTime.now()); // neu su dung thi het han voucher
+
+        if(voucherDTO != null){ // kiem tra co dung voucher khong
+            if(voucherDTO.getVoucherType().equals(VoucherType.PRIVATE))    // kiem tra co phai voucher khach hang moi hay khong
+                voucherService.setExpiredDate(billDTO1.getVoucherCode(), LocalDateTime.now()); // neu su dung thi het han voucher
+        }
 
         var cartItemDTOS = CartUtils.getCartItemByAuthentication(cartDTO, userDTO);
 

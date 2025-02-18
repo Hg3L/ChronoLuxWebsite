@@ -29,6 +29,8 @@ public class BillConverter implements Converter<BillDTO, BillEntity> {
         billDTO.setReceiverName(entity.getReceiverName());
         billDTO.setReceiverGender(entity.getReceiverGender());
         billDTO.setReceiverPhone(entity.getReceiverPhone());
+        billDTO.setPointEarned(entity.getPointsEarned());
+        billDTO.setPointsUsed(entity.getPointsUsed());
         if(entity.getPaymentMethod().equals("cod")) {
             billDTO.setPaymentMethod("Thanh toán khi nhận hàng");
         }
@@ -66,6 +68,8 @@ public class BillConverter implements Converter<BillDTO, BillEntity> {
         billEntity.setReceiverGender(dto.getReceiverGender());
         billEntity.setReceiverPhone(dto.getReceiverPhone());
         billEntity.setPaymentMethod(dto.getPaymentMethod());
+        billEntity.setPointsUsed(dto.getPointsUsed());
+        billEntity.setPointsEarned(dto.getPointEarned());
         return billEntity;
     }
 }
