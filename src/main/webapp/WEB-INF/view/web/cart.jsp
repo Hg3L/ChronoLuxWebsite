@@ -184,7 +184,8 @@
                                     <c:if test="${not empty voucher}">
                                         <div class="d-flex justify-content-between mb-3 pt-1">
                                             <h6 class="font-weight-medium" style="font-family: Arial">Giảm Giá</h6>
-                                            <h6 id = "price" class="font-weight-medium">-${voucher.discount}</h6>
+                                            <h6 id = "price" class="font-weight-medium">-${voucher.discount} </h6>
+
                                         </div>
                                     </c:if>
                                 </div>
@@ -207,6 +208,7 @@
                             <c:if test = "${not empty error}">
                             <input type= "hidden" id = "error" value ="${error}">;
                              </c:if>
+                              <input type= "hidden" id = "alert" value ="${alert}">;
                         </c:if>
                     </div>
                 </div>
@@ -216,31 +218,38 @@
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <!-- Cart End -->
-           <security:authorize access="isAnonymous()">
-               <script>
-                   document.addEventListener("DOMContentLoaded", function () {
-                       Swal.fire({
-                           title: "🔒 Bạn chưa đăng nhập!",
-                           text: "Hãy đăng nhập để nhập ưu đãi và nhận nhiều khuyến mãi hấp dẫn.",
-                           icon: "info",
-                           showCancelButton: true,
-                           confirmButtonText: "Đăng nhập ngay",
-                           cancelButtonText: "Để sau",
-                           reverseButtons: true,
-                           customClass: {
-                               popup: "rounded-lg shadow-lg",
-                               title: "text-lg font-semibold",
-                               confirmButton: "bg-blue-600 text-white px-4 py-2 rounded",
-                               cancelButton: "bg-gray-300 text-black px-4 py-2 rounded"
-                           }
-                       }).then((result) => {
-                           if (result.isConfirmed) {
-                               window.location.href = '<c:url value="/login" />';
-                           }
-                       });
-                   });
-               </script>
-           </security:authorize>
+          <security:authorize access="isAnonymous()">
+              <script>
+                  document.addEventListener("DOMContentLoaded", function () {
+                      // Lấy giá trị từ input hidden
+                      const alertValue = document.getElementById("alert")?.value;
+
+                      // Nếu alert là "true", hiển thị hộp thoại
+                      if (alertValue === "true") {
+                          Swal.fire({
+                              title: "🔒 Bạn chưa đăng nhập!",
+                              text: "Hãy đăng nhập để nhập ưu đãi và nhận nhiều khuyến mãi hấp dẫn.",
+                              icon: "info",
+                              showCancelButton: true,
+                              confirmButtonText: "Đăng nhập ngay",
+                              cancelButtonText: "Để sau",
+                              reverseButtons: true,
+                              customClass: {
+                                  popup: "rounded-lg shadow-lg",
+                                  title: "text-lg font-semibold",
+                                  confirmButton: "bg-blue-600 text-white px-4 py-2 rounded",
+                                  cancelButton: "bg-gray-300 text-black px-4 py-2 rounded"
+                              }
+                          }).then((result) => {
+                              if (result.isConfirmed) {
+                                  window.location.href = '<c:url value="/login" />';
+                              }
+                          });
+                      }
+                  });
+              </script>
+          </security:authorize>
+
 
             <script>
 

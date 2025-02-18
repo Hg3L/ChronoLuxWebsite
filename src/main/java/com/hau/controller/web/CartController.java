@@ -38,10 +38,13 @@ public class CartController {
     @RequestMapping(value = "/cart", method = RequestMethod.GET)
     public ModelAndView cartPage(@AuthenticationPrincipal Authentication authentication,
                                  @RequestParam(value = "code",required = false) String code,
+                                 @RequestParam(value = "alert",required = false) String alert,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
         String txt = "";
+
         ModelAndView mav = new ModelAndView("web/cart");
+
         UserDTO userDTO = null;
         List<VoucherDTO> voucherValids = new ArrayList<>(voucherService.findByType(VoucherType.PUBLIC));
 
@@ -91,6 +94,8 @@ public class CartController {
         mav.addObject("error",error);
         mav.addObject("cartItems",cartItemDTOS);
         mav.addObject("totalPrice",cartDTO.getTotalByUser(userDTO));
+        mav.addObject("alert",alert);
+        System.out.println(alert);
 
         if(code != null) {
         voucherDTO = voucherService.findOneByCode(code);
@@ -135,7 +140,7 @@ public class CartController {
             c.setPath("/ChronoLuxWeb");
             response.addCookie(c);
 
-        return "redirect:/cart";
+        return "redirect:/cart?alert=true";
     }
     @GetMapping("/cart/update")
     public String updateQuantityCart(@RequestParam("productId") long productId,

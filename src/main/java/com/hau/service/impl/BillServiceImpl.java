@@ -66,16 +66,24 @@ public class BillServiceImpl implements BillService {
            VoucherEntity voucherEntity =  voucherRepository.findOneByCode(billDTO.getVoucherCode());
            billEntity.setVoucher(voucherEntity);
         }
-
+        billEntity.setPointsUsed(0);
         billEntity.setCartItems(cartItemEntities);
+        billEntity.setPointsEarned(calculatePointEarned(billEntity.getTotal()));
 
         BillEntity bill= billRepository.save(billEntity);
+        if(bill.getUser() != null){
+            UserEntity user = userRepository.findOne(bill.getUser().getId());
+            user.setPoints(user.getPoints() + bill.getPointsEarned());
+        }
+
         for(CartItemEntity cartItemEntity : cartItemEntities){
             cartItemEntity.setBill(bill);
         }
         return  billConverter.convertToDTO(billEntity);
     }
-
+    private Integer calculatePointEarned(double total){
+        return (int) (total  / 1000);
+    }
     @Override
     public void confirmPaidBill(Long id) {
         BillEntity billEntity = billRepository.findOne(id);

@@ -23,6 +23,7 @@ public class UserConverter {
             userDTO.setImgUrl(userEntity.getImgUrl());
             userDTO.setCreatedDate(userEntity.getCreateDate());
             userDTO.setCreatedBy(userEntity.getCreateBy());
+            userDTO.setPoints(userEntity.getPoints());
             if(userEntity.getVoucher() != null){
                 userDTO.setVoucherId(userEntity.getVoucher().getId());
             }
@@ -44,6 +45,7 @@ public class UserConverter {
         userEntity.setPassword(userDTO.getPassword());
         userEntity.setStatus(userDTO.getStatus());
         userEntity.setImgUrl(userDTO.getImgUrl());
+        userEntity.setPoints(userDTO.getPoints());
         return userEntity;
     }
     public UserEntity toEntity(UserEntity result,UserDTO userDTO){
@@ -53,6 +55,7 @@ public class UserConverter {
         result.setStatus(userDTO.getStatus());
         result.setPassword(userDTO.getPassword());
         result.setImgUrl(userDTO.getImgUrl());
+        result.setPoints(userDTO.getPoints());
         return result;
     }
 }
