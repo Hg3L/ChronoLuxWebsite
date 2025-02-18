@@ -211,7 +211,37 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Thêm thư viện SweetAlert2 -->
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <!-- Cart End -->
+           <security:authorize access="isAnonymous()">
+               <script>
+                   document.addEventListener("DOMContentLoaded", function () {
+                       Swal.fire({
+                           title: "🔒 Bạn chưa đăng nhập!",
+                           text: "Hãy đăng nhập để nhập ưu đãi và nhận nhiều khuyến mãi hấp dẫn.",
+                           icon: "info",
+                           showCancelButton: true,
+                           confirmButtonText: "Đăng nhập ngay",
+                           cancelButtonText: "Để sau",
+                           reverseButtons: true,
+                           customClass: {
+                               popup: "rounded-lg shadow-lg",
+                               title: "text-lg font-semibold",
+                               confirmButton: "bg-blue-600 text-white px-4 py-2 rounded",
+                               cancelButton: "bg-gray-300 text-black px-4 py-2 rounded"
+                           }
+                       }).then((result) => {
+                           if (result.isConfirmed) {
+                               window.location.href = '<c:url value="/login" />';
+                           }
+                       });
+                   });
+               </script>
+           </security:authorize>
+
             <script>
 
                 function increaseQuantity(index) {
