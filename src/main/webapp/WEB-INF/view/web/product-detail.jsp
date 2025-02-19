@@ -380,7 +380,7 @@
                                  </button>
                                  <script>
                                      function scrollToBottom() {
-                                         window.scrollTo({ top: 1150, behavior: 'smooth' });
+                                         document.getElementById("targetSection").scrollIntoView({ behavior: "smooth"});
                                      }
                                  </script>
                              </c:if>
@@ -443,7 +443,7 @@
                                </button>
                                <script>
                                    function scrollToBottom() {
-                                       window.scrollTo({ top: 1150, behavior: 'smooth' });
+                                       document.getElementById("targetSection").scrollIntoView({ behavior: "smooth"});
                                    }
                                </script>
                            </c:if>
@@ -650,7 +650,7 @@
             <!-- Shop Detail End -->
 
             <!-- Products Start -->
-            <div class="container-fluid py-5">
+            <div class="container-fluid py-5" id="targetSection">
                 <div class="text-center mb-4">
                     <h2 class="section-title px-5"><span class="px-2" style="font-family: Arial"> Sản Phẩm Tương Tự</span></h2>
                 </div>

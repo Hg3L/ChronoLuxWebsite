@@ -51,10 +51,11 @@
             top: 10px;
             left: 10px;
             background-color: white;
-            font-size: 12px;
+            font-size: 13px;
+            color: red;
             padding: 3px 7px;
             border-radius: 5px;
-            border: 1px solid #ddd;
+            border: 1px solid #ff0000;
         }
 
         .wishlist-btn {
