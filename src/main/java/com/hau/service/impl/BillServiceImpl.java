@@ -82,7 +82,7 @@ public class BillServiceImpl implements BillService {
         return  billConverter.convertToDTO(billEntity);
     }
     private Integer calculatePointEarned(double total){
-        return (int) (total  / 1000);
+        return (int) (total  / 10000);
     }
     @Override
     public void confirmPaidBill(Long id) {

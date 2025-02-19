@@ -60,6 +60,7 @@ public class CartController {
             if(voucherDTO != null){
                 voucherValids.add(voucherDTO);
             }
+            mav.addObject("loyaltyPoints",userDTO.getPoints());
 
         }
         String error = null;
