@@ -149,6 +149,16 @@
                    .owl-next {
                        right: 10px; /* Vị trí nút tiếp theo */
                    }
+                    .try-on-label {
+                        position: absolute;
+                        top: 15px;
+                        left: 15px;
+                        background-color: white;
+                        font-size: 14px;
+                        padding: 3px 7px;
+                        border-radius: 5px;
+                        border: 1px solid #ddd;
+                    }
                  .rating {
                             display: flex;
                             flex-direction: row-reverse;
@@ -315,11 +325,127 @@
                                   <input type="hidden" name = "productId"  value="${model.id}">
                             <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Thêm Vào Giỏ</button>
                             </form>
+                                 <style>
+                                     /* Button Styling */
+                                     .sparkle-button {
+                                         position: relative;
+                                         border: 2px solid transparent;
+                                         transition: 0.3s;
+                                         overflow: hidden;
+                                     }
+
+                                     /* Sparkling Effect on Hover */
+                                     .sparkle-button:hover {
+                                         border-color: rgb(139, 116, 211);
+                                         box-shadow: 0 0 10px rgba(139, 116, 211, 0.8);
+                                     }
+
+                                     .sparkle-button::before {
+                                         content: "";
+                                         position: absolute;
+                                         top: -5px;
+                                         left: -5px;
+                                         width: calc(100% + 10px);
+                                         height: calc(100% + 10px);
+                                         border-radius: 5px;
+                                         border: 2px solid rgb(139, 116, 211);
+                                         opacity: 0;
+                                         box-shadow: 0 0 10px rgba(139, 116, 211, 0.8);
+                                         animation: sparkle 1.5s infinite linear;
+                                     }
+
+                                     /* Keyframes for Sparkling Animation */
+                                     @keyframes sparkle {
+                                         0% {
+                                             opacity: 0.3;
+                                             transform: scale(1);
+                                         }
+                                         50% {
+                                             opacity: 0.7;
+                                             transform: scale(1.1);
+                                         }
+                                         100% {
+                                             opacity: 0.3;
+                                             transform: scale(1);
+                                         }
+                                     }
+
+                                     /* Show Sparkle Animation on Hover */
+                                     .sparkle-button:hover::before {
+                                         opacity: 1;
+                                     }
+                                 </style>
+                                 <button class="btn px-3 ml-2 sparkle-button" onclick="scrollToBottom()" style="color: rgb(139,116,211)">
+                                     <i class="fa-brands fa-slack"></i> Gợi ý của AI
+                                 </button>
+                                 <script>
+                                     function scrollToBottom() {
+                                         window.scrollTo({ top: 1150, behavior: 'smooth' });
+                                     }
+                                 </script>
                              </c:if>
                            <c:if test="${model.stock <= 0}">
                                <button class="btn btn-primary px-3 sold-out-btn" disabled>
                                    <i class="fa fa-shopping-cart mr-1"></i> Hết Hàng
                                </button>
+                               <style>
+                                   /* Button Styling */
+                                   .sparkle-button {
+                                       position: relative;
+                                       border: 2px solid transparent;
+                                       transition: 0.3s;
+                                       overflow: hidden;
+                                   }
+
+                                   /* Sparkling Effect on Hover */
+                                   .sparkle-button:hover {
+                                       border-color: rgb(139, 116, 211);
+                                       box-shadow: 0 0 10px rgba(139, 116, 211, 0.8);
+                                   }
+
+                                   .sparkle-button::before {
+                                       content: "";
+                                       position: absolute;
+                                       top: -5px;
+                                       left: -5px;
+                                       width: calc(100% + 10px);
+                                       height: calc(100% + 10px);
+                                       border-radius: 5px;
+                                       border: 2px solid rgb(139, 116, 211);
+                                       opacity: 0;
+                                       box-shadow: 0 0 10px rgba(139, 116, 211, 0.8);
+                                       animation: sparkle 1.5s infinite linear;
+                                   }
+
+                                   /* Keyframes for Sparkling Animation */
+                                   @keyframes sparkle {
+                                       0% {
+                                           opacity: 0.3;
+                                           transform: scale(1);
+                                       }
+                                       50% {
+                                           opacity: 0.7;
+                                           transform: scale(1.1);
+                                       }
+                                       100% {
+                                           opacity: 0.3;
+                                           transform: scale(1);
+                                       }
+                                   }
+
+                                   /* Show Sparkle Animation on Hover */
+                                   .sparkle-button:hover::before {
+                                       opacity: 1;
+                                   }
+                               </style>
+                               <button class="btn px-3 ml-2 sparkle-button" onclick="scrollToBottom()" style="color: rgb(139,116,211)">
+                                   <i class="fa-brands fa-slack"></i> Gợi ý của AI
+                               </button>
+                               <script>
+                                   function scrollToBottom() {
+                                       window.scrollTo({ top: 1150, behavior: 'smooth' });
+                                   }
+                               </script>
                            </c:if>
                         </div>
 
@@ -533,6 +659,52 @@
                         <div class="owl-carousel related-carousel">
                             <c:forEach var="item" items="${productByBrands}">
                                 <div class="product-card p-2 bg-white shadow mx-3 my-3 " style="border-radius: 1rem; max-width: 300px">
+                                    <style>
+                                        /* Button Styling */
+                                        .sparkle-label {
+                                            position: relative;
+                                            border: 2px solid transparent;
+                                            transition: 0.3s;
+                                            overflow: hidden;
+                                        }
+
+                                        /* Sparkling Effect on Hover */
+                                        .sparkle-label:hover {
+                                            border-color: rgba(139, 116, 211, 0);
+                                            box-shadow: 0 0 10px rgba(139, 116, 211, 0);
+                                        }
+
+                                        .sparkle-label::before {
+                                            content: "";
+                                            position: absolute;
+                                            top: -5px;
+                                            left: -5px;
+                                            width: calc(100% + 10px);
+                                            height: calc(100% + 10px);
+                                            border-radius: 5px;
+                                            border: 2px solid rgb(139, 116, 211);
+                                            opacity: 0;
+                                            box-shadow: 0 0 10px rgba(139, 116, 211, 0.8);
+                                            animation: sparkle 1.5s infinite linear;
+                                        }
+
+                                        /* Keyframes for Sparkling Animation */
+                                        @keyframes sparkle {
+                                            0% {
+                                                opacity: 0.3;
+                                                transform: scale(1);
+                                            }
+                                            50% {
+                                                opacity: 0.7;
+                                                transform: scale(1.1);
+                                            }
+                                            100% {
+                                                opacity: 0.3;
+                                                transform: scale(1);
+                                            }
+                                        }
+                                    </style>
+                                    <span class="try-on-label sparkle-label" style="color: rgba(160,148,255,1);"><i class="fa-brands fa-slack" style="padding-right: 10px"></i>Gợi ý bởi AI</span>
                                     <img class="img-fluid p-5" style="width: fit-content;" src="<c:url value='/template/web/img/products/${item.imgUrl}'/>" alt="">
                                     <div class="card-body text-center p-0 pt-4 pb-3">
                                         <h6 class="text-truncate mb-3">${item.name}</h6>
