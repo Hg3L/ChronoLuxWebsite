@@ -40,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/check").permitAll()
                 .antMatchers("/admin/*").hasAnyRole("ADMIN")
                 .antMatchers("/home").hasAnyRole("USER","ANONYMOUS","USER_FACEBOOK","USER_GOOGLE")
                 .antMatchers("/cart*").hasAnyRole("USER","ANONYMOUS","USER_FACEBOOK","USER_GOOGLE")
@@ -70,6 +71,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/resource"); // nếu có tài nguyên tĩnh
+        web.ignoring().antMatchers("/resource", "/ws/**"); // nếu có tài nguyên tĩnh
     }
 }

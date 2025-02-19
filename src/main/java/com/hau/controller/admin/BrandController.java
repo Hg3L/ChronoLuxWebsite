@@ -12,6 +12,7 @@ import com.hau.util.PageableUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,10 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 
 
@@ -137,5 +135,17 @@ public class BrandController {
     public String deleteBrand(@RequestParam("id") Long id) throws Exception {
         brandService.deleteBrandById(id);
         return "redirect:/admin/brands";
+    }
+
+    @GetMapping("/admin/brand/search")
+    public String searchBrand(@RequestParam(defaultValue = "") String keyword,
+                                      @RequestParam(defaultValue = "1") int page,
+                                      @RequestParam(defaultValue = "6") int limit,
+                                      Model model) {
+        Page<BrandDTO> brandPage = brandService.findByKeyword(keyword, page, limit);
+        model.addAttribute("brandPage", brandPage);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("keyword", keyword);
+        return "admin/brand-view";
     }
 }

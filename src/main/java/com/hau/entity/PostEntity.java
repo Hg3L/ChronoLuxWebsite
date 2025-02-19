@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name ="post")
+@Table(name ="banner")
 public class PostEntity extends BaseEntity {
     @Column(name="img")
     private String img;

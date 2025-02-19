@@ -9,6 +9,7 @@ import com.hau.entity.ProductLineEntity;
 import com.hau.repository.ProductLineRepository;
 import com.hau.repository.ProductRepository;
 import com.hau.service.ProductService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -209,6 +210,22 @@ public class ProductServiceImpl implements ProductService {
             products.add(product);
         }
         return products;
+    }
+
+    @Override
+    public Page<ProductDTO> findByKeyword(String keyword, int page, int limit) {
+        if(StringUtils.isEmpty(keyword.trim())) {
+            return findAll(page, limit);
+        }
+        Pageable pageable = new PageRequest(page - 1, limit);
+        Page<ProductEntity> productEntities = productRepository.findAllByNameContainingIgnoreCaseAndActive(keyword, true, pageable);
+        List<ProductDTO> productDTOs = productEntities.getContent().stream().map(productEntity -> {
+            ProductDTO productDTO = productConverter.toDTO(productEntity);
+            productDTO.setBrandName(productEntity.getProductLine().getBrand().getName());
+            productDTO.setProductLineName(productEntity.getProductLine().getName());
+            return productDTO;
+        }).collect(Collectors.toList());
+        return new PageImpl<>(productDTOs, pageable, productEntities.getTotalElements());
     }
 
 }

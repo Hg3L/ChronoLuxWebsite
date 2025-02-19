@@ -18,12 +18,12 @@
 <div class="container-fluid">
     <div class="d-sm-flex align-items-start justify-content-start mb-3">
         <i class="fa-solid fa-newspaper h3 mb-1 mr-2" style="font-size: 28px"></i>
-        <h1 class="h3 mb-1 text-gray-800">Bài viết</h1>
+        <h1 class="h3 mb-1 text-gray-800">Banner</h1>
     </div>
     <hr/>
     <div class="d-flex justify-content-end">
         <a href="${pageContext.request.contextPath}/admin/post/create" class="btn btn-success mr-2 mt-1 mb-4">
-            <i class="fas fa-plus mr-1"></i> Thêm bài viết
+            <i class="fas fa-plus mr-1"></i> Thêm banner
         </a>
     </div>
     <!-- Loop through posts list -->

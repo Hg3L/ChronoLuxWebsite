@@ -17,7 +17,7 @@
 <div class="container">
     <form:form method="post" action="${pageContext.request.contextPath}/admin/post/save" enctype="multipart/form-data" modelAttribute="post" >
         <div class="d-flex justify-content-between align-items-center my-4">
-            <h1 class="h3 mb-1 mt-2 text-gray-800">Thêm bài viết</h1>
+            <h1 class="h3 mb-1 mt-2 text-gray-800">Thêm Banner</h1>
             <div>
                 <a href="${pageContext.request.contextPath}/admin/posts" class="btn btn-warning">
                     <i class="fa fa-reply mr-1" aria-hidden="true"></i>

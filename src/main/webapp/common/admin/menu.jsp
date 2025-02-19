@@ -54,6 +54,12 @@
         </a>
     </li>
     <li class="nav-item">
+        <a class="nav-link" href="<c:url value='/admin/comment'/>">
+            <i class="fa-solid fa-message" style="font-size: 16px"></i>
+            <span style="font-size: 15px">Bình luận</span>
+        </a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="<c:url value='/admin/vouchers'/>">
             <i class="fa-solid fa-ticket" style="font-size: 16px"></i>
             <span style="font-size: 15px">Mã giảm giá</span>
@@ -76,7 +82,7 @@
     <li class="nav-item">
         <a class="nav-link" href="<c:url value='/admin/posts'/>">
             <i class="fa-solid fa-newspaper" style="font-size: 16px"></i>
-            <span style="font-size: 15px">Bài viết</span>
+            <span style="font-size: 15px">Banner</span>
         </a>
     </li>
     <hr class="sidebar-divider">
@@ -86,6 +92,7 @@
             <span style="font-size: 15px">Quản lý tài khoản</span>
         </a>
     </li>
+    <hr class="sidebar-divider">
 </ul>
 
 <!-- End of Sidebar -->

@@ -14,4 +14,5 @@ public interface ProductLineService {
     Page<ProductLineDTO> findAllWithWarrantyByBrandId(int page, int limit, boolean isHasWarranty, Long brandId);
     void save(ProductLineDTO productLineDTO);
     void deleteById(Long id);
+    Page<ProductLineDTO> findByKeyword(String keyword, int page, int limit);
 }

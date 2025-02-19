@@ -22,4 +22,8 @@ public interface ProductLineRepository extends JpaRepository<ProductLineEntity,L
     Page<ProductLineEntity> findByWarrantyIsNull(Pageable pageable);
     Page<ProductLineEntity> findByBrand_IdAndWarrantyIsNotNull(Long brandId, Pageable pageable);
     Page<ProductLineEntity> findByBrand_IdAndWarrantyIsNull(Long brandId, Pageable pageable);
+
+    @Query("SELECT p FROM ProductLineEntity p WHERE p.name LIKE %?1% AND p.active = ?2")
+    Page<ProductLineEntity> findAllByNameContainingIgnoreCaseAndActive(String keyword, boolean active, Pageable pageable);
+
 }
