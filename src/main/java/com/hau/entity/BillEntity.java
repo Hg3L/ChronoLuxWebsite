@@ -34,6 +34,10 @@ public class BillEntity extends BaseEntity{
     private String email;
     @Column(name = "status")
     private String status;
+    @Column(name = " points_earned" ,nullable = false)
+    private Integer  pointsEarned = 0;
+    @Column(name =  "points_used",nullable = false)
+    private Integer pointsUsed = 0;
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "voucher_id")
     private VoucherEntity voucher;
@@ -185,5 +189,21 @@ public class BillEntity extends BaseEntity{
 
     public void setReceiverGender(String receiverGender) {
         this.receiverGender = receiverGender;
+    }
+
+    public Integer getPointsEarned() {
+        return pointsEarned;
+    }
+
+    public void setPointsEarned(Integer pointsEarned) {
+        this.pointsEarned = pointsEarned;
+    }
+
+    public Integer getPointsUsed() {
+        return pointsUsed;
+    }
+
+    public void setPointsUsed(Integer pointsUsed) {
+        this.pointsUsed = pointsUsed;
     }
 }

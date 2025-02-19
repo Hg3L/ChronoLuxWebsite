@@ -15,6 +15,15 @@ public class UserDTO extends AbstractDTO{
     private String firstName;
     private String surName;
     private Long voucherId;
+    private Integer points;
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
+    }
 
     public Long getVoucherId() {
         return voucherId;
