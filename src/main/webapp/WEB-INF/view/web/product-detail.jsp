@@ -249,9 +249,9 @@
                 <div class="row px-xl-5">
                     <div class="col-lg-5 pb-5">
                         <div id="product-carousel" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner border">
-                                <div class="carousel-item active">
-                                    <img class="w-100 h-100"
+                            <div class="carousel-inner w-60 h-60">
+                                <div class="carousel-item active d-flex justify-content-center align-items-center flex-wrap">
+                                    <img class="w-60 h-60" style="max-height: 450px; max-width: 300px "
                                         src="<c:url value='/template/web/img/products/${model.imgUrl}'/>"
                                         alt="Image">
                                 </div>
@@ -284,7 +284,7 @@
 
                         </div>
                         <h3 id="price" class="font-weight-semi-bold mb-4">${model.price}</h3>
-                        <p class="mb-4">Thương Hiệu: ${model.brandName} - Quóc Gia: ${model.country}</p>
+                        <p class="mb-4">Thương Hiệu: ${model.brandName} - Quốc Gia: ${model.country}</p>
                         <c:if test="${model.stock < 10 && model.stock != 0}">
                                 <p class="mb-4">
                                     <span class="badge p-0" style="color: red; font-family: Arial; font-size: 18px">Chỉ Còn ${model.stock} Sản Phẩm!</span>
@@ -437,101 +437,86 @@
 
                             </div>
                             <div class="tab-pane fade" id="tab-pane-4">
-                              <div class="row">
-
-                                                        <div class="col-md-6">
-                                                          <c:choose>
-                                                              <c:when test="${commentList != null and fn:length(commentList) > 0}">
-                                                                  <h4 class="mb-4">${totalComment} review for "${model.name}"</h4>
-                                                                  <div class="media mb-4">
-                                                                      <div class="media-body">
-                                                                          <c:forEach var="item" items="${commentList}">
-                                                                              <!-- Ảnh đại diện người dùng -->
-                                                                              <c:choose>
-                                                                                  <c:when test="${not empty item.imgUrl}">
-                                                                                      <img src="<c:url value='/template/web/img/user-logos/${item.imgUrl}'/>"
-                                                                                           alt="User Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
-                                                                                  </c:when>
-                                                                                  <c:otherwise>
-                                                                                      <img src="<c:url value='/template/web/img/user-logos/user.png'/>"
-                                                                                           alt="Default Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
-                                                                                  </c:otherwise>
-                                                                              </c:choose>
-
-                                                                              <h6>${item.name} <small> - <i>${item.createdDate}</i></small></h6>
-
-                                                                              <!-- Hiển thị số sao đánh giá -->
-                                                                              <div class="text-primary mb-2">
-                                                                                  <c:forEach begin="1" end="${item.rating}">
-                                                                                      <i class="fas fa-star"></i>
-                                                                                  </c:forEach>
-                                                                              </div>
-
-                                                                              <p>${item.review}</p>
-
-                                                                              <!-- Ảnh nhỏ của review -->
-                                                                              <img style="max-width: 150px; max-height: 150px; width: fit-content; height: fit-content; cursor: pointer;"
-                                                                                   src="<c:url value='/comment/image/${item.id}'/>" alt="Product Image"
-                                                                                   onclick="openImageModal(this.src)">
-  <div id="imageModal" class="modal" onclick="closeImageModal()">
-                                                                   <span class="close">&times;</span>
-                                                                   <img class="modal-content" id="modalImage">
-                                                               </div>
-                                                                              <br>
-                                                                          </c:forEach>
-                                                                      </div>
-                                                                  </div>
-                                                              </c:when>
-
-                                                              <c:otherwise>
-                                                                  <h4>Sản phẩm chưa có đánh giá nào.</h4>
-                                                              </c:otherwise>
-                                                          </c:choose>
-
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <h4 class="mb-4">Leave a review</h4>
-                                                            <small>Your email address will not be published. Required fields are marked *</small>
-                                                           <div class="d-flex my-3">
-                                                               <p class="mb-0 mr-2">Your Rating * :</p>
-                                                               <div class="rating">
-                                                                   <i class="fas fa-star" data-value="5"></i>
-                                                                   <i class="fas fa-star" data-value="4"></i>
-                                                                   <i class="fas fa-star" data-value="3"></i>
-                                                                   <i class="fas fa-star" data-value="2"></i>
-                                                                   <i class="fas fa-star" data-value="1"></i>
-                                                               </div>
-                                                           </div>
-                                                            <form action="<c:url value='/comment'/>" method="post" onsubmit="return validateForm()" enctype="multipart/form-data">
-                                                                <div class="form-group">
-                                                                    <label for="message">Your Review *</label>
-                                                                    <textarea id="message" name = "review" cols="30" rows="5" class="form-control"></textarea>
-                                                                    <label for="message">Name *</label>
-                                                                    <textarea id="message" name = "name" value ="${user.fullName}"  cols="30" rows="1" class="form-control" required>${user.fullName}</textarea>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <c:choose>
+                                            <c:when test="${commentList != null and fn:length(commentList) > 0}">
+                                                <h4 class="mb-4">${totalComment} đánh giá cho "${model.name}"</h4>
+                                                <div class="media mb-4">
+                                                    <div class="media-body overflow-auto px-3 py-3" style="max-height: 500px">
+                                                        <c:forEach var="item" items="${commentList}">
+                                                            <div class="d-flex align-items-center mb-2 mt-3">
+                                                                <c:choose>
+                                                                    <c:when test="${not empty item.imgUrl}">
+                                                                        <img src="<c:url value='/template/web/img/user-logos/${item.imgUrl}'/>"
+                                                                             alt="Ảnh người dùng" class="rounded-circle mr-3" style="width: 45px;">
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <img src="<c:url value='/template/web/img/user-logos/user.png'/>"
+                                                                             alt="Ảnh mặc định" class="rounded-circle mr-3" style="width: 45px;">
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                                <div>
+                                                                    <h6 class="mb-1">${item.name} <small class="text-muted"> - ${item.createdDate}</small></h6>
+                                                                    <div class="text-warning mb-2">
+                                                                        <c:forEach begin="1" end="${item.rating}">
+                                                                            <i class="fas fa-star"></i>
+                                                                        </c:forEach>
+                                                                    </div>
                                                                 </div>
-                                                                   <div class="form-group">
-                                                                <img  style="max-width: 550px; max-height: 350px; width: fit-content; height: fit-content;"
-                                                                                                     id = "img_display">
-                                                                 </div>
-
-
-
-                                                                <div class="custom-file-container">
-                                                                      <label for="img_chosen" class="upload-label">Hình chụp thực tế sản phẩm</label>
-                                                                      <input type="file" name="img" id="img_chosen" accept="image/*" onchange="displayImg(this)" >
-                                                                      <br>
-                                                                          <span id="error-msg" style="color: red; display: none;">Vui lòng chọn ảnh!</span>
-                                                                </div>
-                                                                <div class="form-group mb-0">
-                                                                    <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
-                                                                </div>
-                                                                  <input type="hidden" name = "productId"  value="${model.id}">
-                                                                  <input type="hidden" id = "ratingValue" name = "rating" value="">
-                                                            </form>
-                                                        </div>
+                                                            </div>
+                                                            <p>${item.review}</p>
+                                                            <img class="review-image mb-2" src="<c:url value='/comment/image/${item.id}'/>"
+                                                                 alt="Ảnh đánh giá" onclick="openImageModal(this.src)"
+                                                                 style="max-width: 150px; cursor: pointer;">
+                                                            <br>
+                                                        </c:forEach>
                                                     </div>
-
+                                                </div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <h4>Chưa có đánh giá nào.</h4>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h4 class="mb-4">Viết đánh giá</h4>
+                                        <small>Email của bạn sẽ không được công khai. Các trường bắt buộc được đánh dấu *</small>
+                                        <div class="d-flex my-3">
+                                            <p class="mb-0 mr-2">Đánh giá của bạn * :</p>
+                                            <div class="rating">
+                                                <i class="fas fa-star" data-value="5"></i>
+                                                <i class="fas fa-star" data-value="4"></i>
+                                                <i class="fas fa-star" data-value="3"></i>
+                                                <i class="fas fa-star" data-value="2"></i>
+                                                <i class="fas fa-star" data-value="1"></i>
+                                            </div>
+                                        </div>
+                                        <form action="<c:url value='/comment'/>" method="post" onsubmit="return validateForm()" enctype="multipart/form-data">
+                                            <div class="form-group">
+                                                <label for="message">Nội dung đánh giá *</label>
+                                                <textarea id="message" name="review" cols="30" rows="5" class="form-control" required></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="name">Họ và tên *</label>
+                                                <input type="text" id="name" name="name" value="${user.fullName}" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="img_chosen" class="btn btn-primary px-3">Hình ảnh thực tế sản phẩm</label>
+                                                <input type="file" name="img" id="img_chosen" accept="image/*" onchange="displayImg(this)" class="form-control-file">
+                                                <img id="img_display" class="mt-2 d-block" style="max-width: 550px; max-height: 350px; display: none;">
+                                                <span id="error-msg" class="text-danger d-none">Vui lòng chọn ảnh!</span>
+                                            </div>
+                                            <div class="form-group mb-0">
+                                                <input type="submit" value="Gửi đánh giá" class="btn btn-primary px-3">
+                                            </div>
+                                            <input type="hidden" name="productId" value="${model.id}">
+                                            <input type="hidden" id="ratingValue" name="rating" value="">
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div>
