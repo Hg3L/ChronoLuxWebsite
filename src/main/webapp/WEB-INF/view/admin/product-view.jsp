@@ -88,6 +88,7 @@
                         <th>Dòng đồng hồ</th>
                         <th>Tồn kho</th>
                         <th>Giá sản phẩm</th>
+                        <th>Bình luận</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -103,6 +104,13 @@
                             <td class="currency">${product.price}</td>
                             <td>
                                 <a href="${pageContext.request.contextPath}/admin/product/update/?id=${product.id}&currentPage=${currentPage}"
+                                   class="btn btn-outline-dark btn-sm mr-2">
+                                    <i class="fas fa-message mr-1"></i> Xem bình luận
+                                </a>
+                            </td>
+                            <td>
+
+                                <a href="${pageContext.request.contextPath}/admin/product/update/?id=${product.id}&currentPage=${currentPage}"
                                    class="btn btn-info btn-sm mr-2">
                                     <i class="fas fa-pencil-alt mr-1"></i> Sửa
                                 </a>
@@ -110,10 +118,8 @@
                                         data-target="#confirmModal${product.id}">
                                     <i class="fas fa-trash-alt mr-1"></i> Xóa
                                 </button>
-                                    <%--<a href="${pageContext.request.contextPath}/admin/product/delete?id=${product.id}" class="btn btn-danger btn-sm" &lt;%&ndash;onclick="return confirmDelete(${productLine.id})"&ndash;%&gt;>
-                                        <i class="fas fa-trash-alt mr-1"></i> Xóa
-                                    </a>--%>
                             </td>
+
                         </tr>
                         <!-- Modal -->
                         <div class="modal fade" id="confirmModal${product.id}" tabindex="-1" role="dialog"

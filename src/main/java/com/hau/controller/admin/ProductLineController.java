@@ -158,7 +158,11 @@ public class ProductLineController {
         model.addAttribute("currentPage", page);
         model.addAttribute("keyword", keyword);
         model.addAttribute("brands", brandService.findAllByActive(true));
-        model.addAttribute("brandId", productLines.getContent().getFirst().getBrandId());
+        if (!productLines.getContent().isEmpty()) {
+            model.addAttribute("brandId", productLines.getContent().getFirst().getBrandId());
+        } else {
+            model.addAttribute("brandId", null);
+        }
         return "admin/product-line-view";
     }
 }
