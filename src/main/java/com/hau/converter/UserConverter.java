@@ -31,6 +31,7 @@ public class UserConverter {
             for(RoleEntity role : userEntity.getRoles()){
                 rolesCode.add(role.getCode());
             }
+
             userDTO.setRoleCode(rolesCode);
             return userDTO;
         }

@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
@@ -63,5 +64,38 @@ public class CommentServiceImpl implements CommentService {
                 .mapToInt(CommentEntity::getRating)
                 .average()
                 .orElse(0.0);
+    }
+
+    @Override
+    @Transactional
+    public int Like(Long commentId,Long userId) {
+        UserEntity user = userRepository.findOne(userId);
+
+        CommentEntity commentEntity = commentRepository.findById(commentId)
+                .orElseThrow(() -> new RuntimeException("Comment not found"));
+
+        if (user.getCommentsLike().contains(commentEntity)) {
+            // Nếu đã like → Unlike (xóa khỏi danh sách)
+            user.getCommentsLike().remove(commentEntity);
+            userRepository.save(user);
+            commentEntity.setLikeCount(commentEntity.getLikeCount()-1);
+
+        } else {
+            // Nếu chưa like → Thêm like
+            user.getCommentsLike().add(commentEntity);
+            userRepository.save(user);
+            commentEntity.setLikeCount(commentEntity.getLikeCount()+1);
+        }
+
+        return commentRepository.save(commentEntity).getLikeCount();
+    }
+
+    @Override
+    @Transactional
+    public boolean isLike(Long commentId, Long userId) {
+        UserEntity user = userRepository.findOne(userId);
+        CommentEntity commentEntity = commentRepository.findById(commentId)
+                .orElseThrow(() -> new RuntimeException("Comment not found"));
+        return user.getCommentsLike().contains(commentEntity);
     }
 }

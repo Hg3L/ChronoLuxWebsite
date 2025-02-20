@@ -119,4 +119,11 @@ public class CartItemServiceImpl implements CartItemService {
         return totalQuantityMap;
     }
 
+    @Override
+    public boolean isBuy(UserDTO userDTO, Long productId) {
+        List<CartItemEntity> cartItemEntities =  cartItemRepository.findByUserId(userDTO.getId());
+        return cartItemEntities.stream()
+                .anyMatch(cartItemEntity -> cartItemEntity.getProduct().getId() == productId);
+    }
+
 }

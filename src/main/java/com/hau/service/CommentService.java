@@ -9,5 +9,7 @@ public interface CommentService {
     List<CommentDTO> findByProductId(Long id);
     CommentDTO findById(Long id);
     double calculateAverageRating(Long productId);
+    int Like(Long commentId,Long userId) ;
+    boolean isLike(Long commentId,Long userId);
 
 }

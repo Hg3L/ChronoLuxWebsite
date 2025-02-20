@@ -14,13 +14,13 @@ public class CommentConverter implements Converter<CommentDTO, CommentEntity>{
         if(entity.getUser() != null){
             commentDTO.setUserId(entity.getUser().getId());
             commentDTO.setImgUrl(entity.getUser().getImgUrl());
-            commentDTO.setUsername(entity.getUser().getUserName());
         }
         commentDTO.setName(entity.getName());
         commentDTO.setRating(entity.getRating());
         commentDTO.setReview(entity.getReview());
         commentDTO.setImgReviewUrl(entity.getImgReviewUrl());
         commentDTO.setCreatedDate(entity.getCreateDate());
+        commentDTO.setLikeCount(entity.getLikeCount());
         return  commentDTO;
     }
 
@@ -31,6 +31,7 @@ public class CommentConverter implements Converter<CommentDTO, CommentEntity>{
         commentEntity.setReview(dto.getReview());
         commentEntity.setImgReviewUrl(dto.getImgReviewUrl());
         commentEntity.setName(dto.getName());
+        commentEntity.setLikeCount(dto.getLikeCount());
         return commentEntity;
     }
 }

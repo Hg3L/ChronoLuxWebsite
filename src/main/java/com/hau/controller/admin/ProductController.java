@@ -8,7 +8,9 @@ import com.hau.service.*;
 import com.hau.util.CartUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,9 +28,7 @@ import javax.sql.rowset.serial.SerialBlob;
 import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class ProductController {
@@ -46,13 +46,39 @@ public class ProductController {
     private UserService userService;
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private CartItemService cartItemService;
+
     private static final String UPLOAD_DIR = "products";
     @PostMapping("/comment")
-    public String addComment(@ModelAttribute CommentDTO commentDTO , @RequestParam("img") MultipartFile multipartFile) throws IOException, SQLException {
-        commentDTO.setImgReviewUrl(new SerialBlob(multipartFile.getBytes()));
+    public String addComment(@ModelAttribute CommentDTO commentDTO,
+                             @RequestParam(value = "img",required = false) MultipartFile multipartFile,
+                             @AuthenticationPrincipal Authentication authentication) throws IOException, SQLException {
+        if(multipartFile.getBytes().length != 0) {
+            System.out.println(multipartFile);
+            commentDTO.setImgReviewUrl(new SerialBlob(multipartFile.getBytes()));
+        }
+        if(authentication != null) {
+            UserDTO userDTO = userService.getCurrentLoggedInCustomer(authentication) ;
+            commentDTO.setName(userDTO.getFullName());
+        }
+
         commentService.save(commentDTO);
 
         return "redirect:/product-detail?id="+commentDTO.getProductId();
+    }
+    @PutMapping("/comment/like/{id}")
+    public ResponseEntity<Map<String, Object>> likeComment(@PathVariable Long id,
+                                                           @AuthenticationPrincipal Authentication authentication) {
+        UserDTO userDTO =  userService.getCurrentLoggedInCustomer(authentication);
+        int newLikeCount = commentService.Like(id,
+               userDTO.getId());
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("likeCount", newLikeCount);
+
+        return ResponseEntity.ok(response);
     }
     @GetMapping("/api/getProduct")
     @ResponseBody
@@ -78,6 +104,7 @@ public class ProductController {
 
         ProductDTO product = productService.findByIdAndActive(id,true);
         Double rating = commentService.calculateAverageRating(id);
+
         try{
             List<CommentDTO> commentEntities = commentService.findByProductId(id);
             model.addAttribute("commentList",commentEntities);
@@ -89,6 +116,17 @@ public class ProductController {
         if(authentication != null){
             UserDTO userDTO = userService.getCurrentLoggedInCustomer(authentication);
             model.addAttribute("user",userDTO);
+            try{
+                List<Boolean> isLike = commentService.findByProductId(id).stream()
+                        .map(comment -> commentService.isLike(comment.getId(),userDTO.getId())).toList();
+                model.addAttribute("isLike",isLike);
+                System.out.println(isLike);
+            }
+            catch (RuntimeException i){
+                System.out.println(i.getMessage());
+            }
+            model.addAttribute("isBuy",cartItemService.isBuy(userDTO,id));
+
         }
         List<ProductDTO> productSuggestions = new ArrayList<>();
         try{

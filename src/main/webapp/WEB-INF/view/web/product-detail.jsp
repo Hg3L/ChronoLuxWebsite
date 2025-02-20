@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%@ include file="/common/taglib.jsp" %>
         <!DOCTYPE html>
@@ -570,7 +571,7 @@
                                                 <h4 class="mb-4">${totalComment} đánh giá cho "${model.name}"</h4>
                                                 <div class="media mb-4">
                                                     <div class="media-body overflow-auto px-3 py-3" style="max-height: 500px">
-                                                        <c:forEach var="item" items="${commentList}">
+                                                        <c:forEach var="item" items="${commentList}" varStatus="status">
                                                             <div class="d-flex align-items-center mb-2 mt-3">
                                                                 <c:choose>
                                                                     <c:when test="${not empty item.imgUrl}">
@@ -592,10 +593,37 @@
                                                                 </div>
                                                             </div>
                                                             <p>${item.review}</p>
-                                                            <img class="review-image mb-2" src="<c:url value='/comment/image/${item.id}'/>"
-                                                                 alt="Ảnh đánh giá" onclick="openImageModal(this.src)"
-                                                                 style="max-width: 150px; cursor: pointer;">
-                                                            <br>
+                                                            <c:if test="${not empty item.imgReviewUrl}">
+                                                                <img class="review-image mb-2"
+                                                                     src="<c:url value='/comment/image/${item.id}'/>"
+                                                                     alt="Ảnh đánh giá"
+                                                                     onclick="openImageModal(this.src)"
+                                                                     style="max-width: 150px; cursor: pointer;">
+                                                                <br>
+                                                            <div id="imageModal" class="modal" onclick="closeImageModal()">
+                                                                <span class="close">&times;</span>
+                                                                <img class="modal-content" id="modalImage">
+                                                            </div>
+                                                            </c:if>
+                                                            <c:set var="liked" value="${isLike[status.index]}" />
+
+                                                            <security:authorize access="isAuthenticated()">
+                                                                <!-- Người dùng đã đăng nhập -->
+                                                                <button class="btn ${liked ? 'btn-primary' : 'btn-outline-primary'} btn-sm"
+                                                                        onclick="likeComment(this, ${item.id})"
+                                                                        data-first-click="${liked}">
+                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                </button>
+                                                            </security:authorize>
+
+                                                            <security:authorize access="isAnonymous()">
+                                                                <!-- Người dùng chưa đăng nhập -->
+                                                                <button class="btn btn-outline-primary btn-sm" disabled>
+                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                </button>
+                                                            </security:authorize>
+
+                                                            <span id="like-count-${item.id}">${item.likeCount}</span>
                                                         </c:forEach>
                                                     </div>
                                                 </div>
@@ -606,39 +634,43 @@
                                         </c:choose>
                                     </div>
                                     <div class="col-md-6">
-                                        <h4 class="mb-4">Viết đánh giá</h4>
-                                        <small>Email của bạn sẽ không được công khai. Các trường bắt buộc được đánh dấu *</small>
-                                        <div class="d-flex my-3">
-                                            <p class="mb-0 mr-2">Đánh giá của bạn * :</p>
-                                            <div class="rating">
-                                                <i class="fas fa-star" data-value="5"></i>
-                                                <i class="fas fa-star" data-value="4"></i>
-                                                <i class="fas fa-star" data-value="3"></i>
-                                                <i class="fas fa-star" data-value="2"></i>
-                                                <i class="fas fa-star" data-value="1"></i>
-                                            </div>
-                                        </div>
-                                        <form action="<c:url value='/comment'/>" method="post" onsubmit="return validateForm()" enctype="multipart/form-data">
-                                            <div class="form-group">
-                                                <label for="message">Nội dung đánh giá *</label>
-                                                <textarea id="message" name="review" cols="30" rows="5" class="form-control" required></textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="name">Họ và tên *</label>
-                                                <input type="text" id="name" name="name" value="${user.fullName}" class="form-control" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="img_chosen" class="btn btn-primary px-3">Hình ảnh thực tế sản phẩm</label>
-                                                <input type="file" name="img" id="img_chosen" accept="image/*" onchange="displayImg(this)" class="form-control-file">
-                                                <img id="img_display" class="mt-2 d-block" style="max-width: 550px; max-height: 350px; display: none;">
-                                                <span id="error-msg" class="text-danger d-none">Vui lòng chọn ảnh!</span>
-                                            </div>
-                                            <div class="form-group mb-0">
-                                                <input type="submit" value="Gửi đánh giá" class="btn btn-primary px-3">
-                                            </div>
-                                            <input type="hidden" name="productId" value="${model.id}">
-                                            <input type="hidden" id="ratingValue" name="rating" value="">
-                                        </form>
+
+                                        <security:authorize access="isAuthenticated()">
+                                            <c:if test="${isBuy}">
+                                                <h4 class="mb-4">Viết đánh giá</h4>
+                                                <small>Email của bạn sẽ không được công khai. Các trường bắt buộc được đánh dấu *</small>
+                                                <div class="d-flex my-3">
+                                                    <p class="mb-0 mr-2">Đánh giá của bạn * :</p>
+                                                    <div class="rating">
+                                                        <i class="fas fa-star" data-value="5"></i>
+                                                        <i class="fas fa-star" data-value="4"></i>
+                                                        <i class="fas fa-star" data-value="3"></i>
+                                                        <i class="fas fa-star" data-value="2"></i>
+                                                        <i class="fas fa-star" data-value="1"></i>
+                                                    </div>
+                                                </div>
+                                                <form action="<c:url value='/comment'/>" method="post" enctype="multipart/form-data">
+                                                    <div class="form-group">
+                                                        <label for="message">Nội dung đánh giá *</label>
+                                                        <textarea id="message" name="review" cols="30" rows="5" class="form-control" required></textarea>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="img_chosen" class="btn btn-primary px-3">Hình ảnh thực tế sản phẩm</label>
+                                                        <input type="file" name="img" id="img_chosen" accept="image/*" onchange="displayImg(this)" class="form-control-file">
+                                                        <img id="img_display" class="mt-2 d-block" style="max-width: 550px; max-height: 350px; display: none;">
+                                                        <span id="error-msg" class="text-danger d-none">Vui lòng chọn ảnh!</span>
+                                                    </div>
+                                                    <div class="form-group mb-0">
+                                                        <input type="submit" value="Gửi đánh giá" class="btn btn-primary px-3">
+                                                    </div>
+
+                                                    <input type="hidden" name="productId" value="${model.id}">
+                                                    <input type="hidden" id="ratingValue" name="rating" value="">
+                                                </form>
+                                            </c:if>
+                                        </security:authorize>
+
                                     </div>
                                 </div>
                             </div>
@@ -922,18 +954,35 @@
                         errorMsg.style.display = "inline"; // Hiện thông báo lỗi
                     }
                 }
-                function validateForm() {
-                    let fileInput = document.getElementById("img_chosen");
-                    let errorMsg = document.getElementById("error-msg");
 
-                    if (!fileInput.files.length) {
-                        errorMsg.style.display = "inline"; // Hiện thông báo lỗi
-                        return false; // Ngăn form submit
+            </script>
+            <script>
+                function likeComment(button, commentId) {
+                    let firstClick = button.dataset.firstClick === "true";
+                    button.dataset.firstClick = (!firstClick).toString(); // Đảo trạng thái
+
+                    // Đổi màu khi bấm vào
+                    if (!firstClick) {
+                        button.classList.remove("btn-outline-primary");
+                        button.classList.add("btn-primary");
+                    } else {
+                        button.classList.remove("btn-primary");
+                        button.classList.add("btn-outline-primary");
                     }
 
-                    errorMsg.style.display = "none"; // Ẩn thông báo lỗi nếu đã chọn ảnh
-                    return true;
+                    // Gọi API like/unlike
+                    fetch('/ChronoLuxWeb/comment/like/' + commentId, {
+                        method: 'PUT'
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                document.getElementById("like-count-" + commentId).textContent = data.likeCount;
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
                 }
+
             </script>
             <%--<!-- Featured Start -->--%>
             <%--<div class="container-fluid pt-5">--%>
