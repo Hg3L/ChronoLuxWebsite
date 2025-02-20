@@ -17,6 +17,9 @@
             <p class="mb-2"><i class="fa fa-map-marker-alt mr-4" style="font-size: 30px;color: rgb(234,189,43)"></i><span id="corporation-address"></span></p>
             <p class="mb-2"><i class="fa fa-envelope mr-3" style="font-size: 30px;color: rgb(234,189,43)"></i><span id="corporation-email"></span></p>
             <p class="mb-0"><i class="fa fa-phone-alt mr-3" style="font-size: 30px;color: rgb(234,189,43)"></i><span id="corporation-phone"></span></p>
+            <img class="w-60 h-60 " style="max-height: 450px; max-width: 300px; padding-top: 10px"
+                 src="<c:url value='/template/web/img/BCT.jpg'/>"
+                 alt="Image">
         </div>
     </div>
         </div>

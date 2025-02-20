@@ -53,12 +53,12 @@
             <span style="font-size: 15px">Sản phẩm</span>
         </a>
     </li>
-    <li class="nav-item">
+    <%--<li class="nav-item">
         <a class="nav-link" href="<c:url value='/admin/comment'/>">
             <i class="fa-solid fa-message" style="font-size: 16px"></i>
             <span style="font-size: 15px">Bình luận</span>
         </a>
-    </li>
+    </li>--%>
     <li class="nav-item">
         <a class="nav-link" href="<c:url value='/admin/vouchers'/>">
             <i class="fa-solid fa-ticket" style="font-size: 16px"></i>
