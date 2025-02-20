@@ -10,13 +10,22 @@ public class CommentDTO  extends AbstractDTO<CommentDTO>{
     Long userId;
 
     Long productId;
-    private String username;
+
     private String imgUrl;
     private int rating;
     private String name;
 
     private String review;
     private Blob imgReviewUrl;
+    private int likeCount;
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
 
     public String getName() {
         return name;
@@ -46,13 +55,7 @@ public class CommentDTO  extends AbstractDTO<CommentDTO>{
         this.imgUrl = imgUrl;
     }
 
-    public String getUsername() {
-        return username;
-    }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public void setUserId(Long userId) {
         this.userId = userId;

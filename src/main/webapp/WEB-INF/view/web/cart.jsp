@@ -156,18 +156,29 @@
                                                                         <c:forEach var="voucher" items="${validVouchers}">
                                                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
                                                                                            <span class="font-weight-bold text-primary">${voucher.code}</span>
-                                                                                           <span class="text-muted">
+                                                                                            <span class="text-muted">
                                                                                                HSD:
                                                                                                <fmt:parseDate var="endDate" value="${voucher.endDay}" pattern="yyyy-MM-dd HH:mm:ss" />
                                                                                                <fmt:formatDate value="${endDate}" pattern="dd/MM/yyyy" />
                                                                                                <br>Giảm: <span class="text-danger">${voucher.discount} VNĐ</span>
                                                                                            </span>
                                                                                        </li>
-
                                                                                    </c:forEach>
                                                                     </ul>
                                                                 </div>
                                                             </c:if>
+                                <!-- Thanh kéo để sử dụng điểm tích lũy -->
+                                <security:authorize access="isAuthenticated()">
+                                    <div class="mt-4">
+                                        <h5 class="text-dark font-weight-bold">🎯 Sử dụng điểm tích lũy:</h5>
+                                        <p >Tổng điểm hiện có: <span id="totalPoints">${loyaltyPoints}</span> điểm</p>
+                                        <input type="range" class="custom-range" id="pointSlider" min="0" max="${loyaltyPoints}" value="0" step="10">
+                                        <p class="mt-2">Điểm đã chọn: <span id="selectedPoints">0</span> điểm</p>
+                                    </div>
+
+                                </security:authorize>
+
+
                             </form>
                             <!-- Danh sách mã giảm giá hợp lệ -->
 
@@ -181,6 +192,10 @@
                                         <h6 class="font-weight-medium" style="font-family: Arial"> Tổng Giá Trị</h6>
                                         <h6 id = "price" class="font-weight-medium">${totalPrice}</h6>
                                     </div>
+                                    <div class="d-flex justify-content-between mb-3 pt-1">
+                                        <h6 class="font-weight-medium" style="font-family: Arial"> Giảm giá khi sử dụng điểm</h6>
+                                        <h6 id="discountAmount" class="font-weight-medium">0đ</h6>
+                                    </div>
                                     <c:if test="${not empty voucher}">
                                         <div class="d-flex justify-content-between mb-3 pt-1">
                                             <h6 class="font-weight-medium" style="font-family: Arial">Giảm Giá</h6>
@@ -192,7 +207,7 @@
                                 <div class="card-footer border-dark bg-transparent">
                                     <div class="d-flex justify-content-between mt-2">
                                         <h5 class="font-weight-bold" style="font-family: Arial">Thành Tiền</h5>
-                                        <h5 id = "price" class="font-weight-bold" style="color: green">${(totalPrice - voucher.discount) > 0 ? (totalPrice - voucher.discount) : 0}</h5>
+                                        <h5 id = "priceTotalDisplay"  class="font-weight-bold" style="color: green">${(totalPrice - voucher.discount) > 0 ? (totalPrice - voucher.discount) : 0}</h5>
                                     </div>
                                    <form action="<c:url value='/checkout'/>" method="get">
                                     <button  class="btn btn-block btn-dark my-3 py-3">Tiến Hành Thanh Toán</button>
@@ -200,19 +215,21 @@
                                     <c:if test="${not empty voucher}">
                                     <input type="hidden" name = "voucherCode" value = "${voucher.code}">
                                      </c:if>
-                                      <input type="hidden" name = "total" value = "${(totalPrice - voucher.discount) > 0 ? (totalPrice - voucher.discount) : 0}">
+                                      <input type="hidden" id ="totalPriceSubmit" name = "total" value = "${(totalPrice - voucher.discount) > 0 ? (totalPrice - voucher.discount) : 0}">
                                    </form>
                                 </div>
                             </div>
                             <input type="hidden" id="cartItems" value='${fn:escapeXml(cartItemsJson)}'>
                             <c:if test = "${not empty error}">
-                            <input type= "hidden" id = "error" value ="${error}">;
+                            <input type= "hidden" id = "error" value ="${error}">
                              </c:if>
-                              <input type= "hidden" id = "alert" value ="${alert}">;
+                              <input type= "hidden" id = "alert" value ="${alert}">
                         </c:if>
                     </div>
                 </div>
             </div>
+
+
 
             <!-- Thêm thư viện SweetAlert2 -->
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
@@ -250,6 +267,29 @@
               </script>
           </security:authorize>
 
+            <script>
+                $(document).ready(function () {
+
+                    let totalAmount =  document.getElementById("priceTotalDisplay").innerText
+                    let priceNumber = parseInt(totalAmount.replace(/\D/g, ""), 10);
+
+
+                    let conversionRate = 1000; // 1 điểm = 1000 VNĐ (có thể thay đổi)
+
+                    $("#pointSlider").on("input", function () {
+
+                        let selectedPoints = $(this).val();
+                        let discountAmount = selectedPoints * conversionRate;
+                        let finalPrice = priceNumber - discountAmount;
+
+                        $("#selectedPoints").text(selectedPoints);
+                        $("#discountAmount").text(discountAmount.toLocaleString()+"đ");
+                        $("#priceTotalDisplay").text(finalPrice.toLocaleString()+"đ");
+                        document.getElementById('totalPriceSubmit').value = finalPrice;
+
+                    });
+                });
+            </script>
 
             <script>
 
@@ -316,10 +356,11 @@
 
             </script>
             <script>
-                    document.querySelectorAll('#price').forEach(element => {
-                            let price = parseInt(element.innerText.replace("đ", ""), 10);
-                            element.innerText = price.toLocaleString("vi-VN") + "đ";
-                        });
+                document.querySelectorAll('[id^="price"]').forEach(element => {
+                    let price = parseInt(element.innerText.replace("đ", "").replace(/\./g, ""), 10);
+                    element.innerText = price.toLocaleString("vi-VN") + "đ";
+                });
+
 
             </script>
         </body>

@@ -2,13 +2,15 @@ package com.hau.entity;
 
 import javax.persistence.*;
 import java.sql.Blob;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "comment")
 public class CommentEntity extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id",nullable = false)
     private UserEntity user;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -25,6 +27,19 @@ public class CommentEntity extends BaseEntity {
 
     @Column(columnDefinition = "TEXT")
     private String review;
+    @Column(name = "likeCount",nullable = false)
+    private int likeCount = 0;
+
+    @ManyToMany(mappedBy = "commentsLike")
+    private List<UserEntity> usersLike = new ArrayList<>();
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
 
     public String getName() {
         return name;
@@ -74,7 +89,11 @@ public class CommentEntity extends BaseEntity {
         this.review = review;
     }
 
+    public List<UserEntity> getUsersLike() {
+        return usersLike;
+    }
 
-
-
+    public void setUsersLike(List<UserEntity> usersLike) {
+        this.usersLike = usersLike;
+    }
 }

@@ -49,6 +49,12 @@ public class UserEntity extends BaseEntity {
     @JoinColumn(name = "voucher_id")
     private VoucherEntity voucher;
 
+    @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "comment_likes ",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "comment_id"))
+    private List<CommentEntity> commentsLike = new ArrayList<>();
+
     public Integer getPoints() {
         return points;
     }
@@ -145,5 +151,11 @@ public class UserEntity extends BaseEntity {
         this.bills = bills;
     }
 
+    public List<CommentEntity> getCommentsLike() {
+        return commentsLike;
+    }
 
+    public void setCommentsLike(List<CommentEntity> commentsLike) {
+        this.commentsLike = commentsLike;
+    }
 }
