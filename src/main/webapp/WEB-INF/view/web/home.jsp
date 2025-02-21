@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/common/taglib.jsp" %>
 
@@ -258,42 +259,45 @@
 
 <!-- Products Start -->
 <div class="container-fluid pt-5 px-5">
-    <div class="text-center mb-4">
-        <h2 class="section-title px-5" style="font-family: Arial"><span class="px-2">Bán Chạy</span></h2>
-    </div>
-    <div class="product_list d-flex justify-content-center align-items-center flex-wrap">
-        <c:forEach var="item" items="${productTrendy}">
-            <div class="product-card p-5">
-                <c:if test="${item.stock <= 0}">
-                    <span class="try-on-label">Bán Hết</span>
-                </c:if>
+    <c:if test="${not empty productTrendy}">
+        <div class="text-center mb-4">
+            <h2 class="section-title px-5" style="font-family: Arial"><span class="px-2">Bán Chạy</span></h2>
+        </div>
+        <div class="product_list d-flex justify-content-center align-items-center flex-wrap">
+            <c:forEach var="item" items="${productTrendy}">
+                <div class="product-card p-5">
+                    <c:if test="${item.stock <= 0}">
+                        <span class="try-on-label">Bán Hết</span>
+                    </c:if>
 
-                <a href="<c:url value='/product-detail?id=${item.id}'/>">
-                    <div class="image-container" style="height: 333px; width: 222px">
-                        <img src="<c:url value='/template/web/img/products/${item.imgUrl}'/>"
-                             alt="Santos De Cartier Watch">
-                    </div>
-                </a>
-                <div class="product-info">
+                    <a href="<c:url value='/product-detail?id=${item.id}'/>">
+                        <div class="image-container" style="height: 333px; width: 222px">
+                            <img src="<c:url value='/template/web/img/products/${item.imgUrl}'/>"
+                                 alt="Santos De Cartier Watch">
+                        </div>
+                    </a>
+                    <div class="product-info">
 
-                    <div class="product-name text-truncate" style="color: black">${item.name}</div>
-                    <div class="product-description">Loại máy: ${item.watchType}</div>
+                        <div class="product-name text-truncate" style="color: black">${item.name}</div>
+                        <div class="product-description">Loại máy: ${item.watchType}</div>
 
-                    <div class="product-price">
-                       <span id="price" >${item.price}đ</span>
-                    </div>
-                    <div class="button-container p-0 mt-3 mx-auto">
-                        <c:if test="${item.stock <= 0}">
-                            <a href="#" class="add-to-bag-btn disabled" style="text-decoration: none;background: gray" >Tạm Hết Hàng</a>
-                        </c:if>
-                        <c:if test="${item.stock > 0}">
-                            <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-dark" style="text-decoration: none">Thêm Vào Giỏ</a>
-                        </c:if>
+                        <div class="product-price">
+                            <span id="price" >${item.price}đ</span>
+                        </div>
+                        <div class="button-container p-0 mt-3 mx-auto">
+                            <c:if test="${item.stock <= 0}">
+                                <a href="#" class="add-to-bag-btn disabled" style="text-decoration: none;background: gray" >Tạm Hết Hàng</a>
+                            </c:if>
+                            <c:if test="${item.stock > 0}">
+                                <a href="<c:url value='/cart/add?productId=${item.id}&quantity=1'/>" class="add-to-bag-btn bg-dark" style="text-decoration: none">Thêm Vào Giỏ</a>
+                            </c:if>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </c:forEach>
-    </div>
+            </c:forEach>
+        </div>
+    </c:if>
+
 </div>
 <style>
     .product_list {
@@ -319,18 +323,18 @@
         <div class="col-md-12 pb-4">
             <div id="carousel" class="d-flex position-relative justify-content-center">
                 <div class="slide-item">
-                    <a href="link_to_spring_collection" class="slide-link">
+                    <a href="#" class="slide-link">
                         <div class="spring-collection"></div>
                     </a>
-                    <a href="link_to_another_spring_collection" class="slide-link">
+                    <a href="#" class="slide-link">
                         <div class="spring-collection"></div>
                     </a>
                 </div>
                 <div class="slide-item">
-                    <a href="link_to_winter_collection" class="slide-link">
+                    <a href="#" class="slide-link">
                         <div class="winter-collection"></div>
                     </a>
-                    <a href="link_to_another_winter_collection" class="slide-link">
+                    <a href="#" class="slide-link">
                         <div class="winter-collection"></div>
                     </a>
                 </div>

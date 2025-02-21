@@ -46,6 +46,22 @@ public class ProductEntity extends BaseEntity {
     @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE,CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private List<CartItemEntity> cartItems;
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<CommentEntity> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<CommentEntity> ratings) {
+        this.ratings = ratings;
+    }
+
     public Integer getInstock() {
         return instock;
     }

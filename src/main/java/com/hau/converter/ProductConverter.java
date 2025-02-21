@@ -27,6 +27,7 @@ public class ProductConverter {
         productDTO.setCountry(productEntity.getProductLine().getBrand().getCountry());
         productDTO.setBrandId(productEntity.getProductLine().getBrand().getId());
         productDTO.setProductLineId(productEntity.getProductLine().getId());
+        productDTO.setDescription(productEntity.getDescription());
         if(productEntity.getProductLine().getWarranty() != null){
             productDTO.setWarrantyContent(productEntity.getProductLine().getWarranty().getContent());
         }
@@ -47,6 +48,7 @@ public class ProductConverter {
         productEntity.setImgUrl(productDTO.getImgUrl());
         productEntity.setStrapMaterial(productDTO.getStrapMaterial());
         productEntity.setName(productDTO.getName());
+        productEntity.setDescription(productDTO.getDescription());
         productEntity.setInstock(productDTO.getStock());
         return productEntity;
     }

@@ -1,5 +1,7 @@
 package com.hau.controller.web;
 
+import com.hau.Enum.DeliveryStatus;
+
 import com.hau.Enum.VoucherType;
 import com.hau.config.MailConfig;
 import com.hau.constant.SystemConstant;
@@ -97,7 +99,7 @@ public class CheckoutController {
         CartDTO cartDTO = CartUtils.getCartByCookieAndDeleteCookie(request.getCookies(), productDTOList,txt,response);
         billDTO.setCartItemDTOS(CartUtils.getCartItemByAuthentication(cartDTO,userDTO));
         billDTO.setStatus(SystemConstant.PAYMENT_PENDING);
-
+        billDTO.setDeliveryStatus(DeliveryStatus.PENDING);
         BillDTO billDTO1 = billService.save(billDTO);
         VoucherDTO voucherDTO = voucherService.findOneByCode(billDTO1.getVoucherCode());
 

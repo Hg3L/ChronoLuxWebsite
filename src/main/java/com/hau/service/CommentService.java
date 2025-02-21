@@ -11,5 +11,6 @@ public interface CommentService {
     double calculateAverageRating(Long productId);
     int Like(Long commentId,Long userId) ;
     boolean isLike(Long commentId,Long userId);
+    Integer countRating(Long productId);
 
 }

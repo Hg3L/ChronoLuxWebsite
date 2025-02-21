@@ -39,7 +39,7 @@
                         color: #000;
                         padding: 20px;
                         border-radius: 5px;
-                        max-width: 600px;
+                        max-width: 900px;
                         border: 1px solid #ccc;
                         text-align: center;
                     }
@@ -244,6 +244,53 @@
                    object-fit: contain; /* Giữ nguyên tỉ lệ ảnh */
                    image-rendering: high-quality; /* Giúp trình duyệt ưu tiên hiển thị nét */
                }
+                    .description-container {
+                        background-color: #f9f9f9; /* Màu nền nhẹ cho phần mô tả */
+                        padding: 15px;
+                        margin: 15px 0;
+                        border-radius: 5px;
+                        border: 1px solid #ddd;
+                    }
+
+                    .description-label {
+                        font-weight: bold;
+                        font-size: 16px;
+                        color: #333;
+                        display: block;
+                        margin-bottom: 5px;
+                    }
+
+                    .description-text {
+                        font-size: 14px;
+                        color: #555;
+                        line-height: 1.6;
+                        text-align: justify;
+                    }
+                    .rating-sold-container {
+                        display: flex;
+                        align-items: center;
+                        font-size: 16px;
+
+                        color: #333;
+                        gap: 12px;
+                    }
+
+                    .stars {
+                        display: flex;
+                        gap: 3px;
+                    }
+
+                    .stars small {
+                        font-size: 14px;
+                        color: #FFD700; /* Màu vàng cho sao */
+                    }
+
+                    .separator {
+                        width: 2px;
+                        height: 20px;
+                        background-color: #ccc;
+                        margin: 0 10px;
+                    }
                 </style>
 
         </head>
@@ -273,11 +320,12 @@
 
                     <div class="col-lg-7 pb-5">
                         <h3 class="font-weight-semi-bold">${model.name}</h3>
-                        <div class="d-flex mb-3">
-
-                            <div class="text-primary mr-2">
+                        <div class="d-flex align-items-center rating-sold-container">
+                            <!-- Hiển thị số sao -->
+                            <div class="text-primary d-flex align-items-center">
+                                <fmt:formatNumber value="${rating}" type="number" minFractionDigits="1" maxFractionDigits="1" />
+                                <div class="stars ml-2">
                                     <!-- Hiển thị số sao đầy -->
-                                 <fmt:formatNumber value="${rating}" type="number" minFractionDigits="1" maxFractionDigits="1" />
                                     <c:forEach var="i" begin="1" end="${Math.floor(rating)}">
                                         <small class="fas fa-star"></small>
                                     </c:forEach>
@@ -291,9 +339,24 @@
                                     <c:forEach var="i" begin="1" end="${5 - Math.floor(rating) - (rating % 1 >= 0.5 ? 1 : 0)}">
                                         <small class="far fa-star"></small>
                                     </c:forEach>
+                                </div>
                             </div>
 
+                            <div class="separator"></div>
+
+                            <!-- Hiển thị số lượng đánh giá -->
+                            <div class="rating-count">
+                                <strong>${countProductRating}</strong> Đánh Giá
+                            </div>
+
+                            <div class="separator"></div>
+
+                            <!-- Hiển thị số lượng đã bán -->
+                            <div class="sold-count">
+                                <strong>${productSold}</strong> Sold
+                            </div>
                         </div>
+                        <br>
                         <h3 id="price" class="font-weight-semi-bold mb-4">${model.price}</h3>
                         <p class="mb-4">Thương Hiệu: ${model.brandName} - Quốc Gia: ${model.country}</p>
                         <c:if test="${model.stock < 10 && model.stock != 0}">
@@ -450,9 +513,17 @@
                            </c:if>
                         </div>
 
+                        <!-- phần mô tả  -->
+                        <div class="description-container">
+                            <label class="description-label">Mô tả sản phẩm:</label>
+                            <p class="description-text">
+                                <c:out value="${model.description}" escapeXml="false"/>
+                            </p>
+                        </div>
 
                         <div class="commitment-container">
                             <div class="commitment-title">CAM KẾT CỦA CHRONOLUX.COM</div>
+
                             <div class="commitment-list">
                                 <div class="commitment-item">
                                     <i style="font-style: normal">🔒</i>
@@ -494,7 +565,7 @@
                                             <div class="specs-column">
                                                 <div class="specs-row">
                                                     <div class="specs-label">Thương hiệu:</div>
-                                                    <div class="specs-value"><a href="#">${model.brandName}</a></div>
+                                                    <div class="specs-value"><a href="<c:url value='/shop/brand?id=${model.brandId}&page=1&limit=8'/>">${model.brandName}</a></div>
                                                 </div>
                                                 <div class="specs-row">
                                                     <div class="specs-label">Xuất xứ:</div>
@@ -502,7 +573,7 @@
                                                 </div>
                                                 <div class="specs-row">
                                                     <div class="specs-label">Đối tượng:</div>
-                                                    <div class="specs-value"><a href="#">${model.gender}</a></div>
+                                                    <div class="specs-value"><a href="<c:url value='/shop?page=1&limit=12&filter=${model.gender == "Nữ" ? "nu" : (model.gender == "Nam" ? "nam" : model.gender)}'/>">${model.gender}</a></div>
                                                 </div>
                                                 <div class="specs-row">
                                                     <div class="specs-label">Dòng sản phẩm:</div>
@@ -548,8 +619,16 @@
                                 </div>
                                 </div>
                             <div class="tab-pane fade" id="tab-pane-2">
-                                <h4 class="mb-3 text-center" style="font-family: Arial">Thông Tin Bảo Hành</h4>
-                                <div class="warranty" style="font-family: Arial">${model.warrantyContent}</div>
+                                <c:choose>
+                                    <c:when test="${not empty model.warrantyContent}">
+                                        <h4 class="mb-3 text-center" style="font-family: Arial">Thông Tin Bảo Hành</h4>
+                                        <div class="warranty" style="font-family: Arial">${model.warrantyContent}</div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <h4 class="mb-3 text-center" style="font-family: Arial">Chưa có thông tin bảo hành</h4>
+                                    </c:otherwise>
+                                </c:choose>
+
                             </div>
                             <div class="tab-pane fade" id="tab-pane-3">
                                 <h4 class="mb-3 text-center" style="font-family: Arial">Hướng Dẫn Tìm Size Đồng Hồ</h4>
@@ -595,7 +674,10 @@
                                                                     </c:otherwise>
                                                                 </c:choose>
                                                                 <div>
-                                                                    <h6 class="mb-1">${item.name} <small class="text-muted"> - ${item.createdDate}</small></h6>
+                                                                    <h6 class="mb-1">${item.name} <small class="text-muted">
+                                                                        - <fmt:formatDate value="${item.createdDate}" pattern="dd/MM/yyyy HH:mm:ss" />
+                                                                    </small>
+                                                                    </h6>
                                                                     <div class="text-warning mb-2">
                                                                         <c:forEach begin="1" end="${item.rating}">
                                                                             <i class="fas fa-star"></i>
@@ -695,7 +777,7 @@
             <!-- Products Start -->
             <div class="container-fluid py-5" id="targetSection">
                 <div class="text-center mb-4">
-                    <h2 class="section-title px-5"><span class="px-2" style="font-family: Arial"> Sản Phẩm Tương Tự</span></h2>
+                    <h2 class="section-title px-5"><span class="px-2" style="font-family: Arial"> Gợi Ý Cho Bạn</span></h2>
                 </div>
                 <div class="row px-xl-5">
                     <div class="col">

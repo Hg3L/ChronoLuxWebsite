@@ -167,16 +167,7 @@
                                                                     </ul>
                                                                 </div>
                                                             </c:if>
-                                <!-- Thanh kéo để sử dụng điểm tích lũy -->
-                                <security:authorize access="isAuthenticated()">
-                                    <div class="mt-4">
-                                        <h5 class="text-dark font-weight-bold">🎯 Sử dụng điểm tích lũy:</h5>
-                                        <p >Tổng điểm hiện có: <span id="totalPoints">${loyaltyPoints}</span> điểm</p>
-                                        <input type="range" class="custom-range" id="pointSlider" min="0" max="${loyaltyPoints}" value="0" step="10">
-                                        <p class="mt-2">Điểm đã chọn: <span id="selectedPoints">0</span> điểm</p>
-                                    </div>
 
-                                </security:authorize>
 
 
                             </form>
@@ -267,29 +258,7 @@
               </script>
           </security:authorize>
 
-            <script>
-                $(document).ready(function () {
 
-                    let totalAmount =  document.getElementById("priceTotalDisplay").innerText
-                    let priceNumber = parseInt(totalAmount.replace(/\D/g, ""), 10);
-
-
-                    let conversionRate = 1000; // 1 điểm = 1000 VNĐ (có thể thay đổi)
-
-                    $("#pointSlider").on("input", function () {
-
-                        let selectedPoints = $(this).val();
-                        let discountAmount = selectedPoints * conversionRate;
-                        let finalPrice = priceNumber - discountAmount;
-
-                        $("#selectedPoints").text(selectedPoints);
-                        $("#discountAmount").text(discountAmount.toLocaleString()+"đ");
-                        $("#priceTotalDisplay").text(finalPrice.toLocaleString()+"đ");
-                        document.getElementById('totalPriceSubmit').value = finalPrice;
-
-                    });
-                });
-            </script>
 
             <script>
 

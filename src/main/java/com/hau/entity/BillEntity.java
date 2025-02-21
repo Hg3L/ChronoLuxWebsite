@@ -1,5 +1,8 @@
 package com.hau.entity;
 
+import com.hau.Enum.DeliveryStatus;
+
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,10 +37,10 @@ public class BillEntity extends BaseEntity{
     private String email;
     @Column(name = "status")
     private String status;
-    @Column(name = " points_earned" ,nullable = false)
-    private Integer  pointsEarned = 0;
-    @Column(name =  "points_used",nullable = false)
-    private Integer pointsUsed = 0;
+    @Column(name = "deliveryStatus")
+    @Enumerated(EnumType.STRING)
+    private DeliveryStatus deliveryStatus;
+
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "voucher_id")
     private VoucherEntity voucher;
@@ -54,6 +57,14 @@ public class BillEntity extends BaseEntity{
 
     @OneToMany(mappedBy = "bill")
     private List<CartItemEntity> cartItems = new ArrayList<>();
+
+    public DeliveryStatus getDeliveryStatus() {
+        return deliveryStatus;
+    }
+
+    public void setDeliveryStatus(DeliveryStatus deliveryStatus) {
+        this.deliveryStatus = deliveryStatus;
+    }
 
     public double getSubtotal() {
         return subtotal;
@@ -191,19 +202,5 @@ public class BillEntity extends BaseEntity{
         this.receiverGender = receiverGender;
     }
 
-    public Integer getPointsEarned() {
-        return pointsEarned;
-    }
 
-    public void setPointsEarned(Integer pointsEarned) {
-        this.pointsEarned = pointsEarned;
-    }
-
-    public Integer getPointsUsed() {
-        return pointsUsed;
-    }
-
-    public void setPointsUsed(Integer pointsUsed) {
-        this.pointsUsed = pointsUsed;
-    }
 }

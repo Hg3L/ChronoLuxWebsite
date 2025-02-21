@@ -86,6 +86,7 @@
                             <div class="dropdown-menu dropdown-menu-right"
                                  aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="<c:url value='/user-profile'/>">Thông Tin Tài Khoản</a>
+                                <a class="dropdown-item" href="<c:url value='/user-order'/>">Theo dõi đơn hàng</a>
                                 <a class="dropdown-item" href="<c:url value='/logout'/>">Đăng Xuất</a>
                             </div>
                         </div>

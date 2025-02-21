@@ -126,4 +126,9 @@ public class CartItemServiceImpl implements CartItemService {
                 .anyMatch(cartItemEntity -> cartItemEntity.getProduct().getId() == productId);
     }
 
+    @Override
+    public Integer countSoldProducts(Long productId) {
+        return cartItemRepository.countByProductId(productId);
+    }
+
 }
