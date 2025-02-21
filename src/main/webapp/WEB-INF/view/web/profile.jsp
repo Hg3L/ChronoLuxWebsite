@@ -125,7 +125,7 @@
                         </c:if>
                         <c:if test="${user.password == null}">
                             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                                <img class="rounded-circle mt-5" width="150px" src="${user.getImgUrl()}"><span
+                                <img class="rounded-circle mt-5" width="150px" src="${user.imgUrl}"><span
                                     class="font-weight-bold">${user.getFullName()}</span><span
                                     class="text-black-50">${user.getEmail()}</span><span> </span></div>
                         </c:if>

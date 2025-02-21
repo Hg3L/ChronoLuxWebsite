@@ -575,8 +575,19 @@
                                                             <div class="d-flex align-items-center mb-2 mt-3">
                                                                 <c:choose>
                                                                     <c:when test="${not empty item.imgUrl}">
-                                                                        <img src="<c:url value='/template/web/img/user-logos/${item.imgUrl}'/>"
-                                                                             alt="Ảnh người dùng" class="rounded-circle mr-3" style="width: 45px;">
+
+                                                                        <c:choose>
+                                                                            <c:when test="${item.imgUrl.startsWith('http')}">
+                                                                                <!-- Ảnh từ Facebook -->
+                                                                                <img src="${item.imgUrl}" alt="Ảnh Facebook" class="rounded-circle mr-3" style="width: 45px;">
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <!-- Ảnh từ hệ thống -->
+                                                                                <img src="<c:url value='/template/web/img/user-logos/${item.imgUrl}'/>"
+                                                                                     alt="Ảnh người dùng" class="rounded-circle mr-3" style="width: 45px;">
+                                                                            </c:otherwise>
+                                                                        </c:choose>
+
                                                                     </c:when>
                                                                     <c:otherwise>
                                                                         <img src="<c:url value='/template/web/img/user-logos/user.png'/>"
