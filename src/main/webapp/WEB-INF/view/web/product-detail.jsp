@@ -323,23 +323,30 @@
                         <div class="d-flex align-items-center rating-sold-container">
                             <!-- Hiển thị số sao -->
                             <div class="text-primary d-flex align-items-center">
-                                <fmt:formatNumber value="${rating}" type="number" minFractionDigits="1" maxFractionDigits="1" />
-                                <div class="stars ml-2">
-                                    <!-- Hiển thị số sao đầy -->
-                                    <c:forEach var="i" begin="1" end="${Math.floor(rating)}">
-                                        <small class="fas fa-star"></small>
-                                    </c:forEach>
+                               <c:choose>
+                                   <c:when test="${rating == 0}">
+                                       <p style="margin-top: 15px;">Sản phẩm hiện chưa có đánh giá</p>
+                                   </c:when>
+                                   <c:otherwise>
+                                       <fmt:formatNumber value="${rating}" type="number" minFractionDigits="1" maxFractionDigits="1" />
 
-                                    <!-- Hiển thị sao nửa nếu có -->
-                                    <c:if test="${rating % 1 >= 0.5}">
-                                        <small class="fas fa-star-half-alt"></small>
-                                    </c:if>
+                                       <!-- Hiển thị sao đầy -->
+                                       <c:forEach var="i" begin="1" end="${Math.floor(rating)}">
+                                           <small class="fas fa-star"></small>
+                                       </c:forEach>
 
-                                    <!-- Hiển thị sao rỗng -->
-                                    <c:forEach var="i" begin="1" end="${5 - Math.floor(rating) - (rating % 1 >= 0.5 ? 1 : 0)}">
-                                        <small class="far fa-star"></small>
-                                    </c:forEach>
-                                </div>
+                                       <!-- Hiển thị sao nửa nếu có -->
+                                       <c:if test="${rating % 1 >= 0.5}">
+                                           <small class="fas fa-star-half-alt"></small>
+                                       </c:if>
+
+                                       <!-- Hiển thị sao rỗng -->
+                                       <c:forEach var="i" begin="1" end="${5 - Math.floor(rating) - (rating % 1 >= 0.5 ? 1 : 0)}">
+                                           <small class="far fa-star"></small>
+                                       </c:forEach>
+                                   </c:otherwise>
+                               </c:choose>
+
                             </div>
 
                             <div class="separator"></div>
