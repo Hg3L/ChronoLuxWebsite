@@ -1,6 +1,7 @@
 package com.hau.dto;
 
-import com.hau.service.CurrencyFormat;
+import com.hau.Enum.DeliveryStatus;
+
 
 import java.util.List;
 
@@ -26,24 +27,18 @@ public class BillDTO extends AbstractDTO<BillDTO>{
     private String voucherCode;
     private String displayName;
     private String status;
-    private Integer pointEarned;
-    private Integer pointsUsed;
+    private DeliveryStatus deliveryStatus;;
 
-    public Integer getPointEarned() {
-        return pointEarned;
+
+    public DeliveryStatus getDeliveryStatus() {
+        return deliveryStatus;
     }
 
-    public void setPointEarned(Integer pointEarned) {
-        this.pointEarned = pointEarned;
+    public void setDeliveryStatus(DeliveryStatus deliveryStatus) {
+        this.deliveryStatus = deliveryStatus;
     }
 
-    public Integer getPointsUsed() {
-        return pointsUsed;
-    }
 
-    public void setPointsUsed(Integer pointsUsed) {
-        this.pointsUsed = pointsUsed;
-    }
 
     public String getPaymentMethod() {
         return paymentMethod;

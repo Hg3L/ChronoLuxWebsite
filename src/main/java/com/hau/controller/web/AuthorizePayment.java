@@ -1,5 +1,7 @@
 package com.hau.controller.web;
 
+import com.hau.Enum.DeliveryStatus;
+
 import com.hau.config.MailConfig;
 import com.hau.constant.SystemConstant;
 import com.hau.dto.*;
@@ -133,6 +135,7 @@ public class AuthorizePayment {
         billDTO.setCity(shippingAddress.getCountryCode());
         billDTO.setEmail(payerInfo.getEmail());
         billDTO.setStatus(SystemConstant.PAYMENT_SUCCESS);
+        billDTO.setDeliveryStatus(DeliveryStatus.PENDING);
         billDTO.setPhone(payerInfo.getPhone());
         billDTO.setDisplayName(payerInfo.getLastName() +" "+ payerInfo.getFirstName());
 

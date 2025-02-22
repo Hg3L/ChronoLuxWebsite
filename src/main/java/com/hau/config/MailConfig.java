@@ -26,7 +26,7 @@ public class MailConfig {
         mailSender.setPort(587);
 
         mailSender.setUsername("lhuy123hl@gmail.com");
-        mailSender.setPassword("iwyyjnsdfnmywrmu");
+        mailSender.setPassword("wgse zqia jisd tjwe");
 
         Properties props = new Properties();
         props.put("mail.smtp.starttls.enable", "true");

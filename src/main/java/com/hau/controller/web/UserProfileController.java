@@ -32,9 +32,8 @@ public class UserProfileController {
     @GetMapping
     public String  UserProfile(Model model, @AuthenticationPrincipal Authentication authentication){
         UserDTO user = userService.getCurrentLoggedInCustomer(authentication);
-        List<BillDTO> billDTO = billService.getBillByUser(user.getId());
        model.addAttribute("user",user);
-       model.addAttribute("bill",billDTO);
+
        return "web/profile";
     }
 

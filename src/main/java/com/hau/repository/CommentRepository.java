@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface CommentRepository extends JpaRepository<CommentEntity ,Long> {
     Optional<List<CommentEntity> > findByProductId(Long id);
     Optional<CommentEntity> findById(Long id);
+    Integer countByProductId(Long id);
 }

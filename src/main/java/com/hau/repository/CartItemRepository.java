@@ -22,5 +22,6 @@ public interface CartItemRepository extends JpaRepository<CartItemEntity,Long> {
     List<Object[]> findTotalQuantityPerProduct();
 
     List<CartItemEntity> findByUserId(Long userId);
+    Integer countByProductId(Long productId);
 
 }

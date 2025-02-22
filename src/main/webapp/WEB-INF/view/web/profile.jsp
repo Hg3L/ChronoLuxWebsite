@@ -60,45 +60,7 @@
                     outline: 2px solid #0056b3;
                     outline-offset: 2px;
                 }
-                  .order-container {
-                            width: 100%;
-                            margin: 20px auto;
-                            border-radius: 8px;
-                            overflow: hidden;
-                            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                            background: #fff;
-                        }
 
-                        .order-header {
-                            font-size: 18px;
-                            font-weight: bold;
-                            padding: 15px;
-                            background: #f8f9fa;
-                            border-bottom: 2px solid #ddd;
-                        }
-
-                        .order-table {
-                            width: 100%;
-                            border-collapse: collapse;
-                        }
-
-                        .order-table th, .order-table td {
-                            padding: 12px;
-                            text-align: left;
-                            border-bottom: 1px solid #ddd;
-                        }
-
-                        .order-table th {
-                            font-weight: bold;
-                        }
-
-                        .order-table td {
-                            color: #333;
-                        }
-
-                        .order-table tr:last-child td {
-                            border-bottom: none;
-                        }
 
             </style>
         </head>
@@ -125,7 +87,7 @@
                         </c:if>
                         <c:if test="${user.password == null}">
                             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                                <img class="rounded-circle mt-5" width="150px" src="${user.getImgUrl()}"><span
+                                <img class="rounded-circle mt-5" width="150px" src="${user.imgUrl}"><span
                                     class="font-weight-bold">${user.getFullName()}</span><span
                                     class="text-black-50">${user.getEmail()}</span><span> </span></div>
                         </c:if>
@@ -136,23 +98,17 @@
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h4 class="text-right">Thông Tin Tài Khoản</h4>
                             </div>
-                             <hr>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h5 class="mb-0">✨ Tổng điểm tích lũy:</h5>
-                                    <span class=" fs-5 px-3 py-2">${user.points} điểm</span>
-                                </div>
-                            <hr>
+
                                 <div class="row mt-2">
                                     <c:if test="${user.password != null}">
                                         <input type="hidden" name="id" class="form-control" value="${user.id}">
                                     </c:if>
 
-                                    <div class="col-md-6"><label class="labels">Họ Và Tên</label><input type="text"
-                                            name="surName" class="form-control" placeholder="Tên đệm"
-                                            value="${user.getSurName()}" required></div>
-                                    <div class="col-md-6"><label class="labels">Họ Và Tên</label><input type="text"
-                                                                                                        name="firstName" class="form-control" placeholder="Tên"
-                                                                                                        value="${user.getFirstName()}" required></div>
+                                    <div class="col-md-12">
+                                        <label class="labels">Họ Và Tên</label>
+                                        <input type="text" name="fullName" class="form-control" placeholder="Họ và Tên"
+                                               value="${user.getFullName()}" required>
+                                    </div>
                                 </div>
                                 <div class="row mt-2">
                                 <security:authorize access="hasRole('ROLE_USER')">
@@ -184,40 +140,7 @@
                                     <div class="mt-5 text-center"><button class="btn btn-primary profile-button"
                                             type="submit">Lưu Thông Tin</button></div>
                                 </c:if>
-                                 <div class="order-container">
-                                       <div class="order-header">DANH SÁCH ĐƠN HÀNG MỚI NHẤT</div>
 
-                                       <c:choose>
-                                           <c:when test="${not empty bill}">
-                                               <table class="order-table">
-                                                   <thead>
-                                                       <tr>
-                                                           <th>Mã đơn hàng</th>
-                                                           <th>Ngày đặt</th>
-                                                           <th>Thành tiền</th>
-                                                           <th>Trạng thái thanh toán</th>
-                                                           <th>Vận chuyển</th>
-                                                       </tr>
-                                                   </thead>
-                                                   <tbody>
-                                                       <c:forEach var="item" items="${bill}" varStatus="status">
-                                                           <tr>
-                                                               <td>${item.id}</td>
-                                                               <td>${item.createdDate}</td>
-                                                               <td id="price">${item.total}đ</td>
-                                                               <td>${item.status}</td>
-                                                               <td>Chưa giao hàng</td>
-                                                           </tr>
-                                                       </c:forEach>
-                                                   </tbody>
-                                               </table>
-                                           </c:when>
-                                           <c:otherwise>
-                                               <p style="padding: 15px; font-size: 16px; color: #888;">Bạn chưa có đơn hàng nào.</p>
-                                           </c:otherwise>
-                                       </c:choose>
-
-                                    </div>
                                  <input type="hidden" name="imgUrl" class="form-control" value="${user.imgUrl}">
                         </div>
                     </div>

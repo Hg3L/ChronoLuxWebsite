@@ -98,4 +98,9 @@ public class CommentServiceImpl implements CommentService {
                 .orElseThrow(() -> new RuntimeException("Comment not found"));
         return user.getCommentsLike().contains(commentEntity);
     }
+
+    @Override
+    public Integer countRating(Long productId) {
+        return commentRepository.countByProductId(productId);
+    }
 }

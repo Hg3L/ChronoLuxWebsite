@@ -29,8 +29,7 @@ public class UserEntity extends BaseEntity {
     @Column(name = "reset_password_token")
     private String resetPasswordToken;
 
-    @Column(name = "points" ,nullable = false)
-    private Integer points = 0;
+
 
     @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
@@ -55,13 +54,6 @@ public class UserEntity extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "comment_id"))
     private List<CommentEntity> commentsLike = new ArrayList<>();
 
-    public Integer getPoints() {
-        return points;
-    }
-
-    public void setPoints(Integer points) {
-        this.points = points;
-    }
 
     public List<CommentEntity> getRatings() {
         return ratings;

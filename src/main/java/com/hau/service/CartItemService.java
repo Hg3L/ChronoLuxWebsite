@@ -19,5 +19,6 @@ public interface CartItemService {
     void delete(UserDTO userDTO,Long productId);
     Map<String, Integer> findTotalQuantityPerProduct();
     boolean isBuy(UserDTO userDTO,Long productId);
+    Integer countSoldProducts(Long productId);
 }
 

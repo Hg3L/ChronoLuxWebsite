@@ -1,5 +1,6 @@
 package com.hau.controller.web;
 
+import com.hau.Enum.DeliveryStatus;
 import com.hau.config.MailConfig;
 import com.hau.constant.SystemConstant;
 import com.hau.dto.*;
@@ -77,6 +78,7 @@ public class PaymentVNPayController {
                 billDTO.setCartItemDTOS(CartUtils.getCartItemByAuthentication(cartDTO,userDTO));
                 //
                 billDTO.setStatus(SystemConstant.PAYMENT_SUCCESS);
+                billDTO.setDeliveryStatus(DeliveryStatus.PENDING);
                 BillDTO bill =  billService.save(billDTO);
                 List<CartItemDTO> cartItemDTOS = CartUtils.getCartItemByAuthentication(cartDTO, userDTO);
                 MailConfig.sendEmailAsync(bill.getEmail(),cartItemDTOS,bill,mailSender,currencyFormat);

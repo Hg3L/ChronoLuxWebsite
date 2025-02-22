@@ -154,7 +154,8 @@ public class ProductController {
 
 
         model.addAttribute("model",product);
-
+        model.addAttribute("productSold",cartItemService.countSoldProducts(id));
+        model.addAttribute("countProductRating",commentService.countRating(id));
         model.addAttribute("rating",rating);
 
         return "web/product-detail";
